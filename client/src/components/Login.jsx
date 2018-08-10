@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { Button, Col, Checkbox, ControlLabel } from 'react-bootstrap';
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
@@ -61,3 +62,6 @@ export default class Login extends React.Component {
     )
   }
 }
+
+export default Login;
+
