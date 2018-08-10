@@ -3,7 +3,7 @@ import { Route, withRouter, Switch } from 'react-router-dom';
 import Home from './Home.jsx';
 import Profile from './Profile.jsx';
 import Orders from './Orders.jsx';
-import Listing from './Listing.jsx';
+import Listings from './Listing.jsx';
 import ListingEntry from './ListingEntry.jsx';
 import Cart from './Cart.jsx';
 import Login from './Login.jsx';
@@ -36,7 +36,7 @@ class App extends Component {
           />
           <Route path={'/listing'}
             component={() => 
-              <Listing />
+              <Listings />
             }
           />
           <Route path={'/listingEntry'}
