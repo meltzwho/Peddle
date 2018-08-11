@@ -1,10 +1,9 @@
-import { UPDATE_INPUT } from '../actions/searchAction';
-
-export default function searchReducer (state = [], {type, payload}) {
-  switch (type) {
-    case UPDATE_INPUT:
-      return payload.input;
+const searchReducer = (state = {input: 'hello world'}, action) => {
+  switch (action.type) {
+    case 'UPDATE_INPUT':
+      let obj = Object.assign({}, state, {input: action.payload.input})
+      return obj;
     default:
       return state;
   }
-}
+};

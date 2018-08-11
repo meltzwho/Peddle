@@ -1,17 +1,23 @@
 import { connect } from 'react-redux';
+import searchAction from '../actions/searchAction';
 import Search from '../components/Search.jsx';
-import { updateSearch } from '../actions/searchAction';
-import { bindActionCreators } from 'redux';
-const mapStateToProps = (state, props) => ({
-  input: state.input,
+
+const mapStateToProps = (state) => {
+  console.log(state)
+  return {
+    input: state.searchReducer.input,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  handleInputchange: (newInput) => {
+    dispatch(searchAction(newInput));
+  }
 });
 
-const mapActionsToProps = (dispatch, props) => {
-  return bindActionCreators({
-    handleInputchange: updateSearch
-  }, dispatch);
-};
-const mergeProps = (propsFromState, propsFromDispatch, ownProps) => {
-  
-};
-export default connect(mapStateToProps, mapActionsToProps)(Search);
+const SearchContainer = connect(
+  mapStateToProps, 
+  mapDispatchToProps
+)(Search);
+
+export default SearchContainer;
