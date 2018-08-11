@@ -94,7 +94,19 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _reactDom = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n\nvar _reactDom2 = _interopRequireDefault(_reactDom);\n\nvar _App = __webpack_require__(/*! ./src/components/App.jsx */ \"./client/src/components/App.jsx\");\n\nvar _App2 = _interopRequireDefault(_App);\n\nvar _reactRouterDom = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/es/index.js\");\n\nvar _store = __webpack_require__(!(function webpackMissingModule() { var e = new Error(\"Cannot find module './store/store.js'\"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));\n\nvar _store2 = _interopRequireDefault(_store);\n\nvar _reactRedux = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n_reactDom2.default.render(_react2.default.createElement(\n  _reactRedux.Provider,\n  { store: _store2.default },\n  _react2.default.createElement(\n    _reactRouterDom.BrowserRouter,\n    null,\n    _react2.default.createElement(_App2.default, null)\n  )\n), document.getElementById('app'));\n\n//# sourceURL=webpack:///./client/index.jsx?");
+eval("\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _reactDom = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n\nvar _reactDom2 = _interopRequireDefault(_reactDom);\n\nvar _App = __webpack_require__(/*! ./src/components/App.jsx */ \"./client/src/components/App.jsx\");\n\nvar _App2 = _interopRequireDefault(_App);\n\nvar _reactRouterDom = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/es/index.js\");\n\nvar _store = __webpack_require__(/*! ./src/store/store.js */ \"./client/src/store/store.js\");\n\nvar _store2 = _interopRequireDefault(_store);\n\nvar _reactRedux = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n_reactDom2.default.render(_react2.default.createElement(\n  _reactRedux.Provider,\n  { store: _store2.default },\n  _react2.default.createElement(\n    _reactRouterDom.BrowserRouter,\n    null,\n    _react2.default.createElement(_App2.default, null)\n  )\n), document.getElementById('app'));\n\n//# sourceURL=webpack:///./client/index.jsx?");
+
+/***/ }),
+
+/***/ "./client/src/actions/notificationAction.js":
+/*!**************************************************!*\
+  !*** ./client/src/actions/notificationAction.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nvar hasNewNotifications = function hasNewNotifications(_hasNewNotifications) {\n  return {\n    type: 'HAS_NEW_NOTIFICATIONS',\n    hasNewNotifications: _hasNewNotifications\n  };\n};\n\nexports.default = hasNewNotifications;\n\n//# sourceURL=webpack:///./client/src/actions/notificationAction.js?");
 
 /***/ }),
 
@@ -103,9 +115,190 @@ eval("\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/i
   !*** ./client/src/components/App.jsx ***!
   \***************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-eval("throw new Error(\"Module build failed (from ./node_modules/babel-loader/lib/index.js):\\nDuplicate declaration \\\"Login\\\"\\n\\n\\u001b[0m \\u001b[90m 12 | \\u001b[39m\\u001b[36mimport\\u001b[39m \\u001b[33mSellerDashboard\\u001b[39m from \\u001b[32m'./SellerDashboard.jsx'\\u001b[39m\\u001b[33m;\\u001b[39m\\n \\u001b[90m 13 | \\u001b[39m\\n\\u001b[31m\\u001b[1m>\\u001b[22m\\u001b[39m\\u001b[90m 14 | \\u001b[39m\\u001b[36mimport\\u001b[39m \\u001b[33mLogin\\u001b[39m from \\u001b[32m'./Login.jsx'\\u001b[39m\\u001b[33m;\\u001b[39m\\n \\u001b[90m    | \\u001b[39m       \\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\n \\u001b[90m 15 | \\u001b[39m\\u001b[36mimport\\u001b[39m \\u001b[33mSignUp\\u001b[39m from \\u001b[32m'./SignUp.jsx'\\u001b[39m\\u001b[33m;\\u001b[39m\\n \\u001b[90m 16 | \\u001b[39m\\n \\u001b[90m 17 | \\u001b[39m\\u001b[0m\\n\");\n\n//# sourceURL=webpack:///./client/src/components/App.jsx?");
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _reactRouterDom = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/es/index.js\");\n\nvar _Home = __webpack_require__(/*! ./Home.jsx */ \"./client/src/components/Home.jsx\");\n\nvar _Home2 = _interopRequireDefault(_Home);\n\nvar _Profile = __webpack_require__(/*! ./Profile.jsx */ \"./client/src/components/Profile.jsx\");\n\nvar _Profile2 = _interopRequireDefault(_Profile);\n\nvar _Orders = __webpack_require__(/*! ./Orders.jsx */ \"./client/src/components/Orders.jsx\");\n\nvar _Orders2 = _interopRequireDefault(_Orders);\n\nvar _Listings = __webpack_require__(/*! ./Listings.jsx */ \"./client/src/components/Listings.jsx\");\n\nvar _Listings2 = _interopRequireDefault(_Listings);\n\nvar _ListingEntry = __webpack_require__(/*! ./ListingEntry.jsx */ \"./client/src/components/ListingEntry.jsx\");\n\nvar _ListingEntry2 = _interopRequireDefault(_ListingEntry);\n\nvar _Cart = __webpack_require__(/*! ./Cart.jsx */ \"./client/src/components/Cart.jsx\");\n\nvar _Cart2 = _interopRequireDefault(_Cart);\n\nvar _Login = __webpack_require__(/*! ./Login.jsx */ \"./client/src/components/Login.jsx\");\n\nvar _Login2 = _interopRequireDefault(_Login);\n\nvar _SellEntry = __webpack_require__(/*! ./SellEntry.jsx */ \"./client/src/components/SellEntry.jsx\");\n\nvar _SellEntry2 = _interopRequireDefault(_SellEntry);\n\nvar _Messages = __webpack_require__(/*! ./Messages.jsx */ \"./client/src/components/Messages.jsx\");\n\nvar _Messages2 = _interopRequireDefault(_Messages);\n\nvar _SellerDashboard = __webpack_require__(/*! ./SellerDashboard.jsx */ \"./client/src/components/SellerDashboard.jsx\");\n\nvar _SellerDashboard2 = _interopRequireDefault(_SellerDashboard);\n\nvar _notificationContainer = __webpack_require__(/*! ../containers/notificationContainer.js */ \"./client/src/containers/notificationContainer.js\");\n\nvar _notificationContainer2 = _interopRequireDefault(_notificationContainer);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar App = function (_Component) {\n  _inherits(App, _Component);\n\n  function App() {\n    _classCallCheck(this, App);\n\n    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));\n  }\n\n  _createClass(App, [{\n    key: 'render',\n    value: function render() {\n      return _react2.default.createElement(\n        'div',\n        null,\n        _react2.default.createElement(\n          'h1',\n          null,\n          'Welcome to Peddle'\n        ),\n        _react2.default.createElement(\n          _reactRouterDom.Switch,\n          { className: 'routes' },\n          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/',\n            component: function component() {\n              return _react2.default.createElement(_Home2.default, null);\n            }\n          }),\n          _react2.default.createElement(_reactRouterDom.Route, { path: '/profile',\n            component: function component() {\n              return _react2.default.createElement(_Profile2.default, null);\n            }\n          }),\n          _react2.default.createElement(_reactRouterDom.Route, { path: '/notifications',\n            component: function component() {\n              return _react2.default.createElement(_notificationContainer2.default, null);\n            }\n          }),\n          _react2.default.createElement(_reactRouterDom.Route, { path: '/orders',\n            component: function component() {\n              return _react2.default.createElement(_Orders2.default, null);\n            }\n          }),\n          _react2.default.createElement(_reactRouterDom.Route, { path: '/listing',\n            component: function component() {\n              return _react2.default.createElement(_Listings2.default, null);\n            }\n          }),\n          _react2.default.createElement(_reactRouterDom.Route, { path: '/listingEntry',\n            component: function component() {\n              return _react2.default.createElement(_ListingEntry2.default, null);\n            }\n          }),\n          _react2.default.createElement(_reactRouterDom.Route, { path: '/cart',\n            component: function component() {\n              return _react2.default.createElement(_Cart2.default, null);\n            }\n          }),\n          _react2.default.createElement(_reactRouterDom.Route, { path: '/login',\n            component: function component() {\n              return _react2.default.createElement(_Login2.default, null);\n            }\n          }),\n          _react2.default.createElement(_reactRouterDom.Route, { path: '/sellEntry',\n            component: function component() {\n              return _react2.default.createElement(_SellEntry2.default, null);\n            }\n          }),\n          _react2.default.createElement(_reactRouterDom.Route, { path: '/messages',\n            component: function component() {\n              return _react2.default.createElement(_Messages2.default, null);\n            }\n          }),\n          _react2.default.createElement(_reactRouterDom.Route, { path: '/sellerDashboard',\n            component: function component() {\n              return _react2.default.createElement(_SellerDashboard2.default, null);\n            }\n          })\n        )\n      );\n    }\n  }]);\n\n  return App;\n}(_react.Component);\n\nexports.default = (0, _reactRouterDom.withRouter)(App);\n\n//# sourceURL=webpack:///./client/src/components/App.jsx?");
+
+/***/ }),
+
+/***/ "./client/src/components/Cart.jsx":
+/*!****************************************!*\
+  !*** ./client/src/components/Cart.jsx ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar Cart = function (_Component) {\n  _inherits(Cart, _Component);\n\n  function Cart() {\n    _classCallCheck(this, Cart);\n\n    return _possibleConstructorReturn(this, (Cart.__proto__ || Object.getPrototypeOf(Cart)).apply(this, arguments));\n  }\n\n  _createClass(Cart, [{\n    key: 'render',\n    value: function render() {\n      return _react2.default.createElement('div', null);\n    }\n  }]);\n\n  return Cart;\n}(_react.Component);\n\nexports.default = Cart;\n\n//# sourceURL=webpack:///./client/src/components/Cart.jsx?");
+
+/***/ }),
+
+/***/ "./client/src/components/Home.jsx":
+/*!****************************************!*\
+  !*** ./client/src/components/Home.jsx ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar Home = function (_Component) {\n  _inherits(Home, _Component);\n\n  function Home() {\n    _classCallCheck(this, Home);\n\n    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));\n  }\n\n  _createClass(Home, [{\n    key: 'render',\n    value: function render() {\n      return _react2.default.createElement(\n        'div',\n        null,\n        'Homepage'\n      );\n    }\n  }]);\n\n  return Home;\n}(_react.Component);\n\nexports.default = Home;\n\n//# sourceURL=webpack:///./client/src/components/Home.jsx?");
+
+/***/ }),
+
+/***/ "./client/src/components/ListingEntry.jsx":
+/*!************************************************!*\
+  !*** ./client/src/components/ListingEntry.jsx ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar ListingEntry = function (_Component) {\n  _inherits(ListingEntry, _Component);\n\n  function ListingEntry() {\n    _classCallCheck(this, ListingEntry);\n\n    return _possibleConstructorReturn(this, (ListingEntry.__proto__ || Object.getPrototypeOf(ListingEntry)).apply(this, arguments));\n  }\n\n  _createClass(ListingEntry, [{\n    key: 'render',\n    value: function render() {\n      return _react2.default.createElement('div', null);\n    }\n  }]);\n\n  return ListingEntry;\n}(_react.Component);\n\nexports.default = ListingEntry;\n\n//# sourceURL=webpack:///./client/src/components/ListingEntry.jsx?");
+
+/***/ }),
+
+/***/ "./client/src/components/Listings.jsx":
+/*!********************************************!*\
+  !*** ./client/src/components/Listings.jsx ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar Listings = function (_Component) {\n  _inherits(Listings, _Component);\n\n  function Listings() {\n    _classCallCheck(this, Listings);\n\n    return _possibleConstructorReturn(this, (Listings.__proto__ || Object.getPrototypeOf(Listings)).apply(this, arguments));\n  }\n\n  _createClass(Listings, [{\n    key: 'render',\n    value: function render() {\n      return _react2.default.createElement('div', null);\n    }\n  }]);\n\n  return Listings;\n}(_react.Component);\n\nexports.default = Listings;\n\n//# sourceURL=webpack:///./client/src/components/Listings.jsx?");
+
+/***/ }),
+
+/***/ "./client/src/components/Login.jsx":
+/*!*****************************************!*\
+  !*** ./client/src/components/Login.jsx ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar Login = function (_Component) {\n  _inherits(Login, _Component);\n\n  function Login() {\n    _classCallCheck(this, Login);\n\n    return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).apply(this, arguments));\n  }\n\n  _createClass(Login, [{\n    key: 'render',\n    value: function render() {\n      return _react2.default.createElement('div', null);\n    }\n  }]);\n\n  return Login;\n}(_react.Component);\n\nexports.default = Login;\n\n//# sourceURL=webpack:///./client/src/components/Login.jsx?");
+
+/***/ }),
+
+/***/ "./client/src/components/Messages.jsx":
+/*!********************************************!*\
+  !*** ./client/src/components/Messages.jsx ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar Messages = function (_Component) {\n  _inherits(Messages, _Component);\n\n  function Messages() {\n    _classCallCheck(this, Messages);\n\n    return _possibleConstructorReturn(this, (Messages.__proto__ || Object.getPrototypeOf(Messages)).apply(this, arguments));\n  }\n\n  _createClass(Messages, [{\n    key: 'render',\n    value: function render() {\n      return _react2.default.createElement('div', null);\n    }\n  }]);\n\n  return Messages;\n}(_react.Component);\n\nexports.default = Messages;\n\n//# sourceURL=webpack:///./client/src/components/Messages.jsx?");
+
+/***/ }),
+
+/***/ "./client/src/components/Notifications.jsx":
+/*!*************************************************!*\
+  !*** ./client/src/components/Notifications.jsx ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar Notifications = function (_Component) {\n  _inherits(Notifications, _Component);\n\n  function Notifications() {\n    _classCallCheck(this, Notifications);\n\n    return _possibleConstructorReturn(this, (Notifications.__proto__ || Object.getPrototypeOf(Notifications)).apply(this, arguments));\n  }\n\n  _createClass(Notifications, [{\n    key: 'componentDidMount',\n    value: function componentDidMount() {\n      this.props.newNotification(true);\n    }\n  }, {\n    key: 'render',\n    value: function render() {\n      return _react2.default.createElement(\n        'div',\n        null,\n        JSON.stringify(this.props.hasNewNotifications),\n        _react2.default.createElement('br', null),\n        JSON.stringify(this.props)\n      );\n    }\n  }]);\n\n  return Notifications;\n}(_react.Component);\n\nexports.default = Notifications;\n\n//# sourceURL=webpack:///./client/src/components/Notifications.jsx?");
+
+/***/ }),
+
+/***/ "./client/src/components/Orders.jsx":
+/*!******************************************!*\
+  !*** ./client/src/components/Orders.jsx ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar Orders = function (_Component) {\n  _inherits(Orders, _Component);\n\n  function Orders() {\n    _classCallCheck(this, Orders);\n\n    return _possibleConstructorReturn(this, (Orders.__proto__ || Object.getPrototypeOf(Orders)).apply(this, arguments));\n  }\n\n  _createClass(Orders, [{\n    key: 'render',\n    value: function render() {\n      return _react2.default.createElement('div', null);\n    }\n  }]);\n\n  return Orders;\n}(_react.Component);\n\nexports.default = Orders;\n\n//# sourceURL=webpack:///./client/src/components/Orders.jsx?");
+
+/***/ }),
+
+/***/ "./client/src/components/Profile.jsx":
+/*!*******************************************!*\
+  !*** ./client/src/components/Profile.jsx ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar Profile = function (_Component) {\n  _inherits(Profile, _Component);\n\n  function Profile() {\n    _classCallCheck(this, Profile);\n\n    return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).apply(this, arguments));\n  }\n\n  _createClass(Profile, [{\n    key: 'render',\n    value: function render() {\n      return _react2.default.createElement(\n        'div',\n        null,\n        'Profile Page'\n      );\n    }\n  }]);\n\n  return Profile;\n}(_react.Component);\n\nexports.default = Profile;\n\n//# sourceURL=webpack:///./client/src/components/Profile.jsx?");
+
+/***/ }),
+
+/***/ "./client/src/components/SellEntry.jsx":
+/*!*********************************************!*\
+  !*** ./client/src/components/SellEntry.jsx ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar SellEntry = function SellEntry() {\n  return _react2.default.createElement('div', null);\n};\n\nexports.default = SellEntry;\n\n//# sourceURL=webpack:///./client/src/components/SellEntry.jsx?");
+
+/***/ }),
+
+/***/ "./client/src/components/SellerDashboard.jsx":
+/*!***************************************************!*\
+  !*** ./client/src/components/SellerDashboard.jsx ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar SellerDashboard = function (_Component) {\n  _inherits(SellerDashboard, _Component);\n\n  function SellerDashboard() {\n    _classCallCheck(this, SellerDashboard);\n\n    return _possibleConstructorReturn(this, (SellerDashboard.__proto__ || Object.getPrototypeOf(SellerDashboard)).apply(this, arguments));\n  }\n\n  _createClass(SellerDashboard, [{\n    key: 'render',\n    value: function render() {\n      return _react2.default.createElement('div', null);\n    }\n  }]);\n\n  return SellerDashboard;\n}(_react.Component);\n\nexports.default = SellerDashboard;\n\n//# sourceURL=webpack:///./client/src/components/SellerDashboard.jsx?");
+
+/***/ }),
+
+/***/ "./client/src/containers/notificationContainer.js":
+/*!********************************************************!*\
+  !*** ./client/src/containers/notificationContainer.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _reactRedux = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n\nvar _notificationAction = __webpack_require__(/*! ../actions/notificationAction.js */ \"./client/src/actions/notificationAction.js\");\n\nvar _notificationAction2 = _interopRequireDefault(_notificationAction);\n\nvar _Notifications = __webpack_require__(/*! ../components/Notifications.jsx */ \"./client/src/components/Notifications.jsx\");\n\nvar _Notifications2 = _interopRequireDefault(_Notifications);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar mapStateToProps = function mapStateToProps(state) {\n  return {\n    hasNewNotifications: state.hasNewNotifications\n  };\n};\n\nvar mapDispatchToProps = function mapDispatchToProps(dispatch) {\n  return {\n    newNotification: function newNotification(hasNewNotifications) {\n      console.log('fired');dispatch((0, _notificationAction2.default)(hasNewNotifications));\n    }\n  };\n};\n\nvar NotificationContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Notifications2.default);\n\nexports.default = NotificationContainer;\n\n//# sourceURL=webpack:///./client/src/containers/notificationContainer.js?");
+
+/***/ }),
+
+/***/ "./client/src/reducers/notificationReducer.js":
+/*!****************************************************!*\
+  !*** ./client/src/reducers/notificationReducer.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nvar NotificationReducer = function NotificationReducer() {\n  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;\n  var action = arguments[1];\n\n  switch (action.type) {\n    case 'HAS_NEW_NOTIFICATIONS':\n      console.log(action.hasNewNotifications);\n      return Object.assign({}, state, { hasNewNotifications: action.hasNewNotifications });\n    default:\n      return state;\n  }\n};\n\nexports.default = NotificationReducer;\n\n//# sourceURL=webpack:///./client/src/reducers/notificationReducer.js?");
+
+/***/ }),
+
+/***/ "./client/src/reducers/rootReducer.js":
+/*!********************************************!*\
+  !*** ./client/src/reducers/rootReducer.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _redux = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n\nvar _notificationReducer = __webpack_require__(/*! ./notificationReducer.js */ \"./client/src/reducers/notificationReducer.js\");\n\nvar _notificationReducer2 = _interopRequireDefault(_notificationReducer);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar rootReducer = (0, _redux.combineReducers)({\n  notificationReducer: _notificationReducer2.default\n});\n\nexports.default = rootReducer;\n\n//# sourceURL=webpack:///./client/src/reducers/rootReducer.js?");
+
+/***/ }),
+
+/***/ "./client/src/store/store.js":
+/*!***********************************!*\
+  !*** ./client/src/store/store.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _redux = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n\nvar _reduxThunk = __webpack_require__(/*! redux-thunk */ \"./node_modules/redux-thunk/es/index.js\");\n\nvar _reduxThunk2 = _interopRequireDefault(_reduxThunk);\n\nvar _rootReducer = __webpack_require__(/*! ../reducers/rootReducer.js */ \"./client/src/reducers/rootReducer.js\");\n\nvar _rootReducer2 = _interopRequireDefault(_rootReducer);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar store = (0, _redux.createStore)(_rootReducer2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default));\nconsole.log(store.getState());\n\nexports.default = store;\n\n//# sourceURL=webpack:///./client/src/store/store.js?");
 
 /***/ }),
 
@@ -4828,6 +5021,18 @@ eval("\n\nif (false) {} else {\n  module.exports = __webpack_require__(/*! ./cjs
 
 /***/ }),
 
+/***/ "./node_modules/redux-thunk/es/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/redux-thunk/es/index.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nfunction createThunkMiddleware(extraArgument) {\n  return function (_ref) {\n    var dispatch = _ref.dispatch,\n        getState = _ref.getState;\n    return function (next) {\n      return function (action) {\n        if (typeof action === 'function') {\n          return action(dispatch, getState, extraArgument);\n        }\n\n        return next(action);\n      };\n    };\n  };\n}\n\nvar thunk = createThunkMiddleware();\nthunk.withExtraArgument = createThunkMiddleware;\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (thunk);\n\n//# sourceURL=webpack:///./node_modules/redux-thunk/es/index.js?");
+
+/***/ }),
+
 /***/ "./node_modules/redux/es/redux.js":
 /*!****************************************!*\
   !*** ./node_modules/redux/es/redux.js ***!
@@ -4929,7 +5134,7 @@ eval("module.exports = function(originalModule) {\n\tif (!originalModule.webpack
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! babel-polyfill */\"./node_modules/babel-polyfill/lib/index.js\");\nmodule.exports = __webpack_require__(/*! /Users/mac/Peddle/client/index.jsx */\"./client/index.jsx\");\n\n\n//# sourceURL=webpack:///multi_babel-polyfill_./client/index.jsx?");
+eval("__webpack_require__(/*! babel-polyfill */\"./node_modules/babel-polyfill/lib/index.js\");\nmodule.exports = __webpack_require__(/*! C:\\Users\\Peter Park\\Desktop\\PetersFiles\\Deployment\\Thesis\\ForkedRepo\\Peddle\\client/index.jsx */\"./client/index.jsx\");\n\n\n//# sourceURL=webpack:///multi_babel-polyfill_./client/index.jsx?");
 
 /***/ })
 
