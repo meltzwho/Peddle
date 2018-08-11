@@ -8,5 +8,6 @@ const store = createStore(
     thunk
   )
 );
+console.log(store.getState());
 
 export default store;
