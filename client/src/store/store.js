@@ -6,8 +6,8 @@ const store = createStore(
   rootReducer,
   applyMiddleware(
     thunk
-  )
+  ),
+  window.devToolsExtension && window.devToolsExtension()
 );
-console.log(store.getState());
 
 export default store;
