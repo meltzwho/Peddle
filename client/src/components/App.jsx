@@ -12,6 +12,7 @@ import SellEntry from './SellEntry.jsx';
 import Messages from './Messages.jsx';
 import SellerDashboard from './SellerDashboard.jsx';
 import Notifications from '../containers/notificationContainer.js';
+import Search from '../containers/searchContainer.js';
 
 
 
@@ -36,6 +37,11 @@ class App extends Component {
           <Route path={'/notifications'}
             component={() =>
               <Notifications />
+            }
+          />
+          <Route path={'/search'}
+            component={() => 
+              <Search />
             }
           />
           <Route path={'/orders'}
