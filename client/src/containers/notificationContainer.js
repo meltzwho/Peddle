@@ -4,13 +4,13 @@ import Notification from '../components/Notifications.jsx';
 
 const mapStateToProps = (state) => {
   return {
-    hasNewNotifications: state.hasNewNotifications
+    hasNewNotifications: state.notificationReducer.hasNewNotifications
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    newNotification: (hasNewNotifications) => { console.log('fired'); dispatch(notification(hasNewNotifications)) }
+    newNotification: (hasNewNotifications) => {dispatch(notification(hasNewNotifications))}
   };
 };
 

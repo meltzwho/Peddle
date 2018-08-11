@@ -6,5 +6,4 @@ const rootReducer = combineReducers({
   notificationReducer,
   searchReducer
 });
-
 export default rootReducer;
