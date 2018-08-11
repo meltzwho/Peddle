@@ -11,6 +11,10 @@ import SellEntry from './SellEntry.jsx';
 import Messages from './Messages.jsx';
 import SellerDashboard from './SellerDashboard.jsx';
 
+import Login from './Login.jsx';
+import SignUp from './SignUp.jsx';
+
+
 class App extends Component {
   render() {
     return (
@@ -71,6 +75,7 @@ class App extends Component {
           />
         </Switch>
       </div>
+
     );
   }
 }

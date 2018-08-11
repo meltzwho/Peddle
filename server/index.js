@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const authRoutes = require('./routes/auth.js');
+const passportSetup = require('./config/passport-setup.js');
 
 const app = express();
 
@@ -8,7 +10,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-
+app.use('/auth', authRoutes);
 
 
 app.get('/*', (req, res) => {
