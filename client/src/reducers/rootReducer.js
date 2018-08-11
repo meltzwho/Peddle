@@ -1,7 +1,6 @@
-// import { combineReducers } from 'redux';
-
-// var rootReducer = combineReducers({
-//   //reducers, ... , ...
-// });
-
-// export default rootReducer;
+import { combineReducers } from 'redux';
+import notificationReducer from './notificationReducer.js';
+const rootReducer = combineReducers({
+  notificationReducer
+});
+export default rootReducer;
