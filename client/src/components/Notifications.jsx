@@ -7,8 +7,7 @@ class Notifications extends Component {
   render() {
     return (
       <div>
-        {JSON.stringify(this.props.hasNewNotifications)}<br/>
-        {JSON.stringify(this.props)}
+        {'Props'+this.props.hasNewNotifications}
       </div>
     );
   }
