@@ -7,13 +7,12 @@ import Listings from './Listings.jsx';
 import ListingEntry from './ListingEntry.jsx';
 import Cart from './Cart.jsx';
 import Login from './Login.jsx';
+import SignUp from './SignUp.jsx';
 import SellEntry from './SellEntry.jsx';
 import Messages from './Messages.jsx';
 import SellerDashboard from './SellerDashboard.jsx';
 import Notifications from '../containers/notificationContainer.js';
 
-import Login from './Login.jsx';
-import SignUp from './SignUp.jsx';
 
 
 class App extends Component {
@@ -62,6 +61,11 @@ class App extends Component {
           <Route path={'/login'}
             component={() => 
               <Login />
+            }
+          />
+          <Route path={'/signup'}
+            component={() => 
+              <SignUp />
             }
           />
           <Route path={'/sellEntry'}

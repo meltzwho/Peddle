@@ -1,6 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
-const {google} = require('./google-credentials.js');
+const { google } = require('./google-credentials.js');
 
 passport.use(
   new GoogleStrategy({
@@ -11,5 +11,5 @@ passport.use(
   }, (accessToken, refreshToken, profile, done) => {
     //callback
     console.log('passport callback fired', profile)
-})
+  })
 );

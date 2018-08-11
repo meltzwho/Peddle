@@ -1,10 +1,10 @@
-
 const router = require('express').Router();
 const passport = require('passport');
+const authController = require('../controllers/authController.js');
 
 // auth login
 router.get('/login', (req, res) => {
-  res.render('login')
+  res.render('login');
 });
 
 // auth logout
@@ -18,11 +18,10 @@ router.get('/google', passport.authenticate('google', {
 }));
 
 // callback route for google to redirect to 
-router.get(
-  '/google/redirect'
-  , passport.authenticate('google') 
-  , (req, res) => {
-      res.send('you are in callback')
-  })
+router.get('/google/redirect', 
+  passport.authenticate('google'),
+  (req, res) => {
+    res.send('you are in callback');
+  });
 
 module.exports = router;
