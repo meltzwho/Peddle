@@ -11,19 +11,10 @@ import SellEntry from './SellEntry.jsx';
 import Messages from './Messages.jsx';
 import SellerDashboard from './SellerDashboard.jsx';
 
-<<<<<<< HEAD
 import Login from './Login.jsx';
 import SignUp from './SignUp.jsx';
 
-export default class App extends Component {
-  render() {
-    return (
-      <h1>
-        Welcome to Peddle
-        <Login />
-        <SignUp />
-      </h1>
-=======
+
 class App extends Component {
   render() {
     return (
@@ -84,7 +75,7 @@ class App extends Component {
           />
         </Switch>
       </div>
->>>>>>> 7e42b750729c566ff34bb9c615fb9c2ae6628051
+
     );
   }
 }
