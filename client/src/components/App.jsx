@@ -29,57 +29,57 @@ class App extends Component {
             }
           />
           <Route path={'/profile'}
-            component={() => 
+            component={() =>
               <Profile />
             }
           />
           <Route path={'/notifications'}
-            component={() => 
+            component={() =>
               <Notifications />
             }
           />
           <Route path={'/orders'}
-            component={() => 
+            component={() =>
               <Orders />
             }
           />
           <Route path={'/listing'}
-            component={() => 
+            component={() =>
               <Listings />
             }
           />
           <Route path={'/listingEntry'}
-            component={() => 
+            component={() =>
               <ListingEntry />
             }
           />
           <Route path={'/cart'}
-            component={() => 
+            component={() =>
               <Cart />
             }
           />
           <Route path={'/login'}
-            component={() => 
+            component={() =>
               <Login />
             }
           />
           <Route path={'/signup'}
-            component={() => 
+            component={() =>
               <SignUp />
             }
           />
           <Route path={'/sellEntry'}
-            component={() => 
+            component={() =>
               <SellEntry />
             }
           />
           <Route path={'/messages'}
-            component={() => 
+            component={() =>
               <Messages />
             }
           />
           <Route path={'/sellerDashboard'}
-            component={() => 
+            component={() =>
               <SellerDashboard />
             }
           />
