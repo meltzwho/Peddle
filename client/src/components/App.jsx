@@ -3,7 +3,7 @@ import { Route, withRouter, Switch } from 'react-router-dom';
 import Home from './Home.jsx';
 import Profile from './Profile.jsx';
 import Orders from './Orders.jsx';
-import Listings from './Listing.jsx';
+import Listings from './Listings.jsx';
 import ListingEntry from './ListingEntry.jsx';
 import Cart from './Cart.jsx';
 import Login from './Login.jsx';
@@ -22,6 +22,8 @@ class App extends Component {
         <h1>
           Welcome to Peddle
         </h1>
+        <SignUp />
+        <Login />
         <Switch className='routes'>
           <Route exact path={'/'}
             component={() =>
