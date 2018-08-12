@@ -18,13 +18,13 @@ module.exports = {
   rules: {
     /* Indentation */
     'no-mixed-spaces-and-tabs': 2,
-    'indent': [2, 2],
+    'indent': ["error", 2, {"SwitchCase": 1}],
     /* Variable cames */
     'camelcase': 2,
     /* Language constructs */
     'curly': 2,
     'eqeqeq': [2, 'smart'],
-    'func-style': [2, 'expression'],
+    // 'func-style': [2, 'expression'],
     /* Semicolons */
     'semi': 2,
     'no-extra-semi': 2,
