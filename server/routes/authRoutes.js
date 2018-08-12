@@ -50,12 +50,8 @@ router.get(
   '/google/redirect'
   , passport.authenticate('google') 
   , (req, res) => {
-    // TODO
-    // user is now on the req 
-    // we can now redirect the path with res.redirect('/path')
-    console.log('G-redirect called:', req.user);
+    
     res.redirect('/notifications'); // send where????????????
-    res.send('done');
   });
 
 // callback route for facebook to redirect to 
@@ -63,12 +59,8 @@ router.get(
   '/facebook/redirect'
   , passport.authenticate('facebook') 
   , (req, res) => {
-    // TODO
-    // user is now on the req 
-    // we can now redirect the path with res.redirect('/path')
-    console.log('F-redirect called:', req.user);
-    //res.redirect('/profile/'); // send where????????????
-    res.send('you are in callback');
+   
+    res.redirect('/listings'); // send where????????????
   });
 
 module.exports = router;

@@ -7,12 +7,11 @@ import Listings from './Listings.jsx';
 import ListingEntry from './ListingEntry.jsx';
 import Cart from './Cart.jsx';
 import Login from './Login.jsx';
+import SignUp from './SignUp.jsx';
 import SellEntry from './SellEntry.jsx';
 import Messages from './Messages.jsx';
 import SellerDashboard from './SellerDashboard.jsx';
-
-
-import SignUp from './SignUp.jsx';
+import Notifications from '../containers/notificationContainer.js';
 
 
 class App extends Component {
@@ -22,8 +21,7 @@ class App extends Component {
         <h1>
           Welcome to Peddle
         </h1>
-        <SignUp />
-        <Login />
+      
         <Switch className='routes'>
           <Route exact path={'/'}
             component={() =>
@@ -31,47 +29,57 @@ class App extends Component {
             }
           />
           <Route path={'/profile'}
-            component={() => 
+            component={() =>
               <Profile />
             }
           />
+          <Route path={'/notifications'}
+            component={() =>
+              <Notifications />
+            }
+          />
           <Route path={'/orders'}
-            component={() => 
+            component={() =>
               <Orders />
             }
           />
           <Route path={'/listing'}
-            component={() => 
+            component={() =>
               <Listings />
             }
           />
           <Route path={'/listingEntry'}
-            component={() => 
+            component={() =>
               <ListingEntry />
             }
           />
           <Route path={'/cart'}
-            component={() => 
+            component={() =>
               <Cart />
             }
           />
           <Route path={'/login'}
-            component={() => 
+            component={() =>
               <Login />
             }
           />
+          <Route path={'/signup'}
+            component={() =>
+              <SignUp />
+            }
+          />
           <Route path={'/sellEntry'}
-            component={() => 
+            component={() =>
               <SellEntry />
             }
           />
           <Route path={'/messages'}
-            component={() => 
+            component={() =>
               <Messages />
             }
           />
           <Route path={'/sellerDashboard'}
-            component={() => 
+            component={() =>
               <SellerDashboard />
             }
           />

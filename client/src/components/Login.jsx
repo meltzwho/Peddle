@@ -1,14 +1,11 @@
-
-
 import React from 'react';
 import { Button, Col, Checkbox, ControlLabel } from 'react-bootstrap';
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
 import axios from 'axios';
 
 export default class Login extends React.Component {
-handleLogin = () => {
-  axios.get('')
-}
+
+
   render () {
     return (
       <div>
@@ -55,7 +52,7 @@ handleLogin = () => {
 
             <div className="oauth_wrapper">
               <p>or sign in with...</p>
-              <a href="/auth/google">
+              <a href={`/auth/google`}>
                 <Button >Sign in with Google</Button>
               </a>
               <a href="/auth/facebook">
