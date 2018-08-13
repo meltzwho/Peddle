@@ -1,17 +1,16 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const cookieSession = require('cookie-session');
+const cors = require('cors');
+const passport = require('passport');
+const {session} = require('../config.js');
 const authRoutes = require('./routes/authRoutes.js');
 const profileRoutes = require('./routes/profile.js');
 // require these 3 to invoke the code
 const bearerAuthSetup = require('./config/bearerAuthSetup.js');
 const googleAuthSetup = require('./config/googleAuthSetup.js');
 const facebookAuthSetup = require('./config/facebookAuthSetup.js');
-
-const cookieSession = require('cookie-session');
-const {session} = require('./config/credentials.js');
-const passport = require('passport');
-const cors = require('cors');
 
 const app = express();
 
