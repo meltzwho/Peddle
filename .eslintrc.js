@@ -15,8 +15,8 @@ module.exports = {
     "airbnb",
     "eslint:recommended",
     "plugin:react/recommended",
-    "import"
   ],
+  parser: "babel-eslint",
   parserOptions: {
     "sourceType": "module",
     ecmaFeatures: {
