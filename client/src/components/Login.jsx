@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button, Col, Checkbox, ControlLabel, Form, FormGroup, FormControl } from 'react-bootstrap';
 
-class Login extends React.Component {
-
+export default class Login extends React.Component {
   render () {
     return (
       <div>
@@ -10,7 +9,7 @@ class Login extends React.Component {
           <Form horizontal>
             <FormGroup controlId="UserName">
               <Col componentClass={ControlLabel} sm={2}>
-              Username
+                Username
               </Col>
               <Col sm={10}>
                 <FormControl type="text" placeholder="Enter Username..." />
@@ -19,7 +18,7 @@ class Login extends React.Component {
 
             <FormGroup controlId="Email">
               <Col componentClass={ControlLabel} sm={2}>
-              Email
+                Email
               </Col>
               <Col sm={10}>
                 <FormControl type="email" placeholder="Enter Email..." />
@@ -40,25 +39,25 @@ class Login extends React.Component {
 
             <div className="aTag_wrapper">
               <a href="/" className="forgotPassword">
-              Forgot your passowrd?
+                Forgot your passowrd?
               </a>
               <a href="/" className="forgotUserName">
-              Forgot your username?
+                Forgot your username?
               </a>
             </div>
 
             <div className="oauth_wrapper">
               <p>or sign in with...</p>
-              <a href="/auth/google"><Button>Sign in with Google</Button></a>
-              <Button>Sign in with Facebook</Button>
+              <a href={`/auth/google`}>
+                <Button >Sign in with Google</Button>
+              </a>
+              <a href="/auth/facebook">
+                <Button>Sign in with Facebook</Button>
+              </a>
             </div>
-          
-          </Form>
+          </Form>;
         </div>
       </div>
     );
   }
 }
-
-export default Login;
-

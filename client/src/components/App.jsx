@@ -8,7 +8,7 @@ import ListingEntry from './ListingEntry.jsx';
 import Cart from './Cart.jsx';
 import Login from './Login.jsx';
 import SignUp from './SignUp.jsx';
-import SellEntry from './SellEntry.jsx';
+import SellEntry from '../containers/SellEntryContainer.js';
 import Messages from './Messages.jsx';
 import SellerDashboard from './SellerDashboard.jsx';
 import Notifications from '../containers/notificationContainer.js';
@@ -24,6 +24,7 @@ class App extends Component {
         <h1>
           Welcome to Peddle
         </h1>
+      
         <Switch className='routes'>
           <Route exact path={'/'}
             component={() =>
