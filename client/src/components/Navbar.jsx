@@ -31,6 +31,9 @@ class NavBar extends Component {
               <NavItem eventKey={5} componentClass={Link} href="/" to="/">
                 Profile
               </NavItem>
+              <NavItem eventKey={6} componentClass={Link} href="/" to="/">
+                Messages
+              </NavItem>
               <NavItem eventKey={8} componentClass={Link} href="/" to="/">
                 Logout
               </NavItem>
