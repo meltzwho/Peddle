@@ -7,22 +7,22 @@ module.exports = {
   entry: {
     app: ['babel-polyfill', `${SRC_DIR}/index.jsx`]
   },
-    output: {
-      filename: 'bundle.js',
-      path: DIST_DIR
-    }, 
-    module : {
-      rules : [
-        {
-          test : /\.jsx?/,
-          include : SRC_DIR,
-          loader : 'babel-loader',
-          options: { presets: ['react', 'env', 'stage-0'] }
-        },
-        {
-          test: /\.css$/,
-          use: [ 'style-loader', 'css-loader' ]
-        }
-      ]
+  output: {
+    filename: 'bundle.js',
+    path: DIST_DIR
+  }, 
+  module: {
+    rules : [
+      {
+        test : /\.jsx?/,
+        include : SRC_DIR,
+        loader : 'babel-loader',
+        options: { presets: ['react', 'env', 'stage-0'] }
+      },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      }
+    ]
   }
 };

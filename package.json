@@ -11,7 +11,8 @@
     "test": "mocha test",
     "start": "node server/index.js",
     "react-dev": "webpack --config webpack.dev.js --watch",
-    "server-dev": "nodemon server/index.js"
+    "server-dev": "nodemon server/index.js",
+    "lint": "eslint client/src/**/*.js client/src/**/*.jsx"
   },
   "keywords": [
     "Marketplace",
@@ -46,6 +47,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
     "babel-loader": "^7.1.5",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
@@ -56,6 +58,11 @@
     "css-loader": "^1.0.0",
     "cz-conventional-changelog": "^2.1.0",
     "enzyme": "^3.4.1",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.10.0",
     "mocha": "^5.2.0",
     "save-dev": "^2.0.0",
     "sinon": "^6.1.5",
