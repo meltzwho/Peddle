@@ -1,69 +1,47 @@
 import React, {Component} from 'react';
-import { FormGroup, FormControl, ControlLabel, InputGroup, Checkbox, Button, DropdownButton, MenuItem, ButtonToolbar } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, InputGroup, Checkbox, Button, DropdownButton, MenuItem, ButtonToolbar } from 'react-bootstrap';
 
 class SellEntry extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.handleProductChange = this.handleProductChange.bind(this);
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handlePriceChange = this.handlePriceChange.bind(this);
-    this.handleAllowPickup = this.handleAllowPickup.bind(this);
-    this.handleAllowShipping = this.handleAllowShipping.bind(this);
-    this.handleListingSubmit = this.handleListingSubmit.bind(this);
-  }
+  state = {}
 
-  handleProductChange(event) {
+  handleInputChange = (e) => {
     this.setState({
-      productName: event.target.value
-    });
+      [e.target.name]: e.target.value
+    })
   }
 
-  handleDescriptionChange(event) {
+  handleSelectboxChange = (e) => {
     this.setState({
-      productDescription: event.target.value
-    });
+      [e.target.name]: !this.state[e.target.name]
+    })
   }
 
-  handlePriceChange(event) {
-    this.setState({
-      productPrice: event.target.value
-    });
-  }
-
-  handleAllowPickup() {
-    this.setState({
-      allowPickup: !this.state.allowPickup
-    });
-  }
-
-  handleAllowShipping() {
-    this.setState({
-      allowShipping: !this.state.allowShipping
-    });
-  }
-
-  handleListingSubmit(event) {
+  handleListingSubmit = (event) => {
     event.preventDefault();
     console.log('state', this.state);
   }
 
   componentDidMount() {
-    this.setState(this.props.entry);
     this.props.fetchCategories();
+    this.setState(this.props.entry);
   }
 
   render() {
+    // let categories = this.props.categories.map((category) => {
+    //   return <MenuItem eventKey={category.id_category}>{category.category}</MenuItem>
+    // })
+
     return (
       <div>
-        <form>
+        <Form>
           <FormGroup controlId="productTitle">
             <ControlLabel>What are you selling?</ControlLabel>
             <FormControl 
               type="text"
+              name="productName"
               value={this.state.productName}
               placeholder="Enter product name"
-              onChange={this.handleProductChange}
+              onChange={this.handleInputChange}
             />
           </FormGroup>
 
@@ -71,9 +49,10 @@ class SellEntry extends Component {
             <ControlLabel>Description</ControlLabel>
             <FormControl 
               type="text"
-              value={this.state.productDescription}
+              name="description"
+              value={this.state.description}
               placeholder="Tell us about the product you're selling"
-              onChange={this.handleDescriptionChange}
+              onChange={this.handleInputChange}
             />
           </FormGroup>
 
@@ -84,14 +63,23 @@ class SellEntry extends Component {
             </InputGroup>
             <FormControl 
               type="number"
-              value={this.state.productPrice}
-              onChange={this.handlePriceChange}
+              name="price"
+              value={this.state.price}
+              onChange={this.handleInputChange}
             />
           </FormGroup>
 
           <FormGroup controlId="productDeliveryMethod">
-            <Checkbox onChange={this.handleAllowPickup}>Local Pickup</Checkbox>
-            <Checkbox onChange={this.handleAllowShipping}>Shipping Available</Checkbox>
+            <Checkbox 
+              name="allowPickup"
+              onClick={this.handleSelectboxChange}>
+                Local Pickup
+            </Checkbox>
+            <Checkbox
+              name="allowShipping"
+              onClick={this.handleSelectboxChange}>
+                Shipping Available
+            </Checkbox>
           </FormGroup>
 
           
@@ -101,15 +89,13 @@ class SellEntry extends Component {
               key={0}
               id="dropdown-size-medium"
             >
-              <MenuItem eventKey="1">Placeholder 1</MenuItem>
-              <MenuItem eventKey="2">Placeholder 2</MenuItem>
-              <MenuItem eventKey="3">Placeholder 3</MenuItem>
+            {/* {categories} */}
             </DropdownButton>
           </ButtonToolbar>
 
           <Button onClick={this.handleListingSubmit} type="submit">Submit</Button>
 
-        </form>
+        </Form>
       </div>
     );
   }

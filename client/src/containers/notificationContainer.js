@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-var NotificationContainer = connect(
+const NotificationContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Notification);

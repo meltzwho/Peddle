@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
 
 class Search extends Component {
   state = {
@@ -11,22 +11,27 @@ class Search extends Component {
       input: e.target.value
     });
   }
+  handleSubmit = (e, value) => {
+    e.preventDefault();
+    this.props.handleSubmit(value);
+    this.setState({
+      input: ''
+    })
+  }
   render() {
     return (
       <Form>
         <FormGroup>
-          <ControlLabel>Search</ControlLabel>
           <FormControl
             type="text"
             value={this.state.input}
             placeholder="Search for items near you"
-            onChange={this.handleInputChange}
+            onChange={e => {this.handleInputChange(e)}}
           />
-        </FormGroup>
-        <FormGroup>
           <Button
             bsStyle="primary"
             type="submit"
+            onClick={e => {this.handleSubmit(e, this.state.input)}}
           >
             Submit
           </Button>
