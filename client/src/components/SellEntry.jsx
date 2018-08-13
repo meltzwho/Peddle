@@ -1,14 +1,8 @@
 import React, {Component} from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, InputGroup, Checkbox, Button } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, InputGroup, Checkbox, Button, DropdownButton, MenuItem, ButtonToolbar } from 'react-bootstrap';
 
 class SellEntry extends Component {
-  state = {
-    productName: '',
-    description: '',
-    price: 0,
-    isLocal: false,
-    isShipping: false
-  }
+  state = {}
 
   handleInputChange = (e) => {
     this.setState({
@@ -22,19 +16,29 @@ class SellEntry extends Component {
     })
   }
 
-  handleListingSubmit = (event) => {
-    event.preventDefault();
+  handleListingSubmit = (e) => {
+    e.preventDefault();
     console.log('state', this.state);
+  }
+
+  handleCategorySelection = (category) => {
+    console.log(category)
     this.setState({
-      productName: '',
-      description: '',
-      price: 0,
-      isLocal: false,
-      isShipping: false
+      selectedCategory: category.category,
+      selectedCategoryId: category.id_category
     })
   }
 
+  componentDidMount() {
+    this.props.fetchCategories();
+    this.setState(this.props.entry);
+  }
+
   render() {
+    let categories = this.props.entry.categories.map((category) => {
+      return <MenuItem onClick={() => this.handleCategorySelection(category)} key={category.id_category} eventKey={category.id_category}>{category.category}</MenuItem>
+    })
+
     return (
       <div>
         <Form>
@@ -75,16 +79,27 @@ class SellEntry extends Component {
 
           <FormGroup controlId="productDeliveryMethod">
             <Checkbox 
-              name="isLocal"
+              name="allowPickup"
               onClick={this.handleSelectboxChange}>
                 Local Pickup
             </Checkbox>
             <Checkbox
-              name="isShipping"
+              name="allowShipping"
               onClick={this.handleSelectboxChange}>
                 Shipping Available
             </Checkbox>
           </FormGroup>
+
+          
+          <ButtonToolbar>
+            <DropdownButton
+              title={this.state.selectedCategory}
+              key={0}
+              id="dropdown-size-medium"
+            >
+            {categories}
+            </DropdownButton>
+          </ButtonToolbar>
 
           <Button onClick={this.handleListingSubmit} type="submit">Submit</Button>
 
