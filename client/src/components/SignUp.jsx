@@ -1,7 +1,5 @@
-
 import React from 'react';
-import { Button, Col, Checkbox, ControlLabel } from 'react-bootstrap';
-import { Form, FormGroup, FormControl } from 'react-bootstrap';
+import { Button, Col, Checkbox, ControlLabel, Form, FormGroup, FormControl } from 'react-bootstrap';
 
 
 export default class SignUp extends React.Component {
@@ -65,7 +63,7 @@ export default class SignUp extends React.Component {
 
             <div className="aTag_wrapper">
               <a href="/" className="justSignIn">
-              Already have an account? Sign in.
+                Already have an account? Sign in.
               </a>
             </div>
 

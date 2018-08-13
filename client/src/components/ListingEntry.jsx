@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 
-class ListingEntry extends Component {
+class ListingEntry extends React.PureComponent {
+  state = {
+
+  }
+
   render() {
     return (
       <div>
-        
+        Hello
       </div>
     );
   }
