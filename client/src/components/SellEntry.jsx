@@ -16,9 +16,17 @@ class SellEntry extends Component {
     })
   }
 
-  handleListingSubmit = (event) => {
-    event.preventDefault();
+  handleListingSubmit = (e) => {
+    e.preventDefault();
     console.log('state', this.state);
+  }
+
+  handleCategorySelection = (category) => {
+    console.log(category)
+    this.setState({
+      selectedCategory: category.category,
+      selectedCategoryId: category.id_category
+    })
   }
 
   componentDidMount() {
@@ -27,9 +35,9 @@ class SellEntry extends Component {
   }
 
   render() {
-    // let categories = this.props.categories.map((category) => {
-    //   return <MenuItem eventKey={category.id_category}>{category.category}</MenuItem>
-    // })
+    let categories = this.props.entry.categories.map((category) => {
+      return <MenuItem onClick={() => this.handleCategorySelection(category)} key={category.id_category} eventKey={category.id_category}>{category.category}</MenuItem>
+    })
 
     return (
       <div>
@@ -85,11 +93,11 @@ class SellEntry extends Component {
           
           <ButtonToolbar>
             <DropdownButton
-              title="category"
+              title={this.state.selectedCategory}
               key={0}
               id="dropdown-size-medium"
             >
-            {/* {categories} */}
+            {categories}
             </DropdownButton>
           </ButtonToolbar>
 

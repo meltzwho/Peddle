@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const mapStateToProps = (state) => {
   return {
-    entry: state.sellEntryReducer.entry
+    entry: state.sellEntryReducer
   };
 };
 
