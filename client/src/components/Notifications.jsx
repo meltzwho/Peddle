@@ -7,6 +7,7 @@ class Notifications extends Component {
   render() {
     return (
       <div>
+        <h2>Notifications</h2>
         {'Props' + this.props.hasNewNotifications}
       </div>
     );
