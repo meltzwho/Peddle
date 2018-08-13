@@ -24,6 +24,7 @@ class App extends Component {
         <h1>
           Welcome to Peddle
         </h1>
+      
         <Switch className='routes'>
           <Route exact path={'/'}
             component={() =>

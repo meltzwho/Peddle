@@ -3,8 +3,32 @@ import { Button, Col, Checkbox, ControlLabel, Form, FormGroup, FormControl } fro
 
 
 export default class SignUp extends React.Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstname: ''
+    }
+    this.textInput = React.createRef();
+    this.updateFirstName = this.updateFirstName.bind(this);
+  }
+  updateFirstName (e) {
+    console.log('ref',e.target.value);
+    this.setState=({firstname: e.target.value});
+    console.log('state', this.state.firstname);
+  }
+  
   render () {
+
+    
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log('submit');
+      // gather the input of each field
+      // combine them together
+      // send them to server
+      
+    }
     return (
       <div>
         <div className="login_wrapper">
@@ -12,16 +36,21 @@ export default class SignUp extends React.Component {
           <Form horizontal>
             <FormGroup controlId="formHorizontalFirstName">
               <Col componentClass={ControlLabel} sm={2}>
-              First Name
+                First Name
               </Col>
               <Col sm={10}>
-                <FormControl type="text" placeholder="Enter FirstName..." />
+                <FormControl 
+                  type="text" 
+                  placeholder="Enter FirstName..." 
+                  value={this.state.firstname}
+                  onChange={this.updateFirstName}
+                />
               </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalLastName">
               <Col componentClass={ControlLabel} sm={2}>
-              Last Name
+                Last Name
               </Col>
               <Col sm={10}>
                 <FormControl type="text" placeholder="Enter Last Name..." />
@@ -30,7 +59,7 @@ export default class SignUp extends React.Component {
 
             <FormGroup controlId="formHorizontalEmail">
               <Col componentClass={ControlLabel} sm={2}>
-              email
+                email
               </Col>
               <Col sm={10}>
                 <FormControl type="email" placeholder="Enter Email..." />
@@ -39,7 +68,7 @@ export default class SignUp extends React.Component {
 
             <FormGroup controlId="formHorizontalUserName">
               <Col componentClass={ControlLabel} sm={2}>
-              Username
+                Username
               </Col>
               <Col sm={10}>
                 <FormControl type="text" placeholder="Enter Username..." />
@@ -48,7 +77,7 @@ export default class SignUp extends React.Component {
 
             <FormGroup controlId="formHorizontalPassword">
               <Col componentClass={ControlLabel} sm={2}>
-              Password
+                Password
               </Col>
               <Col sm={10}>
                 <FormControl type="password" placeholder="Enter Password..." />
@@ -57,12 +86,15 @@ export default class SignUp extends React.Component {
 
             <FormGroup>
               <Col smOffset={2} sm={10}>
-                <Button type="submit">Create Your Account</Button>
+                <Button 
+                  type="submit"
+                  onClick={e => handleSubmit(e)}
+                >Create Your Account</Button>
               </Col>
             </FormGroup>
 
             <div className="aTag_wrapper">
-              <a href="/" className="justSignIn">
+              <a href="/login" className="justSignIn">
                 Already have an account? Sign in.
               </a>
             </div>
