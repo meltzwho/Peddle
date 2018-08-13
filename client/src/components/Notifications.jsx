@@ -7,7 +7,7 @@ class Notifications extends Component {
   render() {
     return (
       <div>
-        {'Props'+this.props.hasNewNotifications}
+        {'Props' + this.props.hasNewNotifications}
       </div>
     );
   }
