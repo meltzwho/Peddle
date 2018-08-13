@@ -14,11 +14,11 @@ app.use('/auth', authRoutes);
 
 
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'))
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 })
 
 let port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-  console.log(`Connected to port ${port}`)
-})
+  console.log(`Connected to port ${port}`);
+});

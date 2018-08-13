@@ -14,9 +14,10 @@ import SellerDashboard from './SellerDashboard.jsx';
 import Notifications from '../containers/notificationContainer.js';
 import Search from '../containers/searchContainer.js';
 
-
-
 class App extends Component {
+  state = {
+
+  }
   render() {
     return (
       <div>

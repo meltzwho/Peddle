@@ -3,17 +3,19 @@ import searchAction from '../actions/searchAction';
 import Search from '../components/Search.jsx';
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     input: state.searchReducer.input,
+    handleInputChange: state.searchReducer.handleInputChange
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  handleInputchange: (newInput) => {
-    dispatch(searchAction(newInput));
-  }
-});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleInputChange: (input) => {
+      dispatch(searchAction(input));
+    }
+  };
+};
 
 const SearchContainer = connect(
   mapStateToProps, 
