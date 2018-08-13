@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 class Notifications extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      notifList: new Array()
+    };
+  }
   componentDidMount() {
-    this.props.newNotification(true);
+    //axios.get('/notifs');
   }
   render() {
     return (
