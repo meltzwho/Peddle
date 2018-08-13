@@ -13,6 +13,7 @@ class Notifications extends Component {
   render() {
     return (
       <div>
+<<<<<<< HEAD
         <DropdownButton
       bsStyle='default'
       title={}
@@ -22,6 +23,11 @@ class Notifications extends Component {
       <MenuItem eventKey="1">Action</MenuItem>
     </DropdownButton>
     </div>
+=======
+        <h2>Notifications</h2>
+        {'Props' + this.props.hasNewNotifications}
+      </div>
+>>>>>>> 82536546621a366283983b42f686113629529be8
     );
   }
 }
