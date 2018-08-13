@@ -8,7 +8,7 @@ export default class SignUp extends React.Component {
     this.state = {
       firstname: ''
     }
-    this.textInput = React.createRef();
+    
     this.updateFirstName = this.updateFirstName.bind(this);
   }
   updateFirstName (e) {
