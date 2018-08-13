@@ -24,5 +24,9 @@ module.exports = {
         use: [ 'style-loader', 'css-loader' ]
       }
     ]
-  }
+  },
+  target: 'node',
+  externals: [
+    'pg-native'
+  ]
 };
