@@ -1,12 +1,11 @@
 import { connect } from 'react-redux';
+// import sellEntry from '../action/sellEntryAction.js';
 import SellEntry from '../components/SellEntry.jsx';
-// import actions;
-
 
 const mapStateToProps = (state) => {
-  // return {
-  //   prop: state.prop
-  // }
+  return {
+    entry: state.sellEntryReducer.entry
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -16,9 +15,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-var Container = connect(
+var SellEntryContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Component);
+)(SellEntry);
 
-export default Container;
+export default SellEntryContainer;

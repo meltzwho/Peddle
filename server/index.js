@@ -3,7 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth.js');
 const passportSetup = require('./config/passport-setup.js');
-
+const dbConfirmation = require('../db/index.js').dbConfirmationMessage; // db connection confirmation message
 const app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
@@ -17,7 +17,10 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
+
 let port = process.env.PORT || 3000;
+
+dbConfirmation();
 
 app.listen(port, () => {
   console.log(`Connected to port ${port}`);
