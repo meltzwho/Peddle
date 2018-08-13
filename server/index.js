@@ -8,7 +8,6 @@ const cookieSession = require('cookie-session');
 const cors = require('cors');
 const passport = require('passport');
 const {session} = require('../config.js');
-const authRoutes = require('./routes/authRoutes.js');
 const profileRoutes = require('./routes/profile.js');
 // require these 3 to invoke the code
 const bearerAuthSetup = require('./config/bearerAuthSetup.js');
