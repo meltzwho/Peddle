@@ -8,7 +8,7 @@ class ListingEntry extends React.PureComponent {
   render() {
     return (
       <div>
-        Hello
+        <h2>Listing Entry</h2>
       </div>
     );
   }
