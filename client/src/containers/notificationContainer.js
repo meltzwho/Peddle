@@ -10,7 +10,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    newNotification: (hasNewNotifications) => { dispatch(notification(hasNewNotifications)); }
+    newNotification: (hasNewNotifications) => {
+      dispatch(notification(hasNewNotifications));
+    }
   };
 };
 

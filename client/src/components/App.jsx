@@ -12,16 +12,19 @@ import SellEntry from '../containers/SellEntryContainer.js';
 import Messages from './Messages.jsx';
 import SellerDashboard from './SellerDashboard.jsx';
 import Notifications from '../containers/notificationContainer.js';
-
-
+import Search from '../containers/searchContainer.js';
 
 class App extends Component {
+  state = {
+
+  }
   render() {
     return (
       <div>
         <h1>
           Welcome to Peddle
         </h1>
+      
         <Switch className='routes'>
           <Route exact path={'/'}
             component={() =>
@@ -36,6 +39,11 @@ class App extends Component {
           <Route path={'/notifications'}
             component={() =>
               <Notifications />
+            }
+          />
+          <Route path={'/search'}
+            component={() => 
+              <Search />
             }
           />
           <Route path={'/orders'}
