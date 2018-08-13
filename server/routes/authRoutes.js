@@ -48,10 +48,13 @@ router.get(
 // callback route for google to redirect to 
 router.get(
   '/google/redirect'
-  , passport.authenticate('google') 
+  , passport.authenticate(
+    'google', {failureRedirect: '/login'}
+  ) 
   , (req, res) => {
-    
-    res.redirect('/notifications'); // send where????????????
+    console.log('hello', res.user);
+    // on sucess send to:
+    res.redirect('/notifications');
   });
 
 // callback route for facebook to redirect to 

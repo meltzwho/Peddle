@@ -5,8 +5,32 @@ import { Form, FormGroup, FormControl } from 'react-bootstrap';
 
 
 export default class SignUp extends React.Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstname: ''
+    }
+    this.textInput = React.createRef();
+    this.updateFirstName = this.updateFirstName.bind(this);
+  }
+  updateFirstName (e) {
+    console.log('ref',e.target.value);
+    this.setState=({firstname: e.target.value});
+    console.log('state', this.state.firstname);
+  }
+  
   render () {
+
+    
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log('submit');
+      // gather the input of each field
+      // combine them together
+      // send them to server
+      
+    }
     return (
       <div>
         <div className="login_wrapper">
@@ -17,7 +41,12 @@ export default class SignUp extends React.Component {
                 First Name
               </Col>
               <Col sm={10}>
-                <FormControl type="text" placeholder="Enter FirstName..." />
+                <FormControl 
+                  type="text" 
+                  placeholder="Enter FirstName..." 
+                  value={this.state.firstname}
+                  onChange={this.updateFirstName}
+                />
               </Col>
             </FormGroup>
 
@@ -59,7 +88,10 @@ export default class SignUp extends React.Component {
 
             <FormGroup>
               <Col smOffset={2} sm={10}>
-                <Button type="submit">Create Your Account</Button>
+                <Button 
+                  type="submit"
+                  onClick={e => handleSubmit(e)}
+                >Create Your Account</Button>
               </Col>
             </FormGroup>
 

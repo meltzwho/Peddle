@@ -1,11 +1,8 @@
 import React from 'react';
 import { Button, Col, Checkbox, ControlLabel } from 'react-bootstrap';
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
-import axios from 'axios';
 
 export default class Login extends React.Component {
-
-
   render () {
     return (
       <div>
@@ -65,4 +62,3 @@ export default class Login extends React.Component {
     );
   }
 }
-
