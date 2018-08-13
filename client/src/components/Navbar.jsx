@@ -18,7 +18,7 @@ class NavBar extends Component {
           <Navbar.Collapse>
             <Nav pullRight>
               <NavItem eventKey={1} componentClass={Link} href="/profile" to="/profile">
-                Profile
+                My Account
               </NavItem>
               <NavItem eventKey={2} componentClass={Link} href="/orders" to="/orders">
                 Orders

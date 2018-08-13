@@ -15,7 +15,7 @@ class Notifications extends Component {
       <div>
         <DropdownButton
       bsStyle='default'
-      title={}
+      // title={}
       key='notifs'
       id={`dropdown-basic-0`}
     >
