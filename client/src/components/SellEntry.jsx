@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { FormGroup, FormControl, ControlLabel, InputGroup, Checkbox, Button } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, InputGroup, Checkbox, Button, DropdownButton, MenuItem, ButtonToolbar } from 'react-bootstrap';
 
 class SellEntry extends Component {
   constructor(props) {
@@ -50,6 +50,7 @@ class SellEntry extends Component {
 
   componentDidMount() {
     this.setState(this.props.entry);
+    this.props.fetchCategories();
   }
 
   render() {
@@ -92,6 +93,19 @@ class SellEntry extends Component {
             <Checkbox onChange={this.handleAllowPickup}>Local Pickup</Checkbox>
             <Checkbox onChange={this.handleAllowShipping}>Shipping Available</Checkbox>
           </FormGroup>
+
+          
+          <ButtonToolbar>
+            <DropdownButton
+              title="category"
+              key={0}
+              id="dropdown-size-medium"
+            >
+              <MenuItem eventKey="1">Placeholder 1</MenuItem>
+              <MenuItem eventKey="2">Placeholder 2</MenuItem>
+              <MenuItem eventKey="3">Placeholder 3</MenuItem>
+            </DropdownButton>
+          </ButtonToolbar>
 
           <Button onClick={this.handleListingSubmit} type="submit">Submit</Button>
 
