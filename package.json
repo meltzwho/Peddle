@@ -29,6 +29,7 @@
   "homepage": "https://github.com/Team-Borges/Peddle#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cookie-session": "^2.0.0-beta.3",
     "cors": "^2.8.4",
@@ -38,6 +39,7 @@
     "passport-google-oauth20": "^1.0.0",
     "pg": "^7.4.3",
     "passport-http-bearer": "^1.0.1",
+    "pg": "^7.4.3",
     "react": "^16.4.2",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.4.2",

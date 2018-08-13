@@ -9,10 +9,11 @@ const cors = require('cors');
 const passport = require('passport');
 const {session} = require('../config.js');
 const profileRoutes = require('./routes/profile.js');
-// require these 3 to invoke the code
-const bearerAuthSetup = require('./config/bearerAuthSetup.js');
-const googleAuthSetup = require('./config/googleAuthSetup.js');
-const facebookAuthSetup = require('./config/facebookAuthSetup.js');
+const signupRoutes = require('./routes/signupRoutes.js');
+
+require('./config/bearerAuthSetup.js');
+require('./config/googleAuthSetup.js');
+require('./config/facebookAuthSetup.js');
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(passport.session());
 // set up routes
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
+app.use('/signup', signupRoutes);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
