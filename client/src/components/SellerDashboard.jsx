@@ -4,7 +4,7 @@ class SellerDashboard extends Component {
   render() {
     return (
       <div>
-        
+        <h2>Seller Dashboard</h2>
       </div>
     );
   }
