@@ -10,6 +10,10 @@ class Search extends Component {
       input: e.target.value
     });
   }
+  handleSubmit = (e, value) => {
+    e.preventDefault();
+    this.props.handleSubmit(value);
+  }
   render() {
     return (
       <Form>
@@ -19,13 +23,12 @@ class Search extends Component {
             type="text"
             value={this.state.input}
             placeholder="Search for items near you"
-            onChange={this.handleInputChange}
+            onChange={e => {this.handleInputChange(e)}}
           />
-        </FormGroup>
-        <FormGroup>
           <Button
             bsStyle="primary"
             type="submit"
+            onClick={e => {this.handleSubmit(e, this.state.input)}}
           >
             Submit
           </Button>

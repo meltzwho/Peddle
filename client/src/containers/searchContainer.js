@@ -5,13 +5,12 @@ import Search from '../components/Search.jsx';
 const mapStateToProps = (state) => {
   return {
     input: state.searchReducer.input,
-    handleInputChange: state.searchReducer.handleInputChange
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleInputChange: (input) => {
+    handleSubmit: (input) => {
       dispatch(searchAction(input));
     }
   };
