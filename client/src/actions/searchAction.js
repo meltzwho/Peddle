@@ -1,10 +1,7 @@
-const searchAction = ({input}) => ({
+const searchAction = (input) => ({
   type: 'UPDATE_INPUT',
   payload: {
-    input,
-    handleInputChange: (e) => {
-      input = e.target.value;
-    }
+    input: input,
   }
 });
 

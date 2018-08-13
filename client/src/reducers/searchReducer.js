@@ -1,7 +1,7 @@
-const searchReducer = (state = {}, action) => {
+const searchReducer = (state = {input: ''}, action) => {
   switch (action.type) {
     case 'UPDATE_INPUT':
-      let obj = Object.assign({}, state, {handleInputChange: action.payload.handleInputChange});
+      var obj = Object.assign({}, state, {input: action.payload.input});
       return obj;
     default:
       return state;
