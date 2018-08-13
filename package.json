@@ -36,6 +36,7 @@
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth20": "^1.0.0",
+    "pg": "^7.4.3",
     "passport-http-bearer": "^1.0.1",
     "react": "^16.4.2",
     "react-bootstrap": "^0.32.1",

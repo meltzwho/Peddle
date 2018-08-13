@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const authRoutes = require('./routes/auth.js');
+const passportSetup = require('./config/passport-setup.js');
+const dbConfirmation = require('../db/index.js').dbConfirmationMessage; // db connection confirmation message
 const cookieSession = require('cookie-session');
 const cors = require('cors');
 const passport = require('passport');
 const {session} = require('../config.js');
-const authRoutes = require('./routes/authRoutes.js');
 const profileRoutes = require('./routes/profile.js');
 // require these 3 to invoke the code
 const bearerAuthSetup = require('./config/bearerAuthSetup.js');
@@ -36,7 +38,10 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
+
 let port = process.env.PORT || 3000;
+
+dbConfirmation();
 
 app.listen(port, () => {
   console.log(`Connected to port ${port}`);
