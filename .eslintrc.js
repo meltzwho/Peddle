@@ -14,7 +14,8 @@ module.exports = {
   extends: [
     "airbnb",
     "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "import"
   ],
   parserOptions: {
     "sourceType": "module",

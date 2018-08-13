@@ -28,5 +28,8 @@ module.exports = {
   target: 'node',
   externals: [
     'pg-native'
-  ]
+  ],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  }
 };

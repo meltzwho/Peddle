@@ -39,7 +39,6 @@
     "passport-google-oauth20": "^1.0.0",
     "pg": "^7.4.3",
     "passport-http-bearer": "^1.0.1",
-    "pg": "^7.4.3",
     "react": "^16.4.2",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.4.2",

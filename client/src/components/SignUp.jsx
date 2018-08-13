@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Checkbox, ControlLabel, Form, FormGroup, FormControl } from 'react-bootstrap';
+import { Grid, Button, Col, Checkbox, ControlLabel, Form, FormGroup, FormControl } from 'react-bootstrap';
 import axios from 'axios';
 
 export default class SignUp extends React.Component {
@@ -10,22 +10,10 @@ export default class SignUp extends React.Component {
     username: '',
     password: ''
   };
-  
-  updateFirstName = (e) => {
-    this.setState({firstname: e.target.value});
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value })
   }
-  updateLastName = (e) => {
-    this.setState({lastname: e.target.value});
-  }
-  updateEmail = (e) => {
-    this.setState({email: e.target.value});
-  }
-  updateUserName = (e) => {
-    this.setState({username: e.target.value});
-  }
-  updatePassword = (e) => {
-    this.setState({password: e.target.value});
-  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     
@@ -56,7 +44,7 @@ export default class SignUp extends React.Component {
     return (
       <div>
         <div className="login_wrapper">
-        
+        <Grid>
           <Form horizontal>
             <FormGroup controlId="formHorizontalFirstName">
               <Col componentClass={ControlLabel} sm={2}>
@@ -64,10 +52,11 @@ export default class SignUp extends React.Component {
               </Col>
               <Col sm={10}>
                 <FormControl 
-                  type="text" 
+                  type="text"
+                  name="firstname"
                   placeholder="Enter FirstName..." 
                   value={this.state.firstname}
-                  onChange={this.updateFirstName}
+                  onChange={this.handleChange}
                 />
               </Col>
             </FormGroup>
@@ -79,9 +68,10 @@ export default class SignUp extends React.Component {
               <Col sm={10}>
                 <FormControl 
                   type="text" 
+                  name="lastname"
                   placeholder="Enter Last Name..." 
                   value={this.state.lastname}
-                  onChange={this.updateLastName}
+                  onChange={this.handleChange}
                 />
               </Col>
             </FormGroup>
@@ -92,10 +82,11 @@ export default class SignUp extends React.Component {
               </Col>
               <Col sm={10}>
                 <FormControl 
-                  type="email" 
+                  type="email"
+                  name="email"
                   placeholder="Enter Email..."
                   value={this.state.email}
-                  onChange={this.updateEmail} 
+                  onChange={this.handleChange} 
                 />
               </Col>
             </FormGroup>
@@ -107,9 +98,10 @@ export default class SignUp extends React.Component {
               <Col sm={10}>
                 <FormControl 
                   type="text" 
+                  name="username"
                   placeholder="Enter Username..." 
                   value={this.state.username}
-                  onChange={this.updateUserName}
+                  onChange={this.handleChange}
                 />
               </Col>
             </FormGroup>
@@ -120,10 +112,11 @@ export default class SignUp extends React.Component {
               </Col>
               <Col sm={10}>
                 <FormControl 
-                  type="password" 
+                  type="password"
+                  name="password"
                   placeholder="Enter Password..." 
                   value={this.state.password}
-                  onChange={this.updatePassword}
+                  onChange={this.handleChange}
                 />
               </Col>
             </FormGroup>
@@ -150,6 +143,7 @@ export default class SignUp extends React.Component {
             </div>
           
           </Form>;
+          </Grid>
         </div>
       </div>
     );
