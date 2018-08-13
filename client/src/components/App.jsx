@@ -13,6 +13,7 @@ import Messages from './Messages.jsx';
 import SellerDashboard from './SellerDashboard.jsx';
 import Notifications from '../containers/notificationContainer.js';
 import Search from '../containers/searchContainer.js';
+import Navbar from './Navbar.jsx';
 
 class App extends Component {
   state = {
@@ -21,10 +22,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>
-          Welcome to Peddle
-        </h1>
-      
+        <Navbar />
         <Switch className='routes'>
           <Route exact path={'/'}
             component={() =>
