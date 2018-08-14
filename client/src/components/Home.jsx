@@ -6,12 +6,12 @@ class Home extends React.Component {
     return (
       <div>
         <Carousel>
-          {/* <Carousel.Item>
-            <img src="/" width={900} height={500} alt="900x500" />
+          <Carousel.Item>
+            <img src="/assets/peddle.png" width={900} height={500} alt="Loading page image" />
             <Carousel.Caption>
               <h1>Welcome to Peddle!</h1>
             </Carousel.Caption>
-          </Carousel.Item> */}
+          </Carousel.Item>
         </Carousel>
       </div>
     );
