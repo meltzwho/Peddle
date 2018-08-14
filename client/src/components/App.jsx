@@ -45,7 +45,7 @@ class App extends Component {
             }
           />
           <Route 
-            path='/listingEntry'
+            path='/listingEntry/:listingId'
             component={() =>
               <ListingEntry />
             }
