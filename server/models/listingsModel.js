@@ -3,12 +3,12 @@ const db = require('../../db/index.js').pool;
 
 module.exports = {
   getItems: () => {
-    db.connect()
+    return db.connect()
       .then(client => {
         return client.query('SELECT * FROM listing')
           .then(res => {
             client.release();
-            console.log(res);
+            return res.rows;
           })
           .catch(e => {
             client.release();
@@ -17,6 +17,6 @@ module.exports = {
       })
       .catch(e => {
         console.error('there was an error getting the pool connection', e);
-      })
+      });
   }
-}
+};
