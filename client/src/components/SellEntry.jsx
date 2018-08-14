@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Form, FormGroup, FormControl, ControlLabel, InputGroup, Checkbox, Button, DropdownButton, MenuItem, ButtonToolbar, Radio, Modal, FieldGroup } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
+import ImageUploadContainer from '../containers/imageUploadContainer';
 
 class SellEntry extends Component {
   state = {}
@@ -49,11 +50,12 @@ class SellEntry extends Component {
   }
 
   handleGoToListing = () => {
-    this.props.history.push('/listings');
+    this.props.history.push('/listingEntry');
   }
 
 
   render() {
+    console.log('image urls', this.props.urls);
     let categories = this.props.entry.categories.map((category) => {
       return <MenuItem onClick={() => this.handleCategorySelection(category)} key={category.id_category} eventKey={category.id_category}>{category.category}</MenuItem>
     });
@@ -187,6 +189,8 @@ class SellEntry extends Component {
           <Button onClick={this.handleListingSubmit} type="submit">Submit</Button>
 
         </Form>
+        <ImageUploadContainer />
+        <p>images uploaded: {this.props.urls.length}</p>
       </div>
     );
   }
