@@ -1,17 +1,20 @@
 import { connect } from 'react-redux';
-import notification from '../actions/notificationAction.js';
-import Notification from '../components/Notifications.jsx';
+import Axios from 'axios';
+import notification from '../actions/notificationAction';
+import Notification from '../components/Notifications';
 
 const mapStateToProps = (state) => {
   return {
-    hasNewNotifications: state.notificationReducer.hasNewNotifications
+    notifications: state.notificationReducer.notifications,
+    id_user: 1
   };
 };
-
 const mapDispatchToProps = (dispatch) => {
   return {
-    newNotification: (hasNewNotifications) => {
-      dispatch(notification(hasNewNotifications));
+    checkNotification: (id_user) => {
+      Axios.get('/notifs', {params:{id_user}})
+        .then(results => 
+          dispatch(notification(results.data)));
     }
   };
 };

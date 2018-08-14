@@ -11,7 +11,6 @@ import SignUp from './SignUp';
 import SellEntry from '../containers/SellEntryContainer';
 import Messages from './Messages';
 import SellerDashboard from './SellerDashboard';
-import Notifications from '../containers/notificationContainer';
 import Navbar from './Navbar';
 
 class App extends Component {
@@ -34,19 +33,13 @@ class App extends Component {
             }
           />
           <Route 
-            path='/notifications'
-            component={() =>
-              <Notifications />
-            }
-          />
-          <Route 
             path='/orders'
             component={() =>
               <Orders />
             }
           />
           <Route 
-            path='/listing'
+            path='/listings'
             component={() =>
               <Listings />
             }

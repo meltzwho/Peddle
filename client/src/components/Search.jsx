@@ -1,6 +1,6 @@
-
 import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 
 class Search extends Component {
   state = {
@@ -16,8 +16,9 @@ class Search extends Component {
     this.props.handleSubmit(value);
     this.setState({
       input: ''
-    })
+    });
   }
+
   render() {
     return (
       <Form>
@@ -31,7 +32,10 @@ class Search extends Component {
           <Button
             bsStyle="primary"
             type="submit"
-            onClick={e => {this.handleSubmit(e, this.state.input)}}
+            onClick={e => {
+              this.handleSubmit(e, this.state.input);
+              this.props.history.push('/listings');
+            }}
           >
             Submit
           </Button>
@@ -41,4 +45,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default withRouter(Search);

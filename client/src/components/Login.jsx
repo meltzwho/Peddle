@@ -1,7 +1,50 @@
 import React from 'react';
 import { Button, Col, Checkbox, ControlLabel, Form, FormGroup, FormControl } from 'react-bootstrap';
+import axios from 'axios';
 
 export default class Login extends React.Component {
+
+  state = {
+    email: '',
+    username: ''
+  };
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    
+    let formContents = {
+      email: this.state.email,
+      username: this.state.username
+    };
+    
+    axios({
+      method: 'post',
+      url: '/login/validate',
+      data: { formContents }
+    })
+      .then(response => {
+        
+        // clear fields
+        this.setState({
+          email: '',
+          username: ''
+        });
+      // send to last page (send to '/', then check to see last page)
+      })
+      .catch(err => {
+        this.setState({
+          email: '',
+          username: ''
+        });
+        // send back to '/signup'
+        console.error(err);
+      });
+    
+  }
+
   render () {
     return (
       <div>
@@ -12,7 +55,13 @@ export default class Login extends React.Component {
                 Username
               </Col>
               <Col sm={10}>
-                <FormControl type="text" placeholder="Enter Username..." />
+                <FormControl 
+                  type="text" 
+                  name="username"
+                  placeholder="Enter Username..." 
+                  value={this.state.username}
+                  onChange={this.handleChange}
+                />
               </Col>
             </FormGroup>
 
@@ -21,7 +70,13 @@ export default class Login extends React.Component {
                 Email
               </Col>
               <Col sm={10}>
-                <FormControl type="email" placeholder="Enter Email..." />
+                <FormControl 
+                  type="email"
+                  name="email" 
+                  placeholder="Enter Email..." 
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                />
               </Col>
             </FormGroup>
 
@@ -33,7 +88,11 @@ export default class Login extends React.Component {
 
             <FormGroup>
               <Col smOffset={2} sm={10}>
-                <Button type="submit">Sign in</Button>
+                <Button 
+                  type="submit"
+                  onClick={this.handleSubmit}
+                >Sign in
+                </Button>
               </Col>
             </FormGroup>
 
@@ -48,8 +107,8 @@ export default class Login extends React.Component {
 
             <div className="oauth_wrapper">
               <p>or sign in with...</p>
-              <a href={`/auth/google`}>
-                <Button >Sign in with Google</Button>
+              <a href='/auth/google'>
+                <Button>Sign in with Google</Button>
               </a>
               <a href="/auth/facebook">
                 <Button>Sign in with Facebook</Button>

@@ -24,7 +24,7 @@ export default class SignUp extends React.Component {
       username: this.state.username,
       password: this.state.password
     };
-    console.log('submit', formContents);
+    
     axios({
       method: 'post',
       url: '/signup/create',
@@ -32,7 +32,9 @@ export default class SignUp extends React.Component {
     })
       .then(response => {
         console.log('in signup client response:');
-      // send to last page (send to '/', then check to see last page)
+        if (response.data.redirect === '/') {
+          window.location = "/index";
+        }
       })
       .catch(err => {
       // send back to '/signup'
@@ -139,7 +141,7 @@ export default class SignUp extends React.Component {
 
               <div className="oauth_wrapper">
                 <p>or sign in with...</p>
-                <a href="/auth/google"><Button >Sign in with Google</Button></a>
+                <a href="/auth/google"><Button>Sign in with Google</Button></a>
                 <Button>Sign in with Facebook</Button>
               </div>
           
