@@ -1,84 +1,94 @@
 import React, { Component } from 'react';
 import { Route, withRouter, Switch } from 'react-router-dom';
-import Home from './Home.jsx';
-import Profile from './Profile.jsx';
-import Orders from './Orders.jsx';
-import Listings from './Listings.jsx';
-import ListingEntry from './ListingEntry.jsx';
-import Cart from './Cart.jsx';
-import Login from './Login.jsx';
-import SignUp from './SignUp.jsx';
-import SellEntry from '../containers/SellEntryContainer.js';
-import Messages from './Messages.jsx';
-import SellerDashboard from './SellerDashboard.jsx';
-import Notifications from '../containers/notificationContainer.js';
-import Navbar from './Navbar.jsx';
+import Home from './Home';
+import Profile from './Profile';
+import Orders from './Orders';
+import Listings from './Listings';
+import ListingEntry from './ListingEntry';
+import Cart from './Cart';
+import Login from './Login';
+import SignUp from './SignUp';
+import SellEntry from '../containers/SellEntryContainer';
+import Messages from './Messages';
+import SellerDashboard from './SellerDashboard';
+import Notifications from '../containers/notificationContainer';
+import Navbar from './Navbar';
 
 class App extends Component {
-  state = {
-
-  }
   render() {
     return (
       <div>
         <Navbar />
         <Switch className='routes'>
-          <Route exact path={'/'}
+          <Route 
+            exact 
+            path='/'
             component={() =>
               <Home />
             }
           />
-          <Route path={'/profile'}
+          <Route 
+            path='/profile'
             component={() =>
               <Profile />
             }
           />
-          <Route path={'/notifications'}
+          <Route 
+            path='/notifications'
             component={() =>
               <Notifications />
             }
           />
-          <Route path={'/orders'}
+          <Route 
+            path='/orders'
             component={() =>
               <Orders />
             }
           />
-          <Route path={'/listing'}
+          <Route 
+            path='/listing'
             component={() =>
               <Listings />
             }
           />
-          <Route path={'/listingEntry'}
+          <Route 
+            path='/listingEntry'
             component={() =>
               <ListingEntry />
             }
           />
-          <Route path={'/cart'}
+          <Route 
+            path='/cart'
             component={() =>
               <Cart />
             }
           />
-          <Route path={'/login'}
+          <Route 
+            path='/login'
             component={() =>
               <Login />
             }
           />
-          <Route path={'/signup'}
+          <Route 
+            path='/signup'
             component={() =>
               <SignUp />
             }
           />
-          <Route path={'/sellEntry'}
+          <Route 
+            path='/sellEntry'
             component={() =>
               <SellEntry />
             }
           />
-          <Route path={'/messages'}
+          <Route 
+            path='/messages'
             component={() =>
               <Messages />
             }
           />
-          <Route path={'/sellerDashboard'}
+          <Route 
+            path='/sellerDashboard'
             component={() =>
               <SellerDashboard />
             }
