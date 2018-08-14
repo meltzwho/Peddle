@@ -7,6 +7,7 @@ const cookieSession = require('cookie-session');
 const cors = require('cors');
 const passport = require('passport');
 const {session} = require('../config');
+const fileUpload = require('express-fileupload');
 
 //Routes
 const authRoutes = require('./routes/authRoutes');
@@ -14,13 +15,13 @@ const loginRoutes = require('./routes/loginRoutes');
 const sellEntryRoutes = require('./routes/sellEntryRoutes');
 const notifRoutes = require('./routes/notifications');
 const listingsRoutes = require('./routes/listingsRoutes');
+const imageUploadRoutes = require('./routes/imageUploadRoutes');
 
 require('./helpers/bearerAuthSetup');
 require('./helpers/googleAuthSetup');
 require('./helpers/facebookAuthSetup');
 
 
-const db = require('./models/models');
 const signupRoutes = require('./routes/signupRoutes');
 
 const app = express();
@@ -30,6 +31,7 @@ app.use(cors());
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(fileUpload());
 
 app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000, // 1 day
@@ -47,6 +49,7 @@ app.use('/sellEntry', sellEntryRoutes);
 app.use('/notifs', notifRoutes);
 app.use('/signup', signupRoutes);
 app.use('/l', listingsRoutes);
+app.use('/imageUpload', imageUploadRoutes);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
