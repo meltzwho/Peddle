@@ -19,13 +19,15 @@ passport.use(
         , profile.name.familyName  // lastname
         , profile.name.givenName // firstname
         , profile.photos // an array of photo objects
+        , profile.emails[0].value
       );
       const user = {
         userName: profile.displayName, 
         id: profile.id,
         lastName: profile.name.familyName,
         firstName: profile.name.givenName,
-        photos: profile.photos
+        photos: profile.photos,
+        email: profile.emails[0].value
       };
       console.log('user:', user);
     

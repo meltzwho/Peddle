@@ -19,7 +19,7 @@ class Notifications extends Component {
           title={<span><Glyphicon glyph="bell" /><Badge>{this.props.notifications.length}</Badge></span>}
           key='notifs'
           id='dropdown-basic-0'
-        >{this.props.notifications.map((notif)=><MenuItem eventKey={JSON.stringify(notif)} key={JSON.stringify(notif)}>{notif.id_src}</MenuItem>)}
+        >{this.props.notifications.map((notif)=><MenuItem eventKey={JSON.stringify(notif)} key={JSON.stringify(notif)}>{JSON.stringify(notif)}</MenuItem>)}
         </DropdownButton>
       </div>
     );
