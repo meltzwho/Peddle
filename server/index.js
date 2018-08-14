@@ -12,7 +12,6 @@ const loginRoutes = require('./routes/loginRoutes.js');
 const sellEntryRoutes = require('./routes/sellEntryRoutes.js');
 const notifRoutes = require('./routes/notifications.js');
 
-require('./helpers/bearerAuthSetup.js');
 require('./helpers/googleAuthSetup.js');
 require('./helpers/facebookAuthSetup.js');
 
@@ -27,10 +26,10 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(cookieSession({
-  maxAge: 24 * 60 * 60 * 1000, // 1 day
-  keys: [session.cookieKey]
-}));
+// app.use(cookieSession({
+//   maxAge: 24 * 60 * 60 * 1000, // 1 day
+//   keys: [session.cookieKey]
+// }));
 
 // initialize passport
 app.use(passport.initialize());

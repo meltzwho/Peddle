@@ -1,6 +1,7 @@
 const { release } = require('os');
 const bcrypt = require('bcryptjs');
 const db = require('../../db/index.js').pool;
+const uuidv1 = require('uuid/v1');
 
 module.exports = {
   // hash for tom
@@ -29,19 +30,28 @@ module.exports = {
                   .then(response => {
                     
                     if (response.rows.length === 0) {
-                      console.log('hash', hash);
-                      const query = 'INSERT INTO users(first_name, last_name, username, email, pwd) VALUES($1, $2, $3, $4, $5)';
-                      const values = [form.firstname, form.lastname, form.username, form.email, form.email];
+                      // generate a uuid for the user
+                      let uuid = uuidv1();
+
+                      const query = 'INSERT INTO users(first_name, last_name, username, email, pwd, token) VALUES($1, $2, $3, $4, $5, $6)';
+                      const values = [form.firstname, form.lastname, form.username, form.email, hash, uuid];
                       // username not taken so enter user into db
                       client.query(query, values)
                         .then(response => {
+                          // lookup the timestamp that was chosen by the db
+                          client.query(`SELECT token_timestamp FROM users WHERE username = '${form.username}'`)
+                            .then(response => {
+                              console.log('time', response.rows[0]);
+                              //successful entry of user into db
+                             
+                              let cookieData = { token: uuid, token_timestamp: ''};
+                              res.status(201).send(cookieData);
+                              //res.status(201).send(response.rows[0]);
+                              
+                              // now set user into store
+                            })
+                            .catch(error => { res.status(500).send(error) });
                           
-                          // successful entry of user into db
-                          let redir = { redirect: "/" };
-                          res.status(201).json(redir);
-                          //res.status(201).send(response.rows[0]);
-                          
-                          // now set user into store
                         })
                         .catch(error => { 
                           console.log('err in insert');

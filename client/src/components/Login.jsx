@@ -45,6 +45,23 @@ export default class Login extends React.Component {
     
   }
 
+  handleToken = (e) => {
+    e.preventDefault();
+    let username = this.state.username;
+    // call server
+    axios({
+      method: 'post',
+      url: '/token/grant',
+      data: { username }
+    })
+      .then(response => {
+        console.log('in token response :', response.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
   render () {
     return (
       <div>
@@ -92,6 +109,16 @@ export default class Login extends React.Component {
                   type="submit"
                   onClick={this.handleSubmit}
                 >Sign in
+                </Button>
+              </Col>
+            </FormGroup>
+
+            <FormGroup>
+              <Col smOffset={2} sm={10}>
+                <Button 
+                  type="submit"
+                  onClick={this.handleToken}
+                >Token
                 </Button>
               </Col>
             </FormGroup>
