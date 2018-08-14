@@ -39,7 +39,7 @@ class App extends Component {
             }
           />
           <Route 
-            path='/listings'
+            path='/listings/:input'
             component={() =>
               <Listings />
             }
