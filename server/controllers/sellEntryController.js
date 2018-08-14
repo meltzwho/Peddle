@@ -9,5 +9,14 @@ module.exports = {
         res.send(response);
       }
     });
+  },
+  addListing: (req, res) => {
+    db.addListing(req.body, (err, response) => {
+      if (err) {
+        console.error('controller: there was an error posting this listing to the db', err);
+      } else {
+        res.sendStatus(201);
+      }
+    })
   }
 }
