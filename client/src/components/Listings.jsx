@@ -6,14 +6,14 @@ class Listings extends Component {
     return (
       <div>
         <h2>Listings</h2>
-        {this.props.listings.map(listing => {
+        {/* {this.props.listings.map(listing => {
           return (
             <ListingCard 
               key={listing.id_listing} 
               listing={listing}
             />
           );
-        })}
+        })} */}
       </div>
     );
   }
