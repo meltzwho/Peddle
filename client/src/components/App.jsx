@@ -46,7 +46,7 @@ class App extends Component {
             }
           />
           <Route 
-            path='/listing'
+            path='/listings'
             component={() =>
               <Listings />
             }
