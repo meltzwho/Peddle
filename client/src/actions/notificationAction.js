@@ -1,6 +1,6 @@
-const hasNewNotifications = (hasNewNotifications) => ({
-  type: 'HAS_NEW_NOTIFICATIONS',
-  hasNewNotifications: hasNewNotifications
+const newNotifications = (notifications) => ({
+  type: 'NEW_NOTIFICATIONS',
+  notifications: notifications
 });
 
-export default hasNewNotifications;
+export default newNotifications;

@@ -1,21 +1,22 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const authRoutes = require('./routes/auth.js');
-const passportSetup = require('./config/passport-setup.js');
+const authRoutes = require('./routes/authRoutes.js');
+const passportSetup = require('./helpers/passport-setup.js');
 const dbConfirmation = require('../db/index.js').dbConfirmationMessage; // db connection confirmation message
 const cookieSession = require('cookie-session');
 const cors = require('cors');
 const passport = require('passport');
 const {session} = require('../config.js');
-const profileRoutes = require('./routes/profile.js');
+const loginRoutes = require('./routes/loginRoutes.js');
 const sellEntryRoutes = require('./routes/sellEntryRoutes.js');
 const notifRoutes = require('./routes/notifications.js');
 
-// require these 3 to invoke the code
-const bearerAuthSetup = require('./config/bearerAuthSetup.js');
-const googleAuthSetup = require('./config/googleAuthSetup.js');
-const facebookAuthSetup = require('./config/facebookAuthSetup.js');
+require('./helpers/bearerAuthSetup.js');
+require('./helpers/googleAuthSetup.js');
+require('./helpers/facebookAuthSetup.js');
+
+
 const db = require('./models/models.js');
 const signupRoutes = require('./routes/signupRoutes.js');
 
@@ -37,7 +38,7 @@ app.use(passport.session());
 
 // set up routes
 app.use('/auth', authRoutes);
-app.use('/profile', profileRoutes);
+app.use('/login', loginRoutes);
 app.use('/sellEntry', sellEntryRoutes);
 app.use('/notifs', notifRoutes);
 app.use('/signup', signupRoutes);

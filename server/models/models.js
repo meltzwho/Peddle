@@ -2,7 +2,7 @@ const db = require('../../db/index.js').pool;
 
 
 module.exports = {
-  checkNotifications: (userID) => {
+  checkNotifications: (userID, response) => {
     db.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting the pool connection');
@@ -12,7 +12,8 @@ module.exports = {
           if (err) {
             console.log(err.stack);
           } else {
-            console.log(res.rows);
+            console.log('checked');
+            response.send(res.rows);
           }
         });
       }
@@ -34,4 +35,4 @@ module.exports = {
       }
     });
   }
-}
+};
