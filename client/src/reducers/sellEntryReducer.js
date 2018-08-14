@@ -14,27 +14,29 @@ let defaultState = {
   listingSuccessful: null
 };
 
-let SellEntryReducer = (state = defaultState, action) => {
+const SellEntryReducer = (state = defaultState, action) => {
   switch (action.type) {
-  case 'EDIT_EXISTING_LISTING':
-    return Object.assign({}, state, action.editExistingListing);
-  case 'REQUEST_CATEGORIES':
-    return Object.assign({}, state, {categoriesFetching: true})
-  case 'RECEIVE_CATEGORIES':
-    return Object.assign({}, state, {
-      categoriesFetching: false,
-      categories: action.categories
-    })
-  case 'POST_LISTING': 
-    return Object.assign({}, state, {listingProcessing: true})
-  case 'LISTING_POST_SUCCESS':
-    return Object.assign({}, state, {listingSuccessful: true})
-  case 'LISTING_POST_FAILURE':
-    return Object.assign({}, state, {listingSuccessful: false})
-  case 'NEW_LISTING': 
-    return Object.assign({}, state, defaultState)
-  default:
-    return state;
+    case 'EDIT_EXISTING_LISTING':
+      return Object.assign({}, state, action.editExistingListing);
+    case 'REQUEST_CATEGORIES':
+      return Object.assign({}, state, {categoriesFetching: true});
+    case 'RECEIVE_CATEGORIES':
+      return Object.assign({}, state, {
+        categoriesFetching: false,
+        categories: action.categories
+      });
+    case 'POST_LISTING': 
+      return Object.assign({}, state, {listingProcessing: true});
+    case 'LISTING_POST_SUCCESS':
+      return Object.assign({}, state, {listingSuccessful: true});
+    case 'LISTING_POST_FAILURE':
+      return Object.assign({}, state, {listingSuccessful: false});
+    case 'NEW_LISTING': 
+      return Object.assign({}, state, defaultState);
+    case 'CLOSE_MODAL':
+      return Object.assign({}, state, {listingSuccessful: null});
+    default:
+      return state;
   }
 };
 

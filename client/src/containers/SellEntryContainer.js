@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import {requestCategories, receiveCategories, postListing, listingPostSuccessful, listingPostFailure, newListing} from '../actions/sellEntryAction.js';
+import {requestCategories, receiveCategories, postListing, listingPostSuccessful, listingPostFailure, newListing, closeModal} from '../actions/sellEntryAction.js';
 import SellEntry from '../components/SellEntry.jsx';
 import axios from 'axios';
 
@@ -32,8 +32,10 @@ const mapDispatchToProps = (dispatch) => {
         })
     },
     newListing: () => {
-      console.log('in the container new listing');
       dispatch(newListing());
+    },
+    closeModal: () => {
+      dispatch(closeModal());
     }
 
 
