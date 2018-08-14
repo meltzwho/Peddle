@@ -46,7 +46,7 @@ app.use('/login', loginRoutes);
 app.use('/sellEntry', sellEntryRoutes);
 app.use('/notifs', notifRoutes);
 app.use('/signup', signupRoutes);
-app.use('/listings', listingsRoutes);
+app.use('/l', listingsRoutes);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
