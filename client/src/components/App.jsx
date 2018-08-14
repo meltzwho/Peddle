@@ -39,13 +39,13 @@ class App extends Component {
             }
           />
           <Route 
-            path='/listings'
+            path='/listings/:input'
             component={() =>
               <Listings />
             }
           />
           <Route 
-            path='/listingEntry'
+            path='/listingEntry/:listingId'
             component={() =>
               <ListingEntry />
             }
