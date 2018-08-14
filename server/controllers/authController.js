@@ -8,11 +8,8 @@ module.exports = {
     , { scope: ['profile', 'email'] }
   ),
 
-  googleRedirectController: passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  }
+  googleRedirectController: passport.authenticate('google', { failureRedirect: '/login' })
+  
   
 
 
