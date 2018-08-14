@@ -1,7 +1,7 @@
-const NotificationReducer = (state = {hasNewNotifications: false}, action) => {
+const NotificationReducer = (state = {notifications: []}, action) => {
   switch (action.type) {
-    case 'HAS_NEW_NOTIFICATIONS':
-      let obj = Object.assign({}, state, {hasNewNotifications: action.hasNewNotifications});
+    case 'NEW_NOTIFICATIONS':
+      let obj = Object.assign({}, state, {notifications: action.notifications});
       return obj;
     default:
       return state;

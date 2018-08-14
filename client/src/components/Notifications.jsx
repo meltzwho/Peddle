@@ -1,27 +1,27 @@
 import React, {Component} from 'react';
-import axios from 'axios';
-import {DropdownButton, MenuItem} from 'react-bootstrap';
+import {DropdownButton, MenuItem, Glyphicon, Badge} from 'react-bootstrap';
 
 class Notifications extends Component {
-  state = {
-      notifList: new Array()
-  };
 
   componentDidMount() {
-    //axios.get('/notifs');
+    this.checkNotifs();
   }
+  checkNotifs() {
+    this.props.checkNotification(this.props.id_user);
+    setTimeout(() => { this.checkNotifs(); }, 60000);
+  }
+
   render() {
     return (
       <div>
         <DropdownButton
-      bsStyle='default'
-      // title={}
-      key='notifs'
-      id={`dropdown-basic-0`}
-    >
-      <MenuItem eventKey="1">Action</MenuItem>
-    </DropdownButton>
-    </div>
+          bsStyle='default'
+          title={<span><Glyphicon glyph="bell" /><Badge>{this.props.notifications.length}</Badge></span>}
+          key='notifs'
+          id='dropdown-basic-0'
+        >{this.props.notifications.map((notif)=><MenuItem eventKey={JSON.stringify(notif)} key={JSON.stringify(notif)}>{notif.id_src}</MenuItem>)}
+        </DropdownButton>
+      </div>
     );
   }
 }
