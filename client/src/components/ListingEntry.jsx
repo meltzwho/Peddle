@@ -23,69 +23,84 @@ class ListingEntry extends Component {
     is_local: 0
   }
   componentDidMount() {
-
+    this.getSeller();
   }
-
+  getSeller() {
+    axios.get(`/users/${this.state.id_seller}`)
+      .then(res => {
+        this.setState({
+          seller: res.data[0],
+        });
+      })
+      .catch(e => {
+        console.log('error fetching user', e);
+      });
+  }
   render() {
     let listingEntryId = this.props.match.params.listingId;
-    return (
-      <Grid>
-        <Row className="show-grid">
-          <Col xs={12} sm={5}>
-            <h2>Image</h2>
-            <div>Multiple Images</div>
-          </Col>
-          <Col xs={12} sm={5}>
-            <h2>{this.state.title}</h2>
-            <div>Seller</div>
-            <div>Rating</div>
-            <div>Link to reviews</div>
-            <div>Price</div>
-            <div>Quantity Available: {this.state.quantity}</div>
-            <div>Description</div>
-            <div>Reviews</div>
-          </Col>
-          <Col xs={12} sm={2}>
-            <h2>Pay</h2>
-            <div>Contact Seller</div>
-            <div>Add To Cart</div>
-            <div>Qty dropdown</div>
-            <div>Buy Now</div>
-            <div>Watch Item</div>
-          </Col>
-        </Row>
-        <Row>
-          <Col sx={12} sm={12}>
-            <h2>Social Media</h2>
-            <div>Share on Facebook</div>
-            <div>Share on Instagram</div>
-            <div>Share on Twitter</div>
-          </Col>
-        </Row>
-        <Row>
-          <Col sx={12} sm={8}>
-            <h2>Customer Reviews</h2>
-            <div>rating count</div>
-            <div>5 star link</div>
-            <div>4 start link</div>
-            <div>3 start link</div>
-            <div>2 start link</div>
-            <div>1 start link</div>
-            <div>See all reviews</div>
-            <div>Top Reviews</div>
-          </Col>
-          <Col sx={12} sm={4}>
-            <h2>Most Recent Customer Reviews</h2>
-          </Col>
-        </Row>
-        <Row>
-          <Col sx={12} sm={12}>
-            <h2>Recently viewed items and recommendations</h2>
-            <h2>Inspired by your purchases</h2>
-          </Col>
-        </Row>
-      </Grid>
-    );
+    console.log(this.state.seller, 'seller');
+    if (this.state.seller !== undefined) {
+      return (
+        <Grid>
+          <Row className="show-grid">
+            <Col xs={12} sm={5}>
+              <h2>Image</h2>
+              <div>Multiple Images</div>
+            </Col>
+            <Col xs={12} sm={5}>
+              <h2>{this.state.title}</h2>
+              <div>Sold by: {this.state.seller.username}</div>
+              <div>Rating</div>
+              <div>Link to reviews</div>
+              <div>Price</div>
+              <div>Quantity Available: {this.state.quantity}</div>
+              <div>Description</div>
+              <div>Reviews</div>
+            </Col>
+            <Col xs={12} sm={2}>
+              <h2>Pay</h2>
+              <div>Contact Seller</div>
+              <div>Add To Cart</div>
+              <div>Qty dropdown</div>
+              <div>Buy Now</div>
+              <div>Watch Item</div>
+            </Col>
+          </Row>
+          <Row>
+            <Col sx={12} sm={12}>
+              <h2>Social Media</h2>
+              <div>Share on Facebook</div>
+              <div>Share on Instagram</div>
+              <div>Share on Twitter</div>
+            </Col>
+          </Row>
+          <Row>
+            <Col sx={12} sm={8}>
+              <h2>Customer Reviews</h2>
+              <div>rating count</div>
+              <div>5 star link</div>
+              <div>4 start link</div>
+              <div>3 start link</div>
+              <div>2 start link</div>
+              <div>1 start link</div>
+              <div>See all reviews</div>
+              <div>Top Reviews</div>
+            </Col>
+            <Col sx={12} sm={4}>
+              <h2>Most Recent Customer Reviews</h2>
+            </Col>
+          </Row>
+          <Row>
+            <Col sx={12} sm={12}>
+              <h2>Recently viewed items and recommendations</h2>
+              <h2>Inspired by your purchases</h2>
+            </Col>
+          </Row>
+        </Grid>
+      );
+    } else {
+      return (null)
+    }
   }
 }
 
