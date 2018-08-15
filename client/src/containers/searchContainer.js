@@ -4,7 +4,7 @@ import Search from '../components/Search';
 
 const mapStateToProps = (state) => {
   return {
-    input: state.searchReducer.input,
+    input: state.search.input,
   };
 };
 
