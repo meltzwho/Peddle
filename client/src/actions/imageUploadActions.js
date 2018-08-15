@@ -4,10 +4,13 @@ export const uploadImageStart = () => {
   };
 };
 
-export const uploadImageComplete = (url) => {
-  console.log('url', url);
-  return {
+export const uploadImageComplete = (url) => (
+  {
     type: 'IMAGE_UPLOAD_COMPLETE',
-    url: url
-  };
-};
+    payload: {
+      url: url
+    }
+  }
+);
+
+export const clearUrls = () => ({type: 'CLEAR_URLS'});

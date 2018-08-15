@@ -1,4 +1,5 @@
 const AWS = require('aws-sdk');
+const db = require('../models/imageUploadModel');
 
 module.exports = {
   newPicture: (req, res) => {
@@ -14,9 +15,17 @@ module.exports = {
       if (err) {
         console.error('there was an error uploading this image to s3', err);
       } else {
-        console.log('photo successfully uploaded', data);
         res.send(data);
       }
     });
+  },
+  associateImage: (req, res) => {
+    db.associateImage(req.body, (err, response) => {
+      if (err) {
+        console.error('controller: there was an error associating this image with the listing', err);
+      } else {
+        res.sendStatus(201);
+      }
+    });
   }
-}
+};

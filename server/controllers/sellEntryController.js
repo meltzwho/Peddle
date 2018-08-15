@@ -15,8 +15,18 @@ module.exports = {
       if (err) {
         console.error('controller: there was an error posting this listing to the db', err);
       } else {
-        res.sendStatus(201);
+        res.send(response.rows[0]);
+      }
+    });
+  },
+  addAddress: (req, res) => {
+    db.addAddress(req.body, (err, response) => {
+      if (err) {
+        console.error('controller: there was an error posting this address to the db', err)
+      } else {
+        res.send(response.rows[0]);
       }
     })
+
   }
-}
+};

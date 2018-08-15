@@ -6,7 +6,9 @@ const ImageUploadReducer = (state = {
     case 'IMAGE_UPLOAD_START':
       return Object.assign({}, state, {imageUploadProcessing: true});
     case 'IMAGE_UPLOAD_COMPLETE':
-      return Object.assign({}, state, {imageUploadProcess: false, imageUrls: [...state.imageUrls, action.url]});
+      return Object.assign({}, state, {imageUploadProcess: false, imageUrls: [...state.imageUrls, action.payload.url]});
+    case 'CLEAR_URLS':
+      return Object.assign({}, state, {imageUrls: []});
     default:
       return state;
   }

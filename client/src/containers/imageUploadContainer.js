@@ -5,7 +5,7 @@ import ImageUpload from '../components/imageUpload';
 
 const mapStateToProps = (state) => {
   return {
-    urls: state.imageUploadReducer.imageUrls
+    urls: state.imageData.imageUrls
   };
 };
 
@@ -18,8 +18,8 @@ const mapDispatchToProps = (dispatch) => {
         .then(response => { 
           dispatch(uploadImageComplete(response.data.Location)),
           error => console.log('an error occured uploading the image to aws', error);
-        })
-      }
+        });
+    }
 
   };
 };
