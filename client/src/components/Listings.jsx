@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Axios from 'axios';
+import {Grid, Row, Col} from 'react-bootstrap';
 import ListingCard from './ListingCard';
+
 
 class Listings extends Component {
   state = {
@@ -15,17 +17,27 @@ class Listings extends Component {
 
   render() {
     let searchTerm = this.props.match.params.input;
+    var ListingCards = []; 
+    for (let i = 0; i < this.state.listings.length; i++) {
+      let listings = this.state.listings;
+      ListingCards.push(
+        <Col key={listings[i].id_listing} xs={6} md={4}>
+          <ListingCard 
+            key={listings[i].id_listing} 
+            listing={listings[i]}
+          />
+        </Col>
+      );
+    }
+      
     return (
       <div>
         <h2>{this.state.listings.length + ' listings found for ' + searchTerm}</h2>
-        {this.state.listings.map(listing => {
-          return (
-            <ListingCard 
-              key={listing.id_listing} 
-              listing={listing}
-            />
-          );
-        })}
+        <Grid>
+          <Row>
+            {ListingCards}
+          </Row>
+        </Grid>
       </div>
     );
   }
