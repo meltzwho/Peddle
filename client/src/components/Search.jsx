@@ -34,7 +34,7 @@ class Search extends Component {
             type="submit"
             onClick={e => {
               this.handleSubmit(e, this.state.input);
-              this.props.history.push('/listings');
+              this.props.history.push(`/listings/${this.state.input}`);
             }}
           >
             Submit
