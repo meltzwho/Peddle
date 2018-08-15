@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {DropdownButton, MenuItem, Glyphicon, Badge} from 'react-bootstrap';
+import {NavDropdown, MenuItem, Glyphicon, Badge} from 'react-bootstrap';
 
 class Notifications extends Component {
 
@@ -13,15 +13,12 @@ class Notifications extends Component {
 
   render() {
     return (
-      <div>
-        <DropdownButton
-          bsStyle='default'
-          title={<span><Glyphicon glyph="bell" /><Badge>{this.props.notifications.length}</Badge></span>}
-          key='notifs'
-          id='dropdown-basic-0'
-        >{this.props.notifications.map((notif)=><MenuItem eventKey={JSON.stringify(notif)} key={JSON.stringify(notif)}>{JSON.stringify(notif)}</MenuItem>)}
-        </DropdownButton>
-      </div>
+      <NavDropdown
+        title={<span><Glyphicon glyph="bell" /><Badge>{this.props.notifications.length}</Badge></span>}
+        key='notifs'
+        id='dropdown-basic-0'
+      >{this.props.notifications.map((notif)=><MenuItem componentClass='span' eventKey={JSON.stringify(notif)} key={JSON.stringify(notif)}>{JSON.stringify(notif)}</MenuItem>)}
+      </NavDropdown>
     );
   }
 }

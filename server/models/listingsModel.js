@@ -12,11 +12,28 @@ module.exports = {
           })
           .catch(e => {
             client.release();
-            console.log('error fetching listing', e);
+            console.log('[model] error fetching listing: ', e);
           })
       })
       .catch(e => {
-        console.error('there was an error getting the pool connection', e);
+        console.error('[model] error getting pool connection: ', e);
+      });
+  },
+  getListingById: (id) => {
+    return db.connect()
+      .then(client => {
+        return client.query(`SELECT * FROM listing WHERE id_listing=${id}`)
+          .then(res => {
+            client.release();
+            return res.rows;
+          })
+          .catch(e => {
+            client.release();
+            console.log('[model] error fetching listing by id: ', e);
+          })
+      })
+      .catch(e => {
+        console.error('[model] error getting pool connection', e);
       });
   }
 };
