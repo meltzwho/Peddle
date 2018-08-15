@@ -14,6 +14,7 @@ const loginRoutes = require('./routes/loginRoutes');
 const sellEntryRoutes = require('./routes/sellEntryRoutes');
 const notifRoutes = require('./routes/notifications');
 const listingsRoutes = require('./routes/listingsRoutes');
+const usersRoutes = require('./routes/usersRoutes');
 
 require('./helpers/bearerAuthSetup');
 require('./helpers/googleAuthSetup');
@@ -47,6 +48,7 @@ app.use('/sellEntry', sellEntryRoutes);
 app.use('/notifs', notifRoutes);
 app.use('/signup', signupRoutes);
 app.use('/l', listingsRoutes);
+app.use('/users', usersRoutes);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
