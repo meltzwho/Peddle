@@ -1,8 +1,10 @@
 import React from 'react';
 import { Grid, Button, Col, ControlLabel, Form, FormGroup, FormControl } from 'react-bootstrap';
 import axios from 'axios';
+import Cookies from "universal-cookie";
 
 export default class SignUp extends React.Component {
+  
   state = {
     firstname: '',
     lastname: '',
@@ -10,8 +12,23 @@ export default class SignUp extends React.Component {
     username: '',
     password: ''
   };
+ 
+  setCookie = (token, token_timestamp) => {
+    // params for cookie: (name of cookie, data in cookie, availability of cookie in app)
+    const cookies = new Cookies;
+    
+    cookies.set(
+      'token'
+      , {
+        'token': token, 
+        'token_timestamp': token_timestamp
+      }
+      , { path: '/' } 
+    );
+  };
+
   handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value })
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   handleSubmit = (e) => {
@@ -31,13 +48,11 @@ export default class SignUp extends React.Component {
       data: { formContents }
     })
       .then(response => {
-        console.log('in signup client response:');
-        if (response.data.redirect === '/') {
-          window.location = "/index";
-        }
+        this.setCookie(response.data.token, response.data.token_timestamp);
       })
       .catch(err => {
-      // send back to '/signup'
+        console.error(err);
+        // send back to '/signup'
       });
     
   }

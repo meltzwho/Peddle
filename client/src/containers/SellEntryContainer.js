@@ -3,6 +3,7 @@ import {requestCategories, receiveCategories} from '../actions/sellEntryAction.j
 import SellEntry from '../components/SellEntry.jsx';
 import axios from 'axios';
 
+
 const mapStateToProps = (state) => {
   return {
     entry: state.sellEntryReducer

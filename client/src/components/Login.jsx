@@ -141,7 +141,7 @@ export default class Login extends React.Component {
                 <Button>Sign in with Facebook</Button>
               </a>
             </div>
-          </Form>;
+          </Form>
         </div>
       </div>
     );
