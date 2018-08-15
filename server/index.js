@@ -17,6 +17,7 @@ const notifRoutes = require('./routes/notifications');
 const listingsRoutes = require('./routes/listingsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 const imageUploadRoutes = require('./routes/imageUploadRoutes');
+const ratingsRoutes = require('./routes/ratingsRoutes');
 
 require('./helpers/bearerAuthSetup');
 require('./helpers/googleAuthSetup');
@@ -52,6 +53,7 @@ app.use('/signup', signupRoutes);
 app.use('/l', listingsRoutes);
 app.use('/users', usersRoutes);
 app.use('/imageUpload', imageUploadRoutes);
+app.use('/ratings', ratingsRoutes);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
