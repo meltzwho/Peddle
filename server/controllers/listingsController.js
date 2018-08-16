@@ -4,11 +4,22 @@ module.exports = {
   getSearchItem: (req, res) => {
     db.getItems()
       .then(data => {
-        console.log('controller: listings', data);
+        console.log('[controller] fetched listings');
         res.json(data)
       })
       .catch(e => {
-        console.error('controller: there was an error fetching the items', e);
+        console.error('[controller] error fetching items', e);
+      });
+  },
+  getListingById: (req, res) => {
+    db.getListingById(req.params.listingId)
+      .then(data => {
+        console.log('[controller] fetched listing by id');
+        res.json(data);
+      })
+      .catch(e => {
+        console.error('[controller] error fetching item by id:', e);
+        res.json(data);
       });
   }
 };

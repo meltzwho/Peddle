@@ -5,4 +5,6 @@ sellEntryRouter.get('/categories', sellEntryController.categories);
 
 sellEntryRouter.post('/newListing', sellEntryController.addListing);
 
+sellEntryRouter.post('/associateAddress', sellEntryController.addAddress);
+
 module.exports = sellEntryRouter;

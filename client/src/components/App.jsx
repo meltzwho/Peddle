@@ -98,8 +98,7 @@ class App extends Component {
                 retrieveCurrentUser={this.retrieveCurrentUser} 
                 handleGoogleAuth={this.handleGoogleAuth}
               />
-            )
-            }
+            )}
           />
           <Route 
             path='/signup'
@@ -127,7 +126,7 @@ class App extends Component {
           />
           <Route 
             exact 
-            path="/profile" 
+            path="/profile/:userId" 
             component={
               () => {
                 return this.state.cookieValid 

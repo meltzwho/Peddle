@@ -2,14 +2,21 @@ import React, { Component } from 'react';
 import ImageUploader from 'react-images-upload';
 
 class ImageUpload extends Component {
-  state = {};
+  state = {imageUploads: 1};
   
   onDrop = (picture) => {
-    for (let i = 0; i < picture.length; i++) {
-      let formData = new FormData();
-      formData.append('file', picture[i]);
-      this.props.uploadImage(formData);
+    if (this.state.imageUploads % 2) {
+      for (let i = 0; i < picture.length; i++) {
+        let formData = new FormData();
+        formData.append('file', picture[i]);
+        if (picture[i]) {
+          this.props.uploadImage(formData);
+        }
+        delete picture[i];
+      }
+      
     }
+    this.state.imageUploads++;
   };
 
   render() {
