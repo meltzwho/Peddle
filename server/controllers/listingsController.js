@@ -2,7 +2,7 @@ const db = require('../models/listingsModel.js');
 
 module.exports = {
   getSearchItem: (req, res) => {
-    db.getItems()
+    db.getItems(req.params.query)
       .then(data => {
         console.log('[controller] fetched listings');
         res.json(data)
