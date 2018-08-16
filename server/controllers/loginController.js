@@ -4,7 +4,6 @@ const db = require('../../db/index.js').pool;
 module.exports = {
   loginController: (req, res) => {
     let form = req.body.formContents;
-    console.log('form:', form);
 
     // retrieve the username & email from db
     db.connect((err, client) => {
@@ -12,19 +11,19 @@ module.exports = {
         console.log('err', err);
         res.status(500).send(err); 
       } else {
-        client.query(`SELECT username, email FROM users WHERE username = '${form.username}'`)
+        let text = 'SELECT * FROM users WHERE username = $1';
+        let value = [form.username];
+        client.query(text, value)
           .then(response => {
             
-            if (response.rows.length === 1) {
+            if (response.rows.length !== undefined) {
               let email = response.rows[0].email;
               let username = response.rows[0].username;
 
               if (email === form.email && username === form.username) {
-                console.log('validated:');
-                // validation good, redirect home
-                res.status(201).redirect('/');
+                // validation good
+                res.status(201).send(response.rows[0]);
               } else {
-                console.log('notvalidated:');
                 // validation bad, send message
                 res.status(201).send('Not matched. Try again or signup.');
               }

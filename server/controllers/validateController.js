@@ -1,18 +1,20 @@
-const passport = require('passport');
+
 const validateCookie = require('../helpers/validateCookie');
-const removeCookie = require('../helpers/removeCookie');
 
 module.exports = {
-  
   validateController: (req, res) => {
-    if (validateCookie()) {
-      return true;
-    } else {
-      removeCookie();
-    }
-
-  };
+    validateCookie(
+      req.body.payload.token
+      , req.body.payload.token_timestamp
+      , (err, bool) => {
+        if (err) { 
+          res.status(201).send(err); 
+        } else { res.status(201).send(bool); }
+      }
+    );
+  }
+};
   
 
 
-};
+

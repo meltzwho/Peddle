@@ -9,8 +9,5 @@ module.exports = {
   ),
 
   googleRedirectController: passport.authenticate('google', { failureRedirect: '/login' })
-  
-  
-
 
 };

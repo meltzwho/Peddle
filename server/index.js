@@ -16,7 +16,7 @@ const sellEntryRoutes = require('./routes/sellEntryRoutes');
 const notifRoutes = require('./routes/notifications');
 
 const validateRoutes = require('./routes/validateRoutes');  
-
+const sessionRoutes = require('./routes/sessionRoutes');
 const listingsRoutes = require('./routes/listingsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 const imageUploadRoutes = require('./routes/imageUploadRoutes');
@@ -31,16 +31,17 @@ const signupRoutes = require('./routes/signupRoutes');
 const app = express();
 
 //Middleware
-app.use(cors());
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
 app.use(fileUpload());
 
-// app.use(cookieSession({
-//   maxAge: 24 * 60 * 60 * 1000, // 1 day
-//   keys: [session.cookieKey]
-// }));
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000, // 1 day
+  keys: [session.cookieKey]
+}));
+// app.set('token', {red: 'blue'})
 
 // initialize passport
 app.use(passport.initialize());
@@ -52,6 +53,7 @@ app.use('/login', loginRoutes);
 app.use('/sellEntry', sellEntryRoutes);
 app.use('/notifs', notifRoutes);
 app.use('/signup', signupRoutes);
+app.use('session', sessionRoutes);
 app.use('/l', listingsRoutes);
 app.use('/validate', validateRoutes);
 app.use('/users', usersRoutes);

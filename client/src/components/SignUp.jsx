@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Button, Col, ControlLabel, Form, FormGroup, FormControl } from 'react-bootstrap';
 import axios from 'axios';
-import Cookies from "universal-cookie";
+import Cookies from 'universal-cookie';
 
 export default class SignUp extends React.Component {
   
@@ -13,15 +13,17 @@ export default class SignUp extends React.Component {
     password: ''
   };
  
-  setCookie = (token, token_timestamp) => {
-    // params for cookie: (name of cookie, data in cookie, availability of cookie in app)
+  setCookie = (token, token_timestamp, id) => {
+    // params for cookie: (name of cookie, 
+    // data in cookie, availability of cookie in app)
     const cookies = new Cookies;
     
     cookies.set(
       'token'
       , {
         'token': token, 
-        'token_timestamp': token_timestamp
+        'token_timestamp': token_timestamp,
+        'id_user': id
       }
       , { path: '/' } 
     );
@@ -48,7 +50,23 @@ export default class SignUp extends React.Component {
       data: { formContents }
     })
       .then(response => {
-        this.setCookie(response.data.token, response.data.token_timestamp);
+        this.setCookie(
+          response.data.token
+          , response.data.token_timestamp
+          , response.data.id_user
+        );
+
+        // send the user back to <App />
+        this.props.retrieveCurrentUser(response.data);
+
+        // clear all input fields
+        this.setState({
+          firstname: '',
+          lastname: '',
+          email: '',
+          username: '',
+          password: ''
+        });
       })
       .catch(err => {
         console.error(err);

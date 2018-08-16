@@ -1,6 +1,3 @@
-
-
-const SellEntryReducer = (state = {
 let defaultState = {
   productName: '',
   productDescription: '',
@@ -22,7 +19,7 @@ const SellEntryReducer = (state = defaultState, action) => {
     case 'EDIT_EXISTING_LISTING':
       return Object.assign({}, state, action.editExistingListing);
     case 'REQUEST_CATEGORIES':
-      return Object.assign({}, state, {categoriesFetching: true})
+      return Object.assign({}, state, {categoriesFetching: true});
     case 'RECEIVE_CATEGORIES':
       return Object.assign({}, state, {
         categoriesFetching: false,

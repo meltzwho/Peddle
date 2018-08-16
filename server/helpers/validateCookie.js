@@ -1,37 +1,39 @@
-
+const { release } = require('os');
 const Cookies = require('universal-cookie');
 const db = require('../../db/index.js').pool;
+
 let cookie = new Cookies();
 
 // returns a boolean
-let isCookieValid = () => {
-  // lookup the cookie on browser
-  let cookieValue = cookie.get('token');
-
+let isCookieValid = (token, token_timestamp, callback) => {
+  
   // lookup the cookie on db
-  let dbValue = {};
-
   db.connect((err, client) => {
     if (err) {
-      res.status(500).send(err); 
+      console.error(err); 
     } else {
-      client.query(`SELECT token, token_timestamp FROM users WHERE token = '${cookieValue.token_timestamp}'`)
-        .then(response => {
-          if (response.rows.length !== 0) {
-            dbValue.token = response.rows[0].token;
-            dbValue.token_timestamp = response.rows[0].token_timestamp;
+      let text = 'SELECT token, token_timestamp FROM users WHERE token = $1';
+      let value = [token];
+
+      client.query(text, value)
+        .then(res => {
+          
+          if (res.rows.length !== 0) {
+            let dbtoken = res.rows[0].token;
+            let dbtoken_timestamp = res.rows[0].token_timestamp;
+            
+            let result = (
+              JSON.stringify(dbtoken) === JSON.stringify(token) &&
+              JSON.stringify(dbtoken_timestamp) === JSON.stringify(token_timestamp));
+            
+            release();  
+        
+            callback(null, result);
           }
         })
-        .catch(err => console.error(err));
+        .catch(err => callback(err));
     }
-  });
+  });        
+};
 
-  console.log(dbValue.token === cookieValue.token 
-    && dbValue.token_timestamp === cookieValue.token_timestamp)
-
-  return (
-    dbValue.token === cookieValue.token 
-    && dbValue.token_timestamp === cookieValue.token_timestamp
-  );
-}
 module.exports = isCookieValid;

@@ -11,6 +11,7 @@ module.exports = {
   // then we check the database to see if the user name is already taken
   // if it is not then we place the new user into the db and place the same data in the redux store
   signupController: (req, res) => {
+    
     let form = req.body.formContents;
     // encrypt password
     bcrypt.genSalt(10, function(err, salt) {
@@ -26,30 +27,23 @@ module.exports = {
               if (err) {
                 res.status(500).send(err); 
               } else {
-                client.query(`SELECT username FROM users WHERE username = '${form.username}'`)
+                let text = 'SELECT * FROM users WHERE email = $1';
+                let value = [form.email];
+
+                client.query(text, value)
                   .then(response => {
-                    // the username submitted is not taken
+                    // the email submitted is not taken
                     if (response.rows.length === 0) {
 
                       // generate a uuid for the user
                       let uuid = uuidv1();
 
-                      const query = 'INSERT INTO users(first_name, last_name, username, email, pwd, token) VALUES($1, $2, $3, $4, $5, $6)';
+                      const query = 'INSERT INTO users(first_name, last_name, username, email, pwd, token) VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
                       const values = [form.firstname, form.lastname, form.username, form.email, hash, uuid];
                       // enter user into db
                       client.query(query, values)
                         .then(response => {
-                          // lookup the timestamp that was chosen by the db
-                          client.query(`SELECT token_timestamp FROM users WHERE username = '${form.username}'`)
-                            .then(response => {
-                              
-                              let cookieData = { token: uuid, token_timestamp: response.rows[0].token_timestamp};
-                              res.status(201).send(cookieData);
-                              
-                              // TODO now set user into store
-                            })
-                            .catch(error => { res.status(500).send(error); });
-                          
+                          res.status(201).send(response.rows[0]);   
                         })
                         .catch(error => { res.status(500).send(error); });
                     } else {
@@ -57,15 +51,14 @@ module.exports = {
                       let redir = { redirect: "/login" };
                       res.status(201).json(redir);
                       res.status(201).send('This user is already taken.');
-                      release();
                     }
                   })
                   .catch(error => { 
                     res.status(500).send(error); 
-                    release();
                   });
               }
             });
+            release();
           }
         }
       );

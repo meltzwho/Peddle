@@ -25,41 +25,25 @@ export default class Login extends React.Component {
       url: '/login/validate',
       data: { formContents }
     })
-      .then(response => {
+      .then(res => {
+        this.props.retrieveCurrentUser(res.data);
         
         // clear fields
         this.setState({
           email: '',
           username: ''
         });
-      // send to last page (send to '/', then check to see last page)
+      
       })
       .catch(err => {
         this.setState({
           email: '',
           username: ''
         });
-        // send back to '/signup'
+        
         console.error(err);
       });
     
-  }
-
-  handleToken = (e) => {
-    e.preventDefault();
-    let username = this.state.username;
-    // call server
-    axios({
-      method: 'post',
-      url: '/token/grant',
-      data: { username }
-    })
-      .then(response => {
-        console.log('in token response :', response.data);
-      })
-      .catch(err => {
-        console.error(err);
-      });
   }
 
   render () {
@@ -109,16 +93,6 @@ export default class Login extends React.Component {
                   type="submit"
                   onClick={this.handleSubmit}
                 >Sign in
-                </Button>
-              </Col>
-            </FormGroup>
-
-            <FormGroup>
-              <Col smOffset={2} sm={10}>
-                <Button 
-                  type="submit"
-                  onClick={this.handleToken}
-                >Token
                 </Button>
               </Col>
             </FormGroup>
