@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, withRouter, Switch } from 'react-router-dom';
+import { Elements } from 'react-stripe-elements';
 import Home from './Home';
 import Profile from './Profile';
 import Orders from './Orders';
@@ -12,8 +13,21 @@ import SellEntry from '../containers/SellEntryContainer';
 import Messages from './Messages';
 import SellerDashboard from './SellerDashboard';
 import Navbar from './Navbar';
+import Stripe from './Stripe';
 
 class App extends Component {
+  state = {
+    stripe: null,
+  }
+  componentDidMount() {
+    if (window.Stripe) {
+      this.setState({stripe: window.Stripe('pk_test_woW7vjizEz5SMaxZ5MyDuLjh')})
+    } else {
+      document.querySelector('#stripe-js').addEventListener('load', () => {
+        this.setState({stripe: window.Stripe('pk_test_woW7vjizEz5SMaxZ5MyDuLjh')});
+      });
+    }
+  }
   render() {
     return (
       <div>
@@ -85,6 +99,14 @@ class App extends Component {
             component={() =>
               <SellerDashboard />
             }
+          />
+          <Route 
+            path='/payment'
+            component={() => (
+              <Elements>
+                <Stripe />
+              </Elements>
+            )}
           />
         </Switch>
       </div>
