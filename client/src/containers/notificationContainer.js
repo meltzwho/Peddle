@@ -5,7 +5,7 @@ import Notification from '../components/Notifications';
 
 const mapStateToProps = (state) => {
   return {
-    notifications: state.notificationReducer.notifications,
+    notifications: state.notifications.notifications,
     id_user: 1
   };
 };

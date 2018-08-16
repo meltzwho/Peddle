@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
-import notificationReducer from './notificationReducer.js';
-import searchReducer from './searchReducer.js';
-import sellEntryReducer from './sellEntryReducer.js';
-import imageUploadReducer from './imageUploadReducer.js';
+import notificationReducer from './notificationReducer';
+import searchReducer from './searchReducer';
+import sellEntryReducer from './sellEntryReducer';
+import imageUploadReducer from './imageUploadReducer';
 
 const rootReducer = combineReducers({
-  notificationReducer,
-  sellEntryReducer,
-  searchReducer,
-  imageUploadReducer
+  notifications: notificationReducer,
+  sellEntryForm: sellEntryReducer,
+  search: searchReducer,
+  imageData: imageUploadReducer
 });
 
 export default rootReducer;

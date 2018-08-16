@@ -1,10 +1,15 @@
-let defaultState = {
+let newForm = {
   productName: '',
   productDescription: '',
   productPrice: 0,
   productCondition: null,
   productQuantity: 1,
   allowPickup: false,
+  streetAddress: '',
+  cityAddress: '',
+  stateAddress: '',
+  zipCodeAddress: '',
+  defaultAddress: true,
   allowShipping: false,
   categories: [],
   selectedCategory: 'category',
@@ -14,7 +19,7 @@ let defaultState = {
   listingSuccessful: null
 };
 
-const SellEntryReducer = (state = defaultState, action) => {
+const SellEntryReducer = (state = newForm, action) => {
   switch (action.type) {
     case 'EDIT_EXISTING_LISTING':
       return Object.assign({}, state, action.editExistingListing);
@@ -23,7 +28,7 @@ const SellEntryReducer = (state = defaultState, action) => {
     case 'RECEIVE_CATEGORIES':
       return Object.assign({}, state, {
         categoriesFetching: false,
-        categories: action.categories
+        categories: action.payload.categories
       });
     case 'POST_LISTING': 
       return Object.assign({}, state, {listingProcessing: true});
@@ -32,7 +37,7 @@ const SellEntryReducer = (state = defaultState, action) => {
     case 'LISTING_POST_FAILURE':
       return Object.assign({}, state, {listingSuccessful: false});
     case 'NEW_LISTING': 
-      return Object.assign({}, state, defaultState);
+      return Object.assign({}, state, newForm);
     case 'CLOSE_MODAL':
       return Object.assign({}, state, {listingSuccessful: null});
     default:
