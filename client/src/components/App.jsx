@@ -27,7 +27,7 @@ class App extends Component {
             }
           />
           <Route 
-            path='/profile'
+            path='/profile/:userId'
             component={() =>
               <Profile />
             }
