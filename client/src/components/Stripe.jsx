@@ -1,429 +1,60 @@
-// import React, { Component } from 'react';
-// import axios from 'axios';
-
-// class Stripe extends Component {
-//   state = {
-//     setupBegan: false,
-//     isLoadingFieldsNeeded: true
-//   }
-
-//   componentWillMount() {
-//     this.fetchFieldsNeeded();
-//   }
-
-//   fetchFieldsNeeded = () => {
-//     axios.get('/p/stripe/stripeId')
-//       .then(res => {
-//         this.setState({
-//           payment: res.data,
-//         });
-//       })
-//       .catch(e => {
-//         this.setState({
-//           error: e,
-//           isLoadingFieldsNeeded: false,
-//         });
-//       });
-//   }
-
-//   render() {
-//     const { isLoadingFieldsNeeded, setupBegan, error } = this.state;
-//     if (isLoadingFieldsNeeded) {
-//       return (
-//         <div>Loading...</div>
-//       );
-//     }
-//     if (!setupBegan) {
-//       return (
-//         <div>
-//           <div>
-//             {this.state.error ? 
-//               <div>{this.state.error}</div>
-//               : null
-//             }
-//             <button type="submit">
-//               Begin Setup
-//             </button>
-//             <p>By clicking setup you agree to the TOS for Stipe.</p>
-//           </div>
-//         </div>
-//       );
-//     }
-//   }
-// }
-
-// export default Stripe;
-
-
 import React, { Component } from 'react';
-import { injectStripe, CardElement } from 'react-stripe-elements';
+import axios from 'axios';
+import StripeCheckout from 'react-stripe-checkout';
+import { Button } from 'react-bootstrap';
+import config from '../../../config';
 
 class Stripe extends Component {
-  handleSubmit = (ev) => {
-    ev.preventDefault();
-    this.props.stripe.createToken({name: 'Jenny Rosen'}).then(({token}) => {
-      console.log('Received Stripe token:', token);
-    });
-  };
+  onToken = (token) => {
+    axios.post(`/p/stripeId/${token}`)
+      .then(res => {
+        res.json().then(data => {
+          alert(`We are in business, ${data.email}`);
+        });
+      });
+  }
   render() {
+    console.log(this.props.listing)
     return (
-      <form onSubmit={this.handleSubmit}>
-        {/* <AddressSection /> */}
-        <label>
-          Card details
-          <CardElement style={{base: {fontSize: '18px'}}} />
-        </label>
-        <button>Confirm order</button>
-      </form>
+      <StripeCheckout
+        name="Peddle" // the pop-in header title
+        description={this.props.listing.title} // the pop-in header subtitle
+        // image="https://www.vidhub.co/assets/logos/vidhub-icon-2e5c629f64ced5598a56387d4e3d0c7c.png" // the pop-in header image (default none)
+        ComponentClass="div"
+        panelLabel="Purchase" // prepended to the amount in the bottom pay button
+        amount={this.props.listing.price * 100} // cents
+        currency="USD"
+        stripeKey={config.stripe.stripe_public_key}
+        locale="en"
+        // email="useremail@gmail.com"
+        // Note: Enabling either address option will give the user the ability to
+        // fill out both. Addresses are sent as a second parameter in the token callback.
+        shippingAddress
+        billingAddress
+        // billingAddress={false}
+        // Note: enabling both zipCode checks and billing or shipping address will
+        // cause zipCheck to be pulled from billing address (set to shipping if none provided).
+        // zipCode={false}
+        zipCode
+        alipay={false} // accept Alipay (default false)
+        bitcoin={false} // accept Bitcoins (default false)
+        allowRememberMe // "Remember Me" option (default true)
+        token={this.onToken} // submit callback
+        opened={this.onOpened} // called when the checkout popin is opened (no IE6/7)
+        closed={this.onClosed} // called when the checkout popin is closed (no IE6/7)
+        // Note: `reconfigureOnUpdate` should be set to true IFF, for some reason
+        // you are using multiple stripe keys
+        reconfigureOnUpdate={false}
+        // Note: you can change the event to `onTouchTap`, `onClick`, `onTouchStart`
+        // useful if you're using React-Tap-Event-Plugin
+        // triggerEvent="onTouchTap"
+        >
+        <Button className="btn btn-primary">
+          Buy Now
+        </Button>
+      </StripeCheckout>
     );
   }
 }
 
-export default injectStripe(Stripe);
-
-
-
-// const {
-// 	CardElement,
-//   CardNumberElement,
-//   CardExpiryElement,
-//   CardCVCElement,
-//   PostalCodeElement,
-//   PaymentRequestButtonElement,
-//   IbanElement,
-//   IdealBankElement,
-//   StripeProvider,
-//   Elements,
-//   injectStripe,
-// } = ReactStripeElements;
-
-// const handleBlur = () => {
-//   console.log('[blur]');
-// };
-// const handleChange = (change) => {
-//   console.log('[change]', change);
-// };
-// const handleClick = () => {
-//   console.log('[click]');
-// };
-// const handleFocus = () => {
-//   console.log('[focus]');
-// };
-// const handleReady = () => {
-//   console.log('[ready]');
-// };
-
-// const createOptions = (fontSize, padding) => {
-//   return {
-//     style: {
-//       base: {
-//         fontSize,
-//         color: '#424770',
-//         letterSpacing: '0.025em',
-//         fontFamily: 'Source Code Pro, monospace',
-//         '::placeholder': {
-//           color: '#aab7c4',
-//         },
-//         padding,
-//       },
-//       invalid: {
-//         color: '#9e2146',
-//       },
-//     },
-//   };
-// };
-
-// class _CardForm extends React.Component {
-//   handleSubmit = (ev) => {
-//     ev.preventDefault();
-//     if (this.props.stripe) {
-//       this.props.stripe
-//         .createToken()
-//         .then((payload) => console.log('[token]', payload));
-//     } else {
-//       console.log("Stripe.js hasn't loaded yet.");
-//     }
-//   };
-//   render() {
-//     return (
-//       <form onSubmit={this.handleSubmit}>
-//         <label>
-//           Card details
-//           <CardElement
-//             onBlur={handleBlur}
-//             onChange={handleChange}
-//             onFocus={handleFocus}
-//             onReady={handleReady}
-//             {...createOptions(this.props.fontSize)}
-//           />
-//         </label>
-//         <button>Pay</button>
-//       </form>
-//     );
-//   }
-// }
-// const CardForm = injectStripe(_CardForm);
-
-// class _SplitForm extends React.Component {
-//   handleSubmit = (ev) => {
-//     ev.preventDefault();
-//     if (this.props.stripe) {
-//       this.props.stripe
-//         .createToken()
-//         .then((payload) => console.log('[token]', payload));
-//     } else {
-//       console.log("Stripe.js hasn't loaded yet.");
-//     }
-//   };
-//   render() {
-//     return (
-//       <form onSubmit={this.handleSubmit}>
-//         <label>
-//           Card number
-//           <CardNumberElement
-//             onBlur={handleBlur}
-//             onChange={handleChange}
-//             onFocus={handleFocus}
-//             onReady={handleReady}
-//             {...createOptions(this.props.fontSize)}
-//           />
-//         </label>
-//         <label>
-//           Expiration date
-//           <CardExpiryElement
-//             onBlur={handleBlur}
-//             onChange={handleChange}
-//             onFocus={handleFocus}
-//             onReady={handleReady}
-//             {...createOptions(this.props.fontSize)}
-//           />
-//         </label>
-//         <label>
-//           CVC
-//           <CardCVCElement
-//             onBlur={handleBlur}
-//             onChange={handleChange}
-//             onFocus={handleFocus}
-//             onReady={handleReady}
-//             {...createOptions(this.props.fontSize)}
-//           />
-//         </label>
-//         <label>
-//           Postal code
-//           <PostalCodeElement
-//             onBlur={handleBlur}
-//             onChange={handleChange}
-//             onFocus={handleFocus}
-//             onReady={handleReady}
-//             {...createOptions(this.props.fontSize)}
-//           />
-//         </label>
-//         <button>Pay</button>
-//       </form>
-//     );
-//   }
-// }
-// const SplitForm = injectStripe(_SplitForm);
-
-// class _PaymentRequestForm extends React.Component {
-//   constructor(props) {
-//     super(props);
-
-//     const paymentRequest = props.stripe.paymentRequest({
-//       country: 'US',
-//       currency: 'usd',
-//       total: {
-//         label: 'Demo total',
-//         amount: 1000,
-//       },
-//     });
-
-//     paymentRequest.on('token', ({complete, token, ...data}) => {
-//       console.log('Received Stripe token: ', token);
-//       console.log('Received customer information: ', data);
-//       complete('success');
-//     });
-
-//     paymentRequest.canMakePayment().then((result) => {
-//       this.setState({canMakePayment: !!result});
-//     });
-
-//     this.state = {
-//       canMakePayment: false,
-//       paymentRequest,
-//     };
-//   }
-
-//   render() {
-//     return this.state.canMakePayment ? (
-//       <PaymentRequestButtonElement
-//         className="PaymentRequestButton"
-//         onBlur={handleBlur}
-//         onClick={handleClick}
-//         onFocus={handleFocus}
-//         onReady={handleReady}
-//         paymentRequest={this.state.paymentRequest}
-//         style={{
-//           paymentRequestButton: {
-//             theme: 'dark',
-//             height: '64px',
-//             type: 'donate',
-//           },
-//         }}
-//       />
-//     ) : null;
-//   }
-// }
-// const PaymentRequestForm = injectStripe(_PaymentRequestForm);
-
-// class _IbanForm extends React.Component {
-//   handleSubmit = (ev) => {
-//     ev.preventDefault();
-//     if (this.props.stripe) {
-//       this.props.stripe
-//         .createSource({
-//           type: 'sepa_debit',
-//           currency: 'eur',
-//           owner: {
-//             name: ev.target.name.value,
-//             email: ev.target.email.value,
-//           },
-//           mandate: {
-//             notification_method: 'email',
-//           },
-//         })
-//         .then((payload) => console.log('[source]', payload));
-//     } else {
-//       console.log("Stripe.js hasn't loaded yet.");
-//     }
-//   };
-//   render() {
-//     return (
-//       <form onSubmit={this.handleSubmit}>
-//         <label>
-//           Name
-//           <input name="name" type="text" placeholder="Jane Doe" required />
-//         </label>
-//         <label>
-//           Email
-//           <input
-//             name="email"
-//             type="email"
-//             placeholder="jane.doe@example.com"
-//             required
-//           />
-//         </label>
-//         <label>
-//           IBAN
-//           <IbanElement
-//             supportedCountries={['SEPA']}
-//             onBlur={handleBlur}
-//             onChange={handleChange}
-//             onFocus={handleFocus}
-//             onReady={handleReady}
-//             {...createOptions(this.props.fontSize)}
-//           />
-//         </label>
-//         <button>Pay</button>
-//       </form>
-//     );
-//   }
-// }
-// const IbanForm = injectStripe(_IbanForm);
-
-// class _IdealBankForm extends React.Component {
-//   handleSubmit = (ev) => {
-//     ev.preventDefault();
-//     if (this.props.stripe) {
-//       this.props.stripe
-//         .createSource({
-//           type: 'ideal',
-//           amount: 1099,
-//           currency: 'eur',
-//           owner: {
-//             name: ev.target.name.value,
-//           },
-//           redirect: {
-//             return_url: 'https://example.com',
-//           },
-//         })
-//         .then((payload) => console.log('[source]', payload));
-//     } else {
-//       console.log("Stripe.js hasn't loaded yet.");
-//     }
-//   };
-//   render() {
-//     return (
-//       <form onSubmit={this.handleSubmit}>
-//         <label>
-//           Name
-//           <input name="name" type="text" placeholder="Jane Doe" required />
-//         </label>
-//         <label>
-//           iDEAL Bank
-//           <IdealBankElement
-//             className="IdealBankElement"
-//             onBlur={handleBlur}
-//             onChange={handleChange}
-//             onFocus={handleFocus}
-//             onReady={handleReady}
-//             {...createOptions(this.props.fontSize, '10px 14px')}
-//           />
-//         </label>
-//         <button>Pay</button>
-//       </form>
-//     );
-//   }
-// }
-// const IdealBankForm = injectStripe(_IdealBankForm);
-
-// class Checkout extends React.Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       elementFontSize: window.innerWidth < 450 ? '14px' : '18px',
-//     };
-//     window.addEventListener('resize', () => {
-//       if (window.innerWidth < 450 && this.state.elementFontSize !== '14px') {
-//         this.setState({elementFontSize: '14px'});
-//       } else if (
-//         window.innerWidth >= 450 &&
-//         this.state.elementFontSize !== '18px'
-//       ) {
-//         this.setState({elementFontSize: '18px'});
-//       }
-//     });
-//   }
-
-//   render() {
-//     const {elementFontSize} = this.state;
-//     return (
-//       <div className="Checkout">
-//         <h1>Available Elements</h1>
-//         <Elements>
-//           <CardForm fontSize={elementFontSize} />
-//         </Elements>
-//         <Elements>
-//           <SplitForm fontSize={elementFontSize} />
-//         </Elements>
-//         <Elements>
-//           <PaymentRequestForm />
-//         </Elements>
-//         <Elements>
-//           <IbanForm fontSize={elementFontSize} />
-//         </Elements>
-//         <Elements>
-//           <IdealBankForm fontSize={elementFontSize} />
-//         </Elements>
-//       </div>
-//     );
-//   }
-// }
-// const App = () => {
-//   return (
-//     <StripeProvider apiKey="pk_test_6pRNASCoBOKtIshFeQd4XMUh">
-//       <Checkout />
-//     </StripeProvider>
-//   );
-// };
-// ReactDOM.render(<App />, document.querySelector('.App'));
+export default Stripe;
