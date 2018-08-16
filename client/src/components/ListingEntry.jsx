@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
+import Stripe from './Stripe';
 
 class ListingEntry extends Component {
   state = {
@@ -82,7 +83,7 @@ class ListingEntry extends Component {
               <div>Contact Seller</div>
               <div>Add To Cart</div>
               <div>Qty dropdown</div>
-              <div>Buy Now</div>
+              <Stripe listing={this.state.listing}/>
               <div>Watch Item</div>
             </Col>
           </Row>
