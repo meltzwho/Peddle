@@ -10,7 +10,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import SellEntry from '../containers/SellEntryContainer';
 import Messages from './Messages';
-import SellerDashboard from './SellerDashboard';
+import SellerDashboard from '../containers/sellerDashboardContainer';
 import Navbar from './Navbar';
 
 class App extends Component {
