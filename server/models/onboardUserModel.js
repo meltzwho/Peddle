@@ -2,21 +2,23 @@
 const db = require('../../db/index.js').pool;
 
 module.exports = {
-  onboardUser: (data, callback, release) => {
+  onboardUser: (data, callback) => {
     
-    db.connect((err, client) => {
+    db.connect((err, client, release) => {
       if (err) {
         console.error(err); 
       } else {
         let text = 'SELECT * FROM users WHERE id_user = $1';
-        let id = [data.email];
-
-        client.query(text, id)
+        
+        let arrayForID = [];
+        arrayForID.push(data * 1);
+        client.query(text, arrayForID)
           .then(response => {
             release();
+            
             if (response.rows.length !== 0) {
 
-              if (id === response.rows[0].id_user) {
+              if ((data * 1) === response.rows[0].id_user) {
                 // copy the response in order to delete sensitive information
                 let reducedObject = {};
                 reducedObject.id_user = response.rows[0].id_user;
@@ -29,12 +31,12 @@ module.exports = {
                 reducedObject.token = response.rows[0].token;
                 reducedObject.token_timestamp = response.rows[0].token_timestamp;
                 reducedObject.profile_image = response.rows[0].profile_image;
-
+                
                 callback(null, reducedObject); 
               }
             } 
           })
-          .catch(err => {callback(err)});
+          .catch(err => {console.error(err)});
       }
     });
   }
