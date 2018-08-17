@@ -14,7 +14,7 @@ const authRoutes = require('./routes/authRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const sellEntryRoutes = require('./routes/sellEntryRoutes');
 const notifRoutes = require('./routes/notifications');
-
+const onboardUserRoutes = require('./routes/onboardUserRoutes');
 const validateRoutes = require('./routes/validateRoutes');  
 const sessionRoutes = require('./routes/sessionRoutes');
 const listingsRoutes = require('./routes/listingsRoutes');
@@ -54,6 +54,7 @@ app.use('/auth', authRoutes);
 app.use('/login', loginRoutes);
 app.use('/sellEntry', sellEntryRoutes);
 app.use('/notifs', notifRoutes);
+app.use('/onboard', onboardUserRoutes);
 app.use('/signup', signupRoutes);
 app.use('/session', sessionRoutes);
 app.use('/l', listingsRoutes);

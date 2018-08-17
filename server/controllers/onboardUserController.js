@@ -9,7 +9,7 @@ module.exports = {
       if (err) {
         console.error('controller: there was an error entering the db', err);
       } else {
-        res.status(201).send(response.rows[0]); 
+        res.status(201).send(response); 
       }
     });
   }
