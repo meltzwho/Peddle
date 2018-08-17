@@ -11,5 +11,16 @@ module.exports = {
         console.error('controller: error fetching user rating', e);
         res.status(400).json(e);
       });
+  },
+  getFeedbackByUserId: (req, res) => {
+    db.getFeedbackByUserId(req.params.userId)
+      .then(data => {
+        console.log('controller: user feedback fetched');
+        res.status(200).send(data);
+      })
+      .catch(e => {
+        console.error('controller: error fetching user feedback', e);
+        res.status(400).json(e);
+      });
   }
 };
