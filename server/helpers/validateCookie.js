@@ -8,15 +8,15 @@ let cookie = new Cookies();
 let isCookieValid = (token, token_timestamp, callback) => {
   
   // lookup the cookie on db
-  db.connect((err, res) => {
+  db.connect((err, client, release) => {
     if (err) {
       console.error(err); 
-      release();
+      client.release();
     } else {
       let text = 'SELECT token, token_timestamp FROM users WHERE token = $1';
       let value = [token];
 
-      db.query(text, value)
+      client.query(text, value)
         .then(res => {
           
           if (res.rows.length !== 0) {
@@ -27,12 +27,12 @@ let isCookieValid = (token, token_timestamp, callback) => {
               JSON.stringify(dbtoken) === JSON.stringify(token) &&
               JSON.stringify(dbtoken_timestamp) === JSON.stringify(token_timestamp));
             
-            release();  
+            client.release();  
             console.log('COOKIEVALIDATE: ', result);
             callback(null, result);
           }
         })
-        .catch(err => callback(err));
+        .catch(err => {client.release();callback(err)});
     }
   });        
 };

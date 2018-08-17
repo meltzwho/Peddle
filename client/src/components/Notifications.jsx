@@ -8,7 +8,7 @@ class Notifications extends Component {
   }
   checkNotifs() {
     this.props.checkNotification(this.props.id_user);
-    //setTimeout(() => { this.checkNotifs(); }, 60000);
+    setTimeout(() => { this.checkNotifs(); }, 60000);
   }
 
   render() {
