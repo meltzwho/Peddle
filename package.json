@@ -36,6 +36,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-fileupload": "^0.4.0",
+    "moment": "^2.22.2",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth20": "^1.0.0",
@@ -48,14 +49,15 @@
     "react-images-upload": "^1.2.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
+    "react-social": "^1.10.0",
     "react-star-ratings": "^2.3.0",
     "react-stripe-checkout": "^2.6.3",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "stripe": "^6.7.0",
     "universal-cookie": "^2.2.0",
-    "uuid": "^3.3.2",
-    "stripe": "^6.7.0"
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

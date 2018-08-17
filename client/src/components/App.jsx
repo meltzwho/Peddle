@@ -19,7 +19,7 @@ import Stripe from './Stripe';
 class App extends Component {
   state = {
     greetFriends: 'Friend',
-    cookieValid: false,
+    cookieValid: true,
 
     currentUser: {
       id_user: '',
@@ -74,7 +74,7 @@ class App extends Component {
       axios.get('/session/google', { params: {id: googleID} })
         .then(res => {
           this.setACookie(res.data);
-          
+          console.log('setGoogle');
           // put data on state
           if (res.data) {
             this.setState(prevState => ({
@@ -105,6 +105,7 @@ class App extends Component {
           // call db for data
           axios.get('/onboard/user', { params: {id: id} })
             .then(res => {
+              console.log('sniff');
               if (res.data) {
                 
                 // update state 
@@ -132,7 +133,9 @@ class App extends Component {
           '/validate/token'
           , { payload }
         )
-          .then(response => { 
+          .then(response => {
+            console.log('isValidUser');
+            
             this.setState({ cookieValid: response.data });
           })
           .catch(err => console.error(err));
@@ -190,7 +193,7 @@ class App extends Component {
         ...resetCurrentUser
       }, 
       greetFriends: 'Friend',
-      cookieValid: false
+      //cookieValid: false
     }));
   }
 
@@ -243,7 +246,7 @@ class App extends Component {
             }
           />
           <Route 
-            path="/profile" ///:userId" 
+            path="/profile/:userId" 
             component={() => 
               <Profile />
             }

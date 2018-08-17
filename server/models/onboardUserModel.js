@@ -14,7 +14,7 @@ module.exports = {
         arrayForID.push(data * 1);
         client.query(text, arrayForID)
           .then(response => {
-            release();
+            client.release();
             
             if (response.rows.length !== 0) {
 
@@ -36,7 +36,7 @@ module.exports = {
               }
             } 
           })
-          .catch(err => {release(); console.error(err)});
+          .catch(err => {client.release(); console.error(err)});
       }
     });
   }

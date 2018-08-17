@@ -12,7 +12,6 @@ module.exports = {
           if (err) {
             console.log(err.stack);
           } else {
-            console.log('checked');
             response.send(res.rows);
           }
         });
