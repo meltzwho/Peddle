@@ -15,35 +15,109 @@ import Messages from './Messages';
 import SellerDashboard from './SellerDashboard';
 import Navbar from './Navbar';
  
+ 
 
 class App extends Component {
   state = {
+    greetFriends: 'Friend',
     cookieValid: false,
-    currentUser: {}
+
+    currentUser: {
+      id_user: '',
+      first_name: '',
+      last_name: '',
+      username: '',
+      email: '',
+      google_id: null,
+      facebook_id: null,
+      token: null,
+      token_timestamp: null,
+      profile_image: ''
+    }
+
   };
   
+  componentDidMount() {
+    const cookies = new Cookies;
+    let payload = cookies.get('token');
+    console.log('DIDMOUNT:cookie', payload);
+  
+    this.isValidUser(payload);
+    this.setCookieForGoogleLogin();
+    console.log('STATE:friends', this.state.greetFriends);
+    console.log('STATE:user', this.state.currentUser);
+    console.log('cookieValid:', this.state.cookieValid);
+  }
   componentWillReceiveProps(nextProps) {
-    console.log('switched route');
-    // if the user has switched routes then check validation
-    if (nextProps.location !== this.props.location && !this.state.cookieValid ) {
+    
+    // if the user has switched routes then check validation 
+    //  **( && !this.state.cookieValid )**
+    if (nextProps.location !== this.props.location) {
       
       const cookies = new Cookies;
       let payload = cookies.get('token');
-    
+      console.log('payload:', payload);
       this.isValidUser(payload);
-      //this.handleGoogleAuth();
+      this.setCookieForGoogleLogin();
     }
+    console.log('STATE:PropsFrinds', this.state.greetFriends);
+    console.log('STATE:PropsUser ', this.state.currentUser);
+    console.log('cookieValid:Props ', this.state.cookieValid);
   }
 
+  setCookieForGoogleLogin = () => {
+    const cookies = new Cookies;
+    let cookie = cookies.get('user');
+    
+    if (cookie) {
+      let split = cookie.split('"');
+      let googleID = split[5];
+
+      // remove old cookie here
+      cookies.remove('user');
+
+      axios.get('/session/google', { params: {id: googleID} })
+        .then(res => {
+        
+          // generate our own cookie
+          cookies.set(
+            'token'
+            , {
+              'token': res.data.token, 
+              'token_timestamp': res.data.token_timestamp,
+              'id_user': res.data.id_user
+            }
+            , { path: '/' } 
+          );
+
+          // put data on state
+          if (res.data) {
+            this.setState(prevState => ({
+              currentUser: {
+                ...prevState.currentUser,
+                ...res.data
+              }
+            }));
+          }
+        })
+        .catch(err => console.error(err));
+    }
+    
+  };
+
   isValidUser = (payload) => {
-    axios.post(
-      '/validate/token'
-      , { payload }
-    )
-      .then(response => { 
-        this.setState({ cookieValid: response.data });
-      })
-      .catch(err => console.error(err));
+    if (payload) {
+      // check cookie data vs our db data
+      axios.post(
+        '/validate/token'
+        , { payload }
+      )
+        .then(response => { 
+          console.log('ISVALIDUSER: ', response.data);
+          this.setState({ cookieValid: response.data });
+        })
+        .catch(err => console.error(err));
+    }
   };
 
   retrieveCurrentUser = (user) => {
@@ -52,37 +126,57 @@ class App extends Component {
         currentUser: {
           ...prevState.currentUser,
           ...user
-        }
+        },
+        greetFriends: user.first_name
       }));
     }
   };
 
-  // setCookieForGoogleLogin = (user) => {
-  //   // on sucessful login 
-  // };
+  handleLogout = (e) => {
+    e.preventDefault();
+    console.log('logout called');
+    // find cookies 'token', 'g_token', 'session', 'session.sig' and 'fr' 
+    // and remove them
+    const cookies = new Cookies;
+    cookies.remove('token');
+    cookies.remove('g_token');
+    cookies.remove('session');
+    cookies.remove('session.sig');
+    cookies.remove('fr');
+    cookies.remove('name');
 
-  handleGoogleAuth = (event, googleID) => {
-    event.preventDefault();
-    console.log('handleGoogleAuth called');
-    // deserialize
-    axios.get('/auth/google')
-      .then(res => {
-        //console.log('handleGoogleAuth', res.data);
-      })
-      .catch(err => console.log(err));
-    // passport.deserializeUser( (user, done) => {
-    //   console.log('deserialize ID:', user.id);
-    //   done(null, user.id);
-    // });
-    // lookup that id & timestamp 
-    // generate our own token
-  };
+    let resetCurrentUser = {
+      id_user: '',
+      first_name: '',
+      last_name: '',
+      username: '',
+      email: '',
+      google_id: null,
+      facebook_id: null,
+      token: null,
+      token_timestamp: null,
+      profile_image: ''
+    };
+
+    // zero out state
+    this.setState(prevState => ({
+      currentUser: {
+        ...prevState.currentUser,
+        ...resetCurrentUser
+      }, 
+      greetFriends: resetCurrentUser.first_name,
+      cookieValid: false
+    }));
+  }
 
   render() {
     
     return (
       <div>
-        <Navbar />
+        <Navbar 
+          handleLogout={this.handleLogout} 
+          greetFriends={this.state.greetFriends}
+        />
         <Switch className='routes'>
           <Route 
             exact 
@@ -96,7 +190,6 @@ class App extends Component {
             component={() => (
               <Login 
                 retrieveCurrentUser={this.retrieveCurrentUser} 
-                handleGoogleAuth={this.handleGoogleAuth}
               />
             )}
           />
@@ -125,29 +218,19 @@ class App extends Component {
             }
           />
           <Route 
-            exact 
             path="/profile/:userId" 
-            component={
-              () => {
-                return this.state.cookieValid 
-                  ? Profile 
-                  : (<Redirect 
-                    to={{
-                      pathname: '/login',
-                      state: { from: this.props.location }
-                    }} 
-                  />
-                  ); 
-              }
-            } 
+            component={() => 
+              <Profile />
+            }
           />
+                
           <Route 
             exact 
             path="/orders" 
             component={
               () => {
                 return this.state.cookieValid 
-                  ? Profile 
+                  ? <Orders />
                   : (<Redirect 
                     to={{
                       pathname: '/login',
@@ -164,7 +247,7 @@ class App extends Component {
             component={
               () => {
                 return this.state.cookieValid 
-                  ? Profile 
+                  ? <SellEntry />
                   : (<Redirect 
                     to={{
                       pathname: '/login',
@@ -181,7 +264,7 @@ class App extends Component {
             component={
               () => {
                 return this.state.cookieValid 
-                  ? Profile 
+                  ? <Messages /> 
                   : (<Redirect 
                     to={{
                       pathname: '/login',
@@ -198,7 +281,7 @@ class App extends Component {
             component={
               () => {
                 return this.state.cookieValid 
-                  ? Profile 
+                  ? <SellerDashboard /> 
                   : (<Redirect 
                     to={{
                       pathname: '/login',

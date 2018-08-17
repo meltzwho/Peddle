@@ -3,7 +3,6 @@ const { release } = require('os');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const {google} = require('../../config.js');
-const cookieSession = require('cookie-session');
 const db = require('../../db/index.js').pool;
 
 
@@ -16,7 +15,7 @@ passport.use(
       clientSecret: google.secret
     }
     , (accessToken, refreshToken, profile, done) => {
-      //console.log('profile:', profile)
+      
       db.connect((err, client) => {
         if (err) {
           console.error('db connection error', err);
@@ -33,7 +32,7 @@ passport.use(
               
                 if (res.rows[0] === undefined ) {
                   // the email and username is not taken, so enter the user into db
-                  let text = 'INSERT INTO users(first_name, last_name, username, email, google_id, profile_image_url, token) VALUES($1, $2, $3, $4, $5, $6, $7)';
+                  let text = 'INSERT INTO users(first_name, last_name, username, email, google_id, profile_image_url, token) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *';
                   let value = 
                     [
                       profile.name.givenName,
@@ -44,9 +43,8 @@ passport.use(
                       profile.photos[0].value,
                       accessToken
                     ];
-        
+
                   client.query(text, value)
-                    .then(res => {})
                     .catch(err => console.error(err));
           
                 }
@@ -57,6 +55,7 @@ passport.use(
         }
       });
       return done(null, profile);
+      
     }
   )
 );
@@ -64,11 +63,9 @@ passport.use(
 
 // the session is generated and placed here
 passport.serializeUser( (user, done) => {
-  console.log('first');
-  done(null, user); 
+  done(null, user.id); 
 });
 
 passport.deserializeUser( (user, done) => {
-  console.log('deserialize ID:', user.id);
-  done(null, user.id);
+  done(null, user);
 });

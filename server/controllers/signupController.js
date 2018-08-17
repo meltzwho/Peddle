@@ -4,12 +4,9 @@ const db = require('../../db/index.js').pool;
 const uuidv1 = require('uuid/v1');
 
 module.exports = {
-  // hash for tom
-  //  $2a$10$GhtVjROlQxkZukDKc2ASl.M/zIc/f9OyMCCw5we/ZOzO9mteWK.Nq
-
   // we are taking the signUp form contents and hashing the provided password,
   // then we check the database to see if the user name is already taken
-  // if it is not then we place the new user into the db and place the same data in the redux store
+  // if it is not then we place the new user into the db and place the same data in the state
   signupController: (req, res) => {
     
     let form = req.body.formContents;
@@ -20,12 +17,12 @@ module.exports = {
         , salt
         , (err, hash) => {
           if (err) { 
-            res.status(500).send(err); 
+            console.error(err); 
           } else {
             // check if username exists
             db.connect((err, client) => {
               if (err) {
-                res.status(500).send(err); 
+                console.error(err); 
               } else {
                 let text = 'SELECT * FROM users WHERE email = $1';
                 let value = [form.email];
@@ -43,7 +40,21 @@ module.exports = {
                       // enter user into db
                       client.query(query, values)
                         .then(response => {
-                          res.status(201).send(response.rows[0]);   
+                          console.log('SIGNUP:', response.rows[0]);
+                          // copy the response in order to delete sensitive information
+                          let reducedObject = {};
+                          reducedObject.id_user = response.rows[0].id_user;
+                          reducedObject.first_name = response.rows[0].first_name;
+                          reducedObject.last_name = response.rows[0].last_name;
+                          reducedObject.username = response.rows[0].username;
+                          reducedObject.email = response.rows[0].email;
+                          reducedObject.google_id = response.rows[0].google_id;
+                          reducedObject.facebook_id = response.rows[0].facebook_id;
+                          reducedObject.token = response.rows[0].token;
+                          reducedObject.token_timestamp = response.rows[0].token_timestamp;
+                          reducedObject.profile_image = response.rows[0].profile_image;
+
+                          res.status(201).send(reducedObject);   
                         })
                         .catch(error => { res.status(500).send(error); });
                     } else {
@@ -54,7 +65,7 @@ module.exports = {
                     }
                   })
                   .catch(error => { 
-                    res.status(500).send(error); 
+                    console.error(err);
                   });
               }
             });

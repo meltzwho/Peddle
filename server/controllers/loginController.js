@@ -8,8 +8,7 @@ module.exports = {
     // retrieve the username & email from db
     db.connect((err, client) => {
       if (err) {
-        console.log('err', err);
-        res.status(500).send(err); 
+        console.error('err', err);
       } else {
         let text = 'SELECT * FROM users WHERE username = $1';
         let value = [form.username];
@@ -35,7 +34,7 @@ module.exports = {
             }
           })
           .catch(error => { 
-            res.status(500).send(error); 
+            console.error(err);
             release();
           });
       }

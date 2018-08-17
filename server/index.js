@@ -40,9 +40,9 @@ app.use(fileUpload());
 
 app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000, // 1 day
+  httpOnly: false,
   keys: [session.cookieKey]
 }));
-// app.set('token', {red: 'blue'})
 
 // initialize passport
 app.use(passport.initialize());
@@ -54,7 +54,7 @@ app.use('/login', loginRoutes);
 app.use('/sellEntry', sellEntryRoutes);
 app.use('/notifs', notifRoutes);
 app.use('/signup', signupRoutes);
-app.use('session', sessionRoutes);
+app.use('/session', sessionRoutes);
 app.use('/l', listingsRoutes);
 app.use('/validate', validateRoutes);
 app.use('/users', usersRoutes);
