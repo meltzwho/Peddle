@@ -12,7 +12,7 @@ module.exports = {
           })
           .catch(e => {
             client.release();
-            console.log('error fetching listing', e);
+            console.log('error fetching rating', e);
           })
       })
       .catch(e => {
@@ -29,7 +29,7 @@ module.exports = {
           })
           .catch(e => {
             client.release();
-            console.log('error fetching listing', e);
+            console.log('error fetching feedback', e);
           })
       })
       .catch(e => {

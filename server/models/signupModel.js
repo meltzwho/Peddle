@@ -40,7 +40,7 @@ module.exports = {
                     } else {
                       client.query(query, values)
                         .then(response => {
-                          release();
+                          client.release();
                           
                           if (response.rows) {
                             // copy the response in order to delete sensitive information
@@ -60,6 +60,7 @@ module.exports = {
                           } 
                         })
                         .catch(error => { 
+                          client.release();
                           callback(error);
                         });
                     }
