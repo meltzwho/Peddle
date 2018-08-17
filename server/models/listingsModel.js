@@ -6,9 +6,16 @@ module.exports = {
     console.log(query);
     return db.connect()
       .then(client => {
-        return client.query(`SELECT * FROM listing INNER JOIN category ON listing.id_category = category.id_category WHERE title LIKE '%${query}%' OR description LIKE '%${query}%' OR category LIKE '%${query}%'  `)
+        return client.query(
+          `SELECT listing.*, category.*, array_agg(image_url) AS images
+          FROM listing INNER JOIN category ON listing.id_category = category.id_category 
+          FULL JOIN listing_image ON listing.id_listing = listing_image.id_listing 
+          WHERE title LIKE '%${query}%' OR description LIKE '%${query}%' OR category LIKE '%${query}%'
+          GROUP BY listing.id_listing, category.category`)
           .then(res => {
             client.release();
+            console.log(JSON.stringify(res.rows));
+            
             return res.rows;
           })
           .catch(e => {
