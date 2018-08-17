@@ -16,10 +16,9 @@ passport.use(
     }
     , (accessToken, refreshToken, profile, done) => {
       
-      db.connect((err, client) => {
+      db.connect((err, client, release) => {
         if (err) {
           console.error('db connection error', err);
-          release();
         } else {
           // no empty emails
           if (profile.emails[0].value !== '') { 
@@ -29,7 +28,7 @@ passport.use(
             
             client.query(text, value)
               .then(res => {
-              
+                client.release();
                 if (res.rows[0] === undefined ) {
                   // the email and username is not taken, so enter the user into db
                   let text = 'INSERT INTO users(first_name, last_name, username, email, google_id, profile_image_url, token) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *';
@@ -45,13 +44,19 @@ passport.use(
                     ];
 
                   client.query(text, value)
-                    .catch(err => console.error(err));
+                    .then(res => {client.release()})
+                    .catch(err => {
+                      console.error(err);
+                      client.release();
+                    });
           
                 }
               })
-              .catch(err => console.error(err));
+              .catch(err => {
+                console.error(err);
+                client.release();
+              });
           }
-          release();
         }
       });
       return done(null, profile);
