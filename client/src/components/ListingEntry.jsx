@@ -2,12 +2,29 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
+import { 
+  FacebookButton,
+  TwitterButton,
+  GooglePlusButton,
+  PinterestButton,
+  EmailButton
+} from 'react-social';
 import axios from 'axios';
+import config from '../../../config';
 import Stripe from './Stripe';
 
 class ListingEntry extends Component {
   state = {
-    
+    listing: {
+      condition: '',
+      date_posted: '',
+      description: '',
+    },
+    seller: {
+      bio: '',
+      username: '',
+    },
+    sellerFeedback: [{id_feedback: 1}],
   }
   componentDidMount() {
     this.getListing();
@@ -47,6 +64,15 @@ class ListingEntry extends Component {
       })
       .catch(e => {
         console.log('[client] error fetching seller rating: ', e)
+      });
+    axios.get(`/ratings/feedback/${this.state.listing.id_seller}`)
+      .then(res => {
+        this.setState({
+          sellerFeedback: res.data,
+        })
+      })
+      .catch(e => {
+        console.log('[client] error fetching feedback: ', e);
       });
   }
   render() {
@@ -89,10 +115,12 @@ class ListingEntry extends Component {
           </Row>
           <Row>
             <Col sx={12} sm={12}>
-              <h2>Social Media</h2>
-              <div>Share on Facebook</div>
-              <div>Share on Instagram</div>
-              <div>Share on Twitter</div>
+              <br/>
+              <FacebookButton url={window.location.href} appId={config.facebook.id}>Share on Facebook</FacebookButton>
+              <TwitterButton url={window.location.href}>Share on Twitter</TwitterButton>
+              <GooglePlusButton url={window.location.href}>Share on Google</GooglePlusButton>
+              <PinterestButton url={window.location.href}>Share on Pinterest</PinterestButton>
+              <EmailButton url={window.location.href}>Share via Email</EmailButton>
             </Col>
           </Row>
           <Row>
@@ -104,7 +132,16 @@ class ListingEntry extends Component {
               <div>3 start link</div>
               <div>2 start link</div>
               <div>1 start link</div>
-              <div>See all reviews</div>
+              <h3>See all reviews</h3>
+              <div>
+                {this.state.sellerFeedback.map(review => {
+                  return (
+                    <div key={review.id_feedback}>
+                      {review.feedback}
+                    </div>
+                  );
+                })}
+              </div>
               <div>Top Reviews</div>
             </Col>
             <Col sx={12} sm={4}>
