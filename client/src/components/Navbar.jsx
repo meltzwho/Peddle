@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Search from '../containers/searchContainer';
 import Notifications from '../containers/notificationContainer';
 
 class NavBar extends Component {
+  
   render() {
     return (
       <div>
@@ -18,6 +19,9 @@ class NavBar extends Component {
           <Search />
           <Navbar.Collapse>
             <Nav pullRight>
+              <NavItem eventKey={8} componentClass={Link} href="/" to="/">
+                {"Welcome  " + this.props.greetFriends}
+              </NavItem>
               <NavItem eventKey={1} componentClass={Link} href="/profile" to="/profile">
                 My Account
               </NavItem>
@@ -36,9 +40,11 @@ class NavBar extends Component {
               <NavItem eventKey={6} componentClass={Link} href="/login" to="/login">
                 Login
               </NavItem>
-              <NavItem eventKey={7} componentClass={Link} href="/" to="/">
+              {/* <NavItem eventKey={7} componentClass={Link} href="/" to="/">Logout
+              </NavItem> */}
+              <Button onClick={e => this.props.handleLogout(e)} >
                 Logout
-              </NavItem>
+              </Button>
               <Notifications />
             </Nav>
           </Navbar.Collapse>

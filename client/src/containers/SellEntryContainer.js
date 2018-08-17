@@ -4,6 +4,7 @@ import {requestCategories, receiveCategories, postListing, listingPostSuccessful
 import {clearUrls} from '../actions/imageUploadActions';
 import SellEntry from '../components/SellEntry';
 
+
 const mapStateToProps = (state) => {
   return {
     entry: state.sellEntryForm,
