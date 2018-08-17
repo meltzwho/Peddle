@@ -12,6 +12,7 @@ import SellEntry from '../containers/SellEntryContainer';
 import Messages from './Messages';
 import SellerDashboard from './SellerDashboard';
 import Navbar from './Navbar';
+import Stripe from './Stripe';
 
 class App extends Component {
   render() {
@@ -85,6 +86,12 @@ class App extends Component {
             component={() =>
               <SellerDashboard />
             }
+          />
+          <Route 
+            path='/payment'
+            component={() => (
+              <Stripe />
+            )}
           />
         </Switch>
       </div>

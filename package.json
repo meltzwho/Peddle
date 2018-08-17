@@ -48,9 +48,11 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-star-ratings": "^2.3.0",
+    "react-stripe-checkout": "^2.6.3",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "stripe": "^6.7.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

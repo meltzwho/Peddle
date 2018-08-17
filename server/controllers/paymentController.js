@@ -1,4 +1,5 @@
 const config = require('../../config');
+const stripe = require('stripe');
 
 module.exports = {
   getAccount: (req, res) => {
