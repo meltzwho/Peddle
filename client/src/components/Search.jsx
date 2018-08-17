@@ -32,6 +32,7 @@ class Search extends Component {
           <Button
             bsStyle="primary"
             type="submit"
+            style={{marginTop: '2.5px'}}
             onClick={e => {
               this.handleSubmit(e, this.state.input);
               this.props.history.push(`/listings/${this.state.input}`);
