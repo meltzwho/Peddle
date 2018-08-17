@@ -64,12 +64,9 @@ app.use('/validate', validateRoutes);
 app.use('/users', usersRoutes);
 app.use('/imageUpload', imageUploadRoutes);
 app.use('/ratings', ratingsRoutes);
-<<<<<<< HEAD
 app.use('/sellerDashboard', sellerDashboardRoutes);
 app.use('/progressBar', progressBarRoutes);
-=======
 app.use('/p', paymentRoutes);
->>>>>>> 6dacee872142f3b09632aab4853d7036e8ae3137
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
