@@ -64,6 +64,7 @@ class SellEntry extends Component {
   }
 
   handleGoToListing = () => {
+    this.props.closeModal();
     this.props.history.push('/sellerDashboard');
   }
 

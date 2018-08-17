@@ -4,7 +4,7 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import Home from './Home';
 import Profile from './Profile';
-import Orders from './Orders';
+import Orders from '../containers/orderContainer';
 import Listings from './Listings';
 import ListingEntry from './ListingEntry';
 import Cart from './Cart';

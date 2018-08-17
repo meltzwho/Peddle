@@ -24,7 +24,7 @@ const SellerDashboardItem = (props) => {
       <ProgressBarItem key={props.listing.id_listing} status={props.listing.status}  />
       <div></div>
       {viewButton}{' '}{editButton}
-      <p>-----------------------------------------------------</p>
+      <p>--------------------------------------------------------------</p>
     </div>
   );
 };

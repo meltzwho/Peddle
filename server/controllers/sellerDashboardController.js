@@ -1,6 +1,5 @@
 const db = require('../models/sellerDashboardModel');
 const progress = require('../models/progressBarModel');
-const axios = require('axios');
 
 module.exports = {
   listings: (req, res) => {
@@ -24,7 +23,6 @@ module.exports = {
               return;
             } else {
               row.status = status;
-              console.log('status',row.id_listing, status)
               if (row.is_active > 0) {
                 listingIds[row.id_listing] = true;
                 listings.active.push(row);
