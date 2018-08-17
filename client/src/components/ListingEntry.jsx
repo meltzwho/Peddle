@@ -12,6 +12,7 @@ import {
 import axios from 'axios';
 import config from '../../../config';
 import Stripe from './Stripe';
+import ReviewEntry from './ReviewEntry';
 
 class ListingEntry extends Component {
   state = {
@@ -24,7 +25,20 @@ class ListingEntry extends Component {
       bio: '',
       username: '',
     },
-    sellerFeedback: [{id_feedback: 1}],
+    sellerRating: {
+      count: 0,
+      id_user: 0,
+      rating: '0',
+    },
+    sellerFeedback: [{
+      id_feedback: 1,
+      id_buyer: 1,
+      feedback: '',
+      id_listing: 1,
+      id_seller: 0,
+      rating: '0',
+      title: ''
+    }],
   }
   componentDidMount() {
     this.getListing();
@@ -60,23 +74,30 @@ class ListingEntry extends Component {
       .then(res => {
         this.setState({
           sellerRating: res.data[0],
+        }, () => {
+          this.getFeedbackBySellerId();
         });
       })
       .catch(e => {
         console.log('[client] error fetching seller rating: ', e)
       });
+  }
+  getFeedbackBySellerId() {
     axios.get(`/ratings/feedback/${this.state.listing.id_seller}`)
       .then(res => {
         this.setState({
           sellerFeedback: res.data,
-        })
+        });
       })
       .catch(e => {
         console.log('[client] error fetching feedback: ', e);
       });
   }
+  getImages() {
+    
+  }
   render() {
-    if (this.state.sellerRating !== undefined) {
+    if(this.state.listing.id_seller !== 0) {
       return (
         <Grid>
           <Row className="show-grid">
@@ -95,9 +116,11 @@ class ListingEntry extends Component {
                 starDimension="16px"
                 starSpacing="0px"
               />
-              {this.state.sellerRating.count === 1 ? 
-                <a href="#listingReview">{this.state.sellerRating.count} review</a>
-                : <a href="/#listingReview"> {this.state.sellerRating.count} reviews</a>
+              {this.state.sellerRating.count === 0 ? 
+                <a href="/reviewEntry">Leave a review</a>
+                : this.state.sellerRating.count === 1 ?
+                  <a href="#listingReview">{this.state.sellerRating.count} review</a>
+                  : <a href="/#listingReview"> {this.state.sellerRating.count} reviews</a>
               }
               <div>Price: <h4>${this.state.listing.price}</h4></div>
               <div>Qty: {this.state.listing.quantity}</div>
@@ -126,23 +149,17 @@ class ListingEntry extends Component {
           <Row>
             <Col sx={12} sm={8}>
               <h2 id="listingReview">Customer Reviews</h2>
-              <div>rating count</div>
-              <div>5 star link</div>
-              <div>4 start link</div>
-              <div>3 start link</div>
-              <div>2 start link</div>
-              <div>1 start link</div>
-              <h3>See all reviews</h3>
+              <a href='/reviews'>{this.state.sellerRating.count} reviews</a>
               <div>
                 {this.state.sellerFeedback.map(review => {
                   return (
-                    <div key={review.id_feedback}>
-                      {review.feedback}
-                    </div>
+                    <ReviewEntry 
+                      key={review.id_feedback}
+                      review={review}
+                    />
                   );
                 })}
               </div>
-              <div>Top Reviews</div>
             </Col>
             <Col sx={12} sm={4}>
               <h2>Most Recent Customer Reviews</h2>
@@ -157,7 +174,7 @@ class ListingEntry extends Component {
         </Grid>
       );
     } else {
-      return (null)
+      return null;
     }
   }
 }
