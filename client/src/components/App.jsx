@@ -12,7 +12,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import SellEntry from '../containers/SellEntryContainer';
 import Messages from './Messages';
-import SellerDashboard from './SellerDashboard';
+import SellerDashboard from '../containers/sellerDashboardContainer';
 import Navbar from './Navbar';
 import Stripe from './Stripe';
 
@@ -39,22 +39,26 @@ class App extends Component {
   componentDidMount() {
     const cookies = new Cookies;
     let cookie = cookies.get('token');
-    console.log('DIDMOUNT:cookie', cookie);
+    
     this.sniffCookieToOnboardUser(cookie);
     this.isValidUser(cookie);
     this.setCookieForGoogleLogin();
   }
-  componentWillReceiveProps(nextProps) {
-    // if the user has switched routes then check validation 
-    if (nextProps.location !== this.props.location  && !this.state.cookieValid) {
-      
+  
+  setACookie = (data) => {
+    if (data !== undefined) {
       const cookies = new Cookies;
-      let cookie = cookies.get('token');
-      console.log('payload:', cookie);
-      this.isValidUser(cookie);
-      this.setCookieForGoogleLogin();
+      cookies.set(
+        'token'
+        , {
+          'token': data.token, 
+          'token_timestamp': data.token_timestamp,
+          'id_user': data.id_user
+        }
+        , { path: '/' } 
+      );
     }
-  }
+  };
 
   setCookieForGoogleLogin = () => {
     const cookies = new Cookies;
@@ -69,18 +73,8 @@ class App extends Component {
 
       axios.get('/session/google', { params: {id: googleID} })
         .then(res => {
-        
-          // generate our own cookie
-          cookies.set(
-            'token'
-            , {
-              'token': res.data.token, 
-              'token_timestamp': res.data.token_timestamp,
-              'id_user': res.data.id_user
-            }
-            , { path: '/' } 
-          );
-
+          this.setACookie(res.data);
+          
           // put data on state
           if (res.data) {
             this.setState(prevState => ({
@@ -112,7 +106,7 @@ class App extends Component {
           axios.get('/onboard/user', { params: {id: id} })
             .then(res => {
               if (res.data) {
-
+                
                 // update state 
                 this.setState(prevState => ({
                   currentUser: {
@@ -159,16 +153,7 @@ class App extends Component {
         cookieValid: true
       }));
       // place a cookie for the user
-      const cookies = new Cookies;
-      cookies.set(
-        'token'
-        , {
-          'token': user.token, 
-          'token_timestamp': user.token_timestamp,
-          'id_user': user.id_user
-        }
-        , { path: '/' } 
-      );
+      this.setACookie(user);
     }
   };
 

@@ -1,8 +1,4 @@
-export const uploadImageStart = () => {
-  return {
-    type: 'IMAGE_UPLOAD_START'
-  };
-};
+export const uploadImageStart = () => ({type: 'IMAGE_UPLOAD_START'});
 
 export const uploadImageComplete = (url) => (
   {

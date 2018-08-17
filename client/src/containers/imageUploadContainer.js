@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
       axios.post('/imageUpload/newImage', image)
         .then(response => { 
           dispatch(uploadImageComplete(response.data.Location)),
-          error => console.log('an error occured uploading the image to aws', error);
+          error => console.error('an error occured uploading the image to aws', error);
         });
     }
 

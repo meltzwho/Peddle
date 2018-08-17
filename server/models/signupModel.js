@@ -16,6 +16,7 @@ module.exports = {
 
         client.query(text, email)
           .then(response => {
+            client.release();
            
             // the email submitted is not taken
             if (response.rows.length === 0) {
