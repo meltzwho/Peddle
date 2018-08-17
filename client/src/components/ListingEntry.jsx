@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Image } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import { 
   FacebookButton,
@@ -102,8 +102,7 @@ class ListingEntry extends Component {
         <Grid>
           <Row className="show-grid">
             <Col xs={12} sm={5}>
-              <h2>Image</h2>
-              <div>Multiple Images</div>
+              <Image src="https://s3.amazonaws.com/peddle-images/iphone-2.jpg" responsive/>
             </Col>
             <Col xs={12} sm={5}>
               <h2>{this.state.listing.title}</h2>
