@@ -1,4 +1,6 @@
 const db = require('../models/sellerDashboardModel');
+const progress = require('../models/progressBarModel');
+const axios = require('axios');
 
 module.exports = {
   listings: (req, res) => {
@@ -13,21 +15,29 @@ module.exports = {
         let listings = {
           active: [],
           completed: []
-        }
-        response.forEach(row => {
-          if (listingIds[row.id_listing]) {
-            return;
-          } else {
-            if (row.is_active > 0) {
-              listingIds[row.id_listing] = true;
-              listings.active.push(row);
+        };
+        response.forEach((row, index) => {
+          progress.fetchStatus(row.id_listing, (statusErr, status) => {
+            if (statusErr) {
+              console.error('conroller: there was an error fetching the listing status', statusErr);
+            } else if (listingIds[row.id_listing]) {
+              return;
             } else {
-              listingIds[row.id_listing] = true;
-              listings.completed.push(row);
+              row.status = status;
+              console.log('status',row.id_listing, status)
+              if (row.is_active > 0) {
+                listingIds[row.id_listing] = true;
+                listings.active.push(row);
+              } else {
+                listingIds[row.id_listing] = true;
+                listings.completed.push(row);
+              }
             }
-          }
+            if (index === response.length - 1) {
+              res.send(listings);
+            }
+          });
         });
-        res.send(listings);
       }
     });
   }

@@ -1,35 +1,27 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { ProgressBar } from 'react-bootstrap';
 
-class ProgressBarComponent extends Component {
-  state = {}
-
-  componentDidMount() {
-    console.log('this props for progress', this.props)
-    this.props.fetchProgress(this.props.listingId);
+const progressBarItem = (props) => {
+  let barFill = 25;
+  let status = 'Active';
+  if (props.status.is_paid === 1) {
+    barFill += 25;
+    status = 'Bought';
+  }
+  if (props.status.is_shipped === 1) {
+    barFill += 25;
+    status = 'Shipped';
+  }
+  if (props.status.is_completed === 1) {
+    barFill += 25;
+    status = 'Completed';
   }
 
-  render() {
-    console.log(this.props)
-    let barFill = 0;
-    if (this.props.progress.active) {
-      barFill += 25;
-    }
-    if (this.props.progress.sold) {
-      barFill += 25;
-    }
-    if (this.props.progress.shipped) {
-      barFill += 25;
-    }
-    if (this.props.progress.completed) {
-      barFill += 25;
-    }
+  return (
+    <div>
+      <ProgressBar bsStyle="success" now={barFill} label={status}/>
+    </div>
+  );
+};
 
-    return (
-      <div>
-        <ProgressBar bsStyle="success" now={barFill} />
-      </div>
-    );
-  }
-}
-export default ProgressBarComponent;
+export default progressBarItem;

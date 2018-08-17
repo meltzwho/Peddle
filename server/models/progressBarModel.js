@@ -1,7 +1,7 @@
 const db = require('../../db/index.js').pool;
 
 module.exports = {
-  fetchStatus: ({ listingId }, callback) => {
+  fetchStatus: (listingId, callback) => {
     db.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting a connection from the pool');
@@ -17,7 +17,14 @@ module.exports = {
           if (err) {
             callback(err.stack, null);
           } else {
-            callback(null, res.rows[0]);
+            let resData;
+            //the listing won't have a response to this query if it hasn't been bought
+            if (res.rows.length < 1) {
+              resData = {is_paid: 0, is_shipped: 0, is_completed: 0};
+            } else {
+              resData = res.rows[0];
+            }
+            callback(null, resData);
           }
         });
       }
