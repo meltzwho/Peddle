@@ -16,7 +16,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(fetchOrdersStart());
       axios.get('/orders/orders', {params: {userId: userId}})
         .then(response => {
-          console.log('response data', response.data)
           dispatch(fetchOrdersSuccess(response.data)),
           error => {
             console.error('an error occured fetching the listings', error);

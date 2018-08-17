@@ -13,7 +13,6 @@ class Orders extends Component {
 
 
   render() {
-    
     let activeTiles = this.props.orders.orders.active.map((order) => (<OrdersItem key={order.id_order} order={order} active={true} />));
     let completedTiles = this.props.orders.orders.completed.map((order) => (<OrdersItem key={order.id_order} order={order} active={false} />))
     return (
