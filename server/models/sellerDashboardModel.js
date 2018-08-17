@@ -14,7 +14,8 @@ module.exports = {
                             ON listing.id_address=address.id_address
                             LEFT OUTER JOIN category 
                             ON listing.id_category=category.id_category
-                            WHERE id_seller=$1`;
+                            WHERE id_seller=$1
+                            ORDER BY listing.id_listing`;
         let params = [userId];
         client.query(sqlStatement, params, (err, res) => {
           release();

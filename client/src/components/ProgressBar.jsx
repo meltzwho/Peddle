@@ -6,7 +6,7 @@ const progressBarItem = (props) => {
   let status = 'Active';
   if (props.status.is_paid === 1) {
     barFill += 25;
-    status = 'Bought';
+    status = 'Paid';
   }
   if (props.status.is_shipped === 1) {
     barFill += 25;

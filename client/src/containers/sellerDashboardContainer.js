@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => {
           dispatch(fetchListingsSuccess(response.data)),
           error => {
             console.error('an error occured fetching the listings', error);
-            dispatch(fetchListingsFail);
+            dispatch(fetchListingsFail());
           }
         });
     },
