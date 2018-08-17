@@ -15,26 +15,36 @@ module.exports = {
             completed: []
           }
           response.forEach((order, index) => {
+            order.listings = [];
             db.fetchOrderDetails(order.id_order, (detailsErr, listResponse) => {
-              console.log(listResponse)
+              
               if (detailsErr) {
                 console.error('controller: there was an error fetching this orders listings', detailsErr)
-              } else if (listingIds[listResponse[0].id_listing]) {
-                return;
               } else {
-                order.listings = listResponse;
-                if (order.is_completed > 0){
+                listResponse.forEach((listing) => {
+                  // console.log('the listing in the server', listing)
+                  if (listingIds[listing.id_listing]) {
+                    return;
+                  } else {
+                    listingIds[listing.id_listing] = true;
+                    order.listings.push(listing);
+                  }
+                })
+                if (order.is_completed > 0) {
                   orders.completed.push(order);
                 } else {
                   orders.active.push(order);
                 }
+                if (index === response.length - 1) {
+                  res.send(orders);
+                }
+
               }
-              if (index === response.length-1) {
-                console.log('orders', orders)
-                res.send(orders);
-              }
-            })
-          })
+              
+              
+              
+            });
+          });
         }
       }
     });
