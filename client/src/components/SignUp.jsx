@@ -12,22 +12,6 @@ export default class SignUp extends React.Component {
     username: '',
     password: ''
   };
- 
-  setCookie = (token, token_timestamp, id) => {
-    // params for cookie: (name of cookie, 
-    // data in cookie, availability of cookie in app)
-    const cookies = new Cookies;
-    
-    cookies.set(
-      'token'
-      , {
-        'token': token, 
-        'token_timestamp': token_timestamp,
-        'id_user': id
-      }
-      , { path: '/' } 
-    );
-  };
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -43,21 +27,15 @@ export default class SignUp extends React.Component {
       username: this.state.username,
       password: this.state.password
     };
-    console.log('CLIENT:signup:', formContents);
+    
     axios({
       method: 'post',
       url: '/signup/create',
       data: { formContents }
     })
       .then(response => {
-        this.setCookie(
-          response.data.token
-          , response.data.token_timestamp
-          , response.data.id_user
-        );
-        console.log('CLIENT:response: ', response.data);
-        // send the user back to <App />
-        this.props.retrieveCurrentUser(response.data);
+        
+        this.props.handleLogin(response.data);
 
         // clear all input fields
         this.setState({
@@ -68,10 +46,7 @@ export default class SignUp extends React.Component {
           password: ''
         });
       })
-      .catch(err => {
-        console.error(err);
-        // send back to '/signup'
-      });
+      .catch(err => {console.error(err);});
     
   }
   

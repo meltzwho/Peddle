@@ -8,7 +8,7 @@ let cookie = new Cookies();
 let isCookieValid = (token, token_timestamp, callback) => {
   
   // lookup the cookie on db
-  db.connect((err, client) => {
+  db.connect((err, res) => {
     if (err) {
       console.error(err); 
       release();
@@ -16,7 +16,7 @@ let isCookieValid = (token, token_timestamp, callback) => {
       let text = 'SELECT token, token_timestamp FROM users WHERE token = $1';
       let value = [token];
 
-      client.query(text, value)
+      db.query(text, value)
         .then(res => {
           
           if (res.rows.length !== 0) {

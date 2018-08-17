@@ -26,21 +26,19 @@ export default class Login extends React.Component {
       data: { formContents }
     })
       .then(res => {
-        this.props.retrieveCurrentUser(res.data);
+        this.props.handleLogin(res.data);
         
         // clear fields
         this.setState({
           email: '',
           username: ''
         });
-      
       })
       .catch(err => {
         this.setState({
           email: '',
           username: ''
         });
-        
         console.error(err);
       });
     

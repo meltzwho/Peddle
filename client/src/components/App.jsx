@@ -14,8 +14,7 @@ import SellEntry from '../containers/SellEntryContainer';
 import Messages from './Messages';
 import SellerDashboard from './SellerDashboard';
 import Navbar from './Navbar';
- 
- 
+import Stripe from './Stripe';
 
 class App extends Component {
   state = {
@@ -39,30 +38,22 @@ class App extends Component {
   
   componentDidMount() {
     const cookies = new Cookies;
-    let payload = cookies.get('token');
-    console.log('DIDMOUNT:cookie', payload);
-  
-    this.isValidUser(payload);
+    let cookie = cookies.get('token');
+    console.log('DIDMOUNT:cookie', cookie);
+    this.sniffCookieToOnboardUser(cookie);
+    this.isValidUser(cookie);
     this.setCookieForGoogleLogin();
-    console.log('STATE:friends', this.state.greetFriends);
-    console.log('STATE:user', this.state.currentUser);
-    console.log('cookieValid:', this.state.cookieValid);
   }
   componentWillReceiveProps(nextProps) {
-    
     // if the user has switched routes then check validation 
-    //  **( && !this.state.cookieValid )**
-    if (nextProps.location !== this.props.location) {
+    if (nextProps.location !== this.props.location  && !this.state.cookieValid) {
       
       const cookies = new Cookies;
-      let payload = cookies.get('token');
-      console.log('payload:', payload);
-      this.isValidUser(payload);
+      let cookie = cookies.get('token');
+      console.log('payload:', cookie);
+      this.isValidUser(cookie);
       this.setCookieForGoogleLogin();
     }
-    console.log('STATE:PropsFrinds', this.state.greetFriends);
-    console.log('STATE:PropsUser ', this.state.currentUser);
-    console.log('cookieValid:Props ', this.state.cookieValid);
   }
 
   setCookieForGoogleLogin = () => {
@@ -98,45 +89,93 @@ class App extends Component {
                 ...res.data
               }
             }));
+            this.setState({
+              greetFriends: res.data.first_name,
+              cookieValid: true
+
+            });
           }
         })
         .catch(err => console.error(err));
     }
-    
   };
 
-  isValidUser = (payload) => {
-    if (payload) {
-      // check cookie data vs our db data
-      axios.post(
-        '/validate/token'
-        , { payload }
-      )
-        .then(response => { 
-          console.log('ISVALIDUSER: ', response.data);
-          this.setState({ cookieValid: response.data });
-        })
-        .catch(err => console.error(err));
+  sniffCookieToOnboardUser = (cookie) => {
+    // if email is on state then don't even start this process
+    if (this.state.currentUser.email === '') {
+      // check the cookie
+      if (Object.prototype.toString.call(cookie).slice(8, -1) === 'Object') {
+        if (Object.keys(cookie).length > 0) {
+          let id = cookie.id_user;
+
+          // call db for data
+          axios.get('/onboard/user', { params: {id: id} })
+            .then(res => {
+              if (res.data) {
+
+                // update state 
+                this.setState(prevState => ({
+                  currentUser: {
+                    ...prevState.currentUser,
+                    ...res.data
+                  },
+                  greetFriends: res.data.first_name,
+                  cookieValid: true
+                }));
+              }
+            })
+            .catch(err => console.error(err));
+        }
+      }
     }
   };
 
-  retrieveCurrentUser = (user) => {
+  isValidUser = (payload) => {
+    if (Object.prototype.toString.call(payload).slice(8, -1) === 'Object') {
+      if (Object.keys(payload).length > 0) {
+        // check cookie data vs our db data
+        axios.post(
+          '/validate/token'
+          , { payload }
+        )
+          .then(response => { 
+            this.setState({ cookieValid: response.data });
+          })
+          .catch(err => console.error(err));
+      }
+    }
+  };
+  
+
+  handleLogin = (user) => {
+    
     if (user) {
       this.setState(prevState => ({
         currentUser: {
           ...prevState.currentUser,
           ...user
         },
-        greetFriends: user.first_name
+        greetFriends: user.first_name,
+        cookieValid: true
       }));
+      // place a cookie for the user
+      const cookies = new Cookies;
+      cookies.set(
+        'token'
+        , {
+          'token': user.token, 
+          'token_timestamp': user.token_timestamp,
+          'id_user': user.id_user
+        }
+        , { path: '/' } 
+      );
     }
   };
 
   handleLogout = (e) => {
     e.preventDefault();
-    console.log('logout called');
-    // find cookies 'token', 'g_token', 'session', 'session.sig' and 'fr' 
-    // and remove them
+    
+    // find cookies and remove them
     const cookies = new Cookies;
     cookies.remove('token');
     cookies.remove('g_token');
@@ -157,6 +196,7 @@ class App extends Component {
       token_timestamp: null,
       profile_image: ''
     };
+  
 
     // zero out state
     this.setState(prevState => ({
@@ -164,7 +204,7 @@ class App extends Component {
         ...prevState.currentUser,
         ...resetCurrentUser
       }, 
-      greetFriends: resetCurrentUser.first_name,
+      greetFriends: 'Friend',
       cookieValid: false
     }));
   }
@@ -189,18 +229,18 @@ class App extends Component {
             path='/login'
             component={() => (
               <Login 
-                retrieveCurrentUser={this.retrieveCurrentUser} 
+                handleLogin={this.handleLogin} 
               />
             )}
           />
           <Route 
             path='/signup'
             component={() =>
-              <SignUp retrieveCurrentUser={this.retrieveCurrentUser} />
+              <SignUp handleLogin={this.handleLogin} />
             }
           />
           <Route 
-            path='/listings/:input'
+            path='/listings/:query'
             component={() =>
               <Listings />
             }
@@ -218,7 +258,7 @@ class App extends Component {
             }
           />
           <Route 
-            path="/profile/:userId" 
+            path="/profile" ///:userId" 
             component={() => 
               <Profile />
             }
@@ -291,6 +331,12 @@ class App extends Component {
                   ); 
               }
             } 
+          />
+          <Route 
+            path='/payment'
+            component={() => (
+              <Stripe />
+            )}
           />
         </Switch>
       </div>

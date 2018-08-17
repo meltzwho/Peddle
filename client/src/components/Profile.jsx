@@ -46,41 +46,51 @@ class Profile extends Component {
                 <Button>Ig</Button>
                 <Button>Twtr</Button><br/>
                 <div>Feedback Ratings</div>
-                <StarRatings 
-                  rating={5}
-                  starRatedColor="gold"
-                  starDimension="16px"
-                  starSpacing="0px"
-                />
-                <span>5 star count</span>
-                <StarRatings 
-                  rating={4}
-                  starRatedColor="gold"
-                  starDimension="16px"
-                  starSpacing="0px"
-                />
-                <span>4 star count</span>
-                <StarRatings 
-                  rating={3}
-                  starRatedColor="gold"
-                  starDimension="16px"
-                  starSpacing="0px"
-                />
-                <span>3 star count</span>
-                <StarRatings 
-                  rating={2}
-                  starRatedColor="gold"
-                  starDimension="16px"
-                  starSpacing="0px"
-                />
-                <span>2 star count</span>
-                <StarRatings 
-                  rating={1}
-                  starRatedColor="gold"
-                  starDimension="16px"
-                  starSpacing="0px"
-                />
-                <span>1 star count</span>
+                <div>
+                  <StarRatings 
+                    rating={5}
+                    starRatedColor="gold"
+                    starDimension="16px"
+                    starSpacing="0px"
+                  />
+                  <span>5 star count</span>
+                </div>
+                <div>
+                  <StarRatings 
+                    rating={4}
+                    starRatedColor="gold"
+                    starDimension="16px"
+                    starSpacing="0px"
+                  />
+                  <span>4 star count</span>
+                </div>
+                <div>
+                  <StarRatings 
+                    rating={3}
+                    starRatedColor="gold"
+                    starDimension="16px"
+                    starSpacing="0px"
+                  />
+                  <span>3 star count</span>
+                </div>
+                <div>
+                  <StarRatings 
+                    rating={2}
+                    starRatedColor="gold"
+                    starDimension="16px"
+                    starSpacing="0px"
+                  />
+                  <span>2 star count</span>
+                </div>
+                <div>
+                  <StarRatings 
+                    rating={1}
+                    starRatedColor="gold"
+                    starDimension="16px"
+                    starSpacing="0px"
+                  />
+                  <span>1 star count</span>
+                </div>
               </Thumbnail>
             </Col>
             <Col xs={12} sm={9}>

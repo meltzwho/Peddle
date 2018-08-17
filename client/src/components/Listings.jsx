@@ -11,12 +11,12 @@ class Listings extends Component {
   };
 
   componentDidMount() {
-    Axios.get('/l')
+    Axios.get(`/l/${this.props.match.params.query}`)
       .then(listings=>this.setState({listings: listings.data}));
   }
 
   render() {
-    let searchTerm = this.props.match.params.input;
+    let searchTerm = this.props.match.params.query;
     var ListingCards = []; 
     for (let i = 0; i < this.state.listings.length; i++) {
       let listings = this.state.listings;
