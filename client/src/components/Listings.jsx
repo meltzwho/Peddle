@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Axios from 'axios';
-import {Grid, Row, Col} from 'react-bootstrap';
+import {Grid, Row, Col, DropdownButton, MenuItem} from 'react-bootstrap';
 import ListingCard from './ListingCard';
 
 
@@ -11,12 +11,12 @@ class Listings extends Component {
   };
 
   componentDidMount() {
-    Axios.get('/l')
+    Axios.get(`/l/${this.props.match.params.query}`)
       .then(listings=>this.setState({listings: listings.data}));
   }
 
   render() {
-    let searchTerm = this.props.match.params.input;
+    let searchTerm = this.props.match.params.query;
     var ListingCards = []; 
     for (let i = 0; i < this.state.listings.length; i++) {
       let listings = this.state.listings;
@@ -29,11 +29,30 @@ class Listings extends Component {
         </Col>
       );
     }
-      
+    var title = 'default';  
     return (
       <div>
-        <h2>{this.state.listings.length + ' listings found for ' + searchTerm}</h2>
         <Grid>
+          <Row>
+            <Col xs={12} sm={4}>
+              <DropdownButton
+                bsStyle={title.toLowerCase()}
+                style={{marginBottom: '5px'}}
+                title={title}
+                key={title}
+                id={`dropdown-basic-${title}`}
+              >
+                <MenuItem eventKey="1">Action</MenuItem>
+                <MenuItem eventKey="2">Another action</MenuItem>
+                <MenuItem eventKey="3" active>
+                  Active Item
+                </MenuItem>
+                <MenuItem divider />
+                <MenuItem eventKey="4">Separated link</MenuItem>
+              </DropdownButton>
+              <span style={{margin: '5px', fontSize: '1.5rem', fontStyle: 'italic'}}>{this.state.listings.length + ' listings found for ' + searchTerm}</span>
+            </Col>
+          </Row>
           <Row>
             {ListingCards}
           </Row>

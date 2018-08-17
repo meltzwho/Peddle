@@ -1,11 +1,11 @@
 
-const db = require('../models/signupModel.js');
+const db = require('../models/onboardUserModel.js');
 
 module.exports = {
   
-  signupController: (req, res) => {
+  onboardUserController: (req, res) => {
 
-    db.signupByEmail(req.body.formContents, (err, response) => {
+    db.onboardUser(req.query.id, (err, response) => {
       if (err) {
         console.error('controller: there was an error entering the db', err);
       } else {

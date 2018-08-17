@@ -2,10 +2,10 @@ const db = require('../models/listingsModel.js');
 
 module.exports = {
   getSearchItem: (req, res) => {
-    db.getItems()
+    db.getItems(req.params.query)
       .then(data => {
         console.log('[controller] fetched listings');
-        res.json(data)
+        res.json(data);
       })
       .catch(e => {
         console.error('[controller] error fetching items', e);

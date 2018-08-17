@@ -7,7 +7,8 @@ router.get('/google', googleController);
 
 router.get('/google/redirect', 
   googleRedirectController, function(req, res) {
-    // Successful authentication, redirect home.    
+    
+    res.cookie('user', req.session, { path: '/' });
     res.redirect('/');
   });
 

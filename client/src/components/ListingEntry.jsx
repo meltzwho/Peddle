@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
+import Stripe from './Stripe';
 
 class ListingEntry extends Component {
   state = {
@@ -25,7 +26,7 @@ class ListingEntry extends Component {
       });
   }
   getSeller() {
-    axios.get(`/users/${this.state.listing.id_seller}`)
+    axios.get(`/users/userId/${this.state.listing.id_seller}`)
       .then(res => {
         this.setState({
           seller: res.data[0],
@@ -38,7 +39,7 @@ class ListingEntry extends Component {
       });
   }
   getRatingBySellerId() {
-    axios.get(`/ratings/${this.state.listing.id_seller}`)
+    axios.get(`/ratings/userId/${this.state.listing.id_seller}`)
       .then(res => {
         this.setState({
           sellerRating: res.data[0],
@@ -59,7 +60,7 @@ class ListingEntry extends Component {
             </Col>
             <Col xs={12} sm={5}>
               <h2>{this.state.listing.title}</h2>
-              <div>Sold by: {this.state.seller.username}</div>
+              <div>Sold by: <a href={`/profile/${this.state.seller.id_user}`}>{this.state.seller.username}</a></div>
               <StarRatings 
                 rating={+this.state.sellerRating.rating}
                 isAggregateRating="true"
@@ -68,22 +69,21 @@ class ListingEntry extends Component {
                 starDimension="16px"
                 starSpacing="0px"
               />
-              {this.state.sellerRating.count === 1? 
-                <a href="/">{this.state.sellerRating.count} review</a>
-                :<a href="/"> {this.state.sellerRating.count} reviews</a>
+              {this.state.sellerRating.count === 1 ? 
+                <a href="#listingReview">{this.state.sellerRating.count} review</a>
+                : <a href="/#listingReview"> {this.state.sellerRating.count} reviews</a>
               }
-              <div>Price: ${this.state.listing.price}</div>
-              <div>Quantity Available: {this.state.listing.quantity}</div>
+              <div>Price: <h4>${this.state.listing.price}</h4></div>
+              <div>Qty: {this.state.listing.quantity}</div>
               <div>Description: {this.state.listing.description}</div>
               <div>Condition: {this.state.listing.condition}</div>
-              <div>Reviews</div>
             </Col>
             <Col xs={12} sm={2}>
               <h2>Pay</h2>
               <div>Contact Seller</div>
               <div>Add To Cart</div>
               <div>Qty dropdown</div>
-              <div>Buy Now</div>
+              <Stripe listing={this.state.listing}/>
               <div>Watch Item</div>
             </Col>
           </Row>
@@ -97,7 +97,7 @@ class ListingEntry extends Component {
           </Row>
           <Row>
             <Col sx={12} sm={8}>
-              <h2>Customer Reviews</h2>
+              <h2 id="listingReview">Customer Reviews</h2>
               <div>rating count</div>
               <div>5 star link</div>
               <div>4 start link</div>

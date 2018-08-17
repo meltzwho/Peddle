@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Checkbox, ControlLabel, Form, FormGroup, FormControl } from 'react-bootstrap';
+import { Button, Col, Checkbox, ControlLabel, Form, FormGroup, FormControl, Grid , Row} from 'react-bootstrap';
 import axios from 'axios';
 
 export default class Login extends React.Component {
@@ -25,21 +25,20 @@ export default class Login extends React.Component {
       url: '/login/validate',
       data: { formContents }
     })
-      .then(response => {
+      .then(res => {
+        this.props.handleLogin(res.data);
         
         // clear fields
         this.setState({
           email: '',
           username: ''
         });
-      // send to last page (send to '/', then check to see last page)
       })
       .catch(err => {
         this.setState({
           email: '',
           username: ''
         });
-        // send back to '/signup'
         console.error(err);
       });
     
@@ -49,72 +48,102 @@ export default class Login extends React.Component {
     return (
       <div>
         <div className="login_wrapper">
-          <Form horizontal>
-            <FormGroup controlId="UserName">
-              <Col componentClass={ControlLabel} sm={2}>
-                Username
-              </Col>
-              <Col sm={10}>
-                <FormControl 
-                  type="text" 
-                  name="username"
-                  placeholder="Enter Username..." 
-                  value={this.state.username}
-                  onChange={this.handleChange}
-                />
-              </Col>
-            </FormGroup>
+          <Grid>
+            <Form horizontal>
 
-            <FormGroup controlId="Email">
-              <Col componentClass={ControlLabel} sm={2}>
-                Email
-              </Col>
-              <Col sm={10}>
-                <FormControl 
-                  type="email"
-                  name="email" 
-                  placeholder="Enter Email..." 
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                />
-              </Col>
-            </FormGroup>
+              <Row className="show-grid">
+                <FormGroup controlId="UserName">
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Username
+                  </Col>
+                  <Col sm={8}>
+                    <FormControl 
+                      type="text" 
+                      name="username"
+                      placeholder="Enter Username..." 
+                      value={this.state.username}
+                      onChange={this.handleChange}
+                    />
+                  </Col>
+                </FormGroup>
+              </Row>
 
-            <FormGroup>
-              <Col smOffset={2} sm={10}>
-                <Checkbox>Remember me</Checkbox>
-              </Col>
-            </FormGroup>
+              <Row className="show-grid">
+                <FormGroup controlId="Email">
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Email
+                  </Col>
+                  <Col sm={8}>
+                    <FormControl 
+                      type="email"
+                      name="email" 
+                      placeholder="Enter Email..." 
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                    />
+                  </Col>
+                </FormGroup>
+              </Row>
 
-            <FormGroup>
-              <Col smOffset={2} sm={10}>
-                <Button 
-                  type="submit"
-                  onClick={this.handleSubmit}
-                >Sign in
-                </Button>
-              </Col>
-            </FormGroup>
+              <Row className="show-grid">
+                <FormGroup>
+                  <Col smOffset={2} sm={8}>
+                    <Button
+                      bsStyle="primary" 
+                      bsSize="large" 
+                      block
+                      type="submit"
+                      onClick={this.handleSubmit}
+                    >Sign in
+                    </Button>
+                  </Col>
+                </FormGroup>
+              </Row>
 
-            <div className="aTag_wrapper">
-              <a href="/" className="forgotPassword">
-                Forgot your passowrd?
-              </a>
-              <a href="/" className="forgotUserName">
-                Forgot your username?
-              </a>
-            </div>
+              <Row className="show-grid">
+                <Col smOffset={2} sm={8}>
+                  <div className="aTag_wrapper">
+                    <a href="/" className="forgotPassword">
+                      Forgot your passowrd?
+                    </a>
+                    <a href="/" className="forgotUserName">
+                      Forgot your username?
+                    </a>
+                  </div>
+                </Col>
+              </Row>
 
-            <div className="oauth_wrapper">
-              <p>or sign in with...</p>
-              <a href='/auth/google'>
-                <Button>Sign in with Google</Button>
-              </a>
-              <a href="/auth/facebook">
-                <Button>Sign in with Facebook</Button>
-              </a>
-            </div>
-          </Form>;
+              <Row className="show-grid">
+                <Col smOffset={2} sm={12}>
+                  <div className="oauth_wrapper">
+                    <p>or sign in with...</p>
+                  </div>
+                </Col>
+              </Row>
+
+              <Row className="show-grid">
+                <Col smOffset={2} sm={4}>
+                  <a href='/auth/google'>
+                    <Button 
+                      bsSize="large" 
+                      block
+                    >Sign in with Google
+                    </Button>
+                  </a>
+                </Col>
+                <Col sm={4}>
+                  <a href="/auth/facebook">
+                    <Button
+                      bsSize="large" 
+                      block
+                    >Sign in with Facebook
+                    </Button>
+                  </a>
+                </Col>
+              </Row>
+              
+            </Form>
+          </Grid>
         </div>
       </div>
     );

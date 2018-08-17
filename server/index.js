@@ -14,14 +14,18 @@ const authRoutes = require('./routes/authRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const sellEntryRoutes = require('./routes/sellEntryRoutes');
 const notifRoutes = require('./routes/notifications');
+const onboardUserRoutes = require('./routes/onboardUserRoutes');
+const validateRoutes = require('./routes/validateRoutes');  
+const sessionRoutes = require('./routes/sessionRoutes');
 const listingsRoutes = require('./routes/listingsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 const imageUploadRoutes = require('./routes/imageUploadRoutes');
 const ratingsRoutes = require('./routes/ratingsRoutes');
 const sellerDashboardRoutes = require('./routes/sellerDashboardRoutes');
 const progressBarRoutes = require('./routes/progressBarRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
 
-require('./helpers/bearerAuthSetup');
+
 require('./helpers/googleAuthSetup');
 require('./helpers/facebookAuthSetup');
 
@@ -31,14 +35,15 @@ const signupRoutes = require('./routes/signupRoutes');
 const app = express();
 
 //Middleware
-app.use(cors());
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
 app.use(fileUpload());
 
 app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000, // 1 day
+  httpOnly: false,
   keys: [session.cookieKey]
 }));
 
@@ -51,13 +56,20 @@ app.use('/auth', authRoutes);
 app.use('/login', loginRoutes);
 app.use('/sellEntry', sellEntryRoutes);
 app.use('/notifs', notifRoutes);
+app.use('/onboard', onboardUserRoutes);
 app.use('/signup', signupRoutes);
+app.use('/session', sessionRoutes);
 app.use('/l', listingsRoutes);
+app.use('/validate', validateRoutes);
 app.use('/users', usersRoutes);
 app.use('/imageUpload', imageUploadRoutes);
 app.use('/ratings', ratingsRoutes);
+<<<<<<< HEAD
 app.use('/sellerDashboard', sellerDashboardRoutes);
 app.use('/progressBar', progressBarRoutes);
+=======
+app.use('/p', paymentRoutes);
+>>>>>>> 6dacee872142f3b09632aab4853d7036e8ae3137
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
