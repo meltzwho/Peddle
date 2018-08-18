@@ -36,10 +36,7 @@ module.exports = {
               }
             } 
           })
-          .catch(err => {
-            client.release();
-            console.error(err);
-          });
+          .catch(err => {client.release(); console.error(err)});
       }
     });
   }

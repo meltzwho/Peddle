@@ -14,7 +14,6 @@ class Stripe extends Component {
       });
   }
   render() {
-    console.log(this.props.listing)
     return (
       <StripeCheckout
         name="Peddle" // the pop-in header title
@@ -48,7 +47,7 @@ class Stripe extends Component {
         // Note: you can change the event to `onTouchTap`, `onClick`, `onTouchStart`
         // useful if you're using React-Tap-Event-Plugin
         // triggerEvent="onTouchTap"
-        >
+      >
         <Button className="btn btn-primary">
           Buy Now
         </Button>

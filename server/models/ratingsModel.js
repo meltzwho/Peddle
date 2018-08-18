@@ -12,11 +12,28 @@ module.exports = {
           })
           .catch(e => {
             client.release();
-            console.log('error fetching listing', e);
+            console.log('error fetching rating', e);
           })
       })
       .catch(e => {
         console.error('there was an error getting the pool connection', e);
       });
-  }
+  },
+  getFeedbackByUserId: (id) => {
+    return db.connect()
+      .then(client => {
+        return client.query(`SELECT * FROM feedback WHERE id_seller=${id}`)
+          .then(res => {
+            client.release();
+            return res.rows;
+          })
+          .catch(e => {
+            client.release();
+            console.log('error fetching feedback', e);
+          })
+      })
+      .catch(e => {
+        console.error('there was an error getting the pool connection', e);
+      });
+  },
 };

@@ -29,11 +29,19 @@ class SellEntry extends Component {
     let userId = this.props.currentUserId ? this.props.currentUserId : 1;
     //pass the image urls from the redux store to the function
     //format the dollar input value to have 2 decimal points e.g (10.00) 
-    this.setState({
-      userId: userId,
-      listingUrls: this.props.urls,
-      productPrice: parseInt(this.state.productPrice).toFixed(2)
-    },() => this.props.postListing(this.state));
+    if(this.props.entry.listingEdit) {
+      this.setState({
+        userId: userId,
+        listingUrls: this.props.urls,
+        productPrice: parseInt(this.state.productPrice).toFixed(2)
+      },() => this.props.editListing(this.state));
+    } else {
+      this.setState({
+        userId: userId,
+        listingUrls: this.props.urls,
+        productPrice: parseInt(this.state.productPrice).toFixed(2)
+      },() => this.props.postListing(this.state));
+    }
    
   }
 
@@ -55,12 +63,9 @@ class SellEntry extends Component {
     this.setState(this.props.entry);
   }
 
-  handleModalClose = () => {
-    this.props.closeModal();
-  }
-
   handleGoToListing = () => {
-    this.props.history.push('/listingEntry');
+    this.props.closeModal();
+    this.props.history.push('/sellerDashboard');
   }
 
 
@@ -89,7 +94,7 @@ class SellEntry extends Component {
         modalFooter = 
         (
           <Modal.Footer>
-            <Button onClick={this.handleModalClose}>New Listing</Button>
+            <Button onClick={this.props.closeModal}>New Listing</Button>
           </Modal.Footer>
         );
       }
@@ -97,7 +102,7 @@ class SellEntry extends Component {
       
       modal = 
       (
-        <Modal show={this.props.entry.listingSuccessful !== null} onHide={this.handleModalClose}>
+        <Modal show={this.props.entry.listingSuccessful !== null} onHide={this.props.closeModal}>
           <Modal.Header>
             <Modal.Title>{modalTitle}</Modal.Title>
           </Modal.Header>
@@ -161,7 +166,7 @@ class SellEntry extends Component {
     }
 
     let pickupPopover = (
-      <Popover id="popover-trigger-hover-focus" title="Just a heads up!">
+      <Popover id="popover-trigger-hover-focus" title="Don't Worry!">
         We won't show your exact location to buyers!
       </Popover>
     )

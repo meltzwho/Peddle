@@ -1,4 +1,4 @@
-const db = require('../models/sellEntryModel.js');
+const db = require('../models/sellEntryModel');
 
 module.exports = {
   categories: (req, res) => {
@@ -28,5 +28,14 @@ module.exports = {
       }
     })
 
+  },
+  editListing: (req, res) => {
+    db.editListing(req.body, (err, response) => {
+      if (err) {
+        console.error('controller: there was an error updating this listing in the db', err);
+      } else {
+        res.send(response.rows[0]);
+      }
+    });
   }
 };

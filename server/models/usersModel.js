@@ -12,7 +12,7 @@ module.exports = {
           })
           .catch(e => {
             client.release();
-            console.log('error fetching listing', e);
+            console.log('error fetching user', e);
           })
       })
       .catch(e => {

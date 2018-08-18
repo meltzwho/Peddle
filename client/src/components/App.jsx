@@ -4,7 +4,7 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import Home from './Home';
 import Profile from './Profile';
-import Orders from './Orders';
+import Orders from '../containers/orderContainer';
 import Listings from './Listings';
 import ListingEntry from './ListingEntry';
 import Cart from './Cart/Cart';
@@ -12,7 +12,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import SellEntry from '../containers/SellEntryContainer';
 import Messages from './Messages';
-import SellerDashboard from './SellerDashboard';
+import SellerDashboard from '../containers/sellerDashboardContainer';
 import Navbar from './Navbar';
 import Stripe from './Stripe';
 
@@ -40,9 +40,19 @@ class App extends Component {
     const cookies = new Cookies;
     let cookie = cookies.get('token');
     
-    this.sniffCookieToOnboardUser(cookie);
     this.isValidUser(cookie);
     this.setCookieForGoogleLogin();
+  }
+
+  getCookie (destination) {
+    const cookies = new Cookies;
+    let cookie = cookies.get('token');
+    if(cookie) {
+      this.setState({
+        cookieValid: true,
+        currentUser: {...this.state.currentUser, id_user: cookie.id_user}
+      }, () => this.props.history.push(destination));
+    }
   }
   
   setACookie = (data) => {
@@ -74,7 +84,7 @@ class App extends Component {
       axios.get('/session/google', { params: {id: googleID} })
         .then(res => {
           this.setACookie(res.data);
-          
+          console.log('setGoogle');
           // put data on state
           if (res.data) {
             this.setState(prevState => ({
@@ -105,6 +115,7 @@ class App extends Component {
           // call db for data
           axios.get('/onboard/user', { params: {id: id} })
             .then(res => {
+              console.log('sniff');
               if (res.data) {
                 
                 // update state 
@@ -124,15 +135,21 @@ class App extends Component {
     }
   };
 
-  isValidUser = (payload) => {
-    if (Object.prototype.toString.call(payload).slice(8, -1) === 'Object') {
-      if (Object.keys(payload).length > 0) {
+  isValidUser = (cookie) => {
+    if (Object.prototype.toString.call(cookie).slice(8, -1) === 'Object') {
+      if (Object.keys(cookie).length > 0) {
         // check cookie data vs our db data
+        console.log('validating');
+        
         axios.post(
           '/validate/token'
-          , { payload }
+          , { payload: cookie }
         )
-          .then(response => { 
+          .then(response => {
+            
+            if (response.data) {
+              this.sniffCookieToOnboardUser(cookie);
+            }
             this.setState({ cookieValid: response.data });
           })
           .catch(err => console.error(err));
@@ -195,7 +212,7 @@ class App extends Component {
   }
 
   render() {
-    
+    if (!this.state.cookieValid) this.getCookie(this.props.location.pathname);
     return (
       <div>
         <Navbar 
@@ -243,7 +260,7 @@ class App extends Component {
             }
           />
           <Route 
-            path="/profile" ///:userId" 
+            path="/profile/:userId" 
             component={() => 
               <Profile />
             }
