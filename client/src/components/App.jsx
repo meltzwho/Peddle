@@ -19,7 +19,7 @@ import Stripe from './Stripe';
 class App extends Component {
   state = {
     greetFriends: 'Friend',
-    cookieValid: true,
+    cookieValid: false,
 
     currentUser: {
       id_user: '',
@@ -40,9 +40,19 @@ class App extends Component {
     const cookies = new Cookies;
     let cookie = cookies.get('token');
     
-    this.sniffCookieToOnboardUser(cookie);
     this.isValidUser(cookie);
     this.setCookieForGoogleLogin();
+  }
+
+  getCookie (destination) {
+    const cookies = new Cookies;
+    let cookie = cookies.get('token');
+    if(cookie) {
+      this.setState({
+        cookieValid: true,
+        currentUser: {...this.state.currentUser, id_user: cookie.id_user}
+      }, () => this.props.history.push(destination));
+    }
   }
   
   setACookie = (data) => {
@@ -125,17 +135,21 @@ class App extends Component {
     }
   };
 
-  isValidUser = (payload) => {
-    if (Object.prototype.toString.call(payload).slice(8, -1) === 'Object') {
-      if (Object.keys(payload).length > 0) {
+  isValidUser = (cookie) => {
+    if (Object.prototype.toString.call(cookie).slice(8, -1) === 'Object') {
+      if (Object.keys(cookie).length > 0) {
         // check cookie data vs our db data
+        console.log('validating');
+        
         axios.post(
           '/validate/token'
-          , { payload }
+          , { payload: cookie }
         )
           .then(response => {
-            console.log('isValidUser');
             
+            if (response.data) {
+              this.sniffCookieToOnboardUser(cookie);
+            }
             this.setState({ cookieValid: response.data });
           })
           .catch(err => console.error(err));
@@ -193,12 +207,12 @@ class App extends Component {
         ...resetCurrentUser
       }, 
       greetFriends: 'Friend',
-      //cookieValid: false
+      cookieValid: false
     }));
   }
 
   render() {
-    
+    if (!this.state.cookieValid) this.getCookie(this.props.location.pathname);
     return (
       <div>
         <Navbar 
