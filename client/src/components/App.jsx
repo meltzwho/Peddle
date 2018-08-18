@@ -7,7 +7,7 @@ import Profile from './Profile';
 import Orders from './Orders';
 import Listings from './Listings';
 import ListingEntry from './ListingEntry';
-import Cart from './Cart';
+import Cart from './Cart/Cart';
 import Login from './Login';
 import SignUp from './SignUp';
 import SellEntry from '../containers/SellEntryContainer';

@@ -43,5 +43,22 @@ module.exports = {
       .catch(e => {
         console.error('[model] error getting pool connection', e);
       });
+  },
+  get20: () => {
+    return db.connect()
+      .then(client => {
+        return client.query('SELECT * FROM listing LIMIT 20') 
+          .then(res => {
+            client.release();
+            return res.rows;
+          })
+          .catch(e => {
+            client.release();
+            console.error('[model] error getting 20 items', e);
+          });
+      })
+      .catch(e => {
+        console.error('[model] error getting pool connection', e);
+      });
   }
 };
