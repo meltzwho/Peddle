@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Grid, Row, Col, Image } from 'react-bootstrap';
+import { Grid, Row, Col, ButtonToolbar, MenuItem, DropdownButton } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import { 
   FacebookButton,
@@ -13,10 +13,12 @@ import axios from 'axios';
 import config from '../../../config';
 import Stripe from './Stripe';
 import ReviewEntry from './ReviewEntry';
+import ImageViewer from './ImageViewer';
 
 class ListingEntry extends Component {
   state = {
     listing: {
+      id_listing: '',
       condition: '',
       date_posted: '',
       description: '',
@@ -63,6 +65,7 @@ class ListingEntry extends Component {
           seller: res.data[0],
         }, () => {
           this.getRatingBySellerId();
+          this.getImagesByListingId();
         });
       })
       .catch(e => {
@@ -93,8 +96,22 @@ class ListingEntry extends Component {
         console.log('[client] error fetching feedback: ', e);
       });
   }
-  getImages() {
-    
+  getImagesByListingId() {
+    axios.get(`/images/lid/${this.state.listing.id_listing}`)
+      .then(res => {
+        let images = res.data.map(image => {
+          return ({
+            original: image.image_url,
+            thumbnail: image.image_url
+          });
+        });
+        this.setState({
+          images: images,
+        });
+      })
+      .catch(e => {
+        console.log('[client] error fetching feedback: ', e);
+      });
   }
   render() {
     if(this.state.listing.id_seller !== 0) {
@@ -102,7 +119,7 @@ class ListingEntry extends Component {
         <Grid>
           <Row className="show-grid">
             <Col xs={12} sm={5}>
-              <Image src="https://s3.amazonaws.com/peddle-images/iphone-2.jpg" responsive/>
+              <ImageViewer images={this.state.images} />
             </Col>
             <Col xs={12} sm={5}>
               <h2>{this.state.listing.title}</h2>
@@ -122,15 +139,23 @@ class ListingEntry extends Component {
                   : <a href="/#listingReview"> {this.state.sellerRating.count} reviews</a>
               }
               <div>Price: <h4>${this.state.listing.price}</h4></div>
-              <div>Qty: {this.state.listing.quantity}</div>
+              <div>Qty Available: {this.state.listing.quantity}</div>
               <div>Description: {this.state.listing.description}</div>
               <div>Condition: {this.state.listing.condition}</div>
             </Col>
             <Col xs={12} sm={2}>
-              <h2>Pay</h2>
-              <div>Contact Seller</div>
               <div>Add To Cart</div>
-              <div>Qty dropdown</div>
+              <div>Qty: 
+                <ButtonToolbar>
+                  <DropdownButton
+                    bsSize="xsmall"
+                    title="1"
+                    id="dropdown-size-extra-small"
+                  >
+                    {/* <MenuItem eventKey="1">1</MenuItem> */}
+                  </DropdownButton>
+                </ButtonToolbar>
+              </div>
               <Stripe listing={this.state.listing}/>
               <div>Watch Item</div>
             </Col>
