@@ -7,7 +7,7 @@ const db = require('../../db/index.js').pool;
 module.exports = {
   signupByEmail: (data, callback) => {
     
-    db.connect((err, client) => {
+    db.connect((err, client, release) => {
       if (err) {
         console.error(err); 
       } else {

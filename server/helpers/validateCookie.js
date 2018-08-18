@@ -18,7 +18,7 @@ let isCookieValid = (token, token_timestamp, callback) => {
 
       client.query(text, value)
         .then(res => {
-          
+          client.release(); 
           if (res.rows.length !== 0) {
             let dbtoken = res.rows[0].token;
             let dbtoken_timestamp = res.rows[0].token_timestamp;
@@ -27,8 +27,6 @@ let isCookieValid = (token, token_timestamp, callback) => {
               JSON.stringify(dbtoken) === JSON.stringify(token) &&
               JSON.stringify(dbtoken_timestamp) === JSON.stringify(token_timestamp));
             
-            client.release();  
-            console.log('COOKIEVALIDATE: ', result);
             callback(null, result);
           }
         })

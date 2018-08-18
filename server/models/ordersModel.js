@@ -2,7 +2,6 @@ const db = require('../../db/index.js').pool;
 
 module.exports = {
   fetchOrders: ({ userId }, callback) => {
-    console.log('user id to start', userId)
     db.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting a connection from the pool');
@@ -27,7 +26,6 @@ module.exports = {
     });
   },
   fetchOrderDetails: (orderId, callback) => {
-    console.log('the orders for that user', orderId)
     db.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting a connection from the pool', err);
