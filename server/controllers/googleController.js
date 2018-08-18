@@ -12,13 +12,13 @@ module.exports = {
     db.connect((err, client) => {
       if (err) {
         response.status(500).send(err);
-        release();
       } else {
         let text = 'SELECT * FROM users WHERE google_id = $1';
         let value = [id];
             
         client.query(text, value)
           .then(res => {
+            client.release();
             if (res.rows !== undefined ) {
               let reducedObject = {};
               reducedObject.id_user = res.rows[0].id_user;
@@ -35,7 +35,10 @@ module.exports = {
               response.status(201).send(reducedObject);
             }
           })
-          .catch(err => response.status(500).send(err));
+          .catch(err => {
+            response.status(500).send(err);
+            client.release();
+          });
         release();
       }
     });
