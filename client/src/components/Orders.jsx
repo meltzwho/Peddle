@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal, Tabs, Tab } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-import OrdersItem from './ordersItem';
+import OrdersItem from './OrdersItem';
 
 class Orders extends Component {
   state = {}
