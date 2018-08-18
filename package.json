@@ -46,6 +46,7 @@
     "react-bootstrap": "^0.32.1",
     "react-cookie": "^2.2.0",
     "react-dom": "^16.4.2",
+    "react-image-gallery": "^0.8.10",
     "react-images-upload": "^1.2.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
