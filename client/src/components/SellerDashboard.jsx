@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Tabs, Tab } from 'react-bootstrap';
+import { Button, Modal, Tabs, Tab, Grid, Col, Row, Jumbotron } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import SellerDashboardItem from './sellerDashBoardItem';
 
@@ -27,8 +27,7 @@ class SellerDashboard extends Component {
     let completedTiles = this.props.listings.listings.completed.map((listing) => (<SellerDashboardItem key={listing.id_listing} listing={listing} active={false} />))
 
     return (
-      <div>
-        <h2>Seller Dashboard</h2>
+      <Grid>
         <Modal show={this.props.listings.listingFetchSuccess === false} onHide={this.props.closeFailModal}>
           <Modal.Header>
             <Modal.Title>Sorry!</Modal.Title>
@@ -38,21 +37,32 @@ class SellerDashboard extends Component {
             <Button onClick={this.props.closeFailModal}>Close</Button>
           </Modal.Footer>
         </Modal>
-        
-        
-        <Button onClick={this.newListing} bsStyle="primary" bsSize="large">List a New Item</Button>
-      
-        <h3>Your Listings</h3>
 
-        <Tabs defaultActiveKey={1} id="seller-listings">
-          <Tab eventKey={1} title={`Active (${this.props.listings.listings.active.length})`}>
-            {activeTiles}
-          </Tab>
-          <Tab eventKey={2} title={`Completed (${this.props.listings.listings.completed.length})`}>
-            {completedTiles}
-          </Tab>
-        </Tabs>
-      </div>
+        <Jumbotron>
+          <Row>
+            <h2>Seller Dashboard</h2> 
+            <Col xs={18} md={4} mdOffset={10}>
+              <Button onClick={this.newListing} bsStyle="primary" bsSize="large">List a New Item</Button>
+            </Col>
+          </Row>
+        </Jumbotron>
+        
+        
+        <Row>
+          <h3>Your Listings</h3>
+        </Row>
+
+        <Row>
+          <Tabs defaultActiveKey={1} id="seller-listings">
+            <Tab eventKey={1} title={`Active (${this.props.listings.listings.active.length})`}>
+              {activeTiles}
+            </Tab>
+            <Tab eventKey={2} title={`Completed (${this.props.listings.listings.completed.length})`}>
+              {completedTiles}
+            </Tab>
+          </Tabs>
+        </Row>
+      </Grid>
     );
   }
 }

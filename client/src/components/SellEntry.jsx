@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, InputGroup, Checkbox, Button, DropdownButton, MenuItem, ButtonToolbar, Radio, Modal, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Checkbox, Button, DropdownButton, MenuItem, ButtonToolbar, Radio, Modal, Popover, OverlayTrigger, Grid, Col, Row, Jumbotron } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import ImageUploadContainer from '../containers/imageUploadContainer';
 
@@ -172,107 +172,136 @@ class SellEntry extends Component {
     )
 
     return (
-      <div>
+      <Grid>
+        <Jumbotron>
+          <h2>Create Your Listing Below</h2>
+        </Jumbotron>
         {modal}
         <Form>
-          <FormGroup controlId="productTitle">
-            <ControlLabel>What are you selling?</ControlLabel>
-            <FormControl 
-              type="text"
-              name="productName"
-              value={this.state.productName}
-              placeholder="Enter product name"
-              onChange={this.handleInputChange}
-            />
-          </FormGroup>
+          <Row>
+            <Col xs={12} md={8}>
+              <Row>
+                <FormGroup controlId="productTitle">
+                  <ControlLabel>What are you selling?</ControlLabel>
+                  <FormControl 
+                    type="text"
+                    name="productName"
+                    value={this.state.productName}
+                    placeholder="Enter product name"
+                    onChange={this.handleInputChange}
+                  />
+                </FormGroup>
+              </Row>
 
-          <FormGroup controlId="productDescription">
-            <ControlLabel>Description</ControlLabel>
-            <FormControl 
-              type="text"
-              name="productDescription"
-              value={this.state.productDescription}
-              placeholder="Tell us about the product you're selling"
-              onChange={this.handleInputChange}
-            />
-          </FormGroup>
+              <Row>
+                <FormGroup controlId="productDescription">
+                  <ControlLabel>Description</ControlLabel>
+                  <FormControl 
+                    type="text"
+                    name="productDescription"
+                    value={this.state.productDescription}
+                    placeholder="Tell us about the product you're selling"
+                    onChange={this.handleInputChange}
+                  />
+                </FormGroup>
+              </Row>
+            </Col>
 
-          <FormGroup controlId="productPrice">
-            <ControlLabel>Price</ControlLabel>
-            <InputGroup>
-              <InputGroup.Addon>$</InputGroup.Addon>
-            </InputGroup>
-            <FormControl 
-              type="number"
-              name="productPrice"
-              value={this.state.productPrice}
-              onChange={this.handleInputChange}
-            />
-          </FormGroup>
+            <Col xs={6} md={4}>
+            <ImageUploadContainer />
+            <p>images uploaded: {this.props.urls.length}</p>
+            </Col>
+          </Row>
 
-          <FormGroup controlId="productDeliveryMethod">
-            <OverlayTrigger
-              trigger={['hover', 'focus']}
-              placement="top"
-              overlay={pickupPopover}
-            >
-              <Checkbox 
-                name="allowPickup"
-                onClick={this.handleSelectboxChange}
-                checked={this.state.allowPickup}
-                inline
-              >
-                Local Pickup
-              </Checkbox>
-            </OverlayTrigger>
-            <Checkbox
-              name="allowShipping"
-              onClick={this.handleSelectboxChange}
-              checked={this.state.allowShipping}
-              inline
-            >
-                Shipping Available
-            </Checkbox>
-          </FormGroup>
+          {/* <Row style={{marginTop: "50px"}}>
+            <Col xs={18} md={18}></Col>
+          </Row> */}
+
+
+          <Row style={{marginTop: "30px"}}>
+            <Col xs={9} md={1}>
+              <FormGroup controlId="productPrice">
+                <ControlLabel>Price</ControlLabel>
+                <FormControl 
+                  type="number"
+                  name="productPrice"
+                  value={this.state.productPrice}
+                  onChange={this.handleInputChange}
+                />
+              </FormGroup>
+            </Col>
+            <Col xs={9} md={1} mdPush={1}>
+              <FormGroup controlId="productQuantity">
+                <ControlLabel>Quantity</ControlLabel>
+                <FormControl 
+                  type="number"
+                  name="productQuantity"
+                  value={this.state.productQuantity}
+                  onChange={this.handleInputChange}
+                />
+              </FormGroup>
+            </Col>
+            <Col xs={9} md={4} mdPush={2}>
+              <FormGroup onClick={this.handleCondition}>
+              <ControlLabel>Condition</ControlLabel> <br />
+                <Radio checked={this.state.productCondition==='new'} name='new' inline>New</Radio>{' '}
+                <Radio checked={this.state.productCondition==='used'} name='used' inline>Used</Radio>{' '}
+                <Radio checked={this.state.productCondition==='open-box'} name='open-box' inline>Open Box</Radio>{' '}
+                <br />
+                <Radio checked={this.state.productCondition==='reconditioned'} name='reconditioned' inline>Reconditioned</Radio>{' '}
+                <Radio checked={this.state.productCondition==='other'} name='other' inline>Other</Radio>{' '}
+              </FormGroup>
+            </Col>
+            <Col xs={9} md={1} mdPush={2}>
+              <ButtonToolbar>
+                <DropdownButton
+                  title={this.state.selectedCategory || 'loading'}
+                  key={0}
+                  id="dropdown-size-medium"
+                >
+                  {categories}
+                </DropdownButton>
+              </ButtonToolbar>
+            </Col>
+          </Row>
+          <br />
+          <Row style={{marginTop: "30px"}}>
+            <Col xs={12} md={12}>
+              <FormGroup controlId="productDeliveryMethod">
+                <OverlayTrigger
+                  trigger={['hover', 'focus']}
+                  placement="top"
+                  overlay={pickupPopover}
+                >
+                  <Checkbox 
+                    name="allowPickup"
+                    onClick={this.handleSelectboxChange}
+                    checked={this.state.allowPickup}
+                    inline
+                  >
+                    Local Pickup
+                  </Checkbox>
+                </OverlayTrigger>
+                <Checkbox
+                  name="allowShipping"
+                  onClick={this.handleSelectboxChange}
+                  checked={this.state.allowShipping}
+                  inline
+                >
+                    Shipping Available
+                </Checkbox>
+              </FormGroup>
+            </Col>
+          </Row>
 
           {addressForm}
 
-          <FormGroup onClick={this.handleCondition}>
-            <Radio checked={this.state.productCondition==='new'} name='new' inline>New</Radio>{' '}
-            <Radio checked={this.state.productCondition==='used'} name='used' inline>Used</Radio>{' '}
-            <Radio checked={this.state.productCondition==='open-box'} name='open-box' inline>Open Box</Radio>{' '}
-            <Radio checked={this.state.productCondition==='reconditioned'} name='reconditioned' inline>Reconditioned</Radio>{' '}
-            <Radio checked={this.state.productCondition==='other'} name='other' inline>Other</Radio>{' '}
-          </FormGroup>
 
-          <FormGroup controlId="productQuantity">
-            <ControlLabel>Quantity</ControlLabel>
-            <FormControl 
-              type="number"
-              name="productQuantity"
-              value={this.state.productQuantity}
-              onChange={this.handleInputChange}
-            />
-          </FormGroup>
-          
-          <ButtonToolbar>
-            <DropdownButton
-              title={this.state.selectedCategory || 'loading'}
-              key={0}
-              id="dropdown-size-medium"
-            >
-              {categories}
-            </DropdownButton>
-          </ButtonToolbar>
-
-
-          <ImageUploadContainer />
-          <p>images uploaded: {this.props.urls.length}</p>
-
-          <Button onClick={this.handleListingSubmit} type="submit">Submit</Button>
-
+          <Row style={{marginTop: "30px"}}>
+            <Button onClick={this.handleListingSubmit} type="submit">Submit</Button>
+          </Row>
         </Form>
-      </div>
+      </Grid>
     );
   }
 }

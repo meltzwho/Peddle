@@ -7,6 +7,7 @@ module.exports = {
       if (err) {
         console.error('controller: there was an error fetching this sellers listings', err);
       } else {
+        // console.log('the response length', response.length)
         //need to refactor query, we only want 1 entry for each item, even if
         //it has multiple pictures below is workaround with breadcrumbing on object
         let listingIds = {};
