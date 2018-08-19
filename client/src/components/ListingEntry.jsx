@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Grid, Row, Col, ButtonToolbar, MenuItem, DropdownButton } from 'react-bootstrap';
+import { Grid, Row, Col, ButtonToolbar, MenuItem, DropdownButton, Button } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import { 
   FacebookButton,
@@ -114,7 +114,7 @@ class ListingEntry extends Component {
       });
   }
   render() {
-    if(this.state.listing.id_seller !== 0) {
+    if (this.state.listing.id_seller !== 0) {
       return (
         <Grid>
           <Row className="show-grid">
@@ -144,18 +144,18 @@ class ListingEntry extends Component {
               <div>Condition: {this.state.listing.condition}</div>
             </Col>
             <Col xs={12} sm={2}>
-              <div>Add To Cart</div>
+              <Button>Add To Cart</Button>
               <div>Qty: 
-                <ButtonToolbar>
-                  <DropdownButton
-                    bsSize="xsmall"
-                    title="1"
-                    id="dropdown-size-extra-small"
-                  >
-                    {/* <MenuItem eventKey="1">1</MenuItem> */}
-                  </DropdownButton>
-                </ButtonToolbar>
               </div>
+              <ButtonToolbar>
+                <DropdownButton
+                  bsSize="xsmall"
+                  title="1"
+                  id="dropdown-size-extra-small"
+                >
+                  <MenuItem eventKey="1">1</MenuItem>
+                </DropdownButton>
+              </ButtonToolbar>
               <Stripe listing={this.state.listing}/>
               <div>Watch Item</div>
             </Col>
