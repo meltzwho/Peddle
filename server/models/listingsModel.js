@@ -10,7 +10,7 @@ module.exports = {
           `SELECT listing.*, category.category, array_agg(image_url) AS images
           FROM listing INNER JOIN category ON listing.id_category = category.id_category 
           FULL JOIN listing_image ON listing.id_listing = listing_image.id_listing 
-          WHERE UPPER(title) LIKE UPPER('%${query}%') OR UPPER(description) LIKE UPPER('%${query}%') OR UPPER(category) LIKE UPPER('%${query}%')
+          WHERE is_active = 1 AND quantity > 0 AND (UPPER(title) LIKE UPPER('%${query}%') OR UPPER(description) LIKE UPPER('%${query}%') OR UPPER(category) LIKE UPPER('%${query}%'))
           GROUP BY listing.id_listing, category.category`)
           .then(res => {
             client.release();

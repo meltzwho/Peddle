@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Grid, Row, Col, ButtonToolbar, MenuItem, DropdownButton, Button } from 'react-bootstrap';
+import { Grid, Row, Col, ButtonToolbar, DropdownButton, MenuItem, Button } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import { 
   FacebookButton,
@@ -22,6 +22,7 @@ class ListingEntry extends Component {
       condition: '',
       date_posted: '',
       description: '',
+      quantity: 1
     },
     seller: {
       bio: '',
@@ -41,6 +42,7 @@ class ListingEntry extends Component {
       rating: '0',
       title: ''
     }],
+    qty: 1,
   }
   componentDidMount() {
     this.getListing();
@@ -102,7 +104,8 @@ class ListingEntry extends Component {
         let images = res.data.map(image => {
           return ({
             original: image.image_url,
-            thumbnail: image.image_url
+            thumbnail: image.image_url,
+            sizes: '(max-width: 100px) 100px, 100vw'
           });
         });
         this.setState({
@@ -113,7 +116,20 @@ class ListingEntry extends Component {
         console.log('[client] error fetching feedback: ', e);
       });
   }
+  handleChange = (e) => {
+    this.setState({
+      qty: e.target.value
+    });
+  }
   render() {
+    let qty = [];
+    if (this.state.listing.quantity !== 0) {
+      for (let i = 1; i <= this.state.listing.quantity; i++) {
+        qty.push(<option key={i} value={i}>{i}</option>);
+      }
+    } else {
+      qty.push(<option key="0" value="0">0</option>);
+    }
     if (this.state.listing.id_seller !== 0) {
       return (
         <Grid>
@@ -147,17 +163,13 @@ class ListingEntry extends Component {
               <Button onClick={e => this.props.handleAddToCart(e, this.state.listing.id_listing)}>Add To Cart</Button>
               <div>Qty: 
               </div>
-              <ButtonToolbar>
-                <DropdownButton
-                  bsSize="xsmall"
-                  title="1"
-                  id="dropdown-size-extra-small"
-                >
-                  <MenuItem eventKey="1">1</MenuItem>
-                </DropdownButton>
-              </ButtonToolbar>
+              <select className="txn-data" 
+                onChange={this.handleChange}
+                defaultValue={this.state.qty}
+              >
+                {qty.map(count => count)}
+              </select>
               <Stripe listing={this.state.listing}/>
-              <div>Watch Item</div>
             </Col>
           </Row>
           <Row>
