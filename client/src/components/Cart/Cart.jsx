@@ -5,14 +5,13 @@ import {Grid, Row, Col} from 'react-bootstrap';
 import CartCollection from './CartCollection';
 import CartCheckout from './CartCheckout';
 import CartMobile from './CartMobile';
-import dummyData from './dummydata';
+//import dummyData from './dummydata';
 import './Cart.css';
 
 export default class Cart extends React.Component {
   
   state = {
-    isDesktop: true,
-    cartItems: dummyData
+    isDesktop: true
   }
 
   componentDidMount() {
@@ -24,47 +23,47 @@ export default class Cart extends React.Component {
     window.removeEventListener("resize", this.updateViewWidth);
   }
 
-  incrementQuantity = (event, index) => {
-    let item = this.state.cartItems[index];
-    if (item.quantityCustomerWants < item.quantity) {
-      this.setState({
-        cartItems: this.state.cartItems.map( (item, idx) => {
-          if (idx === index) {
-            item.quantityCustomerWants++;
-          }
-          return item;
-        }) 
-      });
-    }
-  }
+  // incrementQuantity = (event, index) => {
+  //   let item = this.props.cartItems[index];
+  //   if (item.quantityCustomerWants < item.quantity) {
+  //     this.setState({
+  //       cartItems: this.props.cartItems.map( (item, idx) => {
+  //         if (idx === index) {
+  //           item.quantityCustomerWants++;
+  //         }
+  //         return item;
+  //       }) 
+  //     });
+  //   }
+  // }
 
-  decrementQuantity = (event, index) => {
-    let item = this.state.cartItems[index];
-    if (item.quantityCustomerWants > 0) {
-      this.setState({
-        cartItems: this.state.cartItems.map( (item, idx) => {
-          if (idx === index) {
-            item.quantityCustomerWants--;
-          }
-          return item;
-        }) 
-      });
-    }
-  }
+  // decrementQuantity = (event, index) => {
+  //   let item = this.props.cartItems[index];
+  //   if (item.quantityCustomerWants > 0) {
+  //     this.setState({
+  //       cartItems: this.props.cartItems.map( (item, idx) => {
+  //         if (idx === index) {
+  //           item.quantityCustomerWants--;
+  //         }
+  //         return item;
+  //       }) 
+  //     });
+  //   }
+  // }
 
   updateViewWidth = () => {
     //console.log(window.innerWidth);
     this.setState({ isDesktop: window.innerWidth > 2000 });
   }
 
-  removeItemFromCart = (event, index) => {
-    event.preventDefault();
-    this.setState({
-      cartItems: this.state.cartItems.filter( (item, idx) => {
-        return idx !== index;
-      })
-    });
-  }
+  // removeItemFromCart = (event, index) => {
+  //   event.preventDefault();
+  //   this.setState({
+  //     cartItems: this.props.cartItems.filter( (item, idx) => {
+  //       return idx !== index;
+  //     })
+  //   });
+  // }
 
   mouseEnter = (e) => { console.log(e.target); };
 
@@ -83,7 +82,7 @@ export default class Cart extends React.Component {
                     incrementQuantity={this.incrementQuantity}
                     decrementQuantity={this.decrementQuantity}
                     removeItemFromCart={this.removeItemFromCart}
-                    cartItems={this.state.cartItems}
+                    cartItems={this.props.cartItems}
                     className="cart_collection"
                     // mouseEnter={this.mouseEnter}
                   />
@@ -92,7 +91,7 @@ export default class Cart extends React.Component {
                 <Grid className="checkout">
                   <CartCheckout 
                     username={this.props.username}
-                    cartItems={this.state.cartItems}
+                    cartItems={this.props.cartItems}
                     className="chart_checkout"
                   />
                 </Grid>
@@ -105,7 +104,7 @@ export default class Cart extends React.Component {
                   decrementQuantity={this.decrementQuantity}
                   username={this.props.username}
                   removeItemFromCart={this.removeItemFromCart}
-                  cartItems={this.state.cartItems}
+                  cartItems={this.props.cartItems}
                 />
               </Grid>  
             )
