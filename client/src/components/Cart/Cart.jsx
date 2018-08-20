@@ -10,9 +10,9 @@ import './Cart.css';
 
 export default class Cart extends React.Component {
   
-  state ={
-    // isDesktop: true,
-    // cartItems: dummyData
+  state = {
+    isDesktop: true,
+    cartItems: dummyData
   }
 
   componentDidMount() {
@@ -24,15 +24,52 @@ export default class Cart extends React.Component {
     window.removeEventListener("resize", this.updateViewWidth);
   }
 
+  incrementQuantity = (event, index) => {
+    let item = this.state.cartItems[index];
+    if (item.quantityCustomerWants < item.quantity) {
+      this.setState({
+        cartItems: this.state.cartItems.map( (item, idx) => {
+          if (idx === index) {
+            item.quantityCustomerWants++;
+          }
+          return item;
+        }) 
+      });
+    }
+  }
+
+  decrementQuantity = (event, index) => {
+    let item = this.state.cartItems[index];
+    if (item.quantityCustomerWants > 0) {
+      this.setState({
+        cartItems: this.state.cartItems.map( (item, idx) => {
+          if (idx === index) {
+            item.quantityCustomerWants--;
+          }
+          return item;
+        }) 
+      });
+    }
+  }
+
   updateViewWidth = () => {
-    console.log(window.innerWidth);
+    //console.log(window.innerWidth);
     this.setState({ isDesktop: window.innerWidth > 2000 });
+  }
+
+  removeItemFromCart = (event, index) => {
+    event.preventDefault();
+    this.setState({
+      cartItems: this.state.cartItems.filter( (item, idx) => {
+        return idx !== index;
+      })
+    });
   }
 
   mouseEnter = (e) => { console.log(e.target); };
 
   render () {
-    console.log('cart', this.state)
+    
     const isDesktop = this.state.isDesktop;
 
     return (
@@ -43,14 +80,18 @@ export default class Cart extends React.Component {
               <div className="cart_flex_wrapper">
                 <Grid className="collection">
                   <CartCollection
+                    incrementQuantity={this.incrementQuantity}
+                    decrementQuantity={this.decrementQuantity}
+                    removeItemFromCart={this.removeItemFromCart}
                     cartItems={this.state.cartItems}
                     className="cart_collection"
-                    mouseEnter={this.mouseEnter}
+                    // mouseEnter={this.mouseEnter}
                   />
                 </Grid>  
                   
                 <Grid className="checkout">
                   <CartCheckout 
+                    username={this.props.username}
                     cartItems={this.state.cartItems}
                     className="chart_checkout"
                   />
@@ -60,6 +101,10 @@ export default class Cart extends React.Component {
             : (
               <Grid className="cart">
                 <CartMobile 
+                  incrementQuantity={this.incrementQuantity}
+                  decrementQuantity={this.decrementQuantity}
+                  username={this.props.username}
+                  removeItemFromCart={this.removeItemFromCart}
                   cartItems={this.state.cartItems}
                 />
               </Grid>  

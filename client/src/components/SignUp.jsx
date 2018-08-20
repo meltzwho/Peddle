@@ -149,8 +149,9 @@ export default class SignUp extends React.Component {
 
               <div className="oauth_wrapper">
                 <p>or sign in with...</p>
-                <a href="/auth/google"><Button>Sign in with Google</Button></a>
-                <Button>Sign in with Facebook</Button>
+                <a href="/auth/google">
+                  <Button>Sign in with Google</Button>
+                </a>
               </div>
           
             </Form>;

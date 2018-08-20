@@ -2,11 +2,12 @@
 import longURL from './longURL';
 
 const dummyData = [
+
   {
     title: 'A Nice Item',
-    price: 20.00,
+    price: 10.00,
     idListing: 10,
-    quantity: 2,
+    quantity: 5,
     quantityCustomerWants: 1,
     username: 'Mack the Seller',
     description: 'This item is red/black and size large',
@@ -14,9 +15,9 @@ const dummyData = [
   },
   {
     title: 'A Nice Item',
-    price: 20.00,
+    price: 50.00,
     idListing: 20,
-    quantity: 2,
+    quantity: 6,
     quantityCustomerWants: 1,
     username: 'Mack the Seller',
     description: 'This item is red/black and size large',
@@ -24,9 +25,9 @@ const dummyData = [
   },
   {
     title: 'A Nice Item',
-    price: 20.00,
+    price: 25.00,
     idListing: 30,
-    quantity: 2,
+    quantity: 12,
     quantityCustomerWants: 1,
     username: 'Mack the Seller',
     description: 'This item is red/black and size large',

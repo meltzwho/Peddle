@@ -122,7 +122,7 @@ export default class Login extends React.Component {
               </Row>
 
               <Row className="show-grid">
-                <Col smOffset={2} sm={4}>
+                <Col smOffset={2} sm={6}>
                   <a href='/auth/google'>
                     <Button 
                       bsSize="large" 
@@ -131,15 +131,7 @@ export default class Login extends React.Component {
                     </Button>
                   </a>
                 </Col>
-                <Col sm={4}>
-                  <a href="/auth/facebook">
-                    <Button
-                      bsSize="large" 
-                      block
-                    >Sign in with Facebook
-                    </Button>
-                  </a>
-                </Col>
+                
               </Row>
               
             </Form>

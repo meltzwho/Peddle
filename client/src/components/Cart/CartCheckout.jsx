@@ -4,9 +4,14 @@ import { Col, Row, Grid, Image } from 'react-bootstrap';
 import { Button, Well } from 'react-bootstrap';
 import './Cart.css';
 
-const CartCheckout = ({cartItems}) => {
+const CartCheckout = (props) => {
 
-  const collection = cartItems.map( (item, index) => {
+  // talley up the cart total & callback to <Cart />
+  const amount = props.cartItems.reduce( (accum, item) => {
+    return accum + (item.quantityCustomerWants * item.price);
+  }, 0);
+
+  const collection = props.cartItems.map( item => {
     return (
       <Row key={item.idListing} className="checkout_row">
         <Col xs={4}>
@@ -31,11 +36,11 @@ const CartCheckout = ({cartItems}) => {
 
   return (
     <div>
+      <h1>{props.username + "'s"}</h1>
+      <h2>Shopping Cart</h2>
+      <h2>{'Cart Total: $ ' + amount}</h2>
+      <Button>Checkout</Button>
       {collection}
-      
-      <Button bsSize="large">
-        Checkout $ TOTAL
-      </Button>
     </div>
   );
 };

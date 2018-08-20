@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { Col, Image, Panel, Row, ButtonGroup, Button } from 'react-bootstrap';
 import './Cart.css';
 
-const CartCollection = ({cartItems, mouseEnter}) => {
+const CartCollection = (props) => {
 
-  const collection = cartItems.map( item => {
+  const collection = props.cartItems.map( (item, index) => {
     return (
       <Col 
-        onMouseEnter={e => mouseEnter(e)}
+        className="collection_item"
+        // onMouseEnter={e => mouseEnter(e)}
         key={item.idListing} 
         xs={6} med={4}
       >
@@ -27,6 +28,7 @@ const CartCollection = ({cartItems, mouseEnter}) => {
         <div className="button_collection_cluster">
           <Button
             bsSize="large"
+            onClick={e => props.removeItemFromCart(e, index)}
           >
               Remove
           </Button>
@@ -36,18 +38,18 @@ const CartCollection = ({cartItems, mouseEnter}) => {
           
             <div className="button_collection_quantity">
               <Button 
-                // onClick={}
+                onClick={e => props.decrementQuantity(e, index)}
                 className="btn btn-default btn-number" 
-                disabled="disabled" 
-                data-type="minus" 
-                data-field="quant[1]"
               >
                 <span className="glyphicon glyphicon-minus" />
               </Button>
             
               <span>{item.quantityCustomerWants}</span>
             
-              <Button className="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+              <Button 
+                onClick={e => props.incrementQuantity(e, index)}
+                className="btn btn-default btn-number" 
+              >
                 <span className="glyphicon glyphicon-plus" />
               </Button>
             </div>
@@ -64,7 +66,7 @@ const CartCollection = ({cartItems, mouseEnter}) => {
   });
 
   return (
-    <Row className="collection_row">
+    <Row className="collection_wrapper">
       {collection}
     </Row>
     

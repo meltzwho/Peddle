@@ -15,7 +15,7 @@ const defaultState = {
 // description: 'This item is red/black and size large',
 // img_url: longURL
 
-const ShoppingCartReducer = (state = defaultState, action) => {
+const shoppingCartReducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'TOGGLE_IS_DESKTOP':
       return Object.assign({}, state, {isDesktop: window.innerWidth > 2000});
@@ -33,4 +33,4 @@ const ShoppingCartReducer = (state = defaultState, action) => {
   }
 };
 
-export default ShoppingCartReducer;
+export default shoppingCartReducer;
