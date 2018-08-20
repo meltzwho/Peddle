@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Axios from 'axios';
-import {Grid, Row, Col, DropdownButton, MenuItem} from 'react-bootstrap';
+import {Grid, Row, Col, DropdownButton, MenuItem, Label} from 'react-bootstrap';
 import ListingCard from './ListingCard';
 
 
@@ -34,7 +34,7 @@ class Listings extends Component {
       <div>
         <Grid>
           <Row>
-            <Col xs={12} sm={4}>
+            <Col xs={12} sm={12}>
               <DropdownButton
                 bsStyle={title.toLowerCase()}
                 style={{marginBottom: '5px'}}
@@ -50,7 +50,7 @@ class Listings extends Component {
                 <MenuItem divider />
                 <MenuItem eventKey="4">Separated link</MenuItem>
               </DropdownButton>
-              <span style={{margin: '5px', fontSize: '1.5rem', fontStyle: 'italic'}}>{this.state.listings.length + ' listings found for ' + searchTerm}</span>
+              <Label style={{margin: '5px', fontSize: '1.5rem', fontStyle: 'italic'}}>{this.state.listings.length + ' listings found for ' + searchTerm}</Label>
             </Col>
           </Row>
           <Row>
