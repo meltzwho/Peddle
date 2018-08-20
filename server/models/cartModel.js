@@ -25,7 +25,7 @@ module.exports = {
   addToCart: (listingId, userId, quantity) => {
     return db.connect()
       .then(client => {
-        let sqlQuery = 'INSERT INTO listing_image (id_listing, id_user, quantity) VALUES ($1, $2, $3)';
+        let sqlQuery = 'INSERT INTO cart_line_item (id_listing, id_user, quantity) VALUES ($1, $2, $3)';
         let params = [listingId, userId, quantity];
         return client.query(sqlQuery, params)
           .then(res => {
