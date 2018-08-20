@@ -160,7 +160,7 @@ class ListingEntry extends Component {
               <div>Condition: {this.state.listing.condition}</div>
             </Col>
             <Col xs={12} sm={2}>
-              <Button>Add To Cart</Button>
+              <Button onClick={e => this.props.handleAddToCart(e, this.state.listing.id_listing)}>Add To Cart</Button>
               <div>Qty: 
               </div>
               <select className="txn-data" 
