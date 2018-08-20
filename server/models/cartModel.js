@@ -22,4 +22,23 @@ module.exports = {
         console.error('[model] error getting pool connection', e);
       });
   },
+  addToCart: (listingId, userId, quantity) => {
+    return db.connect()
+      .then(client => {
+        let sqlQuery = 'INSERT INTO listing_image (id_listing, id_user, quantity) VALUES ($1, $2, $3)';
+        let params = [listingId, userId, quantity];
+        return client.query(sqlQuery, params)
+          .then(res => {
+            client.release();
+            return res.rows;
+          })
+          .catch(e => {
+            client.release();
+            console.log('[model] error adding listing to cart: ', e);
+          });
+      })
+      .catch(e => {
+        console.error('[model] error getting pool connection', e);
+      });
+  },
 };
