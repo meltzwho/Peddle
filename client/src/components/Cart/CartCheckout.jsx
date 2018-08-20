@@ -8,14 +8,14 @@ const CartCheckout = (props) => {
 
   // talley up the cart total & callback to <Cart />
   const amount = props.cartItems.reduce( (accum, item) => {
-    return accum + (item.quantityCustomerWants * item.price);
+    return accum + (props.quantityCustomerWants * (item.price * 1));
   }, 0);
 
   const collection = props.cartItems.map( item => {
     return (
-      <Row key={item.idListing} className="checkout_row">
+      <Row key={item.id_listing} className="checkout_row">
         <Col xs={4}>
-          <Image src={item.img_url} />
+          <Image src={item.image_url[0]} />
         </Col>
 
         <Col xs={4}>
@@ -28,7 +28,7 @@ const CartCheckout = (props) => {
         </Col>
 
         <Col xs={3}>
-          ${item.price}
+          ${item.price * 1}
         </Col>
       </Row>
     );

@@ -12,8 +12,8 @@ const CartMobile = (props) => {
 
   const collection = props.cartItems.map( (item, index) => {
     return (
-      <Col className="mobile_item" key={item.idListing} xs={12}>
-        <Image src={item.img_url} />
+      <Col className="mobile_item" key={item.id_listing} xs={12}>
+        <Image src={item.image_url[0]} />
         <Well bsSize="small">
           {item.title}
           <br />

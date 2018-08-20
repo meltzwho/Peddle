@@ -58,7 +58,7 @@ const CartCollection = (props) => {
           <Button
             bsSize="large"
           >
-            ${item.price}
+            ${item.price * 1}
           </Button>
         </div>
       </Col>

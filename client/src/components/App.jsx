@@ -34,7 +34,7 @@ class App extends Component {
       profile_image: ''
     },
 
-    cartItems: []
+    cartItems: [],
 
   };
   
@@ -167,8 +167,10 @@ class App extends Component {
     axios.get('/cart/listingandphoto', { params: {ID: listingItemId}})
       .then(res => {
         console.log('in client: ', res.data);
-        
+
         let consolidateListings = res.data[0];
+        // add a key value to hold the quantity the customer wants
+        consolidateListings.quantityCustomerWants = 1;
         consolidateListings.image_url = [];
         if (res.data.length > 1) {
           // push all the image urls into one array on a single listing

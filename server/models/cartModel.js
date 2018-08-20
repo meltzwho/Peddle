@@ -5,7 +5,8 @@ module.exports = {
     console.log('listingModel: ', id);
     return db.connect()
       .then(client => {
-        let query = 'SELECT * FROM listing INNER JOIN listing_image ON listing.id_listing=listing_image.id_listing WHERE listing.id_listing=$1';
+        let query = 'SELECT * FROM listing INNER JOIN users ON listing.id_seller=users.id_user INNER JOIN listing_image ON listing.id_listing=listing_image.id_listing WHERE listing.id_listing=$1';
+        
         let value  = [id];
         return client.query(query, value)
           .then(res => {
@@ -23,3 +24,6 @@ module.exports = {
       });
   },
 };
+
+// OLD TWO table query
+// let query = 'SELECT * FROM listing INNER JOIN listing_image ON listing.id_listing=listing_image.id_listing WHERE listing.id_listing=$1';
