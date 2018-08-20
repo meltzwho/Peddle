@@ -104,8 +104,9 @@ export default class Login extends React.Component {
                 <Col smOffset={2} sm={8}>
                   <div className="aTag_wrapper">
                     <a href="/" className="forgotPassword">
-                      Forgot your passowrd?
+                      Forgot your password?
                     </a>
+                    <span>{' '}</span>
                     <a href="/" className="forgotUserName">
                       Forgot your username?
                     </a>
@@ -122,7 +123,7 @@ export default class Login extends React.Component {
               </Row>
 
               <Row className="show-grid">
-                <Col smOffset={2} sm={4}>
+                <Col smOffset={2} sm={8}>
                   <a href='/auth/google'>
                     <Button 
                       bsSize="large" 
@@ -131,15 +132,7 @@ export default class Login extends React.Component {
                     </Button>
                   </a>
                 </Col>
-                <Col sm={4}>
-                  <a href="/auth/facebook">
-                    <Button
-                      bsSize="large" 
-                      block
-                    >Sign in with Facebook
-                    </Button>
-                  </a>
-                </Col>
+                
               </Row>
               
             </Form>

@@ -34,8 +34,11 @@ class Search extends Component {
             type="submit"
             style={{marginTop: '2.5px'}}
             onClick={e => {
-              this.handleSubmit(e, this.state.input);
-              this.props.history.push(`/listings/${this.state.input}`);
+              if (this.state.input.trim() !== '') {
+                this.state.input = this.state.input.trim();
+                this.handleSubmit(e, this.state.input);
+                this.props.history.push(`/listings/${this.state.input}`);
+              }
             }}
           >
             Submit
