@@ -8,4 +8,5 @@ const NotificationReducer = (state = {notifications: []}, action) => {
   }
 };
 
+
 export default NotificationReducer;

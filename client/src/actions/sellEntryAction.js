@@ -11,6 +11,7 @@ export const receiveCategories = (categories) => ({
   }
 });
 
+
 export const postListing = () => ({type: 'POST_LISTING'});
 
 export const listingPostSuccessful = () => ({type: 'LISTING_POST_SUCCESS'});

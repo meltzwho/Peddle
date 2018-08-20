@@ -5,6 +5,7 @@ import sellEntryReducer from './sellEntryReducer';
 import imageUploadReducer from './imageUploadReducer';
 import sellerDashboardReducer from './sellerDashboardReducer';
 import ordersReducer from './orderReducer';
+import ShoppingCartReducer from './shoppingCartReducer';
 
 const rootReducer = combineReducers({
   notifications: notificationReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   search: searchReducer,
   imageData: imageUploadReducer,
   sellerListings: sellerDashboardReducer,
-  orders: ordersReducer
+  orders: ordersReducer,
+  cart: ShoppingCartReducer
 });
 
 export default rootReducer;

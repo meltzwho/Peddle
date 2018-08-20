@@ -9,6 +9,7 @@ export const fetchListingsSuccess = (listings) => (
   }
 );
 
+
 export const fetchListingsFail = () => ({type: 'FETCH_LISTINGS_FAIL'});
 
 export const closeModal = () => ({type: 'CLOSE_MODAL'});

@@ -29,7 +29,6 @@ const ordersRoutes = require('./routes/ordersRoutes');
 
 
 require('./helpers/googleAuthSetup');
-require('./helpers/facebookAuthSetup');
 
 
 const signupRoutes = require('./routes/signupRoutes');

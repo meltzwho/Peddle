@@ -3,11 +3,15 @@ const passport = require('passport');
 
 module.exports = {
   
-  googleController: passport.authenticate(
-    'google'
-    , { scope: ['profile', 'email'] }
-  ),
+  googleController: 
+    passport.authenticate(
+      'google'
+      , { scope: ['profile', 'email'] }
+    ),
 
-  googleRedirectController: passport.authenticate('google', { failureRedirect: '/login' })
-
+  googleRedirectController: 
+    passport.authenticate(
+      'google'
+      , { failureRedirect: '/login' }
+    )
 };

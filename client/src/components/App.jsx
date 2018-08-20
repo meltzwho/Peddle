@@ -212,6 +212,7 @@ class App extends Component {
   }
 
   render() {
+    
     if (!this.state.cookieValid) this.getCookie(this.props.location.pathname);
     return (
       <div>
@@ -255,8 +256,11 @@ class App extends Component {
           />
           <Route 
             path='/cart'
-            component={() =>
-              <Cart />
+            component={() => (
+              <Cart 
+                username={this.state.currentUser.username}
+              />
+            )
             }
           />
           <Route 
