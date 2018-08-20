@@ -186,7 +186,10 @@ class ListingEntry extends Component {
                     <Grid>
                       <Col xs={3}>
                         <h4>Added to Cart</h4>
-                        <Image src={this.state.images[0].original} width="100" height="100" />
+                        {this.state.images[0] === undefined? 
+                          <Image src='/assets/No-image-available.jpg' alt='no image available' width="100" height="100" />
+                          : <Image src={this.state.images[0].original} width="100" height="100" />
+                        } 
                       </Col>
                       <Col xs={9}>
                         <br/><br/><br/>
