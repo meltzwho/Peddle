@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Grid, Row, Col, ButtonToolbar, DropdownButton, MenuItem, Button } from 'react-bootstrap';
+import { Grid, Row, Col, ButtonToolbar, Modal, Button } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import { 
   FacebookButton,
@@ -43,6 +43,7 @@ class ListingEntry extends Component {
       title: ''
     }],
     qty: 1,
+    showCart: false
   }
   componentDidMount() {
     this.getListing();
@@ -121,6 +122,12 @@ class ListingEntry extends Component {
       qty: e.target.value
     });
   }
+  handleAddToCart = () => {
+    axios.post()
+  }
+  handleShowCart = () => {
+    this.setState({ showCart: !this.state.showCart });
+  }
   render() {
     let qty = [];
     if (this.state.listing.quantity !== 0) {
@@ -160,7 +167,26 @@ class ListingEntry extends Component {
               <div>Condition: {this.state.listing.condition}</div>
             </Col>
             <Col xs={12} sm={2}>
-              <Button>Add To Cart</Button>
+              <ButtonToolbar>
+                <Button
+                  onClick={this.handleShowCart}>
+                  Add To Cart
+                </Button>
+                <Modal
+                  show={this.state.showCart}
+                  onHide={this.handleAddToCart}
+                  dialogClassName="custom-modal"
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title">
+                      Add to Cart
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <h4>Adding item to Cart</h4>
+                  </Modal.Body>
+                </Modal>
+              </ButtonToolbar>
               <div>Qty: 
               </div>
               <select className="txn-data" 
