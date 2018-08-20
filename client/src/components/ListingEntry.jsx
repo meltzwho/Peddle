@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Grid, Row, Col, ButtonToolbar, Modal, Button } from 'react-bootstrap';
+import { Grid, Row, Col, ButtonToolbar, Modal, Button, Image } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import { 
   FacebookButton,
@@ -17,6 +17,7 @@ import ImageViewer from './ImageViewer';
 
 class ListingEntry extends Component {
   state = {
+    id_buyer: 1,
     listing: {
       id_listing: '',
       condition: '',
@@ -123,7 +124,11 @@ class ListingEntry extends Component {
     });
   }
   handleAddToCart = () => {
-    axios.post()
+    axios.post(`/cart/add/${this.state.listing.id_listing}/${this.state.id_buyer}/${this.state.qty}`)
+      .then()
+      .catch(e => {
+        console.error(e);
+      });
   }
   handleShowCart = () => {
     this.setState({ showCart: !this.state.showCart });
@@ -137,7 +142,7 @@ class ListingEntry extends Component {
     } else {
       qty.push(<option key="0" value="0">0</option>);
     }
-    if (this.state.listing.id_seller !== 0) {
+    if (this.state.listing.id_seller !== 0 && this.state.images !== undefined) {
       return (
         <Grid>
           <Row className="show-grid">
@@ -169,21 +174,28 @@ class ListingEntry extends Component {
             <Col xs={12} sm={2}>
               <ButtonToolbar>
                 <Button
-                  onClick={this.handleShowCart}>
+                  onClick={() => { this.handleShowCart(); this.handleAddToCart(); }}>
                   Add To Cart
                 </Button>
                 <Modal
                   show={this.state.showCart}
-                  onHide={this.handleAddToCart}
+                  onHide={this.handleShowCart}
                   dialogClassName="custom-modal"
                 >
-                  <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title">
-                      Add to Cart
-                    </Modal.Title>
-                  </Modal.Header>
                   <Modal.Body>
-                    <h4>Adding item to Cart</h4>
+                    <Grid>
+                      <Col xs={3}>
+                        <h4>Added to Cart</h4>
+                        <Image src={this.state.images[0].original} width="100" height="100" />
+                      </Col>
+                      <Col xs={9}>
+                        <br/><br/><br/>
+                        <div>
+                          <strong>Cart subtotal: </strong>
+                          {this.state.qty * this.state.listing.price}
+                        </div>
+                      </Col>
+                    </Grid>
                   </Modal.Body>
                 </Modal>
               </ButtonToolbar>

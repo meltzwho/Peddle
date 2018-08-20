@@ -12,5 +12,16 @@ module.exports = {
         console.error('[controller] error fetching item by id:', e);
         res.json(data);
       });
+  },
+  addToCart: (req, res) => {
+    db.addToCart(req.params.listingId, req.params.userId, req.params.quantity)
+      .then(() => {
+        console.log('[controller] added to cart');
+        res.sendStatus(200);
+      })
+      .catch(e => {
+        console.error('[controller] error adding to cart', e);
+        res.json(400);
+      });
   }
 };
