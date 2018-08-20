@@ -189,7 +189,7 @@ class ListingEntry extends Component {
               </ButtonToolbar>
               <div>Qty: 
               </div>
-              <select className="txn-data" 
+              <select
                 onChange={this.handleChange}
                 defaultValue={this.state.qty}
               >
