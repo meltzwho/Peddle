@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import Home from './Home';
@@ -22,10 +22,10 @@ class App extends Component {
     cookieValid: false,
 
     currentUser: {
-      id_user: '',
+      id_user: 0,
       first_name: '',
       last_name: '',
-      username: '',
+      username: 'Friend',
       email: '',
       google_id: null,
       facebook_id: null,
@@ -34,8 +34,8 @@ class App extends Component {
       profile_image: ''
     },
 
-    cartItems: []
-
+    cartItems: [],
+    cartTotal: 0
   };
   
   componentDidMount() {
@@ -50,6 +50,7 @@ class App extends Component {
     const cookies = new Cookies;
     let cookie = cookies.get('token');
     if (cookie) {
+      this.props.addUserToStore(cookie.id_user);
       this.setState({
         cookieValid: true,
         currentUser: {...this.state.currentUser, id_user: cookie.id_user}
@@ -86,7 +87,6 @@ class App extends Component {
       axios.get('/session/google', { params: {id: googleID} })
         .then(res => {
           this.setACookie(res.data);
-          console.log('setGoogle');
           // put data on state
           if (res.data) {
             this.setState(prevState => ({
@@ -98,7 +98,6 @@ class App extends Component {
             this.setState({
               greetFriends: res.data.first_name,
               cookieValid: true
-
             });
           }
         })
@@ -117,9 +116,7 @@ class App extends Component {
           // call db for data
           axios.get('/onboard/user', { params: {id: id} })
             .then(res => {
-              console.log('sniff');
               if (res.data) {
-                
                 // update state 
                 this.setState(prevState => ({
                   currentUser: {
@@ -141,8 +138,6 @@ class App extends Component {
     if (Object.prototype.toString.call(cookie).slice(8, -1) === 'Object') {
       if (Object.keys(cookie).length > 0) {
         // check cookie data vs our db data
-        console.log('validating');
-        
         axios.post(
           '/validate/token'
           , { payload: cookie }
@@ -175,32 +170,8 @@ class App extends Component {
     }
   };
 
-  handleAddToCart = (e, listingItemId) => {
-    e.preventDefault(e);
-    console.log('listingITEM_ID:', listingItemId);
-
-    // get item from db
-    axios.get('/cart/listingandphoto', { params: {ID: listingItemId}})
-      .then(res => {
-        console.log('in client: ', res.data);
-        
-        let consolidateListings = res.data[0];
-        consolidateListings.image_url = [];
-        if (res.data.length > 1) {
-          // push all the image urls into one array on a single listing
-          for (let i = 0; i < res.data.length; i += 1) {
-            consolidateListings.image_url.push(res.data[i].image_url);
-          }
-        }
-
-        this.setState(prevState => ({
-          cartItems: prevState.cartItems.push(consolidateListings)}));
-      })
-      .catch(err => console.error(err));
-  }
-
   handleLogin = (user) => {
-    
+    this.props.addUserToStore(user.id_user);
     if (user) {
       this.setState(prevState => ({
         currentUser: {
@@ -240,7 +211,6 @@ class App extends Component {
       profile_image: ''
     };
   
-
     // zero out state
     this.setState(prevState => ({
       currentUser: {
@@ -252,8 +222,128 @@ class App extends Component {
     }));
   }
 
-  render() {
+  // START OF SHOPPING CART 
+  handleAddToCart = (e, listingItemId) => {
+    e.preventDefault(e);
+    // check if the item is already in the cart
+    // if yes -- pop a modal saying 'item is already in your cart'
+    // & First we put lookup the item/seller/item photo from db and set them to state on component.
+    // if no -- place item into cart on state and on db
     
+    axios.get(
+      '/cart/lookup',
+      { params: 
+        {
+          ID: listingItemId
+        }
+      }
+    )
+      .then(res => {
+        
+        if (res.data.length === 0) {
+          axios.get(
+            '/cart/aggregate', 
+            { params: 
+              {
+                ID: listingItemId,
+                currentUserID: this.state.currentUser.id_user
+              }
+            })
+            .then(res => {
+              
+              let consolidateListings = res.data[0];
+              // add a key value to hold the quantity the customer wants
+              consolidateListings.quantityCustomerWants = 1;
+              //consolidateListings.image_url = [];
+              let urls = [];
+              if (res.data.length > 1) {
+                // push all the image urls into one array on a single listing
+                for (let i = 0; i < res.data.length; i += 1) {
+                
+                  if (typeof res.data[i].image_url === 'string') {
+                    urls.push(res.data[0].image_url);
+                  }
+                }
+                consolidateListings.image_url = urls;
+              } else {
+                urls.push(res.data[0].image_url);
+                consolidateListings.image_url = urls;
+              }
+              this.setState(prevState => ({
+                cartItems: [ ...prevState.cartItems, consolidateListings]
+              }));
+            })
+            .catch(err => console.error(err));
+
+          axios.get(
+            '/cart/cartadd', 
+            { params: 
+              {
+                ID: listingItemId,
+                currentUserID: this.state.currentUser.id_user
+              }
+            })
+            .then(res => { console.log(res.data)})
+            .catch(err => console.error(err));
+
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  removeItemFromCart = (event, index) => {
+    event.preventDefault();
+    // move this function to the removeItemFromCart
+    // adjust the db as well
+    axios({
+      url: './cart/removefromcart', 
+      method: 'DELETE', 
+      data: {
+        ID: this.state.cartItems[index].id_listing,
+        quantity: this.state.cartItems[index].quantityCustomerWants
+      }
+    })
+      .then( () => {
+        this.setState({
+          cartItems: this.state.cartItems.filter( (item, idx) => {
+            return idx !== index;
+          })
+        });
+        console.log('after remove from cartItems:', this.state.cartItems);
+      })
+      .catch(err => console.error('Error', err));
+  }
+
+  incrementQuantity = (event, index) => {
+    let item = this.state.cartItems[index];
+    if (item.quantityCustomerWants < item.quantity) {
+      this.setState({
+        cartItems: this.state.cartItems.map( (item, idx) => {
+          if (idx === index) {
+            item.quantityCustomerWants++;
+          }
+          return item;
+        }) 
+      });
+    }
+  }
+
+  decrementQuantity = (event, index) => {
+    let item = this.state.cartItems[index];
+    if (item.quantityCustomerWants > 0) {
+
+      this.setState({
+        cartItems: this.state.cartItems.map( (item, idx) => {
+          if (idx === index) {
+            item.quantityCustomerWants--;
+          }
+          return item;
+        }) 
+      });
+    }
+  }
+
+  render() {
     if (!this.state.cookieValid) this.getCookie(this.props.location.pathname);
     return (
       <div>
@@ -303,7 +393,10 @@ class App extends Component {
             component={() => (
               <Cart 
                 cartItems={this.state.cartItems}
-                username={this.state.currentUser.username}
+                incrementQuantity={this.incrementQuantity}
+                decrementQuantity={this.decrementQuantity}
+                removeItemFromCart={this.removeItemFromCart}
+                currentUser={this.state.currentUser}
               />
             )
             }
@@ -396,4 +489,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default App;

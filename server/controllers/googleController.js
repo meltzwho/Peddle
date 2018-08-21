@@ -18,8 +18,9 @@ module.exports = {
             
         client.query(text, value)
           .then(res => {
+            console.log('response rows ', res.rows)
             client.release();
-            if (res.rows !== undefined ) {
+            if (res.rows.length > 0) {
               let reducedObject = {};
               reducedObject.id_user = res.rows[0].id_user;
               reducedObject.first_name = res.rows[0].first_name;

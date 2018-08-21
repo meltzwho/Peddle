@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, InputGroup, Checkbox, Button, DropdownButton, MenuItem, ButtonToolbar, Radio, Modal, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Checkbox, Button, DropdownButton, MenuItem, ButtonToolbar, Radio, Modal, Popover, OverlayTrigger, Grid, Col, Row, Jumbotron, Image } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import ImageUploadContainer from '../containers/imageUploadContainer';
 
@@ -27,6 +27,7 @@ class SellEntry extends Component {
     e.preventDefault();
     //default user id for dev purposes
     let userId = this.props.currentUserId ? this.props.currentUserId : 1;
+    console.log('the user id in sell entry', userId)
     //pass the image urls from the redux store to the function
     //format the dollar input value to have 2 decimal points e.g (10.00) 
     if(this.props.entry.listingEdit) {
@@ -168,110 +169,146 @@ class SellEntry extends Component {
       <Popover id="popover-trigger-hover-focus" title="Don't Worry!">
         We won't show your exact location to buyers!
       </Popover>
-    )
+    );
+
+    let pictures = this.props.urls.map((url, i) => (
+      <Col key={i} xs={6} md={4}>
+        <Image src={url} thumbnail/>
+      </Col>
+    ));
 
     return (
-      <div>
+      <Grid>
+        <Jumbotron>
+          <h2>Create Your Listing!</h2>
+        </Jumbotron>
         {modal}
         <Form>
-          <FormGroup controlId="productTitle">
-            <ControlLabel>What are you selling?</ControlLabel>
-            <FormControl 
-              type="text"
-              name="productName"
-              value={this.state.productName}
-              placeholder="Enter product name"
-              onChange={this.handleInputChange}
-            />
-          </FormGroup>
+          <Row>
+            <Col xs={12} md={8}>
+              <Row>
+                <FormGroup controlId="productTitle">
+                  <ControlLabel>What are you selling?</ControlLabel>
+                  <FormControl 
+                    type="text"
+                    name="productName"
+                    value={this.state.productName}
+                    placeholder="Enter product name"
+                    onChange={this.handleInputChange}
+                  />
+                </FormGroup>
+              </Row>
 
-          <FormGroup controlId="productDescription">
-            <ControlLabel>Description</ControlLabel>
-            <FormControl 
-              type="text"
-              name="productDescription"
-              value={this.state.productDescription}
-              placeholder="Tell us about the product you're selling"
-              onChange={this.handleInputChange}
-            />
-          </FormGroup>
+              <Row>
+                <FormGroup controlId="productDescription">
+                  <ControlLabel>Description</ControlLabel>
+                  <FormControl 
+                    type="text"
+                    name="productDescription"
+                    value={this.state.productDescription}
+                    placeholder="Tell us about the product you're selling"
+                    onChange={this.handleInputChange}
+                  />
+                </FormGroup>
+              </Row>
+            </Col>
 
-          <FormGroup controlId="productPrice">
-            <ControlLabel>Price</ControlLabel>
-            <InputGroup>
-              <InputGroup.Addon>$</InputGroup.Addon>
-            </InputGroup>
-            <FormControl 
-              type="number"
-              name="productPrice"
-              value={this.state.productPrice}
-              onChange={this.handleInputChange}
-            />
-          </FormGroup>
+            <Col xs={6} md={4}>
+              <p>images uploaded: {this.props.urls.length}</p>
+              <ImageUploadContainer />
+              <p>Please see below for previews of your images</p>
+            </Col>
+          </Row>
 
-          <FormGroup controlId="productDeliveryMethod">
-            <OverlayTrigger
-              trigger={['hover', 'focus']}
-              placement="top"
-              overlay={pickupPopover}
-            >
-              <Checkbox 
-                name="allowPickup"
-                onClick={this.handleSelectboxChange}
-                checked={this.state.allowPickup}
-                inline
-              >
-                Local Pickup
-              </Checkbox>
-            </OverlayTrigger>
-            <Checkbox
-              name="allowShipping"
-              onClick={this.handleSelectboxChange}
-              checked={this.state.allowShipping}
-              inline
-            >
-                Shipping Available
-            </Checkbox>
-          </FormGroup>
+
+          <Row style={{marginTop: "30px"}}>
+            <Col xs={9} md={1} mdPush={1}>
+              <FormGroup controlId="productPrice">
+                <ControlLabel>Price</ControlLabel>
+                <FormControl 
+                  type="number"
+                  name="productPrice"
+                  value={this.state.productPrice}
+                  onChange={this.handleInputChange}
+                />
+              </FormGroup>
+            </Col>
+            <Col xs={9} md={1} mdPush={2}>
+              <FormGroup controlId="productQuantity">
+                <ControlLabel>Quantity</ControlLabel>
+                <FormControl 
+                  type="number"
+                  name="productQuantity"
+                  value={this.state.productQuantity}
+                  onChange={this.handleInputChange}
+                />
+              </FormGroup>
+            </Col>
+            <Col xs={9} md={4} mdPush={3}>
+              <FormGroup onClick={this.handleCondition}>
+                <ControlLabel>Condition</ControlLabel> <br />
+                <Radio checked={this.state.productCondition==='new'} name='new' inline>New</Radio>{' '}
+                <Radio checked={this.state.productCondition==='used'} name='used' inline>Used</Radio>{' '}
+                <Radio checked={this.state.productCondition==='open-box'} name='open-box' inline>Open Box</Radio>{' '}
+                <br />
+                <Radio checked={this.state.productCondition==='reconditioned'} name='reconditioned' inline>Reconditioned</Radio>{' '}
+                <Radio checked={this.state.productCondition==='other'} name='other' inline>Other</Radio>{' '}
+              </FormGroup>
+            </Col>
+            <Col xs={9} md={1} mdPush={3}>
+              <ButtonToolbar>
+                <ControlLabel>Category</ControlLabel> <br />
+                <DropdownButton
+                  title={this.state.selectedCategory || 'loading'}
+                  key={0}
+                  id="dropdown-size-medium"
+                >
+                  {categories}
+                </DropdownButton>
+              </ButtonToolbar>
+            </Col>
+          </Row>
+          <br />
+          <Row style={{marginTop: "30px"}}>
+            <Col xs={12} md={12}>
+              <FormGroup controlId="productDeliveryMethod">
+                <OverlayTrigger
+                  trigger={['hover', 'focus']}
+                  placement="top"
+                  overlay={pickupPopover}
+                >
+                  <Checkbox 
+                    name="allowPickup"
+                    onClick={this.handleSelectboxChange}
+                    checked={this.state.allowPickup}
+                    inline
+                  >
+                    Local Pickup
+                  </Checkbox>
+                </OverlayTrigger>
+                <Checkbox
+                  name="allowShipping"
+                  onClick={this.handleSelectboxChange}
+                  checked={this.state.allowShipping}
+                  inline
+                >
+                    Shipping Available
+                </Checkbox>
+              </FormGroup>
+            </Col>
+          </Row>
 
           {addressForm}
 
-          <FormGroup onClick={this.handleCondition}>
-            <Radio checked={this.state.productCondition==='new'} name='new' inline>New</Radio>{' '}
-            <Radio checked={this.state.productCondition==='used'} name='used' inline>Used</Radio>{' '}
-            <Radio checked={this.state.productCondition==='open-box'} name='open-box' inline>Open Box</Radio>{' '}
-            <Radio checked={this.state.productCondition==='reconditioned'} name='reconditioned' inline>Reconditioned</Radio>{' '}
-            <Radio checked={this.state.productCondition==='other'} name='other' inline>Other</Radio>{' '}
-          </FormGroup>
 
-          <FormGroup controlId="productQuantity">
-            <ControlLabel>Quantity</ControlLabel>
-            <FormControl 
-              type="number"
-              name="productQuantity"
-              value={this.state.productQuantity}
-              onChange={this.handleInputChange}
-            />
-          </FormGroup>
-          
-          <ButtonToolbar>
-            <DropdownButton
-              title={this.state.selectedCategory || 'loading'}
-              key={0}
-              id="dropdown-size-medium"
-            >
-              {categories}
-            </DropdownButton>
-          </ButtonToolbar>
-
-
-          <ImageUploadContainer />
-          <p>images uploaded: {this.props.urls.length}</p>
-
-          <Button onClick={this.handleListingSubmit} type="submit">Submit</Button>
-
+          <Row style={{marginTop: "30px"}}>
+            <Button onClick={this.handleListingSubmit} type="submit">Submit</Button>
+          </Row>
         </Form>
-      </div>
+        <Row style={{marginTop: "30px"}}>
+          {pictures} 
+        </Row>
+      </Grid>
     );
   }
 }

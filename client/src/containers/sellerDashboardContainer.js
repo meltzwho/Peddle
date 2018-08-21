@@ -6,7 +6,8 @@ import SellerDashboard from '../components/SellerDashboard';
 
 const mapStateToProps = (state) => {
   return {
-    listings: state.sellerListings
+    listings: state.sellerListings,
+    currentUserId: state.user.userId
   };
 };
 
@@ -21,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
           error => {
             console.error('an error occured fetching the listings', error);
             dispatch(fetchListingsFail());
-          }
+          };
         });
     },
     closeFailModal: () => {
