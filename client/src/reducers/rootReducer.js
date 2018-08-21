@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import appReducer from './appReducer';
 import notificationReducer from './notificationReducer';
 import searchReducer from './searchReducer';
 import sellEntryReducer from './sellEntryReducer';
@@ -8,6 +9,7 @@ import ordersReducer from './orderReducer';
 import ShoppingCartReducer from './shoppingCartReducer';
 
 const rootReducer = combineReducers({
+  app: appReducer,
   notifications: notificationReducer,
   sellEntryForm: sellEntryReducer,
   search: searchReducer,
