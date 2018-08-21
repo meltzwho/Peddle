@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import Home from './Home';
@@ -33,9 +33,7 @@ class App extends Component {
       token_timestamp: null,
       profile_image: ''
     },
-
     cartItems: []
-
   };
   
   componentDidMount() {
@@ -380,4 +378,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default App;
