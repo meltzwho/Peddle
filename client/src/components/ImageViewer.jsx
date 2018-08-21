@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image } from 'react-bootstrap';
+import { Image, Col } from 'react-bootstrap';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
@@ -16,9 +16,9 @@ class ImageViewer extends Component {
         <ImageGallery 
           items={this.props.images} 
           showBullets={false}
-          showFullscreenButton={true}
+          showFullscreenButton={false}
           showPlayButton={false}
-          thumbnailPosition={'bottom'}
+          thumbnailPosition={'left'}
         />
       );
     }

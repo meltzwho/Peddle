@@ -32,7 +32,9 @@ class App extends Component {
       token: null,
       token_timestamp: null,
       profile_image: ''
-    }
+    },
+
+    cartItems: []
 
   };
   
@@ -156,7 +158,30 @@ class App extends Component {
       }
     }
   };
-  
+
+  handleAddToCart = (e, listingItemId) => {
+    e.preventDefault(e);
+    console.log('listingITEM_ID:', listingItemId);
+
+    // get item from db
+    axios.get('/cart/listingandphoto', { params: {ID: listingItemId}})
+      .then(res => {
+        console.log('in client: ', res.data);
+        
+        let consolidateListings = res.data[0];
+        consolidateListings.image_url = [];
+        if (res.data.length > 1) {
+          // push all the image urls into one array on a single listing
+          for (let i = 0; i < res.data.length; i += 1) {
+            consolidateListings.image_url.push(res.data[i].image_url);
+          }
+        }
+
+        this.setState(prevState => ({
+          cartItems: prevState.cartItems.push(consolidateListings)}));
+      })
+      .catch(err => console.error(err));
+  }
 
   handleLogin = (user) => {
     
@@ -250,14 +275,18 @@ class App extends Component {
           />
           <Route 
             path='/listingEntry/:listingId'
-            component={() =>
-              <ListingEntry />
+            component={() => (
+              <ListingEntry 
+                handleAddToCart={this.handleAddToCart}
+              />
+            )
             }
           />
           <Route 
             path='/cart'
             component={() => (
               <Cart 
+                cartItems={this.state.cartItems}
                 username={this.state.currentUser.username}
               />
             )

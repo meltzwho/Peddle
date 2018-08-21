@@ -4,16 +4,16 @@ import { Col, Image, Panel, Row, ButtonGroup, Button } from 'react-bootstrap';
 import './Cart.css';
 
 const CartCollection = (props) => {
-
+  console.log('items:', props.cartItems);
   const collection = props.cartItems.map( (item, index) => {
     return (
       <Col 
         className="collection_item"
         // onMouseEnter={e => mouseEnter(e)}
-        key={item.idListing} 
+        key={item.id_listing} 
         xs={6} med={4}
       >
-        <Image src={item.img_url} />
+        <Image src={item.image_url[0]} />
         <Panel className="panel_cart">
           <Panel.Heading>
             <Panel.Title componentClass="h3">{item.title}</Panel.Title>
