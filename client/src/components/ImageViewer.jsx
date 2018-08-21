@@ -9,7 +9,7 @@ class ImageViewer extends Component {
       return null;
     } else if (this.props.images.length === 0 ) {
       return (
-        <Image src='/assets/No-image-available.jpg' alt='no image available' />
+        <Image src='/assets/No-image-available.jpg' alt='no image available' style={{objectFit: 'scale-down', width: '100%'}}/>
       );
     } else {
       return (
