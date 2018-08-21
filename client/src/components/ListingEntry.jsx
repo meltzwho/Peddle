@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Grid, Row, Col, ButtonToolbar, MenuItem, DropdownButton } from 'react-bootstrap';
+import { Grid, Row, Col, ButtonToolbar, Modal, Button, Image, Thumbnail } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import { 
   FacebookButton,
@@ -17,11 +17,13 @@ import ImageViewer from './ImageViewer';
 
 class ListingEntry extends Component {
   state = {
+    id_buyer: 1,
     listing: {
       id_listing: '',
       condition: '',
       date_posted: '',
       description: '',
+      quantity: 1
     },
     seller: {
       bio: '',
@@ -41,6 +43,8 @@ class ListingEntry extends Component {
       rating: '0',
       title: ''
     }],
+    qty: 1,
+    showCart: false
   }
   componentDidMount() {
     this.getListing();
@@ -102,7 +106,8 @@ class ListingEntry extends Component {
         let images = res.data.map(image => {
           return ({
             original: image.image_url,
-            thumbnail: image.image_url
+            thumbnail: image.image_url,
+            sizes: '(max-width: 100px) 100px, 100vw'
           });
         });
         this.setState({
@@ -113,13 +118,38 @@ class ListingEntry extends Component {
         console.log('[client] error fetching feedback: ', e);
       });
   }
+  handleChange = (e) => {
+    this.setState({
+      qty: e.target.value
+    });
+  }
+  handleAddToCart = () => {
+    axios.post(`/cart/add/${this.state.listing.id_listing}/${this.state.id_buyer}/${this.state.qty}`)
+      .then()
+      .catch(e => {
+        console.error(e);
+      });
+  }
+  handleShowCart = () => {
+    this.setState({ showCart: !this.state.showCart });
+  }
   render() {
-    if(this.state.listing.id_seller !== 0) {
+    let qty = [];
+    if (this.state.listing.quantity !== 0) {
+      for (let i = 1; i <= this.state.listing.quantity; i++) {
+        qty.push(<option key={i} value={i}>{i}</option>);
+      }
+    } else {
+      qty.push(<option key="0" value="0">0</option>);
+    }
+    if (this.state.listing.id_seller !== 0 && this.state.images !== undefined) {
       return (
         <Grid>
           <Row className="show-grid">
             <Col xs={12} sm={5}>
-              <ImageViewer images={this.state.images} />
+              <Thumbnail>
+                <ImageViewer images={this.state.images} />
+              </Thumbnail>
             </Col>
             <Col xs={12} sm={5}>
               <h2>{this.state.listing.title}</h2>
@@ -144,20 +174,45 @@ class ListingEntry extends Component {
               <div>Condition: {this.state.listing.condition}</div>
             </Col>
             <Col xs={12} sm={2}>
-              <div>Add To Cart</div>
+              <ButtonToolbar>
+                <Button
+                  onClick={() => { this.handleShowCart(); this.handleAddToCart(); }}>
+                  Add To Cart
+                </Button>
+                <Modal
+                  show={this.state.showCart}
+                  onHide={this.handleShowCart}
+                  dialogClassName="custom-modal"
+                >
+                  <Modal.Body>
+                    <Grid>
+                      <Col xs={3}>
+                        <h4>Added to Cart</h4>
+                        {this.state.images[0] === undefined? 
+                          <Image src='/assets/No-image-available.jpg' alt='no image available' width="100" height="100" />
+                          : <Image src={this.state.images[0].original} width="100" height="100" />
+                        } 
+                      </Col>
+                      <Col xs={9}>
+                        <br/><br/><br/>
+                        <div>
+                          <strong>Cart subtotal: </strong>
+                          {this.state.qty * this.state.listing.price}
+                        </div>
+                      </Col>
+                    </Grid>
+                  </Modal.Body>
+                </Modal>
+              </ButtonToolbar>
               <div>Qty: 
-                <ButtonToolbar>
-                  <DropdownButton
-                    bsSize="xsmall"
-                    title="1"
-                    id="dropdown-size-extra-small"
-                  >
-                    {/* <MenuItem eventKey="1">1</MenuItem> */}
-                  </DropdownButton>
-                </ButtonToolbar>
               </div>
+              <select
+                onChange={this.handleChange}
+                defaultValue={this.state.qty}
+              >
+                {qty.map(count => count)}
+              </select>
               <Stripe listing={this.state.listing}/>
-              <div>Watch Item</div>
             </Col>
           </Row>
           <Row>

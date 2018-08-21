@@ -42,7 +42,6 @@ class SellEntry extends Component {
         productPrice: parseInt(this.state.productPrice).toFixed(2)
       },() => this.props.postListing(this.state));
     }
-   
   }
 
   handleCategorySelection = (category) => {

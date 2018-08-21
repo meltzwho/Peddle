@@ -11,6 +11,7 @@ const fileUpload = require('express-fileupload');
 
 //Routes
 const authRoutes = require('./routes/authRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const sellEntryRoutes = require('./routes/sellEntryRoutes');
 const notifRoutes = require('./routes/notifications');
@@ -29,7 +30,6 @@ const ordersRoutes = require('./routes/ordersRoutes');
 
 
 require('./helpers/googleAuthSetup');
-require('./helpers/facebookAuthSetup');
 
 
 const signupRoutes = require('./routes/signupRoutes');
@@ -55,6 +55,7 @@ app.use(passport.session());
 
 // set up routes
 app.use('/auth', authRoutes);
+app.use('/cart', cartRoutes);
 app.use('/login', loginRoutes);
 app.use('/sellEntry', sellEntryRoutes);
 app.use('/notifs', notifRoutes);
