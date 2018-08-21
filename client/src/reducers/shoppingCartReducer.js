@@ -1,8 +1,8 @@
-const dummyData = require('../../src/components/Cart/dummydata');
+//const dummyData = require('../../src/components/Cart/dummydata');
 
 const defaultState = {
   isDesktop: false,
-  cartItems: dummyData,
+  cartItems: [],
   cartTotal: 0
 };
 
