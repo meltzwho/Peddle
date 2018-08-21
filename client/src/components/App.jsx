@@ -49,7 +49,7 @@ class App extends Component {
   getCookie (destination) {
     const cookies = new Cookies;
     let cookie = cookies.get('token');
-    if(cookie) {
+    if (cookie) {
       this.setState({
         cookieValid: true,
         currentUser: {...this.state.currentUser, id_user: cookie.id_user}
@@ -151,8 +151,24 @@ class App extends Component {
             
             if (response.data) {
               this.sniffCookieToOnboardUser(cookie);
+              this.setState({ cookieValid: response.data });
+            }else{
+              this.setState({
+                cookieValid: false,
+                currentUser: {
+                  id_user: '',
+                  first_name: '',
+                  last_name: '',
+                  username: '',
+                  email: '',
+                  google_id: null,
+                  facebook_id: null,
+                  token: null,
+                  token_timestamp: null,
+                  profile_image: ''
+                }
+              });
             }
-            this.setState({ cookieValid: response.data });
           })
           .catch(err => console.error(err));
       }
