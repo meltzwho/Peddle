@@ -123,13 +123,7 @@ class ListingEntry extends Component {
       qty: e.target.value
     });
   }
-  handleAddToCart = () => {
-    axios.post(`/cart/add/${this.state.listing.id_listing}/${this.state.id_buyer}/${this.state.qty}`)
-      .then()
-      .catch(e => {
-        console.error(e);
-      });
-  }
+  
   handleShowCart = () => {
     this.setState({ showCart: !this.state.showCart });
   }
@@ -174,7 +168,7 @@ class ListingEntry extends Component {
             <Col xs={12} sm={2}>
               <ButtonToolbar>
                 <Button
-                  onClick={() => { this.handleShowCart(); this.handleAddToCart(); }}>
+                  onClick={(e) => { this.handleShowCart(); this.props.handleAddToCart(e, this.state.listing.id_listing); }}>
                   Add To Cart
                 </Button>
                 <Modal
