@@ -1,20 +1,6 @@
-export const loginAction = () => ({
-  type: 'LOGIN_USER',
+export const addUser = (user) => ({
+  type: 'ADD_USER_TO_STORE',
   payload: {
-    
-  }
-});
-
-export const signupAction = () => ({
-  type: 'SIGNUP_USER',
-  payload: {
-    
-  }
-});
-
-export const logoutAction = () => ({
-  type: 'LOGOUT_USER',
-  payload: {
-    
+    userId: user
   }
 });

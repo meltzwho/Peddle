@@ -50,6 +50,7 @@ class App extends Component {
     const cookies = new Cookies;
     let cookie = cookies.get('token');
     if(cookie) {
+      this.props.addUserToStore(cookie.id_user);
       this.setState({
         cookieValid: true,
         currentUser: {...this.state.currentUser, id_user: cookie.id_user}
@@ -154,6 +155,7 @@ class App extends Component {
   };
 
   handleLogin = (user) => {
+    this.props.addUserToStore(user.id_user);
     if (user) {
       this.setState(prevState => ({
         currentUser: {

@@ -6,13 +6,8 @@ module.exports = {
 
   newPicture: (req, res) => {
     axios.post('https://qmirm3igzf.execute-api.us-east-1.amazonaws.com/Development/', req.files)
-      .then(response => {
-        res.send(response.data);
-      })
-      //   .then(response => console.log('response', response))
-      .catch(err => {
-        console.log('error uploading the image to s3', err);
-      });
+      .then(response => res.send(response.data))
+      .catch(err => console.log('error uploading the image to s3', err));
   },
   associateImage: (req, res) => {
     db.associateImage(req.body, (err, response) => {

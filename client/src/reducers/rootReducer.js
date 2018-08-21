@@ -16,7 +16,8 @@ const rootReducer = combineReducers({
   imageData: imageUploadReducer,
   sellerListings: sellerDashboardReducer,
   orders: ordersReducer,
-  cart: ShoppingCartReducer
+  cart: ShoppingCartReducer,
+  user: appReducer
 });
 
 export default rootReducer;
