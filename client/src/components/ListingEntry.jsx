@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Grid, Row, Col, ButtonToolbar, Modal, Button, Image } from 'react-bootstrap';
+import { Grid, Row, Col, ButtonToolbar, Modal, Button, Image, Thumbnail } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import { 
   FacebookButton,
@@ -141,7 +141,9 @@ class ListingEntry extends Component {
         <Grid>
           <Row className="show-grid">
             <Col xs={12} sm={5}>
-              <ImageViewer images={this.state.images} />
+              <Thumbnail>
+                <ImageViewer images={this.state.images} />
+              </Thumbnail>
             </Col>
             <Col xs={12} sm={5}>
               <h2>{this.state.listing.title}</h2>
@@ -180,7 +182,10 @@ class ListingEntry extends Component {
                     <Grid>
                       <Col xs={3}>
                         <h4>Added to Cart</h4>
-                        <Image src={this.state.images[0].original} width="100" height="100" />
+                        {this.state.images[0] === undefined? 
+                          <Image src='/assets/No-image-available.jpg' alt='no image available' width="100" height="100" />
+                          : <Image src={this.state.images[0].original} width="100" height="100" />
+                        } 
                       </Col>
                       <Col xs={9}>
                         <br/><br/><br/>
