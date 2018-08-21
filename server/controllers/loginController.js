@@ -6,6 +6,7 @@ module.exports = {
   loginController: (req, res) => {
     
     db.loginByUsername(req.body.formContents.username, (err, response) => {
+      console.log('the login by username response', response);
       if (err) {
         console.error('controller: there was an error finding the username', err);
       } else {

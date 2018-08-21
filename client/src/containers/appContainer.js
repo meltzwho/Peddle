@@ -1,31 +1,22 @@
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-import { loginAction, SignupAction } from '../actions/appAction';
+import { addUser } from '../actions/appAction';
 import App from '../components/App';
 
 const mapStateToProps = (state) => {
   return {
-    
+    currentUserId: state.user.userId
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loginUser: () => {
-      dispatch(loginAction());
-      axios.post()
-        .then(response => { 
-          dispatch(SignupAction(response.data))
-        });
-    },
-    signupUser: () => {
-
-    },
-    logoutUser: () => {
-
+    addUserToStore: (user) => {
+      console.log('hello in the container', user)
+      dispatch(addUser(user));
     }
-  };
+  }
 };
 
 const appContainer = connect(
