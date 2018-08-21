@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
           error => {
             console.error('an error occured fetching the listings', error);
             dispatch(fetchListingsFail());
-          }
+          };
         });
     },
     closeFailModal: () => {
