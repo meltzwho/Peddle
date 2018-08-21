@@ -17,13 +17,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(fetchListingsStart());
       axios.get('/sellerDashboard/listings', {params: {userId: userId}})
         .then(response => {
-          console.log('response length', response.data.length);
-          console.log('the response data', response.data);
           dispatch(fetchListingsSuccess(response.data)),
           error => {
             console.error('an error occured fetching the listings', error);
             dispatch(fetchListingsFail());
-          }
+          };
         });
     },
     closeFailModal: () => {

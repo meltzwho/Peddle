@@ -11,16 +11,18 @@ module.exports = {
         //need to refactor query, we only want 1 entry for each item, even if
         //it has multiple pictures below is workaround with breadcrumbing on object
         let listingIds = {};
+        let counter = 0;
 
         let listings = {
           active: [],
           completed: []
         };
-        response.forEach((row, index) => {
+        response.forEach((row) => {
           progress.fetchStatus(row.id_listing, (statusErr, status) => {
             if (statusErr) {
               console.error('conroller: there was an error fetching the listing status', statusErr);
             } else if (listingIds[row.id_listing]) {
+              counter++;
               return;
             } else {
               row.status = status;
@@ -31,8 +33,9 @@ module.exports = {
                 listingIds[row.id_listing] = true;
                 listings.completed.push(row);
               }
+              counter++;
             }
-            if (index === response.length - 1) {
+            if (counter === response.length) {
               res.send(listings);
             }
           });

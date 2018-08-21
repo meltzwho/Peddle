@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, Checkbox, Button, DropdownButton, MenuItem, ButtonToolbar, Radio, Modal, Popover, OverlayTrigger, Grid, Col, Row, Jumbotron } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Checkbox, Button, DropdownButton, MenuItem, ButtonToolbar, Radio, Modal, Popover, OverlayTrigger, Grid, Col, Row, Jumbotron, Image } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import ImageUploadContainer from '../containers/imageUploadContainer';
 
@@ -169,12 +169,18 @@ class SellEntry extends Component {
       <Popover id="popover-trigger-hover-focus" title="Don't Worry!">
         We won't show your exact location to buyers!
       </Popover>
-    )
+    );
+
+    let pictures = this.props.urls.map((url, i) => (
+      <Col key={i} xs={6} md={4}>
+        <Image src={url} thumbnail/>
+      </Col>
+    ));
 
     return (
       <Grid>
         <Jumbotron>
-          <h2>Create Your Listing Below</h2>
+          <h2>Create Your Listing!</h2>
         </Jumbotron>
         {modal}
         <Form>
@@ -208,18 +214,15 @@ class SellEntry extends Component {
             </Col>
 
             <Col xs={6} md={4}>
-            <ImageUploadContainer />
-            <p>images uploaded: {this.props.urls.length}</p>
+              <p>images uploaded: {this.props.urls.length}</p>
+              <ImageUploadContainer />
+              <p>Please see below for previews of your images</p>
             </Col>
           </Row>
 
-          {/* <Row style={{marginTop: "50px"}}>
-            <Col xs={18} md={18}></Col>
-          </Row> */}
-
 
           <Row style={{marginTop: "30px"}}>
-            <Col xs={9} md={1}>
+            <Col xs={9} md={1} mdPush={1}>
               <FormGroup controlId="productPrice">
                 <ControlLabel>Price</ControlLabel>
                 <FormControl 
@@ -230,7 +233,7 @@ class SellEntry extends Component {
                 />
               </FormGroup>
             </Col>
-            <Col xs={9} md={1} mdPush={1}>
+            <Col xs={9} md={1} mdPush={2}>
               <FormGroup controlId="productQuantity">
                 <ControlLabel>Quantity</ControlLabel>
                 <FormControl 
@@ -241,9 +244,9 @@ class SellEntry extends Component {
                 />
               </FormGroup>
             </Col>
-            <Col xs={9} md={4} mdPush={2}>
+            <Col xs={9} md={4} mdPush={3}>
               <FormGroup onClick={this.handleCondition}>
-              <ControlLabel>Condition</ControlLabel> <br />
+                <ControlLabel>Condition</ControlLabel> <br />
                 <Radio checked={this.state.productCondition==='new'} name='new' inline>New</Radio>{' '}
                 <Radio checked={this.state.productCondition==='used'} name='used' inline>Used</Radio>{' '}
                 <Radio checked={this.state.productCondition==='open-box'} name='open-box' inline>Open Box</Radio>{' '}
@@ -252,8 +255,9 @@ class SellEntry extends Component {
                 <Radio checked={this.state.productCondition==='other'} name='other' inline>Other</Radio>{' '}
               </FormGroup>
             </Col>
-            <Col xs={9} md={1} mdPush={2}>
+            <Col xs={9} md={1} mdPush={3}>
               <ButtonToolbar>
+                <ControlLabel>Category</ControlLabel> <br />
                 <DropdownButton
                   title={this.state.selectedCategory || 'loading'}
                   key={0}
@@ -301,6 +305,9 @@ class SellEntry extends Component {
             <Button onClick={this.handleListingSubmit} type="submit">Submit</Button>
           </Row>
         </Form>
+        <Row style={{marginTop: "30px"}}>
+          {pictures} 
+        </Row>
       </Grid>
     );
   }
