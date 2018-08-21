@@ -12,7 +12,7 @@ let newForm = {
   defaultAddress: true,
   allowShipping: false,
   categories: [],
-  selectedCategory: 'category',
+  selectedCategory: 'Please select',
   selectedCategoryId: null,
   categoriesFetching: false,
   listingProcessing: false,
