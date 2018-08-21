@@ -1,4 +1,4 @@
-const authReducer = (state = {
+const appReducer = (state = {
   cookieValid: null,
   currentUser: {
     bio: null,
@@ -30,4 +30,4 @@ const authReducer = (state = {
   }
 };
 
-export default authReducer;
+export default appReducer;
