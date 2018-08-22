@@ -6,7 +6,7 @@ import Home from './Home';
 import Profile from '../containers/profileContainer';
 import Orders from '../containers/orderContainer';
 import Listings from './Listings';
-import ListingEntry from './ListingEntry';
+import ListingEntry from '../containers/listingEntryContainer';
 import Cart from './Cart/Cart';
 import Login from './Login';
 import SignUp from './SignUp';
@@ -49,7 +49,7 @@ class App extends Component {
   getCookie (destination) {
     const cookies = new Cookies;
     let cookie = cookies.get('token');
-    if(cookie) {
+    if (cookie) {
       this.props.addUserToStore(cookie.id_user);
       this.setState({
         cookieValid: true,
@@ -146,8 +146,24 @@ class App extends Component {
             
             if (response.data) {
               this.sniffCookieToOnboardUser(cookie);
+              this.setState({ cookieValid: response.data });
+            }else{
+              this.setState({
+                cookieValid: false,
+                currentUser: {
+                  id_user: '',
+                  first_name: '',
+                  last_name: '',
+                  username: '',
+                  email: '',
+                  google_id: null,
+                  facebook_id: null,
+                  token: null,
+                  token_timestamp: null,
+                  profile_image: ''
+                }
+              });
             }
-            this.setState({ cookieValid: response.data });
           })
           .catch(err => console.error(err));
       }
@@ -204,75 +220,6 @@ class App extends Component {
       greetFriends: 'Friend',
       cookieValid: false
     }));
-  }
-
-  // START OF SHOPPING CART 
-  handleAddToCart = (e, listingItemId) => {
-    e.preventDefault(e);
-    // check if the item is already in the cart
-    // if yes -- pop a modal saying 'item is already in your cart'
-    // & First we put lookup the item/seller/item photo from db and set them to state on component.
-    // if no -- place item into cart on state and on db
-    
-    axios.get(
-      '/cart/lookup',
-      { params: 
-        {
-          ID: listingItemId
-        }
-      }
-    )
-      .then(res => {
-        
-        if (res.data.length === 0) {
-          axios.get(
-            '/cart/aggregate', 
-            { params: 
-              {
-                ID: listingItemId,
-                currentUserID: this.state.currentUser.id_user
-              }
-            })
-            .then(res => {
-              
-              let consolidateListings = res.data[0];
-              // add a key value to hold the quantity the customer wants
-              consolidateListings.quantityCustomerWants = 1;
-              //consolidateListings.image_url = [];
-              let urls = [];
-              if (res.data.length > 1) {
-                // push all the image urls into one array on a single listing
-                for (let i = 0; i < res.data.length; i += 1) {
-                
-                  if (typeof res.data[i].image_url === 'string') {
-                    urls.push(res.data[0].image_url);
-                  }
-                }
-                consolidateListings.image_url = urls;
-              } else {
-                urls.push(res.data[0].image_url);
-                consolidateListings.image_url = urls;
-              }
-              this.setState(prevState => ({
-                cartItems: [ ...prevState.cartItems, consolidateListings]
-              }));
-            })
-            .catch(err => console.error(err));
-
-          axios.get(
-            '/cart/cartadd', 
-            { params: 
-              {
-                ID: listingItemId,
-                currentUserID: this.state.currentUser.id_user
-              }
-            })
-            .then(res => { console.log(res.data)})
-            .catch(err => console.error(err));
-
-        }
-      })
-      .catch(err => console.error(err));
   }
 
   removeItemFromCart = (event, index) => {
@@ -366,9 +313,7 @@ class App extends Component {
           <Route 
             path='/listingEntry/:listingId'
             component={() => (
-              <ListingEntry 
-                handleAddToCart={this.handleAddToCart}
-              />
+              <ListingEntry />
             )
             }
           />
