@@ -20,39 +20,20 @@ module.exports = {
         console.error('[model] error getting pool connection', e);
       });
   },
-
-  add_item_to_cart_table: (id, currentUserID) => {
-   
+  addToCart: (listingId, userId, quantity) => {
     return db.connect()
       .then(client => {
-        
-        let query = 'INSERT INTO cart_line_item (id_listing, id_user, quantity) VALUES($1, $2, $3)';
-        
-        return client.query(query, [id, currentUserID, 1])
+        let sqlQuery = 'INSERT INTO listing_image (id_listing, id_user, quantity) VALUES ($1, $2, $3)';
+        let params = [listingId, userId, quantity];
+        return client.query(sqlQuery, params)
           .then(res => {
             client.release();
             return res.rows;
           })
-          .catch(e => {client.release();});
-      })
-      .catch(e => {
-        console.error('[model] error getting pool connection', e);
-      });
-  },
-
-  remove_from_cart: (id, quantity) => {
-   
-    return db.connect()
-      .then(client => {
-        
-        let query = 'DELETE FROM cart_line_item WHERE id_listing=$1 AND quantity=$2';
-        
-        return client.query(query, [id, quantity])
-          .then(res => {
+          .catch(e => {
             client.release();
-            
-          })
-          .catch(e => {client.release();});
+            console.log('[model] error adding listing to cart: ', e);
+          });
       })
       .catch(e => {
         console.error('[model] error getting pool connection', e);
@@ -60,7 +41,6 @@ module.exports = {
   },
 
   lookup_item_Cart: (id) => {
-   
     return db.connect()
       .then(client => {
         console.log('in MODEL LOOKUP:', id);
