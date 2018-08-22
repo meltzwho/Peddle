@@ -1,5 +1,5 @@
 const db = require('../models/cartModel.js');
-console.log('CONTROLLER')
+
 module.exports = {
 
   getListing_Photo_SellerName_By_Id: (req, res) => {
@@ -13,19 +13,17 @@ module.exports = {
         res.json(data);
       });
   },
-
-  add_item_to_cart_table: (req, res) => {
-    console.log('CONTROLLER-add item')
-    db.add_item_to_cart_table(req.query.ID, req.query.currentUserID)
-      .then(data => {
-        res.json(data);
+  addToCart: (req, res) => {
+    db.addToCart(req.params.listingId, req.params.userId, req.params.quantity)
+      .then(() => {
+        console.log('[controller] added to cart');
+        res.sendStatus(200);
       })
       .catch(e => {
-        console.error('[controller] error adding item to cart table:', e);
+        console.error('[controller] error looking up item to cart table:', e);
         res.json(data);
       });
   },
-
   remove_from_cart: (req, res) => {
     console.log('try delete:', req.body);
     db.remove_from_cart(req.body.ID, req.body.quantity)
