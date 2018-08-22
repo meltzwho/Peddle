@@ -1,11 +1,9 @@
-export const getListing = (listing) => {
-  return {
-    type: 'GET_LISTING',
-    payload: {
-      listing: listing
-    }
+export const getListing = (listing) => ({
+  type: 'GET_LISTING',
+  payload: {
+    listing: listing
   }
-};
+});
 
 export const getSeller = (seller) => ({
   type: 'GET_SELLER',
