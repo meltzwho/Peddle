@@ -21,6 +21,7 @@ passport.use(
           console.error('db connection error', err);
         } else {
           // no empty emails
+          console.log('profile', profile)
           if (profile.emails[0].value !== '') { 
             
             let text = 'SELECT * FROM users WHERE email = $1';

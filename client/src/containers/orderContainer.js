@@ -5,7 +5,8 @@ import Orders from '../components/Orders';
 
 const mapStateToProps = (state) => {
   return {
-    orders: state.orders
+    orders: state.orders,
+    currentUserId: state.user.userId
   };
 };
 

@@ -18,7 +18,8 @@ const rootReducer = combineReducers({
   sellerListings: sellerDashboardReducer,
   orders: ordersReducer,
   cart: ShoppingCartReducer,
-  listingEntry: listingEntryReducer
+  listingEntry: listingEntryReducer,
+  user: appReducer
 });
 
 export default rootReducer;

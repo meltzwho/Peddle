@@ -38,6 +38,7 @@ const mapDispatchToProps = (dispatch) => {
           dispatch(getListing(e));
         });
     }
+  };
 };
 
 const listingEntryContainer = connect(
