@@ -13,7 +13,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addUserToStore: (user) => {
-      console.log('hello in the container', user)
       dispatch(addUser(user));
     }
   }

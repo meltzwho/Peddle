@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import Home from './Home';
-import Profile from './Profile';
+import Profile from '../containers/profileContainer';
 import Orders from '../containers/orderContainer';
 import Listings from './Listings';
 import ListingEntry from '../containers/listingEntryContainer';
