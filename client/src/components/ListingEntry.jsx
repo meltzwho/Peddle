@@ -123,7 +123,13 @@ class ListingEntry extends Component {
       qty: e.target.value
     });
   }
-  
+  handleAddToCart = () => {
+    axios.post(`/cart/add/${this.state.listing.id_listing}/${this.state.id_buyer}/${this.state.qty}`)
+      .then()
+      .catch(e => {
+        console.error(e);
+      });
+  }
   handleShowCart = () => {
     this.setState({ showCart: !this.state.showCart });
   }
@@ -136,41 +142,45 @@ class ListingEntry extends Component {
     } else {
       qty.push(<option key="0" value="0">0</option>);
     }
-    if (this.state.listing.id_seller !== 0 && this.state.images !== undefined) {
+    if (this.props.listing.listing.id_seller !== 0 && this.props.listing.images !== undefined) {
       return (
         <Grid>
           <Row className="show-grid">
             <Col xs={12} sm={5}>
               <Thumbnail>
-                <ImageViewer images={this.state.images} />
+                <ImageViewer images={this.props.listing.images} />
               </Thumbnail>
             </Col>
             <Col xs={12} sm={5}>
-              <h2>{this.state.listing.title}</h2>
-              <div>Sold by: <a href={`/profile/${this.state.seller.id_user}`}>{this.state.seller.username}</a></div>
+              <h2>{this.props.listing.listing.title}</h2>
+              <div>Sold by: <a href={`/profile/${this.props.seller.id_user}`}>{this.props.seller.username}</a></div>
               <StarRatings 
-                rating={+this.state.sellerRating.rating}
+                rating={+this.props.listing.rating.rating}
                 isAggregateRating="true"
                 starRatedColor="gold"
                 starSelectingHoverColor="yellow"
                 starDimension="16px"
                 starSpacing="0px"
               />
-              {this.state.sellerRating.count === 0 ? 
+              {this.props.listing.rating.count === 0 ? 
                 <a href="/reviewEntry">Leave a review</a>
-                : this.state.sellerRating.count === 1 ?
-                  <a href="#listingReview">{this.state.sellerRating.count} review</a>
-                  : <a href="/#listingReview"> {this.state.sellerRating.count} reviews</a>
+                : this.props.listing.rating.count === 1 ?
+                  <a href="#listingReview">{this.props.listing.rating.count} review</a>
+                  : <a href="/#listingReview"> {this.props.listing.rating.count} reviews</a>
               }
-              <div>Price: <h4>${this.state.listing.price}</h4></div>
-              <div>Qty Available: {this.state.listing.quantity}</div>
-              <div>Description: {this.state.listing.description}</div>
-              <div>Condition: {this.state.listing.condition}</div>
+              <div>Price: <h4>${this.props.listing.listing.price}</h4></div>
+              <div>Qty Available: {this.props.listing.listing.quantity}</div>
+              <div>Description: {this.props.listing.listing.description}</div>
+              <div>Condition: {this.props.listing.listing.condition}</div>
             </Col>
             <Col xs={12} sm={2}>
               <ButtonToolbar>
                 <Button
-                  onClick={(e) => { this.handleShowCart(); this.props.handleAddToCart(e, this.state.listing.id_listing); }}>
+                  onClick={() => { 
+                    this.handleShowCart(); 
+                    this.handleAddToCart();
+                  }}
+                >
                   Add To Cart
                 </Button>
                 <Modal
