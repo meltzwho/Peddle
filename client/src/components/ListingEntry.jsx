@@ -46,77 +46,7 @@ class ListingEntry extends Component {
     showCart: false
   }
   componentDidMount() {
-    this.getListing();
     this.props.getListing(this.props.match.params.listingId);
-  }
-  getListing() {
-    axios.get(`/l/lid/${this.props.match.params.listingId}`)
-      .then(res => {
-        this.setState({
-          listing: res.data[0]
-        }, () => {
-          this.getSeller();
-        });
-      })
-      .catch(e => {
-        console.log('[client] error fetching listing by id: ', e);
-      });
-  }
-  getSeller() {
-    axios.get(`/users/userId/${this.state.listing.id_seller}`)
-      .then(res => {
-        this.setState({
-          seller: res.data[0],
-        }, () => {
-          this.getRatingBySellerId();
-          this.getImagesByListingId();
-        });
-      })
-      .catch(e => {
-        console.log('[client] error fetching seller: ', e);
-      });
-  }
-  getRatingBySellerId() {
-    axios.get(`/ratings/userId/${this.state.listing.id_seller}`)
-      .then(res => {
-        this.setState({
-          sellerRating: res.data[0],
-        }, () => {
-          this.getFeedbackBySellerId();
-        });
-      })
-      .catch(e => {
-        console.log('[client] error fetching seller rating: ', e)
-      });
-  }
-  getFeedbackBySellerId() {
-    axios.get(`/ratings/feedback/${this.state.listing.id_seller}`)
-      .then(res => {
-        this.setState({
-          sellerFeedback: res.data,
-        });
-      })
-      .catch(e => {
-        console.log('[client] error fetching feedback: ', e);
-      });
-  }
-  getImagesByListingId() {
-    axios.get(`/images/lid/${this.state.listing.id_listing}`)
-      .then(res => {
-        let images = res.data.map(image => {
-          return ({
-            original: image.image_url,
-            thumbnail: image.image_url,
-            sizes: '(max-width: 100px) 100px, 100vw'
-          });
-        });
-        this.setState({
-          images: images,
-        });
-      })
-      .catch(e => {
-        console.log('[client] error fetching feedback: ', e);
-      });
   }
   handleChange = (e) => {
     this.setState({
@@ -142,7 +72,7 @@ class ListingEntry extends Component {
     } else {
       qty.push(<option key="0" value="0">0</option>);
     }
-    if (this.props.listing.listing.id_seller !== 0 && this.props.listing.images !== undefined) {
+    if (this.props.listing.listing.id_seller !== '' && this.props.listing.images !== undefined && this.props.listing.rating !== '') {
       return (
         <Grid>
           <Row className="show-grid">
@@ -153,7 +83,7 @@ class ListingEntry extends Component {
             </Col>
             <Col xs={12} sm={5}>
               <h2>{this.props.listing.listing.title}</h2>
-              <div>Sold by: <a href={`/profile/${this.props.seller.id_user}`}>{this.props.seller.username}</a></div>
+              <div>Sold by: <a href={`/profile/${this.props.listing.seller.id_user}`}>{this.props.listing.seller.username}</a></div>
               <StarRatings 
                 rating={+this.props.listing.rating.rating}
                 isAggregateRating="true"
@@ -192,9 +122,9 @@ class ListingEntry extends Component {
                     <Grid>
                       <Col xs={3}>
                         <h4>Added to Cart</h4>
-                        {this.state.images[0] === undefined? 
+                        {this.props.listing.images === undefined || this.props.listing.images.length === 0? 
                           <Image src='/assets/No-image-available.jpg' alt='no image available' width="100" height="100" />
-                          : <Image src={this.state.images[0].original} width="100" height="100" />
+                          : <Image src={this.props.listing.images[0].original} width="100" height="100" />
                         } 
                       </Col>
                       <Col xs={9}>
@@ -232,7 +162,7 @@ class ListingEntry extends Component {
           <Row>
             <Col sx={12} sm={8}>
               <h2 id="listingReview">Customer Reviews</h2>
-              <a href='/reviews'>{this.state.sellerRating.count} reviews</a>
+              <a href='/reviews'>{this.props.listing.rating.count} reviews</a>
               <div>
                 {this.state.sellerFeedback.map(review => {
                   return (
