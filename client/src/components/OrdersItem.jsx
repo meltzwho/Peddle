@@ -1,13 +1,13 @@
 import React from 'react';
 import ProgressBarItem from './ProgressBar';
 import { Link } from 'react-router-dom';
-import { Button, Grid, Col, Row } from 'react-bootstrap'
+import { Button, Grid, Col, Row, Image} from 'react-bootstrap'
 
 const OrdersItem = (props) => {
   let listings = props.order.listings.map(listing => (
     <Row key={listing.id_listing} xs={18} md={9}>
       <Col xs={18} md={3}>
-        <img src={listing.image_url || 'https://s3.amazonaws.com/peddle-images/dat-boi.jpg'} style={{width: '85%', "marginLeft": "5%", height: '85%', objectFit: "scale-down"}}/>
+        <Image src={listing.image_url || 'https://s3.amazonaws.com/peddle-images/dat-boi.jpg'} style={{width: '85%', "marginLeft": "5%", height: '85%', objectFit: "scale-down"}} thumbnail/>
       </Col>
       <Col md={6} mdOffset={1}>
         <Row style={{margin: "20px"}}>

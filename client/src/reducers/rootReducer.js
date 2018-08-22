@@ -7,6 +7,7 @@ import imageUploadReducer from './imageUploadReducer';
 import sellerDashboardReducer from './sellerDashboardReducer';
 import ordersReducer from './orderReducer';
 import ShoppingCartReducer from './shoppingCartReducer';
+import profileReducer from './profileReducer';
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   sellerListings: sellerDashboardReducer,
   orders: ordersReducer,
   cart: ShoppingCartReducer,
-  user: appReducer
+  user: appReducer,
+  profile: profileReducer
 });
 
 export default rootReducer;

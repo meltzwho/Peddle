@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Tabs, Tab, Grid, Jumbotron, Row } from 'react-bootstrap';
+import { Button, Modal, Tabs, Tab, Grid, Jumbotron, Row, Well } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import OrdersItem from './OrdersItem';
 
@@ -13,8 +13,10 @@ class Orders extends Component {
 
 
   render() {
-    let activeTiles = this.props.orders.orders.active.map((order) => (<OrdersItem key={order.id_order} order={order} active={true} />));
-    let completedTiles = this.props.orders.orders.completed.map((order) => (<OrdersItem key={order.id_order} order={order} active={false} />))
+    let activeTiles = this.props.orders.orders.active.length > 0 ?
+      this.props.orders.orders.active.map((order) => (<OrdersItem key={order.id_order} order={order} active={true} />)) : <Well style={{margin: "20px"}}>Looks like you don't have any active orders</Well>;
+    let completedTiles = this.props.orders.orders.completed.length > 0 ? 
+      this.props.orders.orders.completed.map((order) => (<OrdersItem key={order.id_order} order={order} active={false} />)) : <Well style={{margin: "20px"}}>Looks like you don't have any completed orders</Well>;
     return (
       <Grid>
         <Modal show={this.props.orders.ordersFetchSuccess === false} onHide={this.props.closeFailModal}>
