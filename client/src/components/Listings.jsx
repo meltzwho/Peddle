@@ -8,8 +8,7 @@ import FilterModal from './FilterModal';
 
 class Listings extends Component {
   state = {
-    listings: [],
-    backup: []
+    listings: []
   };
   
   componentDidMount() {
@@ -18,27 +17,34 @@ class Listings extends Component {
   }
 
   filter(filters) {
-    if (filters !== undefined) {
-      this.setState(prevState => ({backup: prevState.listings}), () => {
-        if (filters.sellerRating) {
-  
-        }
-        if (filters.minPrice) {
-  
-        }
-        if (filters.maxPrice) {
-  
-        }
-        if (filters.deliveryMethod) {
-  
-        }
-        if (filters.condition) {
-  
-        }
-        this.setState({});
+    if (Object.keys(filters).length !== 0) {
+      this.setState(prevState => {if (this.state.backup !== undefined) return {listings: prevState.backup}; else return {force: 'x'}; }, ()=>{
+        this.setState(prevState => {if (this.state.backup === undefined) return {backup: prevState.listings}; else return {force: 'x'}; }, () => {
+          let listings = this.state.listings;
+          let filteredlistings = [];
+          for (let i = 0; i < listings.length; i++) {
+            if (filters.sellerRating && listings[i].rating < filters.sellerRating) {
+              continue;
+            }
+            if (filters.minPrice && listings[i].price < Number(filters.minPrice)) {
+              continue;
+            }
+            if (filters.maxPrice && listings[i].price > Number(filters.maxPrice)) {
+              continue;
+            }
+            if (filters.deliveryMethod && listings[i][filters.deliveryMethod] < 1) {
+              continue;
+            }
+            if (filters.condition && listings[i].condition !== filters.condition) {
+              continue;
+            }
+            filteredlistings.push(listings[i]);
+          }
+          this.setState({listings: filteredlistings});
+        });
       });
     } else {
-      this.setState(prevState => ({listings: prevState.backup}));
+      this.setState(prevState => {if (this.state.backup !== undefined) return {listings: prevState.backup}; else return {force: 'x'}; });
     }
   }
 

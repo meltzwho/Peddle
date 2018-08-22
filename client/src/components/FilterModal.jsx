@@ -10,24 +10,26 @@ class FilterModal extends React.Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
-      show: false
+      show: false,
+      filters: {}
     };
   }
 
   handleChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
-    }, () => console.log(JSON.stringify(this.state)));
+      filters: {...this.state.filters, [e.target.name]: e.target.value}
+    });
     
   }
 
   handleClose(e) {
-    if (e && e.target.value === 'clear') this.props.filter(undefined);
-    if (e && e.target.value === 'apply') this.props.filter(this.state);
+    if (e && e.target.value === 'clear') this.setState({filters: {}}, ()=>this.props.filter(this.state.filters));
+    if (e && e.target.value === 'apply') this.props.filter(this.state.filters);
     this.setState({ show: false });
   }
 
   handleShow() {
+    //this.setState({filters: {}});
     this.setState({ show: true });
   }
 
@@ -54,6 +56,7 @@ class FilterModal extends React.Component {
                       type='number'
                       name='minPrice'
                       placeholder='min. price'
+                      value={this.state.filters.minPrice}
                       onChange={
                         this.handleChange
                       }
@@ -69,6 +72,7 @@ class FilterModal extends React.Component {
                       type='number'
                       name='maxPrice'
                       placeholder='max price'
+                      value={this.state.filters.maxPrice}
                       onChange={
                         this.handleChange
                       }
@@ -83,27 +87,27 @@ class FilterModal extends React.Component {
                     <br />
                     <ListGroup>
                       <ListGroupItem>
-                        <Radio name="condition" value='New' inline onFocus={this.handleChange}>
+                        <Radio name="condition" value='new' inline onFocus={this.handleChange}>
                           New
                         </Radio>{' '}
                       </ListGroupItem>
                       <ListGroupItem>
-                        <Radio name="condition" value='Used' inline onFocus={this.handleChange}>
+                        <Radio name="condition" value='used' inline onFocus={this.handleChange}>
                           Used
                         </Radio>{' '}
                       </ListGroupItem>
                       <ListGroupItem>
-                        <Radio name="condition" value='Open Box' inline onFocus={this.handleChange}>
+                        <Radio name="condition" value='open-box' inline onFocus={this.handleChange}>
                           Open Box
                         </Radio>
                       </ListGroupItem>
                       <ListGroupItem>
-                        <Radio name="condition" value='Reconditioned' inline onFocus={this.handleChange}>
+                        <Radio name="condition" value='reconditioned' inline onFocus={this.handleChange}>
                           Reconditioned
                         </Radio>
                       </ListGroupItem>
                       <ListGroupItem>
-                        <Radio name="condition" value='Other' inline onFocus={this.handleChange}>
+                        <Radio name="condition" value='other' inline onFocus={this.handleChange}>
                         Other
                         </Radio>
                       </ListGroupItem>
@@ -118,12 +122,12 @@ class FilterModal extends React.Component {
                     <br />
                     <ListGroup>
                       <ListGroupItem>
-                        <Radio name="deliveryMethod" value='Local Pickup' inline onFocus={this.handleChange}>
+                        <Radio name="deliveryMethod" value='is_local' inline onFocus={this.handleChange}>
                           Local Pickup
                         </Radio>{' '}
                       </ListGroupItem>
                       <ListGroupItem>
-                        <Radio name="deliveryMethod" value='Shipping Available' inline onFocus={this.handleChange}>
+                        <Radio name="deliveryMethod" value='is_shipping' inline onFocus={this.handleChange}>
                           Shipping Available
                         </Radio>{' '}
                       </ListGroupItem>
