@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import { Grid, Row, Col, ButtonToolbar, Modal, Button, Image, Thumbnail } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import { 
-  FacebookButton,
   TwitterButton,
   GooglePlusButton,
   PinterestButton,
   EmailButton
 } from 'react-social';
 import axios from 'axios';
-import config from '../../../config';
 import Stripe from './Stripe';
 import ReviewEntry from './ReviewEntry';
 import ImageViewer from './ImageViewer';
@@ -17,31 +15,6 @@ import ImageViewer from './ImageViewer';
 class ListingEntry extends Component {
   state = {
     id_buyer: 1,
-    listing: {
-      id_listing: '',
-      condition: '',
-      date_posted: '',
-      description: '',
-      quantity: 1
-    },
-    seller: {
-      bio: '',
-      username: '',
-    },
-    sellerRating: {
-      count: 0,
-      id_user: 0,
-      rating: '0',
-    },
-    sellerFeedback: [{
-      id_feedback: 1,
-      id_buyer: 1,
-      feedback: '',
-      id_listing: 1,
-      id_seller: 0,
-      rating: '0',
-      title: ''
-    }],
     qty: 1,
     showCart: false
   }
@@ -54,7 +27,7 @@ class ListingEntry extends Component {
     });
   }
   handleAddToCart = () => {
-    axios.post(`/cart/add/${this.state.listing.id_listing}/${this.state.id_buyer}/${this.state.qty}`)
+    axios.post(`/cart/add/${this.props.listing.listing.id_listing}/${this.state.id_buyer}/${this.state.qty}`)
       .then()
       .catch(e => {
         console.error(e);
@@ -65,8 +38,8 @@ class ListingEntry extends Component {
   }
   render() {
     let qty = [];
-    if (this.state.listing.quantity !== 0) {
-      for (let i = 1; i <= this.state.listing.quantity; i++) {
+    if (this.props.listing.listing.quantity !== 0) {
+      for (let i = 1; i <= this.props.listing.listing.quantity; i++) {
         qty.push(<option key={i} value={i}>{i}</option>);
       }
     } else {
@@ -131,7 +104,7 @@ class ListingEntry extends Component {
                         <br/><br/><br/>
                         <div>
                           <strong>Cart subtotal: </strong>
-                          {this.state.qty * this.state.listing.price}
+                          {this.state.qty * this.props.listing.listing.price}
                         </div>
                       </Col>
                     </Grid>
@@ -146,13 +119,12 @@ class ListingEntry extends Component {
               >
                 {qty.map(count => count)}
               </select>
-              <Stripe listing={this.state.listing}/>
+              <Stripe listing={this.props.listing.listing}/>
             </Col>
           </Row>
           <Row>
             <Col sx={12} sm={12}>
               <br/>
-              <FacebookButton url={window.location.href} appId={config.facebook.id}>Share on Facebook</FacebookButton>
               <TwitterButton url={window.location.href}>Share on Twitter</TwitterButton>
               <GooglePlusButton url={window.location.href}>Share on Google</GooglePlusButton>
               <PinterestButton url={window.location.href}>Share on Pinterest</PinterestButton>
@@ -164,7 +136,7 @@ class ListingEntry extends Component {
               <h2 id="listingReview">Customer Reviews</h2>
               <a href='/reviews'>{this.props.listing.rating.count} reviews</a>
               <div>
-                {this.state.sellerFeedback.map(review => {
+                {this.props.listing.feedback.map(review => {
                   return (
                     <ReviewEntry 
                       key={review.id_feedback}
