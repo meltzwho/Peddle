@@ -87,27 +87,27 @@ class FilterModal extends React.Component {
                     <br />
                     <ListGroup>
                       <ListGroupItem>
-                        <Radio name="condition" value='new' inline onFocus={this.handleChange}>
+                        <Radio checked={this.state.filters.condition === 'new'} name="condition" value='new' inline onFocus={this.handleChange}>
                           New
                         </Radio>{' '}
                       </ListGroupItem>
                       <ListGroupItem>
-                        <Radio name="condition" value='used' inline onFocus={this.handleChange}>
+                        <Radio checked={this.state.filters.condition === 'used'} name="condition" value='used' inline onFocus={this.handleChange}>
                           Used
                         </Radio>{' '}
                       </ListGroupItem>
                       <ListGroupItem>
-                        <Radio name="condition" value='open-box' inline onFocus={this.handleChange}>
+                        <Radio checked={this.state.filters.condition === 'open-box'} name="condition" value='open-box' inline onFocus={this.handleChange}>
                           Open Box
                         </Radio>
                       </ListGroupItem>
                       <ListGroupItem>
-                        <Radio name="condition" value='reconditioned' inline onFocus={this.handleChange}>
+                        <Radio checked={this.state.filters.condition === 'reconditioned'} name="condition" value='reconditioned' inline onFocus={this.handleChange}>
                           Reconditioned
                         </Radio>
                       </ListGroupItem>
                       <ListGroupItem>
-                        <Radio name="condition" value='other' inline onFocus={this.handleChange}>
+                        <Radio checked={this.state.filters.condition === 'other'} name="condition" value='other' inline onFocus={this.handleChange}>
                         Other
                         </Radio>
                       </ListGroupItem>
@@ -122,12 +122,12 @@ class FilterModal extends React.Component {
                     <br />
                     <ListGroup>
                       <ListGroupItem>
-                        <Radio name="deliveryMethod" value='is_local' inline onFocus={this.handleChange}>
+                        <Radio checked={this.state.filters.deliveryMethod === 'is_local'} name="deliveryMethod" value='is_local' inline onFocus={this.handleChange}>
                           Local Pickup
                         </Radio>{' '}
                       </ListGroupItem>
                       <ListGroupItem>
-                        <Radio name="deliveryMethod" value='is_shipping' inline onFocus={this.handleChange}>
+                        <Radio checked={this.state.filters.deliveryMethod === 'is_shipping'} name="deliveryMethod" value='is_shipping' inline onFocus={this.handleChange}>
                           Shipping Available
                         </Radio>{' '}
                       </ListGroupItem>
@@ -142,7 +142,7 @@ class FilterModal extends React.Component {
                     <br />
                     <ListGroup>
                       <ListGroupItem>
-                        <Radio name="sellerRating" value='5' inline onFocus={this.handleChange}>
+                        <Radio checked={this.state.filters.sellerRating === '5'} name="sellerRating" value='5' inline onFocus={this.handleChange}>
                           <StarRatings 
                             rating={+5}
                             isAggregateRating="true"
@@ -154,7 +154,7 @@ class FilterModal extends React.Component {
                         </Radio>{' '}
                       </ListGroupItem>
                       <ListGroupItem>
-                        <Radio name="sellerRating" value='4' inline onFocus={this.handleChange}>
+                        <Radio checked={this.state.filters.sellerRating === '4'} name="sellerRating" value='4' inline onFocus={this.handleChange}>
                           <StarRatings 
                             rating={+4}
                             isAggregateRating="true"
@@ -166,7 +166,7 @@ class FilterModal extends React.Component {
                         </Radio>{' '}
                       </ListGroupItem>
                       <ListGroupItem>
-                        <Radio name="sellerRating" value='3' inline onFocus={this.handleChange}>
+                        <Radio checked={this.state.filters.sellerRating === '3'} name="sellerRating" value='3' inline onFocus={this.handleChange}>
                           <StarRatings 
                             rating={+3}
                             isAggregateRating="true"
@@ -178,7 +178,7 @@ class FilterModal extends React.Component {
                         </Radio>{' '}
                       </ListGroupItem>
                       <ListGroupItem>
-                        <Radio name="sellerRating" value='2' inline onFocus={this.handleChange}>
+                        <Radio checked={this.state.filters.sellerRating === '2'} name="sellerRating" value='2' inline onFocus={this.handleChange}>
                           <StarRatings 
                             rating={+2}
                             isAggregateRating="true"
@@ -190,7 +190,7 @@ class FilterModal extends React.Component {
                         </Radio>{' '}
                       </ListGroupItem>
                       <ListGroupItem>
-                        <Radio name="sellerRating" value='1' inline onFocus={this.handleChange}>
+                        <Radio checked={this.state.filters.sellerRating === '1'} name="sellerRating" value='1' inline onFocus={this.handleChange}>
                           <StarRatings 
                             rating={+1}
                             isAggregateRating="true"
