@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { Grid, Row, Col, ButtonToolbar, Modal, Button, Image, Thumbnail } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import { 
@@ -48,6 +47,7 @@ class ListingEntry extends Component {
   }
   componentDidMount() {
     this.getListing();
+    this.props.getListing(this.props.match.params.listingId);
   }
   getListing() {
     axios.get(`/l/lid/${this.props.match.params.listingId}`)
@@ -258,4 +258,4 @@ class ListingEntry extends Component {
   }
 }
 
-export default withRouter(ListingEntry);
+export default ListingEntry;
