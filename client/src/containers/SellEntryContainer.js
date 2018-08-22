@@ -7,7 +7,8 @@ import SellEntry from '../components/SellEntry';
 const mapStateToProps = (state) => {
   return {
     entry: state.sellEntryForm,
-    urls: state.imageData.imageUrls
+    urls: state.imageData.imageUrls,
+    currentUserId: state.user.userId
   };
 };
 

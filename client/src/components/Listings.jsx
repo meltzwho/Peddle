@@ -1,25 +1,49 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Axios from 'axios';
-import {Grid, Row, Col, Modal, Label, Button, Popover, Tooltip, OverlayTrigger} from 'react-bootstrap';
+import {Grid, Row, Col, Label} from 'react-bootstrap';
 import ListingCard from './ListingCard';
+import FilterModal from './FilterModal';
 
 
 class Listings extends Component {
   state = {
-    listings: []
+    listings: [],
+    backup: []
   };
-
+  
   componentDidMount() {
     Axios.get(`/l/${this.props.match.params.query}`)
       .then(listings=>this.setState({listings: listings.data}));
   }
 
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  filter(filters) {
+    if (filters !== undefined) {
+      this.setState(prevState => ({backup: prevState.listings}), () => {
+        if (filters.sellerRating) {
+  
+        }
+        if (filters.minPrice) {
+  
+        }
+        if (filters.maxPrice) {
+  
+        }
+        if (filters.deliveryMethod) {
+  
+        }
+        if (filters.condition) {
+  
+        }
+        this.setState({});
+      });
+    } else {
+      this.setState(prevState => ({listings: prevState.backup}));
+    }
   }
 
   render() {
+    this.filter = this.filter.bind(this);
     let searchTerm = this.props.match.params.query;
     var ListingCards = []; 
     for (let i = 0; i < this.state.listings.length; i++) {
@@ -37,7 +61,7 @@ class Listings extends Component {
       <Grid>
         <Row>
           <Col xs={12} sm={12}>
-            <Example />
+            <FilterModal filter={this.filter} />
           </Col>
         </Row>
         <Row>
@@ -55,52 +79,3 @@ class Listings extends Component {
 
 export default withRouter(Listings);
 
-class Example extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-
-    this.state = {
-      show: false
-    };
-  }
-
-  handleClose() {
-    this.setState({ show: false });
-  }
-
-  handleShow() {
-    this.setState({ show: true });
-  }
-
-  render() {
-    const popover = (
-      <Popover id="modal-popover" title="popover">
-        very popover. such engagement
-      </Popover>
-    );
-    const tooltip = <Tooltip id="modal-tooltip">wow.</Tooltip>;
-
-    return (
-      <div>
-        <Button bsStyle="default" onClick={this.handleShow}>
-          Launch demo modal
-        </Button>
-
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <h4>Text in a modal</h4>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.handleClose}>Close</Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
-    );
-  }
-}
