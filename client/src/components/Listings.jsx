@@ -17,9 +17,9 @@ class Listings extends Component {
   }
 
   filter(filters) {
-    if (Object.keys(filters).length !== 0) {
-      this.setState(prevState => {if (this.state.backup !== undefined) return {listings: prevState.backup}; else return {force: 'x'}; }, ()=>{
-        this.setState(prevState => {if (this.state.backup === undefined) return {backup: prevState.listings}; else return {force: 'x'}; }, () => {
+    this.setState(prevState => { if (prevState.backup !== undefined) return {listings: prevState.backup}; else return {}; }, ()=>{
+      if (Object.keys(filters).length !== 0) {
+        this.setState(prevState => { if (prevState.backup === undefined) return {backup: prevState.listings}; else return {}; }, () => {
           let listings = this.state.listings;
           let filteredlistings = [];
           for (let i = 0; i < listings.length; i++) {
@@ -42,10 +42,8 @@ class Listings extends Component {
           }
           this.setState({listings: filteredlistings});
         });
-      });
-    } else {
-      this.setState(prevState => {if (this.state.backup !== undefined) return {listings: prevState.backup}; else return {force: 'x'}; });
-    }
+      }
+    });
   }
 
   render() {
