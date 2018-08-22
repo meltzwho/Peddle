@@ -313,9 +313,7 @@ class App extends Component {
           <Route 
             path='/listingEntry/:listingId'
             component={() => (
-              <ListingEntry 
-                handleAddToCart={this.handleAddToCart}
-              />
+              <ListingEntry />
             )
             }
           />
