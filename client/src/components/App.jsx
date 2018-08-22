@@ -32,10 +32,7 @@ class App extends Component {
       token: null,
       token_timestamp: null,
       profile_image: ''
-    },
-
-    cartItems: [],
-    cartTotal: 0
+    }
   };
   
   componentDidMount() {
@@ -204,127 +201,6 @@ class App extends Component {
     }));
   }
 
-  // START OF SHOPPING CART 
-  handleAddToCart = (e, listingItemId) => {
-    e.preventDefault(e);
-    // check if the item is already in the cart
-    // if yes -- pop a modal saying 'item is already in your cart'
-    // & First we put lookup the item/seller/item photo from db and set them to state on component.
-    // if no -- place item into cart on state and on db
-    
-    axios.get(
-      '/cart/lookup',
-      { params: 
-        {
-          ID: listingItemId
-        }
-      }
-    )
-      .then(res => {
-        
-        if (res.data.length === 0) {
-          axios.get(
-            '/cart/aggregate', 
-            { params: 
-              {
-                ID: listingItemId,
-                currentUserID: this.state.currentUser.id_user
-              }
-            })
-            .then(res => {
-              
-              let consolidateListings = res.data[0];
-              // add a key value to hold the quantity the customer wants
-              consolidateListings.quantityCustomerWants = 1;
-              //consolidateListings.image_url = [];
-              let urls = [];
-              if (res.data.length > 1) {
-                // push all the image urls into one array on a single listing
-                for (let i = 0; i < res.data.length; i += 1) {
-                
-                  if (typeof res.data[i].image_url === 'string') {
-                    urls.push(res.data[0].image_url);
-                  }
-                }
-                consolidateListings.image_url = urls;
-              } else {
-                urls.push(res.data[0].image_url);
-                consolidateListings.image_url = urls;
-              }
-              this.setState(prevState => ({
-                cartItems: [ ...prevState.cartItems, consolidateListings]
-              }));
-            })
-            .catch(err => console.error(err));
-
-          axios.get(
-            '/cart/cartadd', 
-            { params: 
-              {
-                ID: listingItemId,
-                currentUserID: this.state.currentUser.id_user
-              }
-            })
-            .then(res => { console.log(res.data)})
-            .catch(err => console.error(err));
-
-        }
-      })
-      .catch(err => console.error(err));
-  }
-
-  removeItemFromCart = (event, index) => {
-    event.preventDefault();
-    // move this function to the removeItemFromCart
-    // adjust the db as well
-    axios({
-      url: './cart/removefromcart', 
-      method: 'DELETE', 
-      data: {
-        ID: this.state.cartItems[index].id_listing,
-        quantity: this.state.cartItems[index].quantityCustomerWants
-      }
-    })
-      .then( () => {
-        this.setState({
-          cartItems: this.state.cartItems.filter( (item, idx) => {
-            return idx !== index;
-          })
-        });
-        console.log('after remove from cartItems:', this.state.cartItems);
-      })
-      .catch(err => console.error('Error', err));
-  }
-
-  incrementQuantity = (event, index) => {
-    let item = this.state.cartItems[index];
-    if (item.quantityCustomerWants < item.quantity) {
-      this.setState({
-        cartItems: this.state.cartItems.map( (item, idx) => {
-          if (idx === index) {
-            item.quantityCustomerWants++;
-          }
-          return item;
-        }) 
-      });
-    }
-  }
-
-  decrementQuantity = (event, index) => {
-    let item = this.state.cartItems[index];
-    if (item.quantityCustomerWants > 0) {
-
-      this.setState({
-        cartItems: this.state.cartItems.map( (item, idx) => {
-          if (idx === index) {
-            item.quantityCustomerWants--;
-          }
-          return item;
-        }) 
-      });
-    }
-  }
-
   render() {
     if (!this.state.cookieValid) this.getCookie(this.props.location.pathname);
     return (
@@ -364,9 +240,7 @@ class App extends Component {
           <Route 
             path='/listingEntry/:listingId'
             component={() => (
-              <ListingEntry 
-                handleAddToCart={this.handleAddToCart}
-              />
+              <ListingEntry />
             )
             }
           />
@@ -374,10 +248,6 @@ class App extends Component {
             path='/cart'
             component={() => (
               <Cart 
-                cartItems={this.state.cartItems}
-                incrementQuantity={this.incrementQuantity}
-                decrementQuantity={this.decrementQuantity}
-                removeItemFromCart={this.removeItemFromCart}
                 currentUser={this.state.currentUser}
               />
             )
