@@ -2,9 +2,9 @@ const db = require('../models/cartModel.js');
 
 module.exports = {
 
-  getListing_Photo_SellerName_By_Id: (req, res) => {
+  aggregateData: (req, res) => {
     
-    db.getListing_Photo_SellerName_By_Id(req.query.ID, req.query.currentUserID)
+    db.aggregateData(req.query.ID)
       .then(data => {
         res.json(data);
       })
@@ -14,9 +14,9 @@ module.exports = {
       });
   },
 
-  remove_from_cart: (req, res) => {
+  removeItem: (req, res) => {
     
-    db.remove_from_cart(req.body.ID, req.body.quantity)
+    db.removeItem(req.body.ID)
       .then(data => {
         res.json(data);
       })
@@ -28,7 +28,7 @@ module.exports = {
 
   updateQuantity: (req, res) => {
     
-    db.increment(req.body.ID)
+    db.updateQuantity(req.body.ID, req.body.quantity)
       .then(data => {
         res.send(data);
       })
@@ -40,9 +40,9 @@ module.exports = {
 
   lookup: (req, res) => {
     
-    db.decrement(req.body.ID)
+    db.lookup(req.query.ID)
       .then(data => {
-        res.send(data);
+        res.json(data);
       })
       .catch(e => {
         console.error('[controller] error looking up item to cart table:', e);

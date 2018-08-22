@@ -1,7 +1,7 @@
 const db = require('../../db/index.js').pool;
 
 module.exports = {
-  getListing_Photo_SellerName_By_Id: (id) => {
+  aggregateData: (id) => {
     
     return db.connect()
       .then(client => {
@@ -21,14 +21,14 @@ module.exports = {
       });
   },
 
-  remove_from_cart: (id, quantity) => {
+  removeItem: (id) => {
    
     return db.connect()
       .then(client => {
         
-        let query = 'DELETE FROM cart_line_item WHERE id_listing=$1 AND quantity=$2';
+        let query = 'DELETE FROM cart_line_item WHERE id_listing=$1';
         
-        return client.query(query, [id, quantity])
+        return client.query(query, [id])
           .then(res => {
             client.release();
             
@@ -45,29 +45,30 @@ module.exports = {
     return db.connect()
       .then(client => {
         
-        let query = 'SELECT * FROM cart_line_item WHERE id_listing=$1';
-        
-        return client.query(query, [id])
+        return client.query('SELECT * FROM cart_line_item WHERE id_user=$1', [id])
           .then(res => {
             
             client.release();
             return res.rows;
           })
-          .catch(e => {client.release();});
+          .catch(e => {
+            console.error('[model] error looking up users cart connection', e);
+            client.release();
+          });
       })
       .catch(e => {
         console.error('[model] error getting pool connection', e);
       });
   },
 
-  updateQuantity: (id) => {
+  updateQuantity: (id, quantity) => {
    
     return db.connect()
       .then(client => {
         
-        let query = 'UPDATE cart_line_item SET quantity = quantity + 1 WHERE id_listing=$1';
+        let query = 'UPDATE cart_line_item SET quantity = $1 WHERE id_listing=$2';
         
-        return client.query(query, [id])
+        return client.query(query, [quantity, id])
           .then(res => {
             
             client.release();

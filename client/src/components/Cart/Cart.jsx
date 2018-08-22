@@ -1,88 +1,77 @@
 import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import {Grid} from 'react-bootstrap';
 import CartItems from './CartItems';
+import Checkout from '../Checkout';
 import './Cart.css';
 
 export default class Cart extends React.Component { 
+  
   state = {
-    cartItems: []
+    cartItems: [],
+    optionState: 1,
+    checkoutMode: false
   }
 
   // retrieve the contents of the shopping cart on the db
   lookupCart = () => {
+    let userID = this.props.currentUser.id_user;
+    let consolidateData = [];
 
+    let promises = [];
     axios.get(
       '/cart/lookup',
-      { params: { currentUserID: this.props.currentUser.id_user} })
+      { params: { ID: userID } })
       .then(res => {
-        // after cart table lookup
-        // then gather all other data
+        
+        //this.setState({cartItems: res.data});
+
+        // now aggregate the information about the cart item
+        res.data.forEach( item => {
+          promises.push(
+            axios.get(
+              '/cart/aggregate', 
+              { params: { ID: item.id_listing } } 
+            )
+              .then(res => { return res.data; })
+          );
+        });
+
+        
+        // consolidate the data aggregation
+        axios.all(promises)
+          .then( results => {
+            results.forEach( result => {
+              
+              let data = result[0];
+              
+              data.quantityCustomerWants = 1;
+              data.quantity = Array.apply(null, Array(result[0].quantity)).map( (x, idx) => idx + 1);
+              
+              data.sellerUsername = result[0].username;
+              
+              consolidateData.push(data);
+            });
+           
+            this.setState({cartItems: consolidateData});
+            return consolidateData;
+          })
+          .catch(err => console.error(err));
       })
       .catch(err => console.error(err));
     
-    axios.get(
-      '/cart/aggregate', 
-      { params: 
-        {
-          ID: listingItemId,
-          currentUserID: this.state.currentUser.id_user
-        }
-      })
-      .then(res => {
-        
-              
-              let consolidateListings = res.data[0];
-              // add a key value to hold the quantity the customer wants
-              consolidateListings.quantityCustomerWants = 1;
-              //consolidateListings.image_url = [];
-              let urls = [];
-              if (res.data.length > 1) {
-                // push all the image urls into one array on a single listing
-                for (let i = 0; i < res.data.length; i += 1) {
-                
-                  if (typeof res.data[i].image_url === 'string') {
-                    urls.push(res.data[0].image_url);
-                  }
-                }
-                consolidateListings.image_url = urls;
-              } else {
-                urls.push(res.data[0].image_url);
-                consolidateListings.image_url = urls;
-              }
-              this.setState(prevState => ({
-                cartItems: [ ...prevState.cartItems, consolidateListings]
-              }));
-            })
-            .catch(err => console.error(err));
-
-          axios.get(
-            '/cart/cartadd', 
-            { params: 
-              {
-                ID: listingItemId,
-                currentUserID: this.state.currentUser.id_user
-              }
-            })
-            .then(res => { console.log(res.data)})
-            .catch(err => console.error(err));
-
-        }
-      })
-      .catch(err => console.error(err));
   }
+
 
   removeItemFromCart = (event, index) => {
     event.preventDefault();
-    // move this function to the removeItemFromCart
-    // adjust the db as well
+
+    // take item out of database and state
     axios({
-      url: './cart/removefromcart', 
+      url: './cart/removeItem', 
       method: 'DELETE', 
-      data: {
-        ID: this.state.cartItems[index].id_listing,
-        quantity: this.state.cartItems[index].quantityCustomerWants
-      }
+      data: { ID: this.state.cartItems[index].id_listing }
     })
       .then( () => {
         this.setState({
@@ -90,65 +79,68 @@ export default class Cart extends React.Component {
             return idx !== index;
           })
         });
-        console.log('after remove from cartItems:', this.state.cartItems);
+        ///console.log('after remove from cartItems:', this.state.cartItems);
       })
       .catch(err => console.error('Error', err));
   }
 
-  incrementCart = (event, index) => {
+  handleQuantitySelect = (event, index) => {
+    event.preventDefault();
+    // update quantity in db and state
+    console.log('SELECT:', index, event.target.value);
     let item = this.state.cartItems[index];
-    if (item.quantityCustomerWants < item.quantity) {
-      this.setState({
-        cartItems: this.state.cartItems.map( (item, idx) => {
-          if (idx === index) {
-            item.quantityCustomerWants++;
+    console.log('Value:', item);
+    axios({
+      url: '/cart/update_quantity', 
+      method: 'PUT',
+      data: { 
+        quantity: event.target.value,
+        ID: item.id_listing
+      }
+    })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
 
-            // update database
-            axios({
-              url: '/cart/increment', 
-              method: 'PUT',
-              data: { ID: item.id_listing }
-            })
-              .then(res => console.log(res))
-              .catch(err => console.log(err));
-          }
-          return item;
-        }) 
-      });
-    }
+    let stateCopy = [...this.state.cartItems];
+    stateCopy[index].quantityCustomerWants = (event.target.value * 1);
+    this.setState({cartItems: stateCopy});
+    this.setState({optionState: event.target.value});
   }
 
-  decrementCart = (event, index) => {
-    let item = this.state.cartItems[index];
-    if (item.quantityCustomerWants > 0) {
-
-      this.setState({
-        cartItems: this.state.cartItems.map( (item, idx) => {
-          if (idx === index) {
-            item.quantityCustomerWants--;
-          }
-          return item;
-        }) 
-      });
-    }
+  handleCheckout = (e) => {
+    e.preventDefault();
+    this.setState({ checkoutMode: true });
   }
 
   render() {
-    // call cart_list_item to get cart & set state
+    let lgClose = () => this.setState({ checkoutMode: false });
+    
+    if (this.state.cartItems.length === 0) {
+      this.lookupCart();
+    }
+    
     return (
       <div>
-        <Grid className="cart" style={{width: '80%'}}>
+        <Grid className="cart" style={{width: '90%'}}>
           <CartItems 
-            //currentUser={props.currentUser}
-            incrementQuantity={this.state.incrementQuantity}
-            decrementQuantity={this.state.decrementQuantity}
-            removeItemFromCart={this.state.removeItemFromCart}
+            currentUser={this.props.currentUser}
+            removeItemFromCart={this.removeItemFromCart}
             cartItems={this.state.cartItems}
-            //username={props.username}
+            handleQuantitySelect={this.handleQuantitySelect}
+            optionState={this.state.optionState}
+            handleCheckout={this.handleCheckout}
+          />
+          <Checkout 
+            handleCheckout={this.handleCheckout}
+            show={this.state.checkoutMode}
+            onHide={lgClose}
+            currentUser={this.props.currentUser}
+            cartItems={this.state.cartItems}
           />
         </Grid>
       </div>  
     );
+      
   }
 }
 
