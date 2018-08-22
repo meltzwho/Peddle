@@ -7,6 +7,7 @@ import imageUploadReducer from './imageUploadReducer';
 import sellerDashboardReducer from './sellerDashboardReducer';
 import ordersReducer from './orderReducer';
 import ShoppingCartReducer from './shoppingCartReducer';
+import listingEntryReducer from './listingEntryReducer';
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   sellerListings: sellerDashboardReducer,
   orders: ordersReducer,
   cart: ShoppingCartReducer,
+  listingEntry: listingEntryReducer,
   user: appReducer
 });
 
