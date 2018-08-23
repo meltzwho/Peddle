@@ -15,6 +15,7 @@ import Messages from './Messages';
 import SellerDashboard from '../containers/sellerDashboardContainer';
 import Navbar from './Navbar';
 import Stripe from './Stripe';
+import ReviewEntryForm from './ReviewEntryForm';
 
 class App extends Component {
   state = {
@@ -222,10 +223,11 @@ class App extends Component {
   render() {
     if (!this.state.cookieValid) this.getCookie(this.props.location.pathname);
     return (
-      <div>
+      <div className="container-fluid">
         <Navbar 
           handleLogout={this.handleLogout} 
           greetFriends={this.state.greetFriends}
+          userId={this.props.currentUserId}
         />
         <Switch className='routes'>
           <Route 
@@ -350,6 +352,12 @@ class App extends Component {
             path='/payment'
             component={() => (
               <Stripe />
+            )}
+          />
+          <Route 
+            path='/reviewEntryForm'
+            component={() => (
+              <ReviewEntryForm />
             )}
           />
         </Switch>
