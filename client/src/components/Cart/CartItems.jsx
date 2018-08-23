@@ -6,14 +6,15 @@ import './Cart.css';
 
 const CartItems = (props) => {
 
-  let cartAmount = props.cartItems.reduce( (accum, curr) => {
+  let cartAmount = props.cartitems.reduce( (accum, curr) => {
     return accum + ((curr.price * 1) * curr.quantityCustomerWants);
   }, 0);
   
-  const collection = props.cartItems.map( (item, index) => {
+   
+  const collection = props.cartitems.map( (item, index) => {
     return (
       <Row 
-        className="show-grid"
+        className="show-grid item-card"
         key={Date.now() * Math.random()}
       >
         <Col xs={3}>
@@ -55,6 +56,7 @@ const CartItems = (props) => {
 
         <Col xs={3}>
           <select 
+            className="quantity_select"
             value={props.optionState} 
             onChange={e => props.handleQuantitySelect(e, index)}
           >
@@ -62,6 +64,7 @@ const CartItems = (props) => {
               item.quantity.map( each => {
                 return (
                   <option 
+                    className="quantity_select_item"
                     key={Date.now() * Math.random()} 
                     value={each}
                   >
@@ -75,21 +78,24 @@ const CartItems = (props) => {
 
       </Row>
     );
+  
   });
+
 
   return (
     <Panel xs={12}>
-      <Panel.Heading>
+      <Panel.Heading style={{height: "120px"}}>
         <Row className="show-grid">
-          <Col xs={3}>
+          <Col xs={4}>
             <h2>Shopping Cart</h2>
           </Col>
-          <Col xs={3}>
+          <Col xs={4}>
             <h2>{'Total: $ ' + cartAmount}</h2>
           </Col>
-          <Col xs={6}>
+          <Col xs={4}>
             <Button 
-              onClick={e => props.handleCheckout(e)}
+              className="checkout-button"
+              onClick={e => props.handlecheckout(e)}
               bsStyle="warning" 
               bsSize="large" 
               block
@@ -100,19 +106,37 @@ const CartItems = (props) => {
         </Row>
       </Panel.Heading>
       <Panel.Body>
-        {collection}
+        {
+          props.emptycart
+            ? (
+              <Row className="show-grid" style={{textAlign: "center"}}>
+                <Col xs={10}><h2>Your Cart is Empty</h2></Col>
+                <Col xs={6}>
+                  <Image 
+                    className="empty_cart_image" 
+                    style={{width: '100%', objectFit: 'fit'}} 
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUnr1Z9AuwBwGl1B_MpAoxvqyzf7s1T3aOocWRxuXJE0CZFfwsxQ"
+                    alt="Product sideview"
+                    rounded
+                  />
+                </Col>
+              </Row>
+            ) : collection
+        }
       </Panel.Body>
-      <Panel.Footer>
+      <Panel.Footer
+        style={{height: "120px"}}
+      >
         <Row className="show-grid">
-          <Col xs={3}>
+          <Col xs={4}>
             <h2>Shopping Cart</h2>
           </Col>
-          <Col xs={3}>
+          <Col xs={4}>
             <h2>{'Total: $ ' + cartAmount}</h2>
           </Col>
-          <Col xs={6}>
+          <Col xs={4}>
             <Button 
-              onClick={e => props.handleCheckout(e)}
+              onClick={e => props.handlecheckout(e)}
               bsStyle="warning" 
               bsSize="large" 
               block

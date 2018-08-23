@@ -9,14 +9,15 @@ import './Cart.css';
 export default class Cart extends React.Component { 
   
   state = {
-    cartItems: [],
+    cartitems: [],
     optionState: 1,
-    checkoutMode: false
+    checkoutMode: false,
+    emptycart: false
   }
 
   // retrieve the contents of the shopping cart on the db
   lookupCart = () => {
-    let userID = this.props.currentUser.id_user;
+    let userID = this.props.currentuser.id_user;
     let consolidateData = [];
 
     let promises = [];
@@ -25,6 +26,14 @@ export default class Cart extends React.Component {
       { params: { ID: userID } })
       .then(res => {
 
+        // if cart the person has an empty cart trip flag
+        if (res.data.length === 0) {
+          this.setState({ emptycart: true });
+          return;
+        } else {
+          this.setState({ emptycart: false });
+        } 
+        
         // now aggregate the information about the cart item
         res.data.forEach( item => {
           promises.push(
@@ -52,7 +61,7 @@ export default class Cart extends React.Component {
               consolidateData.push(data);
             });
            
-            this.setState({cartItems: consolidateData});
+            this.setState({cartitems: consolidateData});
             return consolidateData;
           })
           .catch(err => console.error(err));
@@ -69,11 +78,11 @@ export default class Cart extends React.Component {
     axios({
       url: './cart/removeitem', 
       method: 'DELETE', 
-      data: { ID: this.state.cartItems[index].id_listing }
+      data: { ID: this.state.cartitems[index].id_listing }
     })
       .then( () => {
         this.setState({
-          cartItems: this.state.cartItems.filter( (item, idx) => {
+          cartitems: this.state.cartitems.filter( (item, idx) => {
             return idx !== index;
           })
         });
@@ -86,7 +95,7 @@ export default class Cart extends React.Component {
     event.preventDefault();
     // update quantity in db and state
     
-    let item = this.state.cartItems[index];
+    let item = this.state.cartitems[index];
     
     axios({
       url: '/cart/update_quantity', 
@@ -96,16 +105,16 @@ export default class Cart extends React.Component {
         ID: item.id_listing
       }
     })
-      .then(res => console.log(res))
+      // .then(res => console.log(res))
       .catch(err => console.log(err));
 
-    let stateCopy = [...this.state.cartItems];
+    let stateCopy = [...this.state.cartitems];
     stateCopy[index].quantityCustomerWants = (event.target.value * 1);
-    this.setState({cartItems: stateCopy});
+    this.setState({cartitems: stateCopy});
     this.setState({optionState: event.target.value});
   }
 
-  handleCheckout = (e) => {
+  handlecheckout = (e) => {
     e.preventDefault();
     this.setState({ checkoutMode: true });
   }
@@ -113,7 +122,7 @@ export default class Cart extends React.Component {
   render() {
     let lgClose = () => this.setState({ checkoutMode: false });
     
-    if (this.state.cartItems.length === 0) {
+    if (this.state.cartitems.length === 0 && !this.state.emptycart) {
       this.lookupCart();
     }
     
@@ -121,19 +130,20 @@ export default class Cart extends React.Component {
       <div>
         <Grid className="cart" style={{width: '90%'}}>
           <CartItems 
-            currentUser={this.props.currentUser}
+            currentuser={this.props.currentuser}
             removeItemFromCart={this.removeItemFromCart}
-            cartItems={this.state.cartItems}
+            cartitems={this.state.cartitems}
             handleQuantitySelect={this.handleQuantitySelect}
             optionState={this.state.optionState}
-            handleCheckout={this.handleCheckout}
+            handlecheckout={this.handlecheckout}
+            emptycart={this.state.emptycart}
           />
           <Checkout 
-            handleCheckout={this.handleCheckout}
+            handlecheckout={this.handlecheckout}
             show={this.state.checkoutMode}
             onHide={lgClose}
-            currentUser={this.props.currentUser}
-            cartItems={this.state.cartItems}
+            currentuser={this.props.currentuser}
+            cartitems={this.state.cartitems}
           />
         </Grid>
       </div>  
