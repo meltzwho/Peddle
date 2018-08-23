@@ -9,7 +9,7 @@ class NavBar extends Component {
   render() {
     return (
       <div>
-        <Navbar default collapseOnSelect>
+        <Navbar default collapseOnSelect staticTop>
           <Navbar.Header>
             <Navbar.Brand>
               <Link to="/">Peddle</Link>
