@@ -13,6 +13,7 @@ import SignUp from './SignUp';
 import SellEntry from '../containers/SellEntryContainer';
 import Messages from './Messages';
 import SellerDashboard from '../containers/sellerDashboardContainer';
+import SubNav from './SubNav';
 import Navbar from './Navbar';
 import Stripe from './Stripe';
 
@@ -223,7 +224,8 @@ class App extends Component {
     if (!this.state.cookieValid) this.getCookie(this.props.location.pathname);
     return (
       <div>
-        <Navbar 
+        <Navbar />
+        <SubNav 
           handleLogout={this.handleLogout} 
           greetFriends={this.state.greetFriends}
         />

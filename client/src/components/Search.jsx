@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Button, Col } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
+import './assets/Search.css';
 
 class Search extends Component {
   state = {
@@ -22,17 +23,22 @@ class Search extends Component {
   render() {
     return (
       <Form>
-        <FormGroup>
+        <FormGroup className="form_group_search">
           <FormControl
+            className="form_control_search"
             type="text"
+            bsSize="lg"
+            bsClass=""
             value={this.state.input}
             placeholder="Search for items near you"
             onChange={e => {this.handleInputChange(e)}}
           />
+        
           <Button
+            className="form_button_search"
             bsStyle="primary"
             type="submit"
-            style={{marginTop: '2.5px'}}
+            style={{ marginTop: '2.5px'}}
             onClick={e => {
               if (this.state.input.trim() !== '') {
                 this.state.input = this.state.input.trim();

@@ -7,10 +7,9 @@ h2 {
   font-size: 40px;
 }
 
-/* .modal-backdrop.in {
-  opacity: 0.8;
-} */
 
+
+/* LOGO */
 .item-card {
   box-shadow: 4px 4px 4px 4px rgb(104, 102, 102);
   margin: 20px 0;
@@ -34,6 +33,7 @@ h2 {
   height: 100px;
   margin: 0 auto;
 }
+/* LOGO END */
 
 
 
