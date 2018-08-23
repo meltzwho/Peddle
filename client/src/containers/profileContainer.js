@@ -42,13 +42,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(fetchUserRatingStart());
       axios.get('/profile/rating', {params: {userId: userId}})
         .then(response => {
-          console.log('the users ratings', response);
           dispatch(fetchUserRatingSuccess(response.data)),
           error => {
             console.error('there was an error fetching the user ratings', error);
             dispatch(fetchUserRatingFail());
-          }
-        })
+          };
+        });
     }
     
 

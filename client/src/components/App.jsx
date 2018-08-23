@@ -4,6 +4,7 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import Home from './Home';
 import Profile from '../containers/profileContainer';
+import EditProfile from '../containers/editProfileContainer';
 import Orders from '../containers/orderContainer';
 import Listings from './Listings';
 import ListingEntry from '../containers/listingEntryContainer';
@@ -13,7 +14,7 @@ import SignUp from './SignUp';
 import SellEntry from '../containers/SellEntryContainer';
 import Messages from './Messages';
 import SellerDashboard from '../containers/sellerDashboardContainer';
-import Navbar from './Navbar';
+import Navbar from '../containers/navbarContainer';
 import Stripe from './Stripe';
 import ReviewEntryForm from './ReviewEntryForm';
 
@@ -297,6 +298,25 @@ class App extends Component {
               }
             } 
           />
+          <Route 
+            exact 
+            path="/editProfile" 
+            component={
+              () => {
+                return this.state.cookieValid 
+                  ? <EditProfile />
+                  : (<Redirect 
+                    to={{
+                      pathname: '/login',
+                      state: { from: this.props.location }
+                    }} 
+                  />
+                  ); 
+              }
+            } 
+          />
+
+
           <Route 
             exact 
             path="/sellEntry" 
