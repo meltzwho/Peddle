@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, Col, Row, Grid } from 'react-bootstrap';
+import { Button, Col, Row, Grid, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ProgressBarItem from './ProgressBar';
 
 const SellerDashboardItem = (props) => {
   let editButton = null;
+  let progress = null;
   let viewButton = (
     <Link className='seller-view-listing' to={`/listingEntry/${props.listing.id_listing}`}>
       <Button>View</Button>
@@ -14,11 +15,15 @@ const SellerDashboardItem = (props) => {
     //here we'll make the edit and the view buttons 
     editButton = <Button onClick={(e) => props.edit(e, props.listing)}>Edit</Button>
   }
+  if (props.showProgress) {
+    progress = <ProgressBarItem key={props.listing.id_listing} status={props.listing.status}  />
+
+  }
   return (
     <Grid>
       <Row>
         <Col xs={18} md={3}>
-          <img src={props.listing.image_url || 'https://s3.amazonaws.com/peddle-images/dat-boi.jpg'} style={{width: '85%', "marginLeft": "5%", height: '85%', objectFit: "scale-down"}}/>
+          <Image src={props.listing.image_url || 'https://s3.amazonaws.com/peddle-images/dat-boi.jpg'} style={{width: '85%', "marginLeft": "5%", height: '85%', objectFit: "scale-down"}} thumbnail />
         </Col>
         <Col md={6} mdOffset={1}>
           <Row style={{margin: "20px"}}>
@@ -30,7 +35,7 @@ const SellerDashboardItem = (props) => {
             {viewButton}{' '}{editButton}
           </Row>
           <Row style={{margin: "20px"}}>
-            <ProgressBarItem key={props.listing.id_listing} status={props.listing.status}  />
+            {progress}
           </Row>
         </Col>
    

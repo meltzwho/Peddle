@@ -7,9 +7,11 @@ module.exports = {
       if (err) {
         console.error('controller: there was an error fetching this sellers listings', err);
       } else {
-        // console.log('the response length', response.length)
-        //need to refactor query, we only want 1 entry for each item, even if
-        //it has multiple pictures below is workaround with breadcrumbing on object
+        //need to refactor query  - interim solution
+        //we only want 1 entry for each item, even if
+        //it has multiple pictures 
+        //below is workaround with breadcrumbing on object
+        //and counting async func call completions 
         let listingIds = {};
         let counter = 0;
 
@@ -17,13 +19,17 @@ module.exports = {
           active: [],
           completed: []
         };
+
+        if (response.length === 0) {
+          res.send(response);
+        }
+        
         response.forEach((row) => {
           progress.fetchStatus(row.id_listing, (statusErr, status) => {
             if (statusErr) {
               console.error('conroller: there was an error fetching the listing status', statusErr);
             } else if (listingIds[row.id_listing]) {
               counter++;
-              return;
             } else {
               row.status = status;
               if (row.is_active > 0) {

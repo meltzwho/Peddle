@@ -27,6 +27,7 @@ const sellerDashboardRoutes = require('./routes/sellerDashboardRoutes');
 const progressBarRoutes = require('./routes/progressBarRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const ordersRoutes = require('./routes/ordersRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 
 
 require('./helpers/googleAuthSetup');
@@ -72,6 +73,7 @@ app.use('/sellerDashboard', sellerDashboardRoutes);
 app.use('/progressBar', progressBarRoutes);
 app.use('/p', paymentRoutes);
 app.use('/orders', ordersRoutes);
+app.use('/profile', profileRoutes);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));

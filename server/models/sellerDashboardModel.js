@@ -4,7 +4,7 @@ module.exports = {
   fetchListings: ({ userId }, callback) => {
     db.connect((err, client, release) => {
       if (err) {
-        console.error('there was an error getting a connection from the pool');
+        console.error('there was an error getting a connection from the pool', err);
       } else {
         let sqlStatement = `SELECT listing.*, listing_image.image_url, address.*, category.category 
                             FROM listing 
