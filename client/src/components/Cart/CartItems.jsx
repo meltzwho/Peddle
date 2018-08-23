@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Col, Row, Image, Button, Panel } from 'react-bootstrap';
 import './Cart.css';
 

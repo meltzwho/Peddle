@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Grid, Col, Row, Image, Button, Panel, Modal } from 'react-bootstrap';
 
 class Checkout extends React.Component {

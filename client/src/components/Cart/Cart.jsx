@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import {Grid} from 'react-bootstrap';
 import CartItems from './CartItems';
 import Checkout from '../Checkout';
@@ -151,11 +150,3 @@ export default class Cart extends React.Component {
       
   }
 }
-
-// Cart.propTypes = {
-//   items: PropTypes.array,
-//   total: PropTypes.number,
-//   currency: PropTypes.string,
-//   removeFromCart: PropTypes.func.isRequired
-// }
-

@@ -3,6 +3,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Row, Col} from 'react-boot
 import { Link } from 'react-router-dom';
 import Search from '../containers/searchContainer';
 import Notifications from '../containers/notificationContainer';
+import './assets/Home.css';
 
 class NavBar extends Component {
   
@@ -11,7 +12,9 @@ class NavBar extends Component {
       <Navbar default collapseOnSelect staticTop>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Peddle</Link>
+            <Link to="/">
+              Peddle
+            </Link>
           </Navbar.Brand>
           {/* <Navbar.Toggle /> */}
         </Navbar.Header>
