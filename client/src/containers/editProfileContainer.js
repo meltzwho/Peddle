@@ -5,7 +5,7 @@ import EditProfile from '../components/editProfile';
 
 const mapStateToProps = (state) => {
   return {
-    currentUserDetails: state.editProfile,
+    profile: state.editProfile,
     currentUserId: state.user.userId
   };
 };

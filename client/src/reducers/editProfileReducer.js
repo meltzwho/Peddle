@@ -29,3 +29,4 @@ const editProfileReducer = (state = defaultState, action) => {
   }
 }
 
+export default editProfileReducer;
