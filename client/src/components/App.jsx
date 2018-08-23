@@ -32,10 +32,7 @@ class App extends Component {
       token: null,
       token_timestamp: null,
       profile_image: ''
-    },
-
-    cartItems: [],
-    cartTotal: 0
+    }
   };
   
   componentDidMount() {
@@ -222,58 +219,6 @@ class App extends Component {
     }));
   }
 
-  removeItemFromCart = (event, index) => {
-    event.preventDefault();
-    // move this function to the removeItemFromCart
-    // adjust the db as well
-    axios({
-      url: './cart/removefromcart', 
-      method: 'DELETE', 
-      data: {
-        ID: this.state.cartItems[index].id_listing,
-        quantity: this.state.cartItems[index].quantityCustomerWants
-      }
-    })
-      .then( () => {
-        this.setState({
-          cartItems: this.state.cartItems.filter( (item, idx) => {
-            return idx !== index;
-          })
-        });
-        console.log('after remove from cartItems:', this.state.cartItems);
-      })
-      .catch(err => console.error('Error', err));
-  }
-
-  incrementQuantity = (event, index) => {
-    let item = this.state.cartItems[index];
-    if (item.quantityCustomerWants < item.quantity) {
-      this.setState({
-        cartItems: this.state.cartItems.map( (item, idx) => {
-          if (idx === index) {
-            item.quantityCustomerWants++;
-          }
-          return item;
-        }) 
-      });
-    }
-  }
-
-  decrementQuantity = (event, index) => {
-    let item = this.state.cartItems[index];
-    if (item.quantityCustomerWants > 0) {
-
-      this.setState({
-        cartItems: this.state.cartItems.map( (item, idx) => {
-          if (idx === index) {
-            item.quantityCustomerWants--;
-          }
-          return item;
-        }) 
-      });
-    }
-  }
-
   render() {
     if (!this.state.cookieValid) this.getCookie(this.props.location.pathname);
     return (
@@ -321,10 +266,6 @@ class App extends Component {
             path='/cart'
             component={() => (
               <Cart 
-                cartItems={this.state.cartItems}
-                incrementQuantity={this.incrementQuantity}
-                decrementQuantity={this.decrementQuantity}
-                removeItemFromCart={this.removeItemFromCart}
                 currentUser={this.state.currentUser}
               />
             )
