@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { Navbar, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 
 class Search extends Component {
@@ -21,7 +21,7 @@ class Search extends Component {
 
   render() {
     return (
-      <Form>
+      <Navbar.Form pullLeft>
         <FormGroup>
           <FormControl
             type="text"
@@ -32,7 +32,8 @@ class Search extends Component {
           <Button
             bsStyle="primary"
             type="submit"
-            style={{marginTop: '2.5px'}}
+            inline
+            // style={{marginTop: '2.5px'}}
             onClick={e => {
               if (this.state.input.trim() !== '') {
                 this.state.input = this.state.input.trim();
@@ -41,10 +42,10 @@ class Search extends Component {
               }
             }}
           >
-            Submit
+            Search
           </Button>
         </FormGroup>
-      </Form>
+      </Navbar.Form>
     );
   }
 }
