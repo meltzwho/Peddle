@@ -95,25 +95,6 @@ module.exports = {
       .catch(e => {
         console.error('[model] error getting pool connection', e);
       });
-  },
-   
-  // lookup_item_Cart: (id) => {
-  //   return db.connect()
-  //     .then(client => {
-        
-  //       let query = 'UPDATE cart_line_item SET quantity = $1 WHERE id_listing=$2';
-        
-  //       return client.query(query, [quantity, id])
-  //         .then(res => {
-            
-  //           client.release();
-  //           return res.rows;
-  //         })
-  //         .catch(e => {client.release();});
-  //     })
-  //     .catch(e => {
-  //       console.error('[model] error getting pool connection', e);
-  //     });
-  // }
+  }
   
 };

@@ -21,7 +21,7 @@ class App extends Component {
     greetFriends: 'Friend',
     cookieValid: false,
 
-    currentUser: {
+    currentuser: {
       id_user: 0,
       first_name: '',
       last_name: '',
@@ -50,7 +50,7 @@ class App extends Component {
       this.props.addUserToStore(cookie.id_user);
       this.setState({
         cookieValid: true,
-        currentUser: {...this.state.currentUser, id_user: cookie.id_user}
+        currentuser: {...this.state.currentuser, id_user: cookie.id_user}
       }, () => this.props.history.push(destination));
     }
   }
@@ -87,8 +87,8 @@ class App extends Component {
           // put data on state
           if (res.data) {
             this.setState(prevState => ({
-              currentUser: {
-                ...prevState.currentUser,
+              currentuser: {
+                ...prevState.currentuser,
                 ...res.data
               }
             }));
@@ -104,7 +104,7 @@ class App extends Component {
 
   sniffCookieToOnboardUser = (cookie) => {
     // if email is on state then don't even start this process
-    if (this.state.currentUser.email === '') {
+    if (this.state.currentuser.email === '') {
       // check the cookie
       if (Object.prototype.toString.call(cookie).slice(8, -1) === 'Object') {
         if (Object.keys(cookie).length > 0) {
@@ -116,8 +116,8 @@ class App extends Component {
               if (res.data) {
                 // update state 
                 this.setState(prevState => ({
-                  currentUser: {
-                    ...prevState.currentUser,
+                  currentuser: {
+                    ...prevState.currentuser,
                     ...res.data
                   },
                   greetFriends: res.data.first_name,
@@ -147,7 +147,7 @@ class App extends Component {
             }else{
               this.setState({
                 cookieValid: false,
-                currentUser: {
+                currentuser: {
                   id_user: '',
                   first_name: '',
                   last_name: '',
@@ -171,8 +171,8 @@ class App extends Component {
     this.props.addUserToStore(user.id_user);
     if (user) {
       this.setState(prevState => ({
-        currentUser: {
-          ...prevState.currentUser,
+        currentuser: {
+          ...prevState.currentuser,
           ...user
         },
         greetFriends: user.first_name,
@@ -195,7 +195,7 @@ class App extends Component {
     cookies.remove('fr');
     cookies.remove('name');
 
-    let resetCurrentUser = {
+    let resetCurrentuser = {
       id_user: '',
       first_name: '',
       last_name: '',
@@ -210,9 +210,9 @@ class App extends Component {
   
     // zero out state
     this.setState(prevState => ({
-      currentUser: {
-        ...prevState.currentUser,
-        ...resetCurrentUser
+      currentuser: {
+        ...prevState.currentuser,
+        ...resetCurrentuser
       }, 
       greetFriends: 'Friend',
       cookieValid: false
@@ -266,7 +266,7 @@ class App extends Component {
             path='/cart'
             component={() => (
               <Cart 
-                currentUser={this.state.currentUser}
+                currentuser={this.state.currentuser}
               />
             )
             }
