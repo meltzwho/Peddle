@@ -16,13 +16,14 @@ import Messages from './Messages';
 import SellerDashboard from '../containers/sellerDashboardContainer';
 import Navbar from '../containers/navbarContainer';
 import Stripe from './Stripe';
+import ReviewEntryForm from './ReviewEntryForm';
 
 class App extends Component {
   state = {
     greetFriends: 'Friend',
     cookieValid: false,
 
-    currentUser: {
+    currentuser: {
       id_user: 0,
       first_name: '',
       last_name: '',
@@ -33,10 +34,7 @@ class App extends Component {
       token: null,
       token_timestamp: null,
       profile_image: ''
-    },
-
-    cartItems: [],
-    cartTotal: 0
+    }
   };
   
   componentDidMount() {
@@ -54,7 +52,7 @@ class App extends Component {
       this.props.addUserToStore(cookie.id_user);
       this.setState({
         cookieValid: true,
-        currentUser: {...this.state.currentUser, id_user: cookie.id_user}
+        currentuser: {...this.state.currentuser, id_user: cookie.id_user}
       }, () => this.props.history.push(destination));
     }
   }
@@ -91,8 +89,8 @@ class App extends Component {
           // put data on state
           if (res.data) {
             this.setState(prevState => ({
-              currentUser: {
-                ...prevState.currentUser,
+              currentuser: {
+                ...prevState.currentuser,
                 ...res.data
               }
             }));
@@ -108,7 +106,7 @@ class App extends Component {
 
   sniffCookieToOnboardUser = (cookie) => {
     // if email is on state then don't even start this process
-    if (this.state.currentUser.email === '') {
+    if (this.state.currentuser.email === '') {
       // check the cookie
       if (Object.prototype.toString.call(cookie).slice(8, -1) === 'Object') {
         if (Object.keys(cookie).length > 0) {
@@ -120,8 +118,8 @@ class App extends Component {
               if (res.data) {
                 // update state 
                 this.setState(prevState => ({
-                  currentUser: {
-                    ...prevState.currentUser,
+                  currentuser: {
+                    ...prevState.currentuser,
                     ...res.data
                   },
                   greetFriends: res.data.first_name,
@@ -151,7 +149,7 @@ class App extends Component {
             }else{
               this.setState({
                 cookieValid: false,
-                currentUser: {
+                currentuser: {
                   id_user: '',
                   first_name: '',
                   last_name: '',
@@ -175,8 +173,8 @@ class App extends Component {
     this.props.addUserToStore(user.id_user);
     if (user) {
       this.setState(prevState => ({
-        currentUser: {
-          ...prevState.currentUser,
+        currentuser: {
+          ...prevState.currentuser,
           ...user
         },
         greetFriends: user.first_name,
@@ -199,7 +197,7 @@ class App extends Component {
     cookies.remove('fr');
     cookies.remove('name');
 
-    let resetCurrentUser = {
+    let resetCurrentuser = {
       id_user: '',
       first_name: '',
       last_name: '',
@@ -214,74 +212,23 @@ class App extends Component {
   
     // zero out state
     this.setState(prevState => ({
-      currentUser: {
-        ...prevState.currentUser,
-        ...resetCurrentUser
+      currentuser: {
+        ...prevState.currentuser,
+        ...resetCurrentuser
       }, 
       greetFriends: 'Friend',
       cookieValid: false
     }));
   }
 
-  removeItemFromCart = (event, index) => {
-    event.preventDefault();
-    // move this function to the removeItemFromCart
-    // adjust the db as well
-    axios({
-      url: './cart/removefromcart', 
-      method: 'DELETE', 
-      data: {
-        ID: this.state.cartItems[index].id_listing,
-        quantity: this.state.cartItems[index].quantityCustomerWants
-      }
-    })
-      .then( () => {
-        this.setState({
-          cartItems: this.state.cartItems.filter( (item, idx) => {
-            return idx !== index;
-          })
-        });
-        console.log('after remove from cartItems:', this.state.cartItems);
-      })
-      .catch(err => console.error('Error', err));
-  }
-
-  incrementQuantity = (event, index) => {
-    let item = this.state.cartItems[index];
-    if (item.quantityCustomerWants < item.quantity) {
-      this.setState({
-        cartItems: this.state.cartItems.map( (item, idx) => {
-          if (idx === index) {
-            item.quantityCustomerWants++;
-          }
-          return item;
-        }) 
-      });
-    }
-  }
-
-  decrementQuantity = (event, index) => {
-    let item = this.state.cartItems[index];
-    if (item.quantityCustomerWants > 0) {
-
-      this.setState({
-        cartItems: this.state.cartItems.map( (item, idx) => {
-          if (idx === index) {
-            item.quantityCustomerWants--;
-          }
-          return item;
-        }) 
-      });
-    }
-  }
-
   render() {
     if (!this.state.cookieValid) this.getCookie(this.props.location.pathname);
     return (
-      <div>
+      <div className="container-fluid">
         <Navbar 
           handleLogout={this.handleLogout} 
           greetFriends={this.state.greetFriends}
+          userId={this.props.currentUserId}
         />
         <Switch className='routes'>
           <Route 
@@ -322,11 +269,7 @@ class App extends Component {
             path='/cart'
             component={() => (
               <Cart 
-                cartItems={this.state.cartItems}
-                incrementQuantity={this.incrementQuantity}
-                decrementQuantity={this.decrementQuantity}
-                removeItemFromCart={this.removeItemFromCart}
-                currentUser={this.state.currentUser}
+                currentuser={this.state.currentuser}
               />
             )
             }
@@ -429,6 +372,12 @@ class App extends Component {
             path='/payment'
             component={() => (
               <Stripe />
+            )}
+          />
+          <Route 
+            path='/reviewEntryForm'
+            component={() => (
+              <ReviewEntryForm />
             )}
           />
         </Switch>

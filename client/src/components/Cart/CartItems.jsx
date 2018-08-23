@@ -1,96 +1,152 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Col, Row, Image, Well, Button, Panel } from 'react-bootstrap';
+import { Col, Row, Image, Button, Panel } from 'react-bootstrap';
 import './Cart.css';
+
 
 const CartItems = (props) => {
 
-  // talley up the cart total & callback to <Cart />
-  const amount = props.cartItems.reduce( (accum, item) => {
-    return accum + (item.quantityCustomerWants * item.price);
+  let cartAmount = props.cartitems.reduce( (accum, curr) => {
+    return accum + ((curr.price * 1) * curr.quantityCustomerWants);
   }, 0);
-
-  const collection = props.cartItems.map( (item, index) => {
+  
+   
+  const collection = props.cartitems.map( (item, index) => {
     return (
-      <div 
-        className="cart_item_wrapper"
+      <Row 
+        className="show-grid item-card"
         key={Date.now() * Math.random()}
       >
-        <Panel xs={12}>
+        <Col xs={3}>
+          <Image 
+            className="cart_image" 
+            style={{width: '100%', objectFit: 'fit'}} 
+            src={item.image_url} 
+            alt="Product sideview"
+            rounded
+          />
+        </Col>
 
-          <Panel.Heading />
-          
-          <Panel.Body>
-            <Row>
-              <Col xs={4} xsOffset={2}>
-                <Image className="cart_image" style={{width: '100%', objectFit: 'fit'}} src={item.image_url[0]} />
-              </Col>
-              <Col xs={6}>
-                <h1>{item.title}</h1>
-                <p>{'Sold by: ' + item.username}</p>
-                <p>{item.description}</p>
-              </Col>
-            </Row>
-          </Panel.Body>
+        <Col xs={3}>
+          <h2>{item.title}</h2>
+          <div>
+            Sold by: 
+            <a href={`/profile/${1}`}>
+              {item.seller_username}
+            </a>
+          </div>
+    
+          <div>Qty Available: {item.quantity}</div>
+          <div>Description: {item.description}</div>
+          <div>Condition: {item.condition}</div>
+          <Button
+            bsSize="large"
+            onClick={e => props.removeItemFromCart(e, index)}
+          >
+            Remove
+          </Button>
 
-          <Panel.Footer>
-            <Row>
+        </Col>
 
-              <Col xs={3}>
-                <Button
-                  bsSize="large"
-                  onClick={e => props.removeItemFromCart(e, index)}
-                >
-                  Remove
-                </Button>
-              </Col>
+        <Col xs={3}>
+          <span className="">
+            {'$ ' + item.price}
+          </span>
+        </Col>
 
-              <Col xs={3}>
-                <div className="button_mobile_quantity_wrapper">
-                  <p>Quantity</p>
-                
-                  <div className="button_mobile_quantity">
-                    <Button 
-                      onClick={e => props.decrementQuantity(e, index)}
-                      className="btn btn-default btn-number" 
-                    >
-                      <span className="glyphicon glyphicon-minus" />
-                    </Button>
-                
-                    <span>{item.quantityCustomerWants}</span>
-                  
-                    <Button 
-                      onClick={e => props.incrementQuantity(e, index)}
-                      className="btn btn-default btn-number" 
-                    >
-                      <span className="glyphicon glyphicon-plus" />
-                    </Button>
-                  </div>
-                </div>
-              </Col>
+        <Col xs={3}>
+          <select 
+            className="quantity_select"
+            value={props.optionState} 
+            onChange={e => props.handleQuantitySelect(e, index)}
+          >
+            {
+              item.quantity.map( each => {
+                return (
+                  <option 
+                    className="quantity_select_item"
+                    key={Date.now() * Math.random()} 
+                    value={each}
+                  >
+                    {each}
+                  </option>
+                );
+              })
+            }
+          </select>
+        </Col>
 
-              <Col xs={3}>
-                <span className="">
-                  {'$ ' + item.price}
-                </span>
-              </Col>
-
-            </Row>
-          </Panel.Footer>
-
-        </Panel>
-      </div>
+      </Row>
     );
+  
   });
 
+
   return (
-    <div className="mobile_wrapper">
-      <h1>{props.currentUser.username + "'s"}</h1>
-      <h2>Shopping Cart</h2>
-      <h2>{'Cart Total: $ ' + amount}</h2>
-      <Button>Checkout</Button>
-      {collection}
-    </div>
+    <Panel xs={12}>
+      <Panel.Heading style={{height: "120px"}}>
+        <Row className="show-grid">
+          <Col xs={4}>
+            <h2>Shopping Cart</h2>
+          </Col>
+          <Col xs={4}>
+            <h2>{'Total: $ ' + cartAmount}</h2>
+          </Col>
+          <Col xs={4}>
+            <Button 
+              className="checkout-button"
+              onClick={e => props.handlecheckout(e)}
+              bsStyle="warning" 
+              bsSize="large" 
+              block
+            >
+              Checkout
+            </Button>
+          </Col>
+        </Row>
+      </Panel.Heading>
+      <Panel.Body>
+        {
+          props.emptycart
+            ? (
+              <Row className="show-grid" style={{textAlign: "center"}}>
+                <Col xs={10}><h2>Your Cart is Empty</h2></Col>
+                <Col xs={6}>
+                  <Image 
+                    className="empty_cart_image" 
+                    style={{width: '100%', objectFit: 'fit'}} 
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUnr1Z9AuwBwGl1B_MpAoxvqyzf7s1T3aOocWRxuXJE0CZFfwsxQ"
+                    alt="Product sideview"
+                    rounded
+                  />
+                </Col>
+              </Row>
+            ) : collection
+        }
+      </Panel.Body>
+      <Panel.Footer
+        style={{height: "120px"}}
+      >
+        <Row className="show-grid">
+          <Col xs={4}>
+            <h2>Shopping Cart</h2>
+          </Col>
+          <Col xs={4}>
+            <h2>{'Total: $ ' + cartAmount}</h2>
+          </Col>
+          <Col xs={4}>
+            <Button 
+              onClick={e => props.handlecheckout(e)}
+              bsStyle="warning" 
+              bsSize="large" 
+              block
+            >
+              Checkout
+            </Button>
+          </Col>
+        </Row>
+      </Panel.Footer>
+    </Panel>
   )
 };
   

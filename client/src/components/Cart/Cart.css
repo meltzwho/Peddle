@@ -1,7 +1,38 @@
 
 .cart_item_wrapper {
-  border: 1px solid purple;
+  margin: 40px 0;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+/* .modal-backdrop.in {
+  opacity: 0.8;
+} */
+
+.item-card {
+  box-shadow: 4px 4px 4px 4px rgb(104, 102, 102);
   margin: 20px 0;
+  padding: 10px 0;
+}
+
+.quantity_select {
+  box-shadow: 2px 2px 2px 2px rgb(104, 102, 102);
+  height: 70px;
+  width: 100px;
+}
+
+.quantity_select_item {
+  text-shadow: 4px 4px 4px 4px rgb(104, 102, 102);
+  font-size: 30px !important;
+}
+
+.checkout-button {
+  border-radius: 5px;
+  font-size: 50px ;
+  height: 100px;
+  margin: 0 auto;
 }
 
 

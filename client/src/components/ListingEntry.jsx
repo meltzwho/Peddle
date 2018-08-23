@@ -9,7 +9,7 @@ import {
 } from 'react-social';
 import axios from 'axios';
 import Stripe from './Stripe';
-import ReviewEntry from './ReviewEntry';
+import ReviewsList from './ReviewsList';
 import ImageViewer from './ImageViewer';
 
 class ListingEntry extends Component {
@@ -18,7 +18,7 @@ class ListingEntry extends Component {
     qty: 1,
     showCart: false
   }
-  componentDidMount() {
+  componentDidMount = () => {
     this.props.getListing(this.props.match.params.listingId);
   }
   handleChange = (e) => {
@@ -36,7 +36,7 @@ class ListingEntry extends Component {
   handleShowCart = () => {
     this.setState({ showCart: !this.state.showCart });
   }
-  render() {
+  render = () => {
     let qty = [];
     if (this.props.listing.listing.quantity !== 0) {
       for (let i = 1; i <= this.props.listing.listing.quantity; i++) {
@@ -131,25 +131,11 @@ class ListingEntry extends Component {
               <EmailButton url={window.location.href}>Share via Email</EmailButton>
             </Col>
           </Row>
-          <Row>
-            <Col sx={12} sm={8}>
-              <h2 id="listingReview">Customer Reviews</h2>
-              <a href='/reviews'>{this.props.listing.rating.count} reviews</a>
-              <div>
-                {this.props.listing.feedback.map(review => {
-                  return (
-                    <ReviewEntry 
-                      key={review.id_feedback}
-                      review={review}
-                    />
-                  );
-                })}
-              </div>
-            </Col>
-            <Col sx={12} sm={4}>
-              <h2>Most Recent Customer Reviews</h2>
-            </Col>
-          </Row>
+          <br/>
+          <ReviewsList 
+            rating={this.props.listing.rating}
+            feedback={this.props.listing.feedback}
+          />
           <Row>
             <Col sx={12} sm={12}>
               <h2>Recently viewed items and recommendations</h2>
