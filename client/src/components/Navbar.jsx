@@ -15,8 +15,8 @@ class NavBar extends Component {
               <Link to="/">Peddle</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
+            <Search />
           </Navbar.Header>
-          <Search />
           <Navbar.Collapse>
             <Nav pullRight>
               <NavItem eventKey={8} componentClass={Link} href="/" to="/">
