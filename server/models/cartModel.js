@@ -21,14 +21,25 @@ module.exports = {
       });
   },
 
-  // removeItem: (id) => {
-   
-  //   return db.connect()
-  //     .then(client => {
-        
-  //       let query = 'DELETE FROM cart_line_item WHERE id_listing=$1';
-        
-  //       return client.query(query, [id])
+  removeItem: (id) => {
+    return db.connect()
+      .then(client => {
+        let query = 'DELETE FROM cart_line_item WHERE id_listing=$1';
+        return client.query(query, [id])
+          .then(res => {
+              
+            client.release();
+            return res.rows;
+          })
+          .catch(e => {
+            client.release();
+            console.log('[model] error adding listing to cart: ', e);
+          });
+      })
+      .catch(e => {
+        console.error('[model] error getting pool connection', e);
+      });
+  },
 
   addToCart: (listingId, userId, quantity) => {
     return db.connect()
@@ -67,9 +78,7 @@ module.exports = {
       });
   },
 
-  //updateQuantity: (id, quantity) => {
-   
-  lookup_item_Cart: (id) => {
+  updateQuantity: (id, quantity) => {
     return db.connect()
       .then(client => {
         
@@ -86,6 +95,25 @@ module.exports = {
       .catch(e => {
         console.error('[model] error getting pool connection', e);
       });
-  }
+  },
+   
+  // lookup_item_Cart: (id) => {
+  //   return db.connect()
+  //     .then(client => {
+        
+  //       let query = 'UPDATE cart_line_item SET quantity = $1 WHERE id_listing=$2';
+        
+  //       return client.query(query, [quantity, id])
+  //         .then(res => {
+            
+  //           client.release();
+  //           return res.rows;
+  //         })
+  //         .catch(e => {client.release();});
+  //     })
+  //     .catch(e => {
+  //       console.error('[model] error getting pool connection', e);
+  //     });
+  // }
   
 };

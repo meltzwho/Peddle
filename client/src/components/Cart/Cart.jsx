@@ -24,8 +24,6 @@ export default class Cart extends React.Component {
       '/cart/lookup',
       { params: { ID: userID } })
       .then(res => {
-        
-        //this.setState({cartItems: res.data});
 
         // now aggregate the information about the cart item
         res.data.forEach( item => {
@@ -69,7 +67,7 @@ export default class Cart extends React.Component {
 
     // take item out of database and state
     axios({
-      url: './cart/removeItem', 
+      url: './cart/removeitem', 
       method: 'DELETE', 
       data: { ID: this.state.cartItems[index].id_listing }
     })
@@ -79,7 +77,7 @@ export default class Cart extends React.Component {
             return idx !== index;
           })
         });
-        ///console.log('after remove from cartItems:', this.state.cartItems);
+        
       })
       .catch(err => console.error('Error', err));
   }
@@ -87,9 +85,9 @@ export default class Cart extends React.Component {
   handleQuantitySelect = (event, index) => {
     event.preventDefault();
     // update quantity in db and state
-    console.log('SELECT:', index, event.target.value);
+    
     let item = this.state.cartItems[index];
-    console.log('Value:', item);
+    
     axios({
       url: '/cart/update_quantity', 
       method: 'PUT',
