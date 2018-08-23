@@ -16,9 +16,9 @@ class NavBar extends Component {
               Peddle
             </Link>
           </Navbar.Brand>
-          {/* <Navbar.Toggle /> */}
+          <Navbar.Toggle />
         </Navbar.Header>
-          <Search />
+        <Search />
         <Navbar.Collapse>
           <Nav pullRight>
             <NavDropdown eventKey={1} title="My Account" id="basic-nav-dropdown">
