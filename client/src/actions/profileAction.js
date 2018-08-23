@@ -29,6 +29,6 @@ export const fetchUserRatingSuccess = (userRating) => ({
   payload: {
     userRating: userRating
   } 
-})
+});
 
 export const fetchUserRatingFail = () => ({type: 'FETCH_USER_RATINGS_FAIL'});

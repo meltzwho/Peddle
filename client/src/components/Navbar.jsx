@@ -22,7 +22,7 @@ class NavBar extends Component {
               <NavItem eventKey={8} componentClass={Link} href="/" to="/">
                 {"Welcome " + this.props.greetFriends}
               </NavItem>
-              <NavItem eventKey={1} componentClass={Link} href="/profile/1" to="/profile/1">
+              <NavItem eventKey={1} componentClass={Link} href={`/profile/${this.props.currentUserId}`} to={`/profile/${this.props.currentUserId}`}>
                 My Account
               </NavItem>
               <NavItem eventKey={9} componentClass={Link} href="/sellerDashboard" to="/sellerDashboard">
