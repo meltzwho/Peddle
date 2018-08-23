@@ -31,7 +31,6 @@ module.exports = {
           if (err) {
             callback(err.stack, null);
           } else {
-            console.log('the response in the model', res);
             callback(null, res.rows[0]);
           }
         })

@@ -15,9 +15,8 @@ module.exports = {
       if (err) {
         console.error('controller: there was an error fetching the user rating', err);
       } else {
-        console.log('controller: the response from the db', response);
         res.send(response);
       }
-    })
+    });
   }
-}
+};

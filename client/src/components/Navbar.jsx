@@ -3,6 +3,7 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Row, Col} from 'react-boot
 import { Link } from 'react-router-dom';
 import Search from '../containers/searchContainer';
 import Notifications from '../containers/notificationContainer';
+import './assets/Home.css';
 
 class NavBar extends Component {
   
@@ -11,7 +12,9 @@ class NavBar extends Component {
       <Navbar default collapseOnSelect staticTop>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Peddle</Link>
+            <Link to="/">
+              Peddle
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -19,7 +22,7 @@ class NavBar extends Component {
         <Navbar.Collapse>
           <Nav pullRight>
             <NavDropdown eventKey={1} title="My Account" id="basic-nav-dropdown">
-              <MenuItem eventKey={1.1} componentClass={Link} href={`/profile/${this.props.userId}`} to={`/profile/${this.props.userId}`}>Profile</MenuItem>
+              <MenuItem eventKey={1.1} componentClass={Link} href={`/profile/${this.props.currentUserId}`} to={`/profile/${this.props.currentUserId}`}>Profile</MenuItem>
               <MenuItem eventKey={1.2} componentClass={Link} href="/sellerDashboard" to="/sellerDashboard">Sell</MenuItem>
               <MenuItem eventKey={1.3} componentClass={Link} href="/messages" to="/messages">Messages</MenuItem>
               <MenuItem eventKey={1.4} componentClass={Link} href="/login" to="/login">Login</MenuItem>
