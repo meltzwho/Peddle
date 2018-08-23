@@ -21,14 +21,21 @@ module.exports = {
       });
   },
 
-  removeItem: (id) => {
+  // removeItem: (id) => {
    
+  //   return db.connect()
+  //     .then(client => {
+        
+  //       let query = 'DELETE FROM cart_line_item WHERE id_listing=$1';
+        
+  //       return client.query(query, [id])
+
+  addToCart: (listingId, userId, quantity) => {
     return db.connect()
       .then(client => {
-        
-        let query = 'DELETE FROM cart_line_item WHERE id_listing=$1';
-        
-        return client.query(query, [id])
+        let sqlQuery = 'INSERT INTO listing_image (id_listing, id_user, quantity) VALUES ($1, $2, $3)';
+        let params = [listingId, userId, quantity];
+        return client.query(sqlQuery, params)
           .then(res => {
             client.release();
             
@@ -41,7 +48,6 @@ module.exports = {
   },
 
   lookup: (id) => {
-   
     return db.connect()
       .then(client => {
         
@@ -52,8 +58,8 @@ module.exports = {
             return res.rows;
           })
           .catch(e => {
-            console.error('[model] error looking up users cart connection', e);
             client.release();
+            console.log('[model] error adding listing to cart: ', e);
           });
       })
       .catch(e => {
@@ -61,8 +67,9 @@ module.exports = {
       });
   },
 
-  updateQuantity: (id, quantity) => {
+  //updateQuantity: (id, quantity) => {
    
+  lookup_item_Cart: (id) => {
     return db.connect()
       .then(client => {
         

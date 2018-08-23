@@ -31,7 +31,14 @@ const mapDispatchToProps = (dispatch) => {
             });
           axios.get(`/images/lid/${listingId}`)
             .then(response => { 
-              dispatch(getImagesByListingId(response.data));
+              let images = response.data.map(image => {
+                return {
+                  original: image.image_url,
+                  thumbnail: image.image_url,
+                  sizes: '(max-width: 100px) 100px, 100vw'
+                };
+              });
+              dispatch(getImagesByListingId(images));
             });
         })
         .catch(e => {

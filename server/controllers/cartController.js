@@ -26,9 +26,25 @@ module.exports = {
       });
   },
 
-  updateQuantity: (req, res) => {
+  // updateQuantity: (req, res) => {
     
-    db.updateQuantity(req.body.ID, req.body.quantity)
+  //   db.updateQuantity(req.body.ID, req.body.quantity)
+
+  addToCart: (req, res) => {
+    db.addToCart(req.params.listingId, req.params.userId, req.params.quantity)
+      .then(() => {
+        console.log('[controller] added to cart');
+        res.sendStatus(200);
+      })
+      .catch(e => {
+        console.error('[controller] error looking up item to cart table:', e);
+        res.json(data);
+      });
+  },
+  
+  remove_from_cart: (req, res) => {
+    console.log('try delete:', req.body);
+    db.remove_from_cart(req.body.ID, req.body.quantity)
       .then(data => {
         res.send(data);
       })

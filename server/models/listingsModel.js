@@ -7,11 +7,12 @@ module.exports = {
     return db.connect()
       .then(client => {
         return client.query(
-          `SELECT listing.*, category.category, array_agg(image_url) AS images
+          `SELECT listing.*, category.category, array_agg(image_url) AS images, rating.rating
           FROM listing INNER JOIN category ON listing.id_category = category.id_category 
-          FULL JOIN listing_image ON listing.id_listing = listing_image.id_listing 
+          FULL JOIN listing_image ON listing.id_listing = listing_image.id_listing
+          INNER JOIN rating ON listing.id_seller = rating.id_user
           WHERE is_active = 1 AND quantity > 0 AND (UPPER(title) LIKE UPPER('%${query}%') OR UPPER(description) LIKE UPPER('%${query}%') OR UPPER(category) LIKE UPPER('%${query}%'))
-          GROUP BY listing.id_listing, category.category`)
+          GROUP BY listing.id_listing, category.category, rating.rating`)
           .then(res => {
             client.release();
             
