@@ -9,9 +9,9 @@ import ordersReducer from './orderReducer';
 import ShoppingCartReducer from './shoppingCartReducer';
 import profileReducer from './profileReducer';
 import listingEntryReducer from './listingEntryReducer';
+import editProfileReducer from './editProfileReducer';
 
 const rootReducer = combineReducers({
-  app: appReducer,
   notifications: notificationReducer,
   sellEntryForm: sellEntryReducer,
   search: searchReducer,
@@ -21,7 +21,8 @@ const rootReducer = combineReducers({
   cart: ShoppingCartReducer,
   user: appReducer,
   profile: profileReducer,
-  listingEntry: listingEntryReducer
+  listingEntry: listingEntryReducer,
+  editProfile: editProfileReducer
 });
 
 export default rootReducer;

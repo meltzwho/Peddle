@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col} from 'react-bootstrap';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Row, Col} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Search from '../containers/searchContainer';
 import Notifications from '../containers/notificationContainer';
@@ -9,14 +9,37 @@ class NavBar extends Component {
   
   render() {
     return (
-      <div className="nav_flex">
-        
-        
-       
-        <div>
+      <Navbar default collapseOnSelect staticTop>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <Link to="/">
+              Peddle
+            </Link>
+          </Navbar.Brand>
+          {/* <Navbar.Toggle /> */}
+        </Navbar.Header>
           <Search />
-        </div>
-      </div>
+        <Navbar.Collapse>
+          <Nav pullRight>
+            <NavDropdown eventKey={1} title="My Account" id="basic-nav-dropdown">
+              <MenuItem eventKey={1.1} componentClass={Link} href={`/profile/${this.props.currentUserId}`} to={`/profile/${this.props.currentUserId}`}>Profile</MenuItem>
+              <MenuItem eventKey={1.2} componentClass={Link} href="/sellerDashboard" to="/sellerDashboard">Sell</MenuItem>
+              <MenuItem eventKey={1.3} componentClass={Link} href="/messages" to="/messages">Messages</MenuItem>
+              <MenuItem eventKey={1.4} componentClass={Link} href="/login" to="/login">Login</MenuItem>
+              <MenuItem eventKey={1.5} componentClass={Link} href="/" to="/" onFocus={e => this.props.handleLogout(e)}>Logout</MenuItem>
+            </NavDropdown>
+            <NavItem eventKey={2} componentClass={Link} href="/orders" to="/orders">
+              Orders
+            </NavItem>
+            <NavItem eventKey={3} componentClass={Link} href="/cart" to="/cart">
+              Cart
+            </NavItem>
+            <NavItem eventKey={4}>
+              <Notifications />
+            </NavItem>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
 }

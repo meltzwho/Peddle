@@ -4,6 +4,7 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import Home from './Home';
 import Profile from '../containers/profileContainer';
+import EditProfile from '../containers/editProfileContainer';
 import Orders from '../containers/orderContainer';
 import Listings from './Listings';
 import ListingEntry from '../containers/listingEntryContainer';
@@ -13,9 +14,9 @@ import SignUp from './SignUp';
 import SellEntry from '../containers/SellEntryContainer';
 import Messages from './Messages';
 import SellerDashboard from '../containers/sellerDashboardContainer';
-import SubNav from './SubNav';
-import Navbar from './Navbar';
+import Navbar from '../containers/navbarContainer';
 import Stripe from './Stripe';
+import ReviewEntryForm from './ReviewEntryForm';
 
 class App extends Component {
   state = {
@@ -223,11 +224,11 @@ class App extends Component {
   render() {
     if (!this.state.cookieValid) this.getCookie(this.props.location.pathname);
     return (
-      <div>
-        <Navbar />
-        <SubNav 
+      <div className="container-fluid">
+        <Navbar 
           handleLogout={this.handleLogout} 
           greetFriends={this.state.greetFriends}
+          userId={this.props.currentUserId}
         />
         <Switch className='routes'>
           <Route 
@@ -299,6 +300,25 @@ class App extends Component {
           />
           <Route 
             exact 
+            path="/editProfile" 
+            component={
+              () => {
+                return this.state.cookieValid 
+                  ? <EditProfile />
+                  : (<Redirect 
+                    to={{
+                      pathname: '/login',
+                      state: { from: this.props.location }
+                    }} 
+                  />
+                  ); 
+              }
+            } 
+          />
+
+
+          <Route 
+            exact 
             path="/sellEntry" 
             component={
               () => {
@@ -352,6 +372,12 @@ class App extends Component {
             path='/payment'
             component={() => (
               <Stripe />
+            )}
+          />
+          <Route 
+            path='/reviewEntryForm'
+            component={() => (
+              <ReviewEntryForm />
             )}
           />
         </Switch>
