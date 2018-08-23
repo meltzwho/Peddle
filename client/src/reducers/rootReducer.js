@@ -11,7 +11,6 @@ import profileReducer from './profileReducer';
 import listingEntryReducer from './listingEntryReducer';
 
 const rootReducer = combineReducers({
-  app: appReducer,
   notifications: notificationReducer,
   sellEntryForm: sellEntryReducer,
   search: searchReducer,
