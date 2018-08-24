@@ -187,6 +187,9 @@ class App extends Component {
 
   handleLogout = (e) => {
     e.preventDefault();
+
+    //update redux
+    this.props.removeUserFromStore();
     
     // find cookies and remove them
     const cookies = new Cookies;
