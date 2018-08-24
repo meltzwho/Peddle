@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Row, Col, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Grid, Row, Col, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import ReactStarRatings from 'react-star-ratings';
 
 class ReviewEntryForm extends Component {
   state = {
@@ -14,7 +15,7 @@ class ReviewEntryForm extends Component {
     if (this.props.app.userId) {
       axios.post('/', {
         username: this.props.username,
-        title: this.state.type,
+        title: this.state.title,
         description: this.state.description
       })
         .then(res => {
@@ -25,19 +26,53 @@ class ReviewEntryForm extends Component {
   }
   render() {
     return (
-      <div>
+      <Grid>
+        <h2 className='text-center'>Share Your Review</h2>
         <Row>
-          <Col xs={12} sm={12} className="main-section">
-            <h2>Share Your Review</h2>
+          <Col smOffset={2}>
+            <h3>Rate Seller</h3>
+
           </Col>
         </Row>
         <Row>
-          <Col xs={12} sm={12} className="main-section">
-            <Form>
-            </Form>
-          </Col>
+          <Form horizontal>
+            <Row>
+              <FormGroup controlId="title">
+                <Col componentClass={ControlLabel} sm={2}>
+                    Title
+                </Col>
+                <Col sm={8}>
+                  <FormControl 
+                    type="text"
+                    name="title"
+                    value={this.state.title}
+                    placeholder="Enter the title for your review..."
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </FormGroup>
+            </Row>
+
+            <Row>
+              <FormGroup controlId="description">
+                <Col componentClass={ControlLabel} sm={2}>
+                    Description
+                </Col>
+                <Col sm={8}>
+                  <FormControl 
+                    componentClass="textarea"
+                    name="description"
+                    value={this.state.description}
+                    placeholder="Please enter comments here about your experience with this seller."
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </FormGroup>
+            </Row>
+
+          </Form>
         </Row>
-      </div>
+      </Grid>
     );
   }
 }
