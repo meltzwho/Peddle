@@ -378,7 +378,7 @@ class App extends Component {
             )}
           />
           <Route 
-            path='/reviewEntryForm'
+            path='/reviewEntryForm/:listingId'
             component={() => (
               <ReviewEntryForm />
             )}
