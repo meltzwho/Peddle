@@ -1,0 +1,225 @@
+/* background */
+.home-wrapper {
+  
+  /* background-color: #F2EEDD;
+  background-image: linear-gradient(to bottom, rgb(201, 240, 250) 0%, #ffecd2 100%); */
+  /* height: 400rem;
+  min-height: 300vh; */
+}
+
+
+/* GROUPS */
+#group1 {
+  z-index: 5;
+}
+#group1 .parallax-base {
+  background-color: #ad0054;
+  background-image: url('../assets/textures/crisp-paper-ruffles.png');
+}
+
+#group2 {
+  z-index: 3;
+}
+#group2 .parallax-background {
+  object-fit: cover;
+}
+
+#group3 {
+  z-index: 4;
+}
+#group3 .parallax-base {
+  background: rgb(90, 90, 238);
+  background-image: url('../assets/textures/crisp-paper-ruffles.png');
+}
+
+#group4 {
+  z-index: 2;
+}
+#group4 .parallax-background {
+  object-fit: cover;
+}
+
+#group5 {
+  z-index: 3;
+}
+#group5 .parallax-base {
+  background: rgb(243, 240, 80);
+  background-image: url('../assets/textures/crisp-paper-ruffles.png');
+}
+
+#group6 {
+  z-index: 2;
+}
+#group6 .parallax-background {
+  object-fit: cover;
+}
+
+#group7 {
+  z-index: 3;
+}
+#group7 .parallax-base {
+  background: rgb(80, 238, 243);
+  background-image: url('../assets/textures/crisp-paper-ruffles.png');
+}
+
+.parallax {
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  perspective: 300px;
+  text-align: center;
+}
+
+.parallax__layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.first {
+  position: relative;
+  height: 100vh;
+  transform-style: preserve-3d;
+}
+
+.parallax__group {
+  position: relative;
+  height: 80vh;
+  transform-style: preserve-3d;
+}
+
+.parallax-base {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 80px;
+  line-height: 80px;
+  transform: translateZ(0);
+  text-align: center;
+  vertical-align: middle;
+  z-index: 4;
+}
+.parallax-background {
+  background-size: contain;
+  height: 100%;
+  transform: translateZ(-200px) scale(2);
+  width: 100%;
+  z-index: 3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* PEDDLE LOGO 30 */
+.flex-30 {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.crank-color-30 {
+  background: url('/assets/peddle30.png');
+  height: 34px;
+  width: 30px;
+}
+
+.pre-text-30 {
+  color: rgb(6, 133, 133);
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 30px;
+  padding:10px 5px 0 0;
+}
+
+.post-text-30 {
+  color: rgb(6, 133, 133);
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 30px;
+}
+
+
+/* <div className="logo-xs">
+<div className="flex-xs">
+<p className="pre-text-xs">pe</p>
+<div className="crank-color-xs" />
+<div className="crank-color-xs" />
+<span className="post-text-xs">le</span>
+</div>
+</div> */
+
+
+/* XS LOGO */
+.flex-xs {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.crank-color-xs {
+  /* background: url('./xs-blue-crank.png'); */
+  height: 115px;
+  width: 100px;
+}
+
+.pre-text-xs {
+  color: rgb(6, 133, 133);
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 130px;
+  padding:10px 5px 0 0;
+}
+
+.post-text-xs {
+  color: rgb(6, 133, 133);
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 130px;
+}
+
+
+/* <div className="logo">
+<div className="flex">
+<p className="pre-text">pe</p>
+<div className="crank-color" />
+<div className="crank-color" />
+<span className="post-text">le</span>
+</div>
+</div>
+</div> */
+
+ 
+/* Large size Logo */
+.logo {
+  height: 400px;
+  margin: 0 auto;
+  width: 1000px;
+}
+.flex {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.crank-color {
+  /* background: url('./sm-blue-crank.png'); */
+  height: 230px;
+  width: 200px;
+}
+
+.pre-text {
+  color: rgb(6, 133, 133);
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 250px;
+  padding:20px 10px 0 0;
+}
+
+.post-text {
+  color: rgb(6, 133, 133);
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 250px;
+}
