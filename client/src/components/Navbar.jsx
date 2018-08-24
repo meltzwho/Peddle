@@ -43,9 +43,7 @@ class NavBar extends Component {
             <NavItem eventKey={3} componentClass={Link} href="/cart" to="/cart">
               Cart
             </NavItem>
-            <NavItem eventKey={4}>
-              <Notifications />
-            </NavItem>
+            <Notifications />
           </Nav>
         </Navbar.Collapse>
       </Navbar>
