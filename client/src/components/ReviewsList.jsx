@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Button } from 'react-bootstrap';
+import { Link, withRouter } from 'react-router-dom';
+import axios from 'axios';
 import StarRatings from 'react-star-ratings';
 import SolidGauge from 'react-solidgauge';
 import ReviewEntry from './ReviewEntry';
@@ -9,20 +11,24 @@ class ReviewsList extends Component {
     values: [{ label: '5 Stars', value: 90.111111, fill: '#4BD762'},
       { label: '4 Stars', value: 6, fill: '#6EDB8F' },
       { label: '3 Stars', value: 2, fill: '#278ECF' },
-      // { label: '2 Stars', value: 20, fill: '#83BFFF' },
-      // { label: '1 Star', value: 10, fill: '#FF9416' }]
       { label: '2 Stars', value: 1, fill: '#FFC266' },
       { label: '1 Star', value: 1, fill: '#FF7B65' }]
   }
+  componentDidMount() {
+
+  }
+  getRatings = () => {
+    // axios.get(`/`)
+  }
   render() {
     return (
-      <Grid>
+      <div>
         <Row>
           <Col xs={8} sm={8}>
             <h2>Ratings & Reviews</h2>
           </Col>
           <Col xs={4} sm={4}>
-            <Button>Write a Review</Button>
+            <h2><Button><Link to='/reviewEntryForm'>Write a Review</Link></Button></h2>
           </Col>
         </Row>
         <Row>
@@ -71,9 +77,9 @@ class ReviewsList extends Component {
             <h2>Most Recent Customer Reviews</h2>
           </Col>
         </Row>
-      </Grid>
+      </div>
     );
   }
 }
 
-export default ReviewsList;
+export default withRouter(ReviewsList);
