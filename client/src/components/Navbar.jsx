@@ -3,7 +3,6 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Row, Col} from 'react-boot
 import { Link } from 'react-router-dom';
 import Search from '../containers/searchContainer';
 import Notifications from '../containers/notificationContainer';
-import './assets/Home.css';
 
 class NavBar extends Component {
   
@@ -13,12 +12,22 @@ class NavBar extends Component {
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">
-              Peddle
+              <img 
+                className="text-logo"
+                src="/assets/logo-peddle.jpg" 
+                alt="text logo"
+                style={{
+                  height: "50px",
+                  width: "150px",
+                  objectFit: "contain",
+                  marginTop: "-15px"
+                }}
+              />
             </Link>
           </Navbar.Brand>
-          {/* <Navbar.Toggle /> */}
+          <Navbar.Toggle />
         </Navbar.Header>
-          <Search />
+        <Search />
         <Navbar.Collapse>
           <Nav pullRight>
             <NavDropdown eventKey={1} title="My Account" id="basic-nav-dropdown">
@@ -34,9 +43,7 @@ class NavBar extends Component {
             <NavItem eventKey={3} componentClass={Link} href="/cart" to="/cart">
               Cart
             </NavItem>
-            <NavItem eventKey={4}>
-              <Notifications />
-            </NavItem>
+            <Notifications />
           </Nav>
         </Navbar.Collapse>
       </Navbar>

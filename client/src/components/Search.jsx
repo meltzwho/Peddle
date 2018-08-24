@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, FormGroup, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-import './assets/Search.css';
 
 class Search extends Component {
   state = {

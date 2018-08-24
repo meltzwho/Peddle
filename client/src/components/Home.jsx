@@ -1,65 +1,144 @@
 import React, { Component } from 'react';
 import { Carousel } from 'react-bootstrap';
-import './assets/Home.css';
+import '../../dist/styles/Home.css';
 
 class Home extends React.Component {
-  state = {
-    index: 0,
-    direction: null
-  }
-
-  handleSelect = (selectedIndex, e) => {
-    console.log('Carousel: ', selectedIndex, e.direction);
-  }
 
   render() {
-    const { index, direction } = this.state;
+    let imgRotation = [
+      {
+        img: '/assets/cute-robots.jpg',
+        title: 'Make your life better with a CUTE ROBOT'
+      },
+      {
+        img: '/assets/end-of-summer.jpg',
+        title: 'End of Summer Sales'
+      },
+      {
+        img: '/assets/handbags.jpg',
+        title: 'Complete your outfit'
+      },
+      {
+        img: '/assets/classic-mens-clothes.jpg',
+        title: 'See our curated Mens Wardrobe'
+      }
+    ];
+   
+    let carousel = imgRotation.map( item => {
+      return (
+        <Carousel.Item  
+          key={Date.now() * Math.random()}
+        >
+          <img 
+            width={1900} 
+            height={100} 
+            alt="1200x600" 
+            src={item.img} 
+          />
+          <Carousel.Caption>
+            <h3>{item.title}</h3>
+          </Carousel.Caption>
+        </Carousel.Item>
+      );
+    });
 
     return (
-      // <div className="home-body">
-      <Carousel>
-        <Carousel.Item>
-          <img width={900} height={600} alt="900x600" src="/assets/carousel.jpg" />
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img width={900} height={500} alt="900x500" src="/carousel.png" />
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img width={900} height={500} alt="900x500" src="/carousel.png" />
-          <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
+      <div className="home-wrapper">
+        <Carousel>
+          {carousel}
+        </Carousel>
 
+        <div className="parallax">
 
-        /* <Carousel
-          activeIndex={index}
-          direction={direction}
-          onSelect={this.handleSelect}
-        >
-          <Carousel.Item>
-            <img 
-              className="car-photo"
-              src="/client/src/components/assets/robots.jpg" 
-              width={2000} 
-              height={1300} 
-              alt="Robots" 
+          <div 
+            id="group1"
+            className="parallax__group"
+          >
+            <div 
+              className="parallax__layer parallax-base"
             />
-            <Carousel.Caption>
-              <h1>Welcome to Peddle!</h1>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel> */
+              
+          </div>
+
+          <div 
+            id="group2"
+            className="parallax__group"
+          >
+            <div 
+              className="parallax__layer parallax-base"
+            />
+            <img
+              className="parallax__layer parallax-background"
+              src="/assets/electronics-1.jpg"
+              alt="table full of assorted electronic gadgets"
+            />
+          </div>
+
+          <div 
+            id="group3"
+            className="parallax__group"
+          >
+            <div 
+              className="parallax__layer parallax-base"
+            >
+              Electronics
+            </div>
+          </div>
+
+          <div 
+            id="group4"
+            className="parallax__group"
+          >
+            <div 
+              className="parallax__layer parallax-base"
+            />
+            <img
+              className="parallax__layer parallax-background"
+              src="/assets/man-person-wall-music.jpg"
+              alt="Man leaning against a barn playing a banjo."
+            />
+          </div>
+
+          <div 
+            id="group5"
+            className="parallax__group"
+          >
+            <div 
+              id
+              className="parallax__layer parallax-base"
+            >
+              Music
+            </div>
+          </div>
+
+          <div 
+            id="group6"
+            className="parallax__group"
+          >
+            <div 
+              className="parallax__layer parallax-base"
+            />
+            <img
+              className="parallax__layer parallax-background"
+              src="/assets/bedroom-clean.jpg"
+              alt="Man leaning against a barn playing a banjo."
+            />
+          </div>
+
+          <div 
+            id="group7"
+            className="parallax__group"
+          >
+            <div 
+              className="parallax__layer parallax-base"
+            >
+              Home Goods
+            </div>
+          </div>
+            
+        </div>
+        
+      </div>
     );
   }
 }
