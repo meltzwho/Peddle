@@ -11,7 +11,7 @@ router.get(
   '/google/redirect', 
   googleRedirectController, 
   (req, res) => {
-    console.log('authrts:', req.session);
+    //console.log('authrts:', req.session);
     res.cookie('user', req.session, { path: '/' });
     res.redirect('/');
   });
