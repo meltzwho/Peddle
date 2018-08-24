@@ -21,7 +21,7 @@ module.exports = {
         };
 
         if (response.length === 0) {
-          res.send(response);
+          res.send(listings);
         }
         
         response.forEach((row) => {
