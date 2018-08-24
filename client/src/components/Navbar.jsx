@@ -25,7 +25,7 @@ class NavBar extends Component {
               />
             </Link>
           </Navbar.Brand>
-          {/* <Navbar.Toggle /> */}
+          <Navbar.Toggle />
         </Navbar.Header>
         <Search />
         <Navbar.Collapse>
