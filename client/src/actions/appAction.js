@@ -4,3 +4,5 @@ export const addUser = (user) => ({
     userId: user
   }
 });
+
+export const removeUser = () => ({type: 'REMOVE_USER_FROM_STORE'});

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-import { addUser } from '../actions/appAction';
+import { addUser, removeUser } from '../actions/appAction';
 import App from '../components/App';
 
 const mapStateToProps = (state) => {
@@ -14,6 +14,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addUserToStore: (user) => {
       dispatch(addUser(user));
+    },
+    removeUserFromStore: () => {
+      dispatch(removeUser());
     }
   }
 };

@@ -13,10 +13,10 @@ export const closeModal = () => ({type: 'CLOSE_MODAL'});
 
 export const fetchProfileAddressStart = () => ({type: 'FETCH_PROFILE_ADDRESS_START'});
 
-export const fetchProfileAddressSuccess = () => ({
+export const fetchProfileAddressSuccess = (addresses) => ({
   type: 'FETCH_PROFILE_ADDRESS_SUCCESS',
   payload: {
-    addressDetails: []
+    addressDetails: addresses
   }
 });
 

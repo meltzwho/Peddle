@@ -16,10 +16,17 @@ const OrdersItem = (props) => {
           </h5>
         </Row>
         <Row style={{margin: "20px"}}>
-          <Link className='seller-view-listing' to={`/listingEntry/${listing.id_listing}`}>
-            <Button>View Item</Button>
-          </Link>
-        </Row>   
+          <Col xs={2} sm={2}>
+            <Link className='seller-view-listing' to={`/listingEntry/${listing.id_listing}`}>
+              <Button>View Item</Button>
+            </Link>
+          </Col>
+          <Col sx={2} sm={2}>
+            <Link to={`/reviewEntryForm/${listing.id_listing}`}>
+              <Button>Write a Review</Button>
+            </Link>
+          </Col>
+        </Row>
       </Col>
     </Row>
   ));
