@@ -1,3 +1,14 @@
+import axios from 'axios';
+
+export const fetchOrders = (userId) => {
+  return dispatch => {
+    dispatch(fetchOrdersStart());
+    return axios.get('/orders/orders', {params: {userId: userId}})
+      .then(response => dispatch(fetchOrdersSuccess(response.data)),
+        error => dispatch(fetchOrdersFail()));
+  };
+};
+
 export const fetchOrdersStart = () => ({type: 'FETCH_ORDERS_START'});
 
 export const fetchOrdersSuccess = (orders) => (
