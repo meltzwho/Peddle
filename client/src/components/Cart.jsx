@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import {Grid} from 'react-bootstrap';
 import CartItems from './CartItems';
-import Checkout from '../Checkout';
-import './Cart.css';
+import Checkout from './Checkout';
+import '../../dist/styles/Cart.css';
 
 export default class Cart extends React.Component { 
   

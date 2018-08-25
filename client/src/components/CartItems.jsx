@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Row, Image, Button, Panel } from 'react-bootstrap';
-import './Cart.css';
+import '../../dist/styles/Cart.css';
 
 
 const CartItems = (props) => {
@@ -10,14 +10,12 @@ const CartItems = (props) => {
   }, 0);
   
   const collection = props.cartitems.map( (item, index) => {
-  
     return (
-     
       <Row 
         className="show-grid item-card"
         key={Date.now() * Math.random()}
       >
-        <Col xs={3}>
+        <Col xs={10} sm={3}>
           <Image 
             className="cart_image" 
             style={{width: '100%', objectFit: 'fit'}} 
@@ -27,7 +25,7 @@ const CartItems = (props) => {
           />
         </Col>
 
-        <Col xs={3}>
+        <Col xs={12} sm={3}>
           <h4>{item.title}</h4>
           <div>
             Sold by: 
@@ -40,13 +38,13 @@ const CartItems = (props) => {
           <div>Condition: {item.condition}</div>
         </Col>
 
-        <Col xs={3}>
+        <Col xs={12} sm={3}>
           <h4 className="">
             {'$ ' + item.price}
           </h4>
         </Col>
 
-        <Col xs={3}>
+        <Col xs={6} sm={3}>
           <select 
             className="quantity_select"
             value={props.optionState} 
@@ -68,10 +66,10 @@ const CartItems = (props) => {
           </select>
         </Col>
 
-        <Col xs={8}>
+        <Col xs={8} sm={3}>
           <div>Description: {item.description}</div>
         </Col>
-        <Col xs={4}>
+        <Col xs={6} sm={3}>
           <Button
             className="remove-button"
             onClick={e => props.removeItemFromCart(e, index)}
@@ -82,9 +80,7 @@ const CartItems = (props) => {
           </Button>
         </Col>
       </Row>
-      
     );
-  
   });
 
 
@@ -103,14 +99,30 @@ const CartItems = (props) => {
             <h2 className="shopCartPrice">{'Total: $ ' + cartAmount}</h2>
           </Col>
           <Col xs={12} sm={6} md={3}>
-            <Button 
-              className="checkout-button"
-              onClick={e => props.handlecheckout(e)}
-              bsStyle="warning" 
-              bsSize="large" 
-            >
-              Checkout
-            </Button>
+            { 
+              props.emptycart 
+                ? (
+                  <Button 
+                    className="checkout-button"
+                    onClick={e => props.handlecheckout(e)}
+                    bsStyle="warning" 
+                    bsSize="large" 
+                    disabled
+                  >
+                    Checkout
+                  </Button>
+                ) 
+                : (
+                  <Button 
+                    className="checkout-button"
+                    onClick={e => props.handlecheckout(e)}
+                    bsStyle="warning" 
+                    bsSize="large" 
+                  >
+                    Checkout
+                  </Button>
+                )
+            }
           </Col>
         </Row>
       </Panel.Heading>
@@ -119,13 +131,12 @@ const CartItems = (props) => {
           props.emptycart
             ? (
               <Row className="show-grid" style={{textAlign: "center"}}>
-                <Col xs={10}><h2>Your Cart is Empty</h2></Col>
-                <Col xs={6}>
+                <Col xs={10}><h2>Your Cart is Empty :(</h2></Col>
+                <Col xs={12}>
                   <Image 
                     className="empty_cart_image" 
-                    style={{width: '100%', objectFit: 'fit'}} 
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUnr1Z9AuwBwGl1B_MpAoxvqyzf7s1T3aOocWRxuXJE0CZFfwsxQ"
-                    alt="Product sideview"
+                    style={{width: '100%', objectFit: 'contain'}} 
+                    src="/assets/empty-cart.jpg"
                     rounded
                   />
                 </Col>

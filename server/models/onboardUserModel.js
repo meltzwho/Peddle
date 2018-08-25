@@ -4,9 +4,9 @@ const db = require('../../db/index.js').pool;
 module.exports = {
   onboardUser: (data, callback) => {
     
-    db.connect((err, client, release) => {
+    db.connect((err, client) => {
       if (err) {
-        console.error(err); 
+        callback(err); 
       } else {
         let text = 'SELECT * FROM users WHERE id_user = $1';
         

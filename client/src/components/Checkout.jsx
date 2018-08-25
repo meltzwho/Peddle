@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid, Col, Row, Image, Button, Panel, Modal } from 'react-bootstrap';
-import './Cart/Cart.css';
+import { Col, Row, Image, Button, Modal } from 'react-bootstrap';
+import '../../dist/styles/Cart.css';
 
 class Checkout extends React.Component {
   render() {
