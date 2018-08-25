@@ -14,12 +14,24 @@ export default class SignUp extends React.Component {
   };
 
   handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+
+    if (e.target.value) {
+      if (e.target.name === 'email') {
+        let splitEmail = e.target.value.split('@');
+        this.setState({
+          email: e.target.value,
+          username: splitEmail[0]
+        });
+
+      } else {
+        this.setState({ [e.target.name]: e.target.value });
+      }
+    }
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    
+
     let formContents = {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
@@ -101,21 +113,6 @@ export default class SignUp extends React.Component {
                 </Col>
               </FormGroup>
 
-              <FormGroup controlId="formHorizontalUserName">
-                <Col componentClass={ControlLabel} sm={2}>
-                  Username
-                </Col>
-                <Col sm={10}>
-                  <FormControl 
-                    type="text" 
-                    name="username"
-                    placeholder="Enter Username..." 
-                    value={this.state.username}
-                    onChange={this.handleChange}
-                  />
-                </Col>
-              </FormGroup>
-
               <FormGroup controlId="formHorizontalPassword">
                 <Col componentClass={ControlLabel} sm={2}>
                   Password
@@ -143,14 +140,14 @@ export default class SignUp extends React.Component {
 
               <div className="aTag_wrapper">
                 <a href="/login" className="justSignIn">
-                Already have an account? Sign in.
+                Already have an account? Login here.
                 </a>
               </div>
 
               <div className="oauth_wrapper">
-                <p>or sign in with...</p>
+                <p>or login in with...</p>
                 <a href="/auth/google">
-                  <Button>Sign in with Google</Button>
+                  <Button>Login in with Google</Button>
                 </a>
               </div>
           

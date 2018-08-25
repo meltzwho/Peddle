@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Col, Row, Image, Button, Panel, Modal } from 'react-bootstrap';
+import './Cart/Cart.css';
 
 class Checkout extends React.Component {
   render() {
@@ -11,43 +12,44 @@ class Checkout extends React.Component {
     const collection = this.props.cartitems.map( (item, index) => {
       return (
         <Row 
-          className="show-grid"
+          className="show-grid checkout-item"
           key={Date.now() * Math.random()}
         >
-          <Col xs={2}>
+          <Col xs={3}>
             <Image 
               className="cart_image" 
-              style={{width: '100%', objectFit: 'fit'}} 
+              style={{width: '100%', objectFit: 'contain'}} 
               src={item.image_url} 
               alt="Product sideview"
               rounded
             />
           </Col>
 
-          <Col xs={4}>
-            <h1>{item.title}</h1>
+          <Col xs={5}>
+            <h4>{item.title}</h4>
             <div>
               Sold by: 
               <a href={`/profile/${1}`}>
-                <h3>{item.seller_username}</h3>
+                <h3>{item.sellerUsername}</h3>
               </a>
             </div>
-            <h3>Condition: {item.condition}</h3>
+            <h5>Condition: {item.condition}</h5>
           </Col>
 
-          <Col xs={2} xsOffset={4}>
-            <h1 className="">
+          <Col xs={3} xsOffset={1}>
+            <h4 className="">
               {'$ ' + item.price}
-            </h1>
+            </h4>
           </Col>
         </Row>
       );
     });
 
+
     return (
       <Modal
         {...this.props}
-        // className="modal-backdrop"
+        className="modal-wrapper"
         style={{textAlign: "center"}}
         bsSize="large"
         aria-labelledby="contained-modal-title-lg"
@@ -57,18 +59,34 @@ class Checkout extends React.Component {
           <Row>
             <Col xs={12}>
               <h2>Thank You For Shopping with</h2>
-              <h1>Peddle</h1>
+            </Col>
+            <Col xs={12}>
+              <img 
+                className="text-logo"
+                src="/assets/logo-peddle.jpg" 
+                alt="text logo"
+                style={{
+                  height: "90px",
+                  width: "250px",
+                  objectFit: "contain",
+                  marginTop: "15px"
+                }}
+              />
             </Col>
           </Row>
           <Row>
-            <Col xs={8}>
+            <Col xs={6} className="stripe-button-wrapper">
               <Button 
+                className="stripe-button"
                 bsStyle="warning" 
                 bsSize="large" 
-                block
+                // block
               >
-                STRIPE
+                Pay with Stripe
               </Button>
+            </Col>
+            <Col xs={6} className="checkout-total">
+              <h3>{'Total: $' + cartAmount}</h3>
             </Col>
           </Row>
           {collection}

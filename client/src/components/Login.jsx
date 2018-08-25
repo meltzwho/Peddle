@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button, Col, Checkbox, ControlLabel, Form, FormGroup, FormControl, Grid , Row} from 'react-bootstrap';
+import { Button, Col, ControlLabel, Form, FormGroup, FormControl, Grid , Row} from 'react-bootstrap';
 import axios from 'axios';
 
 export default class Login extends React.Component {
 
   state = {
     email: '',
-    username: ''
+    password: ''
   };
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -17,7 +17,7 @@ export default class Login extends React.Component {
     
     let formContents = {
       email: this.state.email,
-      username: this.state.username
+      password: this.state.password
     };
     
     axios({
@@ -31,13 +31,13 @@ export default class Login extends React.Component {
         // clear fields
         this.setState({
           email: '',
-          username: ''
+          password: ''
         });
       })
       .catch(err => {
         this.setState({
           email: '',
-          username: ''
+          password: ''
         });
         console.error(err);
       });
@@ -52,23 +52,6 @@ export default class Login extends React.Component {
             <Form horizontal>
 
               <Row className="show-grid">
-                <FormGroup controlId="UserName">
-                  <Col componentClass={ControlLabel} sm={2}>
-                    Username
-                  </Col>
-                  <Col sm={8}>
-                    <FormControl 
-                      type="text" 
-                      name="username"
-                      placeholder="Enter Username..." 
-                      value={this.state.username}
-                      onChange={this.handleChange}
-                    />
-                  </Col>
-                </FormGroup>
-              </Row>
-
-              <Row className="show-grid">
                 <FormGroup controlId="Email">
                   <Col componentClass={ControlLabel} sm={2}>
                     Email
@@ -79,6 +62,23 @@ export default class Login extends React.Component {
                       name="email" 
                       placeholder="Enter Email..." 
                       value={this.state.email}
+                      onChange={this.handleChange}
+                    />
+                  </Col>
+                </FormGroup>
+              </Row>
+
+              <Row className="show-grid">
+                <FormGroup controlId="UserName">
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Password
+                  </Col>
+                  <Col sm={8}>
+                    <FormControl 
+                      type="password" 
+                      name="password"
+                      placeholder="Enter Password..." 
+                      value={this.state.password}
                       onChange={this.handleChange}
                     />
                   </Col>
@@ -106,9 +106,9 @@ export default class Login extends React.Component {
                     <a href="/" className="forgotPassword">
                       Forgot your password?
                     </a>
-                    <span>{' '}</span>
+                    <span>{'    '}</span>
                     <a href="/" className="forgotUserName">
-                      Forgot your username?
+                      Forgot your email?
                     </a>
                   </div>
                 </Col>
