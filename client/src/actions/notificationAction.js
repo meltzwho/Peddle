@@ -1,6 +1,6 @@
-const newNotifications = (notifications) => ({
+export const newNotifications = (notifications) => ({
   type: 'NEW_NOTIFICATIONS',
   notifications: notifications
 });
 
-export default newNotifications;
+export const wipeNotifications = () => ({type: 'WIPE_NOTIFICATIONS'});

@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { fetchProfileDetailsStart, fetchProfileDetailsSuccess, fetchProfileDetailsFail, closeModal, fetchProfileAddressStart, fetchProfileAddressSuccess, fetchProfileAddressFail } from '../actions/editProfileAction';
+import { fetchProfileDetailsStart, fetchProfileDetailsSuccess, fetchProfileDetailsFail, closeModal, fetchProfileAddressStart, fetchProfileAddressSuccess, fetchProfileAddressFail, profileUpdateStart, profileUpdateSuccess, profileUpdateFail } from '../actions/editProfileAction';
 import EditProfile from '../components/editProfile';
 
 const mapStateToProps = (state) => {
   return {
     profile: state.editProfile,
-    currentUserId: state.user.userId
+    currentUserId: state.user.userId,
+    picUrls: state.imageData.imageUrls
   };
 };
 
@@ -30,13 +31,89 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(fetchProfileAddressStart());
       axios.get('/profile/address', {params: {userId: userId}})
         .then(response => {
-          console.log('the response in the client for address', response.data),
           dispatch(fetchProfileAddressSuccess(response.data)),
           error => {
             console.error('there was an error fetching the addresses associated with this profile', error);
-            dipatch(fetchProfileAddressFail())
+            dispatch(fetchProfileAddressFail());
+          };
+        });
+    },
+    updateProfileDetails: (profile) => {
+      //in this function well need to take into account data that goes to three tables
+      // users, address, users_images
+      let userChanges = false;
+      let userFields = {
+        bio: false,
+        dob: false,
+        email: false,
+        first_name: false,
+        last_name: false,
+        phone_number: false,
+        username: false,
+        profile_image_url: false
+      };
+      let addressChanges = false;
+      let addressFields = {
+        address: false,
+        city: false,
+        state: false,
+        zip_code: false,
+        title: false
+      };
+      //loop through the profile object and if any fields have length greater than 0
+      for (let key in profile) {
+        if (profile[key].length > 0) {
+          //flip appropriate flag and add to approrpriate obj
+          if (userFields[key] !== undefined) {
+            userFields[key] = profile[key];
+            userChanges = true;
+          } else if (addressFields[key] !== undefined) {
+            addressFields[key] = profile[key];
+            addressChanges = true;
+          } else {
+            console.log('there was a field submitted were not accounting for', key, profile[key])
           }
-        })
+        }
+      }
+      
+      //check in profile if any changes to any user data have occured then update user table
+      if (userChanges) {
+        let params = {};
+        //loop through the user fields upbject
+        for (let key in userFields) {
+          //if field is not false, add to params object
+          if (userFields[key]) {
+            params[key] = userFields[key];
+          }
+        }
+        params.userId = profile.userId;
+        axios.put('/profile/updateUser', params)
+          .then(response => {
+            dispatch(fetchProfileDetailsSuccess(response.data)),
+            error => console.error('there was an error updating this field', error);
+          });
+      } 
+      //check if any changes were made to the profile picture then update profile images
+      
+      //addresses, will have ability to add another address 
+      //check if any changes were made to the address and if so insert into addresses
+      if (addressChanges) {
+        let params = {};
+        //loop through the user fields upbject
+        for (let key in addressFields) {
+          //if field is not false, add to params object
+          if (addressFields[key]) {
+            params[key] = addressFields[key];
+          }
+        }
+        params.userId = profile.userId;
+        params.addressId = profile.addressId;
+        axios.put('/profile/updateAddress', params)
+          .then(response => {
+            dispatch(fetchProfileAddressSuccess(response.data));
+            error => console.error('there was an error updating this field', error);
+          });
+      }
     }
   };
 };

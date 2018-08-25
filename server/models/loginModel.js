@@ -3,10 +3,10 @@ const db = require('../../db/index.js').pool;
 module.exports = {
 
   loginByEmail: (email, callback) => {
-    console.log('MODEL:', email);
+    
     db.connect((err, client) => {
       if (err) {
-        console.error('Error in connection...', err);
+        callback(err);
       } else {
         const query = 'SELECT * FROM users WHERE email=$1';
         

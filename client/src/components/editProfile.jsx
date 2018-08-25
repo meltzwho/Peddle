@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-import ImageUpload from './imageUpload';
+import { Image, Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import ImageUpload from '../containers/imageUploadContainer';
 
 class EditProfile extends React.Component {
   state = {
@@ -10,11 +10,17 @@ class EditProfile extends React.Component {
     first_name: '',
     last_name: '',
     phone_number: '',
-    username: ''
+    username: '',
+    address: '',
+    city: '',
+    state: '',
+    title: '',
+    zip_code: ''
   }
 
   componentDidMount() {
-    this.props.fetchProfileDetails(this.props.currentUserId)
+    this.props.fetchProfileDetails(this.props.currentUserId);
+    this.props.fetchProfileAddress(this.props.currentUserId);
   }
 
   handleInputChange = (e) => {
@@ -23,12 +29,41 @@ class EditProfile extends React.Component {
     });
   }
 
+  handleEditProfileSubmit = (e) => {
+    e.preventDefault();
+    let addressId = this.props.profile.addressDetails.id_address || 0;
+    this.setState({
+      profile_image_url: this.props.picUrls,
+      userId: this.props.currentUserId,
+      addressId: addressId
+    }, () => {
+      this.props.updateProfileDetails(this.state);
+      this.setState({
+        bio: '',
+        dob: '',
+        email: '',
+        first_name: '',
+        last_name: '',
+        phone_number: '',
+        username: '',
+        address: '',
+        city: '',
+        state: '',
+        title: '',
+        zip_code: ''
+      });
+    });
+  }
+
   render() {
     let profileDetails = this.props.profile.profileDetails;
+    let addressDetails = this.props.profile.addressDetails;
+    let pendingImage = this.props.picUrls.length > 0 ? <div>Your Image has been uploaded! Hit submit to see the change</div> : null;
     return (
     
       <div>
         <Image src={profileDetails.profile_image_url || 'https://s3.amazonaws.com/peddle-images/dat-boi.jpg'} thumbnail />
+        {pendingImage}
         <ImageUpload />
         <Form>
 
@@ -76,17 +111,6 @@ class EditProfile extends React.Component {
             />
           </FormGroup>
 
-          <FormGroup controlId="email">
-            <ControlLabel>E-Mail</ControlLabel>
-            <FormControl 
-              type="text"
-              name="email"
-              value={this.state.email} 
-              placeholder={profileDetails.email || ''}
-              onChange={this.handleInputChange}
-            />
-          </FormGroup>
-
           <FormGroup controlId="phoneNumber">
             <ControlLabel>Phone Number</ControlLabel>
             <FormControl 
@@ -109,6 +133,50 @@ class EditProfile extends React.Component {
             />
           </FormGroup>
 
+          <FormGroup controlId="streetAddress">
+            <ControlLabel>Street Address</ControlLabel>
+            <FormControl 
+              type="text"
+              name="address"
+              value={this.state.address}
+              placeholder={addressDetails.address || ''}
+              onChange={this.handleInputChange}
+            />
+          </FormGroup>
+
+          <FormGroup controlId="city">
+            <ControlLabel>City</ControlLabel>
+            <FormControl 
+              type="text"
+              name="city"
+              value={this.state.city}
+              placeholder={addressDetails.city || ''}
+              onChange={this.handleInputChange}
+            />
+          </FormGroup>
+
+          <FormGroup controlId="state">
+            <ControlLabel>State</ControlLabel>
+            <FormControl 
+              type="text"
+              name="state"
+              value={this.state.state}
+              placeholder={addressDetails.state || ''}
+              onChange={this.handleInputChange}
+            />
+          </FormGroup>
+
+          <FormGroup controlId="zipCode">
+            <ControlLabel>Zip Code</ControlLabel>
+            <FormControl 
+              type="text"
+              name="zip_code"
+              value={this.state.zip_code}
+              placeholder={addressDetails.zip_code || ''}
+              onChange={this.handleInputChange}
+            />
+          </FormGroup>
+          <Button onClick={this.handleEditProfileSubmit}>Submit Changes</Button>
         </Form>
 
       </div>

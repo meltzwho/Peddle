@@ -12,3 +12,5 @@ export const fetchOrdersSuccess = (orders) => (
 export const fetchOrdersFail = () => ({type: 'FETCH_ORDERS_FAIL'});
 
 export const closeModal = () => ({type: 'CLOSE_MODAL'});
+
+export const wipeOrders = () => ({type: 'WIPE_ORDERS'});

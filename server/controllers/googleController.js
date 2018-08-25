@@ -18,7 +18,7 @@ module.exports = {
             
         client.query(text, value)
           .then(res => {
-            //console.log('response rows ', res.rows)
+            
             client.release();
             if (res.rows.length > 0) {
               let reducedObject = {};

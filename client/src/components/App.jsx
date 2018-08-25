@@ -8,7 +8,7 @@ import EditProfile from '../containers/editProfileContainer';
 import Orders from '../containers/orderContainer';
 import Listings from './Listings';
 import ListingEntry from '../containers/listingEntryContainer';
-import Cart from './Cart/Cart';
+import Cart from './Cart';
 import Login from './Login';
 import SignUp from './SignUp';
 import SellEntry from '../containers/SellEntryContainer';
@@ -144,9 +144,9 @@ class App extends Component {
                 cookieValid: false,
                 currentuser: {
                   id_user: '',
-                  first_name: '',
+                  first_name: 'Guest',
                   last_name: '',
-                  username: '',
+                  username: 'Guest',
                   email: '',
                   google_id: null,
                   facebook_id: null,
@@ -164,9 +164,9 @@ class App extends Component {
         cookieValid: false,
         currentuser: {
           id_user: '',
-          first_name: '',
+          first_name: 'Guest',
           last_name: '',
-          username: '',
+          username: 'Guest',
           email: '',
           google_id: null,
           facebook_id: null,
@@ -211,9 +211,9 @@ class App extends Component {
 
     let resetCurrentuser = {
       id_user: '',
-      first_name: '',
+      first_name: 'Guest',
       last_name: '',
-      username: '',
+      username: 'Guest',
       email: '',
       google_id: null,
       facebook_id: null,
@@ -238,7 +238,7 @@ class App extends Component {
       <div className="container-fluid">
         <Navbar 
           handleLogout={this.handleLogout} 
-          greetFriends={this.state.greetFriends}
+          currentuser={this.state.currentuser}
           userId={this.props.currentUserId}
         />
         <Switch className='routes'>

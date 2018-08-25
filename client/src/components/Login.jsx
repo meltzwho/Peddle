@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button, Col, ControlLabel, Form, FormGroup, FormControl, Grid , Row} from 'react-bootstrap';
+import { Button, Col, ControlLabel, Form, FormGroup, FormControl, Grid, Row, Alert} from 'react-bootstrap';
 import axios from 'axios';
 
 export default class Login extends React.Component {
-
   state = {
     email: '',
-    password: ''
+    password: '',
+    errorMessage: ''
   };
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -25,8 +25,9 @@ export default class Login extends React.Component {
       url: '/login/validate',
       data: { formContents }
     })
-      .then(res => {
-        this.props.handleLogin(res.data);
+      .then(results => {
+      
+        this.props.handleLogin(results.data);
         
         // clear fields
         this.setState({
@@ -35,13 +36,19 @@ export default class Login extends React.Component {
         });
       })
       .catch(err => {
-        this.setState({
-          email: '',
-          password: ''
-        });
-        console.error(err);
+        if (err.response.status === 401) {
+          this.setState({
+            errorMessage: err.response.data,
+            email: '',
+            password: ''
+          });
+        } else {
+          this.setState({
+            email: '',
+            password: ''
+          });
+        }
       });
-    
   }
 
   render () {
@@ -50,6 +57,15 @@ export default class Login extends React.Component {
         <div className="login_wrapper">
           <Grid>
             <Form horizontal>
+
+              {
+                this.state.errorMessage
+                  ? (
+                    <Alert bsStyle="warning" style={{textAlign: 'center'}}>
+                      <h4>{this.state.errorMessage}</h4>
+                    </Alert>
+                  ) : ''
+              }
 
               <Row className="show-grid">
                 <FormGroup controlId="Email">
@@ -84,7 +100,7 @@ export default class Login extends React.Component {
                   </Col>
                 </FormGroup>
               </Row>
-
+                      
               <Row className="show-grid">
                 <FormGroup>
                   <Col smOffset={2} sm={8}>
@@ -132,9 +148,8 @@ export default class Login extends React.Component {
                     </Button>
                   </a>
                 </Col>
-                
               </Row>
-              
+                 
             </Form>
           </Grid>
         </div>

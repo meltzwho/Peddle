@@ -6,7 +6,6 @@ const db = require('../../db/index.js').pool;
 
 module.exports = {
   signupByEmail: (data, callback) => {
-    
     db.connect((err, client) => {
       if (err) {
         console.error(err); 
@@ -68,6 +67,27 @@ module.exports = {
                 } 
               });
             } 
+          });
+      }
+    });
+  },
+
+  setDefaultRating: (id, callback) => {
+    db.connect((err, client) => {
+      if (err) {
+        callback(err); 
+      } else {
+
+        let text = 'INSERT INTO rating(id_user, rating, count) VALUES($1, 0, 0)';
+        client.query(text, [id])
+          .then(response => {
+            console.log('after db entry:', response);
+            client.release();
+            callback(null, response);
+          })
+          .catch(error => { 
+            client.release();
+            callback(error);
           });
       }
     });
