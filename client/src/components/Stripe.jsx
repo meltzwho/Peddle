@@ -5,14 +5,16 @@ import { Button } from 'react-bootstrap';
 import config from '../../../config';
 
 class Stripe extends Component {
-  onToken = (token) => {
-    axios.post(`/p/stripeId/${token}`)
-      .then(res => {
-        res.json().then(data => {
-          alert(`We are in business, ${data.email}`);
-        });
-      });
+  onToken = (amount, currency) => (token, addresses) => {
+    axios.post('/stripe', {
+      amount: amount,
+      source: token.id,
+      currency: currency,
+      transfer_group: 'USERID+TIMESTAMP'
+    });
+    addresses; //create order and add address to DB
   }
+
   render() {
     return (
       <StripeCheckout
@@ -38,7 +40,7 @@ class Stripe extends Component {
         alipay={false} // accept Alipay (default false)
         bitcoin={false} // accept Bitcoins (default false)
         allowRememberMe // "Remember Me" option (default true)
-        token={this.onToken} // submit callback
+        token={this.onToken(this.props.listing.price * 100, 'USD')} // submit callback
         opened={this.onOpened} // called when the checkout popin is opened (no IE6/7)
         closed={this.onClosed} // called when the checkout popin is closed (no IE6/7)
         // Note: `reconfigureOnUpdate` should be set to true IFF, for some reason
@@ -57,3 +59,5 @@ class Stripe extends Component {
 }
 
 export default Stripe;
+
+//https://www.robinwieruch.de/react-express-stripe-payment

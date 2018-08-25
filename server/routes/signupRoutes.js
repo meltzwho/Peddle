@@ -1,7 +1,8 @@
 const router = require('express').Router();
-const { signupController } = require('../controllers/signupController.js');
+const { signupController, setDefaultRating } = require('../controllers/signupController.js');
 
 // signup
 router.post('/create', signupController);
+router.post('/rating', setDefaultRating);
 
 module.exports = router;
