@@ -31,35 +31,40 @@ class EditProfile extends React.Component {
 
   handleEditProfileSubmit = (e) => {
     e.preventDefault();
-    let addressId = this.props.profile.addressDetails[0].id_address || 0
+    let addressId = this.props.profile.addressDetails.id_address || 0;
     this.setState({
-      picture: this.props.picUrls,
+      profile_image_url: this.props.picUrls,
       userId: this.props.currentUserId,
       addressId: addressId
-    }, () => this.props.updateProfileDetails(this.state));
-    this.setState({
-      bio: '',
-      dob: '',
-      email: '',
-      first_name: '',
-      last_name: '',
-      phone_number: '',
-      username: '',
-      address: '',
-      city: '',
-      state: '',
-      title: '',
-      zip_code: ''
+    }, () => {
+      console.log('the state were submitting', this.state)
+      this.props.updateProfileDetails(this.state)
+      this.setState({
+        bio: '',
+        dob: '',
+        email: '',
+        first_name: '',
+        last_name: '',
+        phone_number: '',
+        username: '',
+        address: '',
+        city: '',
+        state: '',
+        title: '',
+        zip_code: ''
+      });
     });
   }
 
   render() {
     let profileDetails = this.props.profile.profileDetails;
-    let addressDetails = this.props.profile.addressDetails.length > 0 ? this.props.profile.addressDetails[0] : {};
+    let addressDetails = this.props.profile.addressDetails;
+    let pendingImage = this.props.picUrls.length > 0 ? <div>Your Image has been uploaded! Hit submit to see the change</div> : null;
     return (
     
       <div>
         <Image src={profileDetails.profile_image_url || 'https://s3.amazonaws.com/peddle-images/dat-boi.jpg'} thumbnail />
+        {pendingImage}
         <ImageUpload />
         <Form>
 

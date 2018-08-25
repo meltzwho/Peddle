@@ -49,17 +49,17 @@ const mapDispatchToProps = (dispatch) => {
         first_name: false,
         last_name: false,
         phone_number: false,
-        username: false
+        username: false,
+        profile_image_url: false
       };
       let addressChanges = false;
       let addressFields = {
         address: false,
         city: false,
         state: false,
-        zip_code: false
+        zip_code: false,
+        title: false
       };
-      let pictureChanges = false;
-      let pictureFields = {picture: false};
       //loop through the profile object and if any fields have length greater than 0
       for (let key in profile) {
         if (profile[key].length > 0) {
@@ -70,18 +70,11 @@ const mapDispatchToProps = (dispatch) => {
           } else if (addressFields[key] !== undefined) {
             addressFields[key] = profile[key];
             addressChanges = true;
-          } else if (pictureFields[key] !== undefined) {
-            pictureFields[key] = profile[key];
-            pictureChanges = true;
           } else {
             console.log('there was a field submitted were not accounting for', key, profile[key])
           }
         }
       }
-
-      console.log('picture changes', pictureChanges, pictureFields);
-      console.log('address chages', addressChanges, addressFields);
-      console.log('user changes', userChanges, userFields);
       
       //check in profile if any changes to any user data have occured then update user table
       if (userChanges) {
@@ -117,7 +110,7 @@ const mapDispatchToProps = (dispatch) => {
         params.addressId = profile.addressId;
         axios.put('/profile/updateAddress', params)
           .then(response => {
-            console.log('the response for address update', response),
+            dispatch(fetchProfileAddressSuccess(response.data));
             error => console.error('there was an error updating this field', error);
           });
       }

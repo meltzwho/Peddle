@@ -4,7 +4,7 @@ const defaultState = {
   profileDetails: {},
   fetchingAddressDetails: false,
   fetchAddressSuccess: null,
-  addressDetails: []
+  addressDetails: {}
 };
 
 

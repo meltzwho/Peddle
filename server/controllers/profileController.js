@@ -30,10 +30,8 @@ module.exports = {
   },
   updateUser: (req, res) => {
     let newObj = {};
-    console.log('req.body', req.body)
     for (let key in req.body) {
       if (key === 'userId') {
-        console.log('rejecting the userId')
       } else {
         newObj[key] = req.body[key];
       }
@@ -48,19 +46,16 @@ module.exports = {
   },
   updateAddress: (req, res) => {
     let newObj = {};
-    console.log('req.body', req.body)
     for (let key in req.body) {
       if (key === 'userId' || key === 'addressId') {
-        console.log('rejecting the userId or addressId')
       } else {
         newObj[key] = req.body[key];
       }
     }
     db.updateAddressDetail(req.body.userId, req.body.addressId, newObj, (err, response) => {
       if (err) {
-        console.error('there was an error inserting/updating this profil\'s address details', err);
+        console.error('there was an error inserting/updating this profile\'s address details', err);
       } else {
-        console.log('controller: profile: the response for the address update', response)
         res.send(response);
       }
     })
