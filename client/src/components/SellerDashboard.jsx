@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
 import { Button, Modal, Tabs, Tab, Grid, Col, Row, Jumbotron, Well } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
+import Axios from 'axios';
 import SellerDashboardItem from './sellerDashBoardItem';
 
 
 class SellerDashboard extends Component {
-  state = {}
+  state = {is_seller: false};
 
   componentDidMount() {
     let userId = this.props.currentUserId ? this.props.currentUserId : 1;
     this.props.fetchUserListings(userId);
+    Axios.get(`/users/userId/${userId}`)
+      .then(res => this.setState({is_seller: res.data.is_seller !== undefined}));
   }
 
   newListing = (e) => {
-    this.props.history.push('/sellEntry');
+    if (this.state.is_seller === false) window.location.replace('https://dashboard.stripe.com/oauth/authorize?response_type=code&client_id=ca_DOOjboYDVTZcAZ7WkY4ergfWEwINC0sx&scope=read_write');
+    else this.props.history.push('/sellEntry');
   }
 
   edit = (e, listing) => {
@@ -25,7 +29,7 @@ class SellerDashboard extends Component {
   render() {
     let activeTiles = null;
     let completedTiles = null;
-    console.log(this.props.listings.listings.active)
+    //console.log(this.props.listings.listings.active)
     
     if (this.props.listings.listingFetchSuccess) {
       activeTiles = this.props.listings.listings.active.length > 0 ? 
