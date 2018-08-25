@@ -21,3 +21,5 @@ export const fetchProfileAddressSuccess = (addresses) => ({
 });
 
 export const fetchProfileAddressFail = () => ({type: 'FETCH_PROFILE_ADDRESS_FAIL'});
+
+export const wipeEdit = () => ({type: 'WIPE_EDIT'});
