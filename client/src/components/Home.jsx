@@ -42,13 +42,14 @@ class Home extends React.Component {
       );
     });
 
+    
     return (
       <div className="home-wrapper">
-        <Carousel>
-          {carousel}
-        </Carousel>
-
+        
         <div className="parallax">
+          <Carousel>
+            {carousel}
+          </Carousel>
 
           <div 
             id="group1"

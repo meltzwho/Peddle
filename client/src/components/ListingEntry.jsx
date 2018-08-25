@@ -66,7 +66,7 @@ class ListingEntry extends Component {
                 starSpacing="0px"
               />
               {this.props.listing.rating.count === 0 ? 
-                <a href="/reviewEntry">Leave a review</a>
+                <a href={`/reviewEntryForm/${this.props.listing.listing.id_listing}`}>Leave a review</a>
                 : this.props.listing.rating.count === 1 ?
                   <a href="#listingReview">{this.props.listing.rating.count} review</a>
                   : <a href="/#listingReview"> {this.props.listing.rating.count} reviews</a>
@@ -135,6 +135,8 @@ class ListingEntry extends Component {
           <ReviewsList 
             rating={this.props.listing.rating}
             feedback={this.props.listing.feedback}
+            listing={this.props.listing.listing}
+            seller={this.props.listing.seller}
           />
           <Row>
             <Col sx={12} sm={12}>

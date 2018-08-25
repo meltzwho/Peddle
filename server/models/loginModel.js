@@ -2,17 +2,16 @@ const db = require('../../db/index.js').pool;
 
 module.exports = {
 
-  loginByUsername: (username, callback) => {
-    
-    db.connect((err, client, release) => {
+  loginByEmail: (email, callback) => {
+    console.log('MODEL:', email);
+    db.connect((err, client) => {
       if (err) {
         console.error('Error in connection...', err);
       } else {
-        const query = 'SELECT * FROM users WHERE username=$1';
-        const name = [username];
+        const query = 'SELECT * FROM users WHERE email=$1';
         
-        client.query(query, name, (err, res) => {
-          release();
+        client.query(query, [email], (err, res) => {
+          client.release();
           if (err) {
             callback(err.stack, null);
           } else {

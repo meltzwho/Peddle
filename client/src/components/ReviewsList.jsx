@@ -18,7 +18,7 @@ class ReviewsList extends Component {
 
   }
   getRatings = () => {
-    // axios.get(`/`)
+    
   }
   render() {
     return (
@@ -28,7 +28,7 @@ class ReviewsList extends Component {
             <h2>Ratings & Reviews</h2>
           </Col>
           <Col xs={4} sm={4}>
-            <h2><Button><Link to='/reviewEntryForm'>Write a Review</Link></Button></h2>
+            <h2><Button><Link to={`/reviewEntryForm/${this.props.listing.id_listing}`}>Write a Review</Link></Button></h2>
           </Col>
         </Row>
         <Row>
@@ -61,8 +61,9 @@ class ReviewsList extends Component {
           </Col>
         </Row>
         <Row>
-          <Col xs={12} sm={8}>
+          <Col xs={12} sm={12}>
             <div>
+              <h3>Most Recent Customer Reviews</h3>
               {this.props.feedback.map(review => {
                 return (
                   <ReviewEntry 
@@ -72,9 +73,6 @@ class ReviewsList extends Component {
                 );
               })}
             </div>
-          </Col>
-          <Col xs={12} sm={4}>
-            <h2>Most Recent Customer Reviews</h2>
           </Col>
         </Row>
       </div>
