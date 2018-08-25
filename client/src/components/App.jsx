@@ -19,44 +19,35 @@ import Stripe from './Stripe';
 import ReviewEntryForm from './ReviewEntryForm';
 
 class App extends Component {
-  state = {
-    greetFriends: 'Friend',
-    cookieValid: false,
-
-    currentuser: {
-      id_user: 0,
-      first_name: 'Guest',
-      last_name: '',
-      username: 'Guest',
-      email: '',
-      google_id: null,
-      facebook_id: null,
-      token: null,
-      token_timestamp: null,
-      profile_image: ''
-    }
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      greetFriends: 'Friend',
+      cookieValid: true,
+  
+      currentuser: {
+        id_user: 0,
+        first_name: 'Guest',
+        last_name: '',
+        username: 'Guest',
+        email: '',
+        google_id: null,
+        facebook_id: null,
+        token: null,
+        token_timestamp: null,
+        profile_image: ''
+      }
+    };
+  }
   
   componentDidMount() {
     const cookies = new Cookies;
     let cookie = cookies.get('token');
-    
-    this.isValidUser(cookie);
-    this.setCookieForGoogleLogin();
-  }
 
-  getCookie (destination) {
-    const cookies = new Cookies;
-    let cookie = cookies.get('token');
-    if (cookie) {
-      this.props.addUserToStore(cookie.id_user);
-      this.setState({
-        cookieValid: true,
-        currentuser: {...this.state.currentuser, id_user: cookie.id_user}
-      }, () => this.props.history.push(destination));
-    }
+    this.setCookieForGoogleLogin();
+    this.isValidUser(cookie);
   }
-  
+ 
   setACookie = (data) => {
     if (data !== undefined) {
       const cookies = new Cookies;
@@ -86,6 +77,7 @@ class App extends Component {
       axios.get('/session/google', { params: {id: googleID} })
         .then(res => {
           this.setACookie(res.data);
+          this.props.addUserToStore(res.data.id_user);
           // put data on state
           if (res.data) {
             this.setState(prevState => ({
@@ -116,7 +108,7 @@ class App extends Component {
           axios.get('/onboard/user', { params: {id: id} })
             .then(res => {
               if (res.data) {
-                // update state 
+                // update state
                 this.setState(prevState => ({
                   currentuser: {
                     ...prevState.currentuser,
@@ -144,9 +136,10 @@ class App extends Component {
           .then(response => {
             
             if (response.data) {
+              this.props.addUserToStore(cookie.id_user);
               this.sniffCookieToOnboardUser(cookie);
               this.setState({ cookieValid: response.data });
-            }else{
+            } else {
               this.setState({
                 cookieValid: false,
                 currentuser: {
@@ -166,6 +159,22 @@ class App extends Component {
           })
           .catch(err => console.error(err));
       }
+    } else {
+      this.setState({
+        cookieValid: false,
+        currentuser: {
+          id_user: '',
+          first_name: '',
+          last_name: '',
+          username: '',
+          email: '',
+          google_id: null,
+          facebook_id: null,
+          token: null,
+          token_timestamp: null,
+          profile_image: ''
+        }
+      });
     }
   };
 
@@ -224,8 +233,7 @@ class App extends Component {
     }));
   }
 
-  render() {
-    if (!this.state.cookieValid) this.getCookie(this.props.location.pathname);
+  render() {    
     return (
       <div className="container-fluid">
         <Navbar 
