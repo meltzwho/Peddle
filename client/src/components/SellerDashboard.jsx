@@ -23,16 +23,11 @@ class SellerDashboard extends Component {
 
 
   render() {
-    let activeTiles = null;
-    let completedTiles = null;
-    console.log(this.props.listings.listings.active)
-    
-    if (this.props.listings.listingFetchSuccess) {
-      activeTiles = this.props.listings.listings.active.length > 0 ? 
-        this.props.listings.listings.active.map((listing) => (<SellerDashboardItem key={listing.id_listing} edit={(e, listing)=>this.edit(e, listing)} listing={listing} active={true} showProgress={true} />)) : <Well style={{margin: "20px"}}>Looks like you don't have any active listings</Well>;
-      completedTiles = this.props.listings.listings.completed > 0 ? 
-        this.props.listings.listings.completed.map((listing) => (<SellerDashboardItem key={listing.id_listing} listing={listing} active={false} showProgress={true} />)) : <Well style={{margin: "20px"}}>Looks like you don't have any completed listings</Well>;
-    }
+ 
+    let activeTiles = this.props.listings.listings.active.length > 0 ? 
+      this.props.listings.listings.active.map((listing) => (<SellerDashboardItem key={listing.id_listing} edit={(e, listing)=>this.edit(e, listing)} listing={listing} active={true} showProgress={true} />)) : <Well style={{margin: "20px"}}>Looks like you don't have any active listings</Well>;
+    let completedTiles = this.props.listings.listings.completed > 0 ? 
+      this.props.listings.listings.completed.map((listing) => (<SellerDashboardItem key={listing.id_listing} listing={listing} active={false} showProgress={true} />)) : <Well style={{margin: "20px"}}>Looks like you don't have any completed listings</Well>;
 
     return (
       <Grid>

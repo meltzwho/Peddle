@@ -66,7 +66,6 @@ class Profile extends Component {
           <Col xs={12} md={8}>
             <h3>{this.props.userProfile.userDetails.username || this.props.userProfile.userDetails.first_name}</h3>
             <p>{this.props.userProfile.userDetails.bio}</p>
-            <h5>Rating</h5>
             <StarRatings 
               rating={parseFloat(this.props.userProfile.userRating.avg) || 0}
               starRatedColor="gold"

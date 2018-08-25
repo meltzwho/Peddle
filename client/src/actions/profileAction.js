@@ -32,3 +32,5 @@ export const fetchUserRatingSuccess = (userRating) => ({
 });
 
 export const fetchUserRatingFail = () => ({type: 'FETCH_USER_RATINGS_FAIL'});
+
+export const wipeProfile = () => ({type: 'WIPE_PROFILE'});

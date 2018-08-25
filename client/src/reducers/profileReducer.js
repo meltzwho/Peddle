@@ -33,6 +33,8 @@ const profileReducer = (state = defaultState, action) => {
       return Object.assign({}, state, {userRating: action.payload.userRating, fetchingUserRatings: false, fetchUserRatingSuccess: true});
     case 'FETCH_USER_RATINGS_FAIL':
       return Object.assign({}, state, {fetchingUserRating: false, fetchUserRatingSuccess: false});
+    case 'WIPE_PROFILE':
+      return Object.assign({}, defaultState);
     default:
       return state;
 
