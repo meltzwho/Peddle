@@ -37,8 +37,7 @@ class EditProfile extends React.Component {
       userId: this.props.currentUserId,
       addressId: addressId
     }, () => {
-      console.log('the state were submitting', this.state)
-      this.props.updateProfileDetails(this.state)
+      this.props.updateProfileDetails(this.state);
       this.setState({
         bio: '',
         dob: '',
@@ -112,17 +111,6 @@ class EditProfile extends React.Component {
             />
           </FormGroup>
 
-          <FormGroup controlId="email">
-            <ControlLabel>E-Mail</ControlLabel>
-            <FormControl 
-              type="text"
-              name="email"
-              value={this.state.email} 
-              placeholder={profileDetails.email || ''}
-              onChange={this.handleInputChange}
-            />
-          </FormGroup>
-
           <FormGroup controlId="phoneNumber">
             <ControlLabel>Phone Number</ControlLabel>
             <FormControl 
@@ -141,18 +129,6 @@ class EditProfile extends React.Component {
               name="bio"
               value={this.state.bio}
               placeholder={profileDetails.bio || ''}
-              onChange={this.handleInputChange}
-            />
-          </FormGroup>
-
-
-          <FormGroup controlId="addressTitle">
-            <ControlLabel>Address Title</ControlLabel>
-            <FormControl 
-              type="text"
-              name="title"
-              value={this.state.title}
-              placeholder={addressDetails.title || 'Default'}
               onChange={this.handleInputChange}
             />
           </FormGroup>
