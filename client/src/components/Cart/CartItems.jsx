@@ -9,9 +9,10 @@ const CartItems = (props) => {
     return accum + ((curr.price * 1) * curr.quantityCustomerWants);
   }, 0);
   
-   
   const collection = props.cartitems.map( (item, index) => {
+  
     return (
+     
       <Row 
         className="show-grid item-card"
         key={Date.now() * Math.random()}
@@ -27,30 +28,22 @@ const CartItems = (props) => {
         </Col>
 
         <Col xs={3}>
-          <h2>{item.title}</h2>
+          <h4>{item.title}</h4>
           <div>
             Sold by: 
             <a href={`/profile/${1}`}>
-              {item.seller_username}
+              {item.sellerUsername}
             </a>
           </div>
     
-          <div>Qty Available: {item.quantity}</div>
-          <div>Description: {item.description}</div>
+          <div>Qty Available: {item.quantity.length}</div>
           <div>Condition: {item.condition}</div>
-          <Button
-            bsSize="large"
-            onClick={e => props.removeItemFromCart(e, index)}
-          >
-            Remove
-          </Button>
-
         </Col>
 
         <Col xs={3}>
-          <span className="">
+          <h4 className="">
             {'$ ' + item.price}
-          </span>
+          </h4>
         </Col>
 
         <Col xs={3}>
@@ -75,36 +68,53 @@ const CartItems = (props) => {
           </select>
         </Col>
 
+        <Col xs={8}>
+          <div>Description: {item.description}</div>
+        </Col>
+        <Col xs={4}>
+          <Button
+            className="remove-button"
+            onClick={e => props.removeItemFromCart(e, index)}
+            bsStyle="danger" 
+            bsSize="medium" 
+          >
+            Remove
+          </Button>
+        </Col>
       </Row>
+      
     );
   
   });
 
 
   return (
-    <Panel xs={12}>
-      <Panel.Heading style={{height: "120px"}}>
+    <Panel className="checkout_wrapper">
+      <Panel.Heading className="panel-heading">
         <Row className="show-grid">
-          <Col xs={4}>
-            <h2>Shopping Cart</h2>
+          <Col xs={12} sm={12} md={5}>
+            <h2 
+              className="shopCart"
+            >
+              {props.currentuser.first_name + "'s Shopping Cart"}
+            </h2>
           </Col>
-          <Col xs={4}>
-            <h2>{'Total: $ ' + cartAmount}</h2>
+          <Col xs={12} sm={6} md={4}>
+            <h2 className="shopCartPrice">{'Total: $ ' + cartAmount}</h2>
           </Col>
-          <Col xs={4}>
+          <Col xs={12} sm={6} md={3}>
             <Button 
               className="checkout-button"
               onClick={e => props.handlecheckout(e)}
               bsStyle="warning" 
               bsSize="large" 
-              block
             >
               Checkout
             </Button>
           </Col>
         </Row>
       </Panel.Heading>
-      <Panel.Body>
+      <Panel.Body className="panel-body">
         {
           props.emptycart
             ? (
@@ -123,30 +133,8 @@ const CartItems = (props) => {
             ) : collection
         }
       </Panel.Body>
-      <Panel.Footer
-        style={{height: "120px"}}
-      >
-        <Row className="show-grid">
-          <Col xs={4}>
-            <h2>Shopping Cart</h2>
-          </Col>
-          <Col xs={4}>
-            <h2>{'Total: $ ' + cartAmount}</h2>
-          </Col>
-          <Col xs={4}>
-            <Button 
-              onClick={e => props.handlecheckout(e)}
-              bsStyle="warning" 
-              bsSize="large" 
-              block
-            >
-              Checkout
-            </Button>
-          </Col>
-        </Row>
-      </Panel.Footer>
     </Panel>
-  )
+  );
 };
   
 export default CartItems;

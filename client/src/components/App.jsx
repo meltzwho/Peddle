@@ -25,9 +25,9 @@ class App extends Component {
 
     currentuser: {
       id_user: 0,
-      first_name: '',
+      first_name: 'Guest',
       last_name: '',
-      username: 'Friend',
+      username: 'Guest',
       email: '',
       google_id: null,
       facebook_id: null,
