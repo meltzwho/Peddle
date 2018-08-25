@@ -104,8 +104,7 @@ export default class Cart extends React.Component {
         ID: item.id_listing
       }
     })
-      // .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
 
     let stateCopy = [...this.state.cartitems];
     stateCopy[index].quantityCustomerWants = (event.target.value * 1);

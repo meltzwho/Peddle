@@ -4,7 +4,7 @@ const defaultState = {
   profileDetails: {},
   fetchingAddressDetails: false,
   fetchAddressSuccess: null,
-  addressDetails: []
+  addressDetails: {}
 };
 
 
@@ -24,6 +24,8 @@ const editProfileReducer = (state = defaultState, action) => {
       return Object.assign({}, state, {addressDetails: action.payload.addressDetails, fetchingAddressDetails: false, fetchAddressSuccess: true});
     case 'FETCH_PROFILE_ADDRESS_FAIL':
       return Object.assign({}, state, {fetchAddressSuccess: false, fetchingAddressDetails: false});
+    case 'WIPE_EDIT':
+      return Object.assign({}, defaultState);
     default:
       return state;
   }

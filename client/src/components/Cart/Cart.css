@@ -1,42 +1,105 @@
 
+/* Media Queries */
+@media screen and (max-width: 766px) {
+  .shopCart {
+    font-size: 25px;
+    font-weight: 60;
+    margin: 0 auto;
+  }
+  .shopCartPrice {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 auto;
+  }
+  .checkout-button {
+    font-size: 20px ;
+    margin: 0 auto;
+  }
+}
+
+
+/* Cart */
 .cart_item_wrapper {
   margin: 40px 0;
 }
 
-h2 {
-  font-size: 40px;
+.checkout_wrapper {
+  color: rgb(58, 58, 58);
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 10px;
+  text-align: center;
 }
 
+.shopCart {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+}
 
+.shopCartPrice {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  margin-top: 35px;
+}
 
-/* LOGO */
+h2 {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.panel-heading {
+  background: rgb(211, 237, 240) !important;
+}
+
+.remove-button {
+  opacity: 0.7;
+}
+
 .item-card {
-  box-shadow: 4px 4px 4px 4px rgb(104, 102, 102);
+  box-shadow: 2px 2px 2px 2px rgb(104, 102, 102);
   margin: 20px 0;
   padding: 10px 0;
 }
 
 .quantity_select {
   box-shadow: 2px 2px 2px 2px rgb(104, 102, 102);
-  height: 70px;
-  width: 100px;
-}
-
-.quantity_select_item {
-  text-shadow: 4px 4px 4px 4px rgb(104, 102, 102);
-  font-size: 30px !important;
+  font-size: 16px;
+  height: 30px;
+  margin-top: 10px;
+  width: 50px;
 }
 
 .checkout-button {
+  background: rgba(0, 128, 128, 0.863);
   border-radius: 5px;
-  font-size: 50px ;
-  height: 100px;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 20px ;
+  margin-top: 30px !important;
+  opacity: 0.7;
+}
+
+/* Modal styles */
+
+.stripe-button {
+  background: rgba(0, 128, 128, 0.863);
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 30px;
+  opacity: 0.7;
+}
+.stripe-button-wrapper {
   margin: 0 auto;
 }
-/* LOGO END */
 
-
-
-
-
-
+.checkout-item {
+  box-shadow: 2px 2px 2px 2px rgb(104, 102, 102);
+  margin-top: 10px;
+} 
+.checkout-total {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: 900;
+  margin-top: 20px;
+}

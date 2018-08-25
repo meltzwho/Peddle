@@ -7,7 +7,7 @@ const db = require('../../db/index.js').pool;
 module.exports = {
   signupByEmail: (data, callback) => {
     
-    db.connect((err, client, release) => {
+    db.connect((err, client) => {
       if (err) {
         console.error(err); 
       } else {
@@ -34,7 +34,7 @@ module.exports = {
                   const query = 'INSERT INTO users(first_name, last_name, username, email, pwd, token) VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
                   const values = [data.firstname, data.lastname, data.username, data.email, hashed, uuid];
 
-                  db.connect((err, client, release) => {
+                  db.connect((err, client) => {
                     if (err) {
                       console.error('Error in connection...', err);
                     } else {
