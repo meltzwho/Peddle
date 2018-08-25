@@ -1,10 +1,9 @@
-//import { access } from 'fs';
-const { release } = require('os');
+
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const {google} = require('../../config.js');
 const db = require('../../db/index.js').pool;
-
+const { setDefaultRating } = require('../models/signupModel');
 
 // initiate our application to google
 passport.use(
@@ -16,28 +15,27 @@ passport.use(
     }
     , (accessToken, refreshToken, profile, done) => {
       
-      db.connect((err, client, release) => {
+      db.connect((err, client) => {
         if (err) {
-          console.error('db connection error', err);
+          return done(err);
         } else {
-          // no empty emails
-          console.log('profile', profile)
+          // look for empty emails
           if (profile.emails[0].value !== '') { 
             
-            let text = 'SELECT * FROM users WHERE email = $1';
-            let value = [profile.emails[0].value];
-            
-            client.query(text, value)
+            client.query('SELECT * FROM users WHERE email = $1', [profile.emails[0].value])
               .then(res => {
                 client.release();
-                if (res.rows[0] === undefined ) {
+                if (res.rows[0] === undefined) {
+                  // strip the first part of email (up to '@') to use as the username
+                  let splitUsername = profile.emails[0].value.split('@');
+
                   // the email and username is not taken, so enter the user into db
                   let text = 'INSERT INTO users(first_name, last_name, username, email, google_id, profile_image_url, token) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *';
                   let value = 
                     [
                       profile.name.givenName,
                       profile.name.familyName,
-                      profile.displayName,
+                      splitUsername[0],
                       profile.emails[0].value,
                       profile.id,
                       profile.photos[0].value,
@@ -45,7 +43,15 @@ passport.use(
                     ];
 
                   client.query(text, value)
-                    .then(res => {client.release()})
+                    .then(res => {
+                      // set default ratings for a new user
+                      setDefaultRating(res.rows[0].id_user, (err, data) => {
+                        if (err) console.error(err);
+                        else console.log('after rating entry:', data);
+                      })
+                      
+                      client.release();
+                    })
                     .catch(err => {
                       console.error(err);
                       client.release();

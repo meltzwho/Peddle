@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Carousel } from 'react-bootstrap';
 import '../../dist/styles/Home.css';
 
@@ -30,8 +30,8 @@ class Home extends React.Component {
           key={Date.now() * Math.random()}
         >
           <img 
-            width={1900} 
-            height={100} 
+            width={1500} 
+            height={1000} 
             alt="1200x600" 
             src={item.img} 
           />

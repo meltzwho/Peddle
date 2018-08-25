@@ -151,9 +151,9 @@ class App extends Component {
                 cookieValid: false,
                 currentuser: {
                   id_user: '',
-                  first_name: '',
+                  first_name: 'Guest',
                   last_name: '',
-                  username: '',
+                  username: 'Guest',
                   email: '',
                   google_id: null,
                   facebook_id: null,
@@ -166,6 +166,22 @@ class App extends Component {
           })
           .catch(err => console.error(err));
       }
+    } else{
+      this.setState({
+        cookieValid: false,
+        currentuser: {
+          id_user: '',
+          first_name: 'Guest',
+          last_name: '',
+          username: 'Guest',
+          email: '',
+          google_id: null,
+          facebook_id: null,
+          token: null,
+          token_timestamp: null,
+          profile_image: ''
+        }
+      });
     }
   };
 
@@ -202,9 +218,9 @@ class App extends Component {
 
     let resetCurrentuser = {
       id_user: '',
-      first_name: '',
+      first_name: 'Guest',
       last_name: '',
-      username: '',
+      username: 'Guest',
       email: '',
       google_id: null,
       facebook_id: null,
@@ -230,7 +246,7 @@ class App extends Component {
       <div className="container-fluid">
         <Navbar 
           handleLogout={this.handleLogout} 
-          greetFriends={this.state.greetFriends}
+          currentuser={this.state.currentuser}
           userId={this.props.currentUserId}
         />
         <Switch className='routes'>
