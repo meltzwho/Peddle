@@ -14,39 +14,39 @@ export default class SignUp extends React.Component {
   };
 
   handleChange = (e) => {
-
-    if (e.target.value) {
-      if (e.target.name === 'email') {
-        let splitEmail = e.target.value.split('@');
-        this.setState({
-          email: e.target.value,
-          username: splitEmail[0]
-        });
-
-      } else {
-        this.setState({ [e.target.name]: e.target.value });
-      }
-    }
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
+    // make username the first part of the email (up to the '@')
+    let splitEmail = this.state.email.split('@');
 
     let formContents = {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       email: this.state.email,
-      username: this.state.username,
+      username: splitEmail[0],
       password: this.state.password
     };
-    
+    console.log('form:', formContents);
     axios({
       method: 'post',
       url: '/signup/create',
       data: { formContents }
     })
       .then(response => {
+        console.log('userID before rating:', response.data.id_user);
         
+        //now set a default rating for this user
+        axios({
+          method: 'post',
+          url: '/signup/rating',
+          data: { ID: response.data.id_user }
+        })
+          .then( (res) => console.log('after db rating:', res.data))
+          .catch(err => {console.error(err)});
+
         this.props.handleLogin(response.data);
 
         // clear all input fields
@@ -58,7 +58,17 @@ export default class SignUp extends React.Component {
           password: ''
         });
       })
-      .catch(err => {console.error(err);});
+      .catch(err => {
+        console.error(err);
+        // clear all input fields
+        this.setState({
+          firstname: '',
+          lastname: '',
+          email: '',
+          username: '',
+          password: ''
+        });
+      });
     
   }
   
