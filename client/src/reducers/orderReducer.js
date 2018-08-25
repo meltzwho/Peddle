@@ -17,6 +17,8 @@ const ordersReducer = (state = defaultState, action) => {
       return Object.assign({}, state, {fetchingOrders: false, ordersFetchSuccess: false});
     case 'CLOSE_MODAL':
       return Object.assign({}, state, {ordersFetchSuccess: null});
+    case 'WIPE_ORDERS':
+      return Object.assign({}, defaultState);
     default: 
       return state;
   }
