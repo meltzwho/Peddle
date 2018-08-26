@@ -12,7 +12,8 @@
     "start": "node server/index.js",
     "react-dev": "webpack --config webpack.dev.js --watch",
     "server-dev": "export AWS_PROFILE=peddle && nodemon server/index.js",
-    "lint": "eslint client/src/**/*.js client/src/**/*.jsx"
+    "lint": "eslint client/src/**/*.js client/src/**/*.jsx",
+    "bot-signup": "DEBUG=nightmare* node bots/sellers/signupBot.js"
   },
   "keywords": [
     "Marketplace",
@@ -82,6 +83,7 @@
     "file-loader": "^2.0.0",
     "image-webpack-loader": "^4.3.1",
     "mocha": "^5.2.0",
+    "nightmare": "^3.0.1",
     "save-dev": "^2.0.0",
     "sinon": "^6.1.5",
     "style-loader": "^0.22.1",

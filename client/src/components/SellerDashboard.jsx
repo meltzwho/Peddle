@@ -57,7 +57,7 @@ class SellerDashboard extends Component {
           <Row>
             <h2>Seller Dashboard</h2> 
             <Col xs={18} md={4} mdOffset={10}>
-              <Button href={this.state.is_seller === true ? '/sellEntry' : '/stripe/auth'} bsStyle="primary" bsSize="large">List a New Item</Button>
+              <Button href={this.state.is_seller === true ? '/sellEntry' : '/stripe/auth'} bsStyle="primary" bsSize="large" id="dash-new-item">List a New Item</Button>
             </Col>
           </Row>
         </Jumbotron>
