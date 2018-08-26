@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { fetchProfileDetailsStart, fetchProfileDetailsSuccess, fetchProfileDetailsFail, closeModal, fetchProfileAddressStart, fetchProfileAddressSuccess, fetchProfileAddressFail, profileUpdateStart, profileUpdateSuccess, profileUpdateFail } from '../actions/editProfileAction';
+import { fetchProfile, closeModal, fetchProfileAddress, profileUpdateStart, profileUpdateSuccess, profileUpdateFail } from '../actions/editProfileAction';
 import EditProfile from '../components/editProfile';
 
 const mapStateToProps = (state) => {
@@ -17,26 +17,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(closeModal());
     },
     fetchProfileDetails: (userId) => {
-      dispatch(fetchProfileDetailsStart());
-      axios.get(`/profile/user`, {params: {userId: userId}})
-        .then(response => {
-          dispatch(fetchProfileDetailsSuccess(response.data)),
-          error => {
-            console.error('an error occured fetching the user data', error);
-            dispatch(fetchProfileDetailsFail());
-          };
-        });
+      dispatch(fetchProfile(userId));
     },
     fetchProfileAddress: (userId) => {
-      dispatch(fetchProfileAddressStart());
-      axios.get('/profile/address', {params: {userId: userId}})
-        .then(response => {
-          dispatch(fetchProfileAddressSuccess(response.data)),
-          error => {
-            console.error('there was an error fetching the addresses associated with this profile', error);
-            dispatch(fetchProfileAddressFail());
-          };
-        });
+      dispatch(fetchProfileAddress(userId));
     },
     updateProfileDetails: (profile) => {
       //in this function well need to take into account data that goes to three tables

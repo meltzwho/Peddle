@@ -1,19 +1,31 @@
 import React, { Component } from 'react';
+import Cookies from 'universal-cookie';
 import { Button, Modal, Tabs, Tab, Grid, Col, Row, Jumbotron, Well } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
+import Axios from 'axios';
 import SellerDashboardItem from './sellerDashBoardItem';
 
 
+
 class SellerDashboard extends Component {
-  state = {}
+  state = {is_seller: false};
 
   componentDidMount() {
     let userId = this.props.currentUserId ? this.props.currentUserId : 1;
     this.props.fetchUserListings(userId);
-  }
-
-  newListing = (e) => {
-    this.props.history.push('/sellEntry');
+    const cookies = new Cookies;
+    let cookie = cookies.get('stripe');
+    if (cookie !== undefined) {
+      cookie = JSON.parse(cookie.slice(2));
+      
+      Axios.post('/users/stripe', {userId: userId, stripe_user_id: cookie.stripe_user_id})
+        .then(() => this.setState({is_seller: true}));
+    } else {
+      Axios.get(`/users/userId/${userId}`)
+        .then(res =>{          
+          this.setState({is_seller: res.data[0].is_seller !== null})
+        });
+    }
   }
 
   edit = (e, listing) => {
@@ -45,7 +57,7 @@ class SellerDashboard extends Component {
           <Row>
             <h2>Seller Dashboard</h2> 
             <Col xs={18} md={4} mdOffset={10}>
-              <Button onClick={this.newListing} bsStyle="primary" bsSize="large">List a New Item</Button>
+              <Button href={this.state.is_seller === true ? '/sellEntry' : '/stripe/auth'} bsStyle="primary" bsSize="large">List a New Item</Button>
             </Col>
           </Row>
         </Jumbotron>

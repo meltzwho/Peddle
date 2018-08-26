@@ -11,5 +11,9 @@ module.exports = {
         console.error('[controller] there was an error fetching the items: ', e);
         res.status(400).json(e);
       });
+  },
+  userToSeller: (req, res) => {
+    db.userToSeller(req.body)
+      .then(()=> res.end());
   }
 };
