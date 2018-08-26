@@ -28,12 +28,14 @@ class Home extends React.Component {
       return (
         <Carousel.Item  
           key={Date.now() * Math.random()}
+          className="carousel"
         >
           <img 
-            width={1500} 
-            height={1000} 
-            alt="1200x600" 
+            width={1900} 
+            height={1200} 
+            className="carousel-image" 
             src={item.img} 
+            alt="Different shopping categories"
           />
           <Carousel.Caption>
             <h3>{item.title}</h3>
@@ -55,24 +57,28 @@ class Home extends React.Component {
             id="group1"
             className="parallax__group"
           >
-            <div 
-              className="parallax__layer parallax-base"
-            />
-              
+            <div className="parallax__layer parallax-base">
+              <div className="base1-text">
+                Electronics
+              </div>
+            </div>
           </div>
 
           <div 
             id="group2"
             className="parallax__group"
           >
+            
             <div 
               className="parallax__layer parallax-base"
             />
+            
             <img
-              className="parallax__layer parallax-background"
+              className=" parallax-background"
               src="/assets/electronics-1.jpg"
               alt="table full of assorted electronic gadgets"
             />
+            
           </div>
 
           <div 
@@ -81,9 +87,7 @@ class Home extends React.Component {
           >
             <div 
               className="parallax__layer parallax-base"
-            >
-              Electronics
-            </div>
+            />
           </div>
 
           <div 
@@ -94,7 +98,7 @@ class Home extends React.Component {
               className="parallax__layer parallax-base"
             />
             <img
-              className="parallax__layer parallax-background"
+              className=" parallax-background"
               src="/assets/man-person-wall-music.jpg"
               alt="Man leaning against a barn playing a banjo."
             />
@@ -120,7 +124,7 @@ class Home extends React.Component {
               className="parallax__layer parallax-base"
             />
             <img
-              className="parallax__layer parallax-background"
+              className=" parallax-background"
               src="/assets/bedroom-clean.jpg"
               alt="Man leaning against a barn playing a banjo."
             />
