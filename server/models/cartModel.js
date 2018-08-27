@@ -44,10 +44,10 @@ module.exports = {
   addToCart: (listingId, userId, quantity) => {
     return db.connect()
       .then(client => {
-        let sqlQuery = 'INSERT INTO listing_image (id_listing, id_user, quantity) VALUES ($1, $2, $3)';
+        let sqlQuery = 'INSERT INTO cart_line_item (id_listing, id_user, quantity) VALUES ($1, $2, $3)';
         let params = [listingId, userId, quantity];
         return client.query(sqlQuery, params)
-          .then(res => {
+          .then(res => {            
             client.release();
             
           })
@@ -63,8 +63,7 @@ module.exports = {
       .then(client => {
         
         return client.query('SELECT * FROM cart_line_item WHERE id_user=$1', [id])
-          .then(res => {
-            
+          .then(res => {            
             client.release();
             return res.rows;
           })

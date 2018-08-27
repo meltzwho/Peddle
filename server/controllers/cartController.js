@@ -38,7 +38,7 @@ module.exports = {
 
   addToCart: (req, res) => {
     db.addToCart(req.params.listingId, req.params.userId, req.params.quantity)
-      .then(() => {
+      .then((res1) => {
         console.log('[controller] added to cart');
         res.sendStatus(200);
       })

@@ -196,8 +196,6 @@ class App extends Component {
   };
 
   handleLogout = (e) => {
-    console.log('akked');
-    
     e.preventDefault();
 
     //update redux
