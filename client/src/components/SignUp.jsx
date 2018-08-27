@@ -43,7 +43,6 @@ export default class SignUp extends React.Component {
           url: '/signup/rating',
           data: { ID: response.data.id_user }
         })
-          .then( (res) => console.log('after db rating:', res.data))
           .catch(err => {console.error(err)});
 
         this.props.handleLogin(response.data);
@@ -81,10 +80,9 @@ export default class SignUp extends React.Component {
                 <Col componentClass={ControlLabel} sm={2}>
                 First Name
                 </Col>
-                <Col sm={10} className="signup-firstName">
+                <Col sm={10}>
                   <FormControl 
-                    className="signup-firstName"
-                    classID="signup-firstName"
+                    id="signup-firstName"
                     type="text"
                     name="firstname"
                     placeholder="Enter FirstName..." 
@@ -100,7 +98,7 @@ export default class SignUp extends React.Component {
                 </Col>
                 <Col sm={10}>
                   <FormControl
-                    classID="signup-lastName" 
+                    id="signup-lastName" 
                     type="text" 
                     name="lastname"
                     placeholder="Enter Last Name..." 
@@ -116,7 +114,7 @@ export default class SignUp extends React.Component {
                 </Col>
                 <Col sm={10}>
                   <FormControl 
-                    classID="signup-email"
+                    id="signup-email"
                     type="email"
                     name="email"
                     placeholder="Enter Email..."
@@ -132,7 +130,7 @@ export default class SignUp extends React.Component {
                 </Col>
                 <Col sm={10}>
                   <FormControl 
-                    classID="signup-password"
+                    id="signup-password"
                     type="password"
                     name="password"
                     placeholder="Enter Password..." 
@@ -145,7 +143,7 @@ export default class SignUp extends React.Component {
               <FormGroup>
                 <Col smOffset={2} sm={10}>
                   <Button 
-                    classID="signup-submit"
+                    id="signup-submit"
                     type="submit"
                     onClick={this.handleSubmit}
                   >Create Your Account

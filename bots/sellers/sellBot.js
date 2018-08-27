@@ -14,10 +14,4 @@ nightmare
   // now in seller dashboard
   .wait('#dash-new-item')
   .click('#dash-new-item')
-  // if success
-    // goto sellerDashboard
-  // if failure
-    // goto signup and signup
-    // goto sellerDashboard and click list an item
-    // fill out the stripe form
-    // start filling out seller list form 
+  
