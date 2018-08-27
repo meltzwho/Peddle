@@ -4,7 +4,7 @@ const defaultState = {
   fetchProfileListingsSuccess: null,
   modalOpen: false,
   fetchingUserDetails: false,
-  userDetails: {},
+  userDetails: {id_user: null},
   fetchUserDetailsSuccess: null,
   fetchingUserRating: false,
   fetchUserRatingSuccess: null,
@@ -34,7 +34,7 @@ const profileReducer = (state = defaultState, action) => {
     case 'FETCH_USER_RATINGS_FAIL':
       return Object.assign({}, state, {fetchingUserRating: false, fetchUserRatingSuccess: false});
     case 'WIPE_PROFILE':
-      return Object.assign({}, defaultState);
+      return defaultState;
     default:
       return state;
 

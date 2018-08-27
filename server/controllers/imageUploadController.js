@@ -20,7 +20,7 @@ module.exports = {
   }
 };
 
-//CODE FOR UPLOAD WHEN FUNCTIONALIRY WAS ON SERVER, NOW A CALLBACK
+// CODE FOR UPLOAD WHEN FUNCTIONALIRY WAS ON SERVER, NOW A CALLBACK
 // newPicture: (req, res) => {
 //   const s3 = new AWS.S3({apiVersion: '2006-03-01', params: {Bucket: 'peddle-images'}})
 //   let randoKey = Math.random().toString(36).substring(7);

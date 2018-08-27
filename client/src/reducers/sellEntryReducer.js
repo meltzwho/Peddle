@@ -48,7 +48,7 @@ const SellEntryReducer = (state = newForm, action) => {
         categoriesFetching: false,
         categories: action.payload.categories
       });
-    case 'POST_LISTING': 
+    case 'POST_LISTING_START': 
       return Object.assign({}, state, {listingProcessing: true});
     case 'LISTING_POST_SUCCESS':
       return Object.assign({}, state, {listingSuccessful: true});

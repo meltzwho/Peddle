@@ -19,6 +19,7 @@ module.exports = {
     });
   },
   addListing: (listing, callback) => {
+    console.log('the listing to insert in the model', listing)
     db.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting a connection from the pool');
