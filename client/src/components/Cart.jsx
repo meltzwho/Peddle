@@ -34,13 +34,13 @@ export default class Cart extends React.Component {
         } 
         
         // now aggregate the information about the cart item
-        res.data.forEach( item => {
+        res.data.forEach( item => {          
           promises.push(
             axios.get(
               '/cart/aggregate', 
               { params: { ID: item.id_listing } } 
             )
-              .then(res => { return res.data; })
+              .then(res => { return {...res.data, quantityCustomerWants: item.quantity }; })
           );
         });
 
@@ -52,15 +52,15 @@ export default class Cart extends React.Component {
               
               let data = result[0];
               
-              data.quantityCustomerWants = 1;
-              data.quantity = Array.apply(null, Array(result[0].quantity)).map( (x, idx) => idx + 1);
-              
+              data.quantityCustomerWants = Number(result.quantityCustomerWants);
+              data.quantity = Array.apply(null, Array(data.quantityCustomerWants)).map( (x, idx) => idx + 1);
+              data.quantityAvail = result[1].quantity;
               data.sellerUsername = result[0].username;
               
               consolidateData.push(data);
             });
            
-            this.setState({cartitems: consolidateData});
+            this.setState({cartitems: consolidateData});            
             return consolidateData;
           })
           .catch(err => console.error(err));
