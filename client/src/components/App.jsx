@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import Home from './Home';
@@ -26,7 +26,7 @@ class App extends Component {
       cookieValid: true,
   
       currentuser: {
-        id_user: 0,
+        id_user: null,
         first_name: 'Guest',
         last_name: '',
         username: 'Guest',
@@ -192,6 +192,7 @@ class App extends Component {
       // place a cookie for the user
       this.setACookie(user);
     }
+    this.props.history.push('/');
   };
 
   handleLogout = (e) => {
@@ -200,17 +201,10 @@ class App extends Component {
     //update redux
     this.props.removeUserFromStore();
     
-    // find cookies and remove them
-    const cookies = new Cookies;
-    cookies.remove('token');
-    cookies.remove('g_token');
-    cookies.remove('session');
-    cookies.remove('session.sig');
-    cookies.remove('fr');
-    cookies.remove('name');
+   
 
     let resetCurrentuser = {
-      id_user: '',
+      id_user: null,
       first_name: 'Guest',
       last_name: '',
       username: 'Guest',
@@ -230,10 +224,20 @@ class App extends Component {
       }, 
       greetFriends: 'Friend',
       cookieValid: false
-    }));
+    }), () => {
+      // find cookies and remove them
+      const cookies = new Cookies;
+      cookies.remove('token');
+      cookies.remove('g_token');
+      cookies.remove('session');
+      cookies.remove('session.sig');
+      cookies.remove('fr');
+      cookies.remove('name');
+      this.props.history.push('/');
+    });
   }
 
-  render() {    
+  render() {
     return (
       <div className="container-fluid">
         <Navbar 
@@ -398,4 +402,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

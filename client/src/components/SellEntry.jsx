@@ -26,8 +26,7 @@ class SellEntry extends Component {
   handleListingSubmit = (e) => {
     e.preventDefault();
     //default user id for dev purposes
-    let userId = this.props.currentUserId ? this.props.currentUserId : 1;
-    console.log('the user id in sell entry', userId)
+    let userId = this.props.currentUserId;
     //pass the image urls from the redux store to the function
     //format the dollar input value to have 2 decimal points e.g (10.00) 
     if(this.props.entry.listingEdit) {

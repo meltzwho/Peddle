@@ -1,7 +1,7 @@
 const db = require('../../db/index.js').pool;
 
 module.exports = {
-  aggregateData: (id) => {
+  aggregateData: (id, userId) => {
     
     return db.connect()
       .then(client => {
@@ -21,11 +21,11 @@ module.exports = {
       });
   },
 
-  removeItem: (id) => {
+  removeItem: (id, userId) => {
     return db.connect()
       .then(client => {
-        let query = 'DELETE FROM cart_line_item WHERE id_listing=$1';
-        return client.query(query, [id])
+        let query = 'DELETE FROM cart_line_item WHERE id_listing=$1 AND id_user = $2';
+        return client.query(query, [id, userId])
           .then(res => {
               
             client.release();
@@ -44,14 +44,30 @@ module.exports = {
   addToCart: (listingId, userId, quantity) => {
     return db.connect()
       .then(client => {
-        let sqlQuery = 'INSERT INTO listing_image (id_listing, id_user, quantity) VALUES ($1, $2, $3)';
-        let params = [listingId, userId, quantity];
-        return client.query(sqlQuery, params)
-          .then(res => {
-            client.release();
-            
-          })
-          .catch(e => {client.release();});
+        client.query('SELECT * FROM cart_line_item WHERE id_listing = $1 AND id_user = $2', [listingId, userId])
+          .then((results) => {
+            if (results.rows.length === 0) {
+
+              let sqlQuery = 'INSERT INTO cart_line_item (id_listing, id_user, quantity) VALUES ($1, $2, $3)';
+              let params = [listingId, userId, quantity];
+              return client.query(sqlQuery, params)
+                .then(() => {            
+                  client.release();
+                  
+                })
+                .catch(e => {client.release();});
+            } else { 
+              let query = 'UPDATE cart_line_item SET quantity = $1 WHERE id_listing=$2 AND id_user = $3';              
+              return client.query(query, [Number(results.rows[0].quantity) + Number(quantity), listingId, userId])
+                .then(res => {
+                  
+                  client.release();
+                  return res.rows;
+                })
+                .catch(e => {client.release();});
+            }
+          });
+
       })
       .catch(e => {
         console.error('[model] error getting pool connection', e);
@@ -63,8 +79,7 @@ module.exports = {
       .then(client => {
         
         return client.query('SELECT * FROM cart_line_item WHERE id_user=$1', [id])
-          .then(res => {
-            
+          .then(res => {            
             client.release();
             return res.rows;
           })
@@ -78,13 +93,14 @@ module.exports = {
       });
   },
 
-  updateQuantity: (id, quantity) => {
+  updateQuantity: (id, quantity, userId) => {
+    
     return db.connect()
       .then(client => {
         
-        let query = 'UPDATE cart_line_item SET quantity = $1 WHERE id_listing=$2';
+        let query = 'UPDATE cart_line_item SET quantity = $1 WHERE id_listing=$2 AND id_user = $3';
         
-        return client.query(query, [quantity, id])
+        return client.query(query, [quantity, id, userId])
           .then(res => {
             
             client.release();
