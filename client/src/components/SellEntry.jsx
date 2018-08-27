@@ -303,6 +303,13 @@ class SellEntry extends Component {
 
           <Row style={{marginTop: "30px"}}>
             <Button onClick={this.handleListingSubmit} type="submit">Submit</Button>
+            <Button 
+              onClick={
+                (e) => {
+                  e.preventDefault();
+                  
+                } 
+               } type="button">Bot</Button>
           </Row>
         </Form>
         <Row style={{marginTop: "30px"}}>
