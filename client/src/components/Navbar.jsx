@@ -5,7 +5,6 @@ import Search from '../containers/searchContainer';
 import Notifications from '../containers/notificationContainer';
 
 class NavBar extends Component {
-  
   render() {
     return (
       <Navbar default collapseOnSelect staticTop>
@@ -30,13 +29,20 @@ class NavBar extends Component {
         <Search />
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavDropdown eventKey={1} title={this.props.currentuser.first_name + "'s Account"} id="basic-nav-dropdown">
-              <MenuItem eventKey={1.1} componentClass={Link} href={`/profile/${this.props.currentUserId}`} to={`/profile/${this.props.currentUserId}`}>Profile</MenuItem>
-              <MenuItem eventKey={1.2} componentClass={Link} href="/sellerDashboard" to="/sellerDashboard">Sell</MenuItem>
-              <MenuItem eventKey={1.3} componentClass={Link} href="/messages" to="/messages">Messages</MenuItem>
-              <MenuItem eventKey={1.4} componentClass={Link} href="/login" to="/login">Login</MenuItem>
-              <MenuItem eventKey={1.5} componentClass={Link} to='/' onFocus={e => this.props.handleLogout(e)}>Logout</MenuItem>
-            </NavDropdown>
+            {this.props.currentUserId ? 
+              (
+                <NavDropdown eventKey={1} title={this.props.currentuser.first_name + "'s Account"} id="basic-nav-dropdown">
+                  <MenuItem eventKey={1.1} componentClass={Link} href={`/profile/${this.props.currentUserId}`} to={`/profile/${this.props.currentUserId}`}>Profile</MenuItem>
+                  <MenuItem eventKey={1.2} componentClass={Link} href="/sellerDashboard" to="/sellerDashboard">Sell</MenuItem>
+                  <MenuItem eventKey={1.3} componentClass={Link} href="/messages" to="/messages">Messages</MenuItem>
+                  <MenuItem eventKey={1.7} componentClass={Link} href="/" to="/" onFocus={e => this.props.handleLogout(e)}>Logout</MenuItem>
+                </NavDropdown>)
+              : (
+                <NavDropdown eventKey={1} title={this.props.currentuser.first_name + "'s Account"} id="basic-nav-dropdown">
+                  <MenuItem eventKey={1.4} componentClass={Link} href="/login" to="/login">Login</MenuItem>
+                  <MenuItem eventKey={1.4} componentClass={Link} href="/signup" to="/signup">Sign Up</MenuItem>
+                </NavDropdown>)
+            }
             <NavItem eventKey={2} componentClass={Link} href="/orders" to="/orders">
               Orders
             </NavItem>
