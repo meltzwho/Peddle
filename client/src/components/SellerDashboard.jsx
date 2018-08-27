@@ -11,7 +11,7 @@ class SellerDashboard extends Component {
   state = {is_seller: false};
 
   componentDidMount() {
-    let userId = this.props.currentUserId ? this.props.currentUserId : 1;
+    let userId = this.props.currentUserId;
     this.props.fetchUserListings(userId);
     const cookies = new Cookies;
     let cookie = cookies.get('stripe');

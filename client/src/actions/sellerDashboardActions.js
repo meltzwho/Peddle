@@ -1,13 +1,24 @@
+import axios from 'axios';
+
+export const fetchUserListings = (userId) => {
+  return (dispatch) => {
+    dispatch(fetchListingsStart());
+    return axios.get('/sellerDashboard/listings', {params: {userId: userId}})
+      .then(response => dispatch(fetchListingsSuccess(response.data)),
+        error => dispatch(fetchListingsFail()));
+  };
+};
+
 export const fetchListingsStart = () => ({type: 'FETCH_LISTINGS_START'});
 
-export const fetchListingsSuccess = (listings) => (
-  {
+export const fetchListingsSuccess = (listings) => {
+  return ({
     type: 'FETCH_LISTINGS_SUCCESS',
     payload: {
       listings: listings
     }
-  }
-);
+  })
+};
 
 
 export const fetchListingsFail = () => ({type: 'FETCH_LISTINGS_FAIL'});
