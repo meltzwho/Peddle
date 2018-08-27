@@ -58,6 +58,6 @@ module.exports = {
       } else {
         res.send(response);
       }
-    })
+    });
   }
 };

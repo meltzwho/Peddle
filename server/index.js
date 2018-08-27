@@ -25,9 +25,9 @@ const imageRoutes = require('./routes/imageRoutes');
 const ratingsRoutes = require('./routes/ratingsRoutes');
 const sellerDashboardRoutes = require('./routes/sellerDashboardRoutes');
 const progressBarRoutes = require('./routes/progressBarRoutes');
-const paymentRoutes = require('./routes/paymentRoutes');
 const ordersRoutes = require('./routes/ordersRoutes');
 const profileRoutes = require('./routes/profileRoutes');
+const stripeRoutes = require('./routes/stripeRoutes');
 
 
 require('./helpers/googleAuthSetup');
@@ -71,9 +71,9 @@ app.use('/imageUpload', imageUploadRoutes);
 app.use('/ratings', ratingsRoutes);
 app.use('/sellerDashboard', sellerDashboardRoutes);
 app.use('/progressBar', progressBarRoutes);
-app.use('/p', paymentRoutes);
 app.use('/orders', ordersRoutes);
 app.use('/profile', profileRoutes);
+app.use('/stripe', stripeRoutes);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
