@@ -29,14 +29,13 @@ export default class SignUp extends React.Component {
       username: splitEmail[0],
       password: this.state.password
     };
-    console.log('form:', formContents);
+   
     axios({
       method: 'post',
       url: '/signup/create',
       data: { formContents }
     })
       .then(response => {
-        console.log('userID before rating:', response.data.id_user);
         
         //now set a default rating for this user
         axios({
@@ -44,7 +43,6 @@ export default class SignUp extends React.Component {
           url: '/signup/rating',
           data: { ID: response.data.id_user }
         })
-          .then( (res) => console.log('after db rating:', res.data))
           .catch(err => {console.error(err)});
 
         this.props.handleLogin(response.data);
@@ -84,6 +82,7 @@ export default class SignUp extends React.Component {
                 </Col>
                 <Col sm={10}>
                   <FormControl 
+                    id="signup-firstName"
                     type="text"
                     name="firstname"
                     placeholder="Enter FirstName..." 
@@ -98,7 +97,8 @@ export default class SignUp extends React.Component {
                   Last Name
                 </Col>
                 <Col sm={10}>
-                  <FormControl 
+                  <FormControl
+                    id="signup-lastName" 
                     type="text" 
                     name="lastname"
                     placeholder="Enter Last Name..." 
@@ -114,6 +114,7 @@ export default class SignUp extends React.Component {
                 </Col>
                 <Col sm={10}>
                   <FormControl 
+                    id="signup-email"
                     type="email"
                     name="email"
                     placeholder="Enter Email..."
@@ -129,6 +130,7 @@ export default class SignUp extends React.Component {
                 </Col>
                 <Col sm={10}>
                   <FormControl 
+                    id="signup-password"
                     type="password"
                     name="password"
                     placeholder="Enter Password..." 
@@ -141,6 +143,7 @@ export default class SignUp extends React.Component {
               <FormGroup>
                 <Col smOffset={2} sm={10}>
                   <Button 
+                    id="signup-submit"
                     type="submit"
                     onClick={this.handleSubmit}
                   >Create Your Account

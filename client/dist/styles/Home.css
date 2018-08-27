@@ -1,11 +1,160 @@
 
+a {
+  text-decoration: none !important;
+}
+
+.base-button-wrap {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* BUTTONS */
+.elip-l {
+  background: rgb(175, 170, 170);
+  border: none;
+  border-radius: 10px 50px 10px; 
+  box-shadow: 0 20px 20px rgba(0,0,0,.5);
+  height: 14vw;
+  width: 14vw;
+}
+
+.elip-r {
+  background: rgb(175, 170, 170);
+  border-radius: 50px 10px 50px; 
+  box-shadow: 0 20px 20px rgba(0,0,0,.5);
+  height: 14vw;
+  width: 14vw;
+}
+
+.elip-l:hover .thumb,
+.elip-l:focus .thumb {
+  transform: scale(1.1);
+}
+.elip-r:hover .thumb,
+.elip-r:focus .thumb {
+  transform: scale(1.1);
+}
+
+.thumb { 
+  height: 100%;
+  transition: all 1s;
+  opacity: .9;
+  width: 100%;
+}
+
+.thumb1 {
+  background: url('../assets/thumbnails/gaming.jpg');
+  border-radius: 10px 50px 10px;
+}
+.thumb2 {
+  background: url('../assets/thumbnails/phone.jpg');
+  border-radius: 10px 50px 10px;
+}
+.thumb3 {
+  background: url('../assets/thumbnails/computer.jpg');
+  border-radius: 50px 10px 50px; 
+}
+.thumb4 {
+  background: url('../assets/thumbnails/headphones.jpg');
+  border-radius: 50px 10px 50px; 
+}
+.thumb5 {
+  background: url('../assets/thumbnails/sheets.jpg');
+  border-radius: 10px 50px 10px;
+}
+.thumb6 {
+  background: url('../assets/thumbnails/lamp.jpg');
+  border-radius: 10px 50px 10px;
+}
+.thumb7 {
+  background: url('../assets/thumbnails/furniture.jpg');
+  border-radius: 50px 10px 50px; 
+}
+.thumb8 {
+  background: url('../assets/thumbnails/wallart.jpg');
+  border-radius: 50px 10px 50px; 
+}
+.thumb9 {
+  background: url('../assets/thumbnails/albums.jpg');
+  border-radius: 10px 50px 10px;
+}
+.thumb10 {
+  background: url('../assets/thumbnails/instruments.jpg');
+  border-radius: 10px 50px 10px;
+}
+.thumb11 {
+  background: url('../assets/thumbnails/radio.jpg');
+  border-radius: 50px 10px 50px; 
+}
+.thumb12 {
+  background: url('../assets/thumbnails/tickets.jpg');
+  border-radius: 50px 10px 50px; 
+}
+.thumb13 {
+  background: url('../assets/thumbnails/gardentools.jpg');
+  border-radius: 10px 50px 10px;
+}
+.thumb14 {
+  background: url('../assets/thumbnails/garden-pots.jpg');
+  border-radius: 10px 50px 10px;
+}
+.thumb15 {
+  background: url('../assets/thumbnails/seeds.jpg');
+  border-radius: 50px 10px 50px; 
+}
+.thumb16 {
+  background: url('../assets/thumbnails/pond.jpg');
+  border-radius: 50px 10px 50px; 
+}
+.thumb17 {
+  background: url('../assets/thumbnails/twitter.jpg');
+  border-radius: 10px 50px 10px;
+}
+.thumb18 {
+  background: url('../assets/thumbnails/gmail.jpg');
+  border-radius: 10px 50px 10px;
+}
+.thumb19 {
+  background: url('../assets/thumbnails/facebook.png');
+  border-radius: 50px 10px 50px; 
+}
+.thumb20 {
+  background: url('../assets/thumbnails/instagram.jpg');
+  border-radius: 50px 10px 50px; 
+}
+
+
 /* GROUPS */
 #group1 {
   z-index: 5;
 }
 #group1 .parallax-base {
-  background-color: #ad0054;
-  background-image: url('../assets/textures/crisp-paper-ruffles.png');
+  
+  background-color: #006b07f5;
+  background-image: url('../assets/textures/noisy-grid.png');
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+}
+.base-text {
+  bottom: 0;
+  color: rgb(250, 247, 246);
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 9vw;
+  font-weight: 900;
+  text-shadow: 0 1px 0 #ccc, 
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
 }
 
 #group2 {
@@ -19,8 +168,11 @@
   z-index: 4;
 }
 #group3 .parallax-base {
-  background: rgb(90, 90, 238);
+  background: rgba(90, 90, 238, 0.959);
   background-image: url('../assets/textures/crisp-paper-ruffles.png');
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
 }
 
 #group4 {
@@ -34,8 +186,11 @@
   z-index: 3;
 }
 #group5 .parallax-base {
-  background: rgb(243, 240, 80);
-  background-image: url('../assets/textures/crisp-paper-ruffles.png');
+  background-color: #007a8af6;
+  background-image: url('../assets/textures/flowers.png');
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
 }
 
 #group6 {
@@ -49,12 +204,37 @@
   z-index: 3;
 }
 #group7 .parallax-base {
-  background: rgb(80, 238, 243);
-  background-image: url('../assets/textures/crisp-paper-ruffles.png');
+  background: rgba(210, 240, 42, 0.877);
+  background-image: url('../assets/textures/argyle.png');
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
 }
 
+#group8 {
+  z-index: 2;
+}
+#group8 .parallax-background {
+  object-fit: cover;
+}
+
+#group9 {
+  z-index: 3;
+}
+#group9 .parallax-base {
+  background: rgba(245, 84, 205, 0.966);
+  background-image: url('../assets/textures/black-scales.png');
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+}
+
+/* .home-wrapper {
+  height: 50vh;
+} */
+
 .parallax {
-  height: 100vh;
+  height: 80vh;
   overflow-x: hidden;
   overflow-y: auto;
   perspective: 250px;
@@ -69,22 +249,17 @@
   left: 0;
 }
 
-.first {
-  position: relative;
-  height: 100vh;
-  transform-style: preserve-3d;
-}
-
 .parallax__group {
   position: relative;
-  height: 50vh;
+  /* height: 60vh; */
+  height: 30vw;
   transform-style: preserve-3d;
 }
 
 .parallax-base {
   font-family: 'M PLUS Rounded 1c', sans-serif;
-  font-size: 40px;
-  line-height: 40px;
+  font-size: 10vw;
+  /* line-height: 40px; */
   transform: translateZ(0);
   text-align: center;
   vertical-align: middle;
@@ -92,12 +267,12 @@
 }
 .parallax-background {
   background-size: contain;
-  height: 60vh;
+  /* height: 60vh; */
+  height: 30vw;
   transform: translateZ(-100px) scale(2);
   width: 100%;
   z-index: 3;
 }
-
 
 
 
