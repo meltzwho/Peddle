@@ -1,7 +1,7 @@
 const db = require('../../db/index.js').pool;
 
 module.exports = {
-  aggregateData: (id) => {
+  aggregateData: (id, userId) => {
     
     return db.connect()
       .then(client => {
@@ -21,11 +21,11 @@ module.exports = {
       });
   },
 
-  removeItem: (id) => {
+  removeItem: (id, userId) => {
     return db.connect()
       .then(client => {
-        let query = 'DELETE FROM cart_line_item WHERE id_listing=$1';
-        return client.query(query, [id])
+        let query = 'DELETE FROM cart_line_item WHERE id_listing=$1 AND id_user = $2';
+        return client.query(query, [id, userId])
           .then(res => {
               
             client.release();
@@ -44,7 +44,7 @@ module.exports = {
   addToCart: (listingId, userId, quantity) => {
     return db.connect()
       .then(client => {
-        client.query('SELECT * FROM cart_line_item WHERE id_listing = $1', [listingId])
+        client.query('SELECT * FROM cart_line_item WHERE id_listing = $1 AND id_user = $2', [listingId, userId])
           .then((results) => {
             if (results.rows.length === 0) {
 
@@ -57,10 +57,8 @@ module.exports = {
                 })
                 .catch(e => {client.release();});
             } else { 
-              let query = 'UPDATE cart_line_item SET quantity = $1 WHERE id_listing=$2';
-              console.log(Number(results.rows[0].quantity) + Number(quantity));
-              
-              return client.query(query, [Number(results.rows[0].quantity) + Number(quantity), listingId])
+              let query = 'UPDATE cart_line_item SET quantity = $1 WHERE id_listing=$2 AND id_user = $3';              
+              return client.query(query, [Number(results.rows[0].quantity) + Number(quantity), listingId, userId])
                 .then(res => {
                   
                   client.release();
@@ -95,13 +93,14 @@ module.exports = {
       });
   },
 
-  updateQuantity: (id, quantity) => {
+  updateQuantity: (id, quantity, userId) => {
+    
     return db.connect()
       .then(client => {
         
-        let query = 'UPDATE cart_line_item SET quantity = $1 WHERE id_listing=$2';
+        let query = 'UPDATE cart_line_item SET quantity = $1 WHERE id_listing=$2 AND id_user = $3';
         
-        return client.query(query, [quantity, id])
+        return client.query(query, [quantity, id, userId])
           .then(res => {
             
             client.release();
