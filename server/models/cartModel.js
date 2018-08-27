@@ -44,14 +44,32 @@ module.exports = {
   addToCart: (listingId, userId, quantity) => {
     return db.connect()
       .then(client => {
-        let sqlQuery = 'INSERT INTO listing_image (id_listing, id_user, quantity) VALUES ($1, $2, $3)';
-        let params = [listingId, userId, quantity];
-        return client.query(sqlQuery, params)
-          .then(res => {
-            client.release();
-            
-          })
-          .catch(e => {client.release();});
+        client.query('SELECT * FROM cart_line_item WHERE id_listing = $1', [listingId])
+          .then((results) => {
+            if (results.rows.length === 0) {
+
+              let sqlQuery = 'INSERT INTO cart_line_item (id_listing, id_user, quantity) VALUES ($1, $2, $3)';
+              let params = [listingId, userId, quantity];
+              return client.query(sqlQuery, params)
+                .then(() => {            
+                  client.release();
+                  
+                })
+                .catch(e => {client.release();});
+            } else { 
+              let query = 'UPDATE cart_line_item SET quantity = $1 WHERE id_listing=$2';
+              console.log(Number(results.rows[0].quantity) + Number(quantity));
+              
+              return client.query(query, [Number(results.rows[0].quantity) + Number(quantity), listingId])
+                .then(res => {
+                  
+                  client.release();
+                  return res.rows;
+                })
+                .catch(e => {client.release();});
+            }
+          });
+
       })
       .catch(e => {
         console.error('[model] error getting pool connection', e);
@@ -63,8 +81,7 @@ module.exports = {
       .then(client => {
         
         return client.query('SELECT * FROM cart_line_item WHERE id_user=$1', [id])
-          .then(res => {
-            
+          .then(res => {            
             client.release();
             return res.rows;
           })

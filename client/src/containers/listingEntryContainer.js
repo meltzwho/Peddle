@@ -7,6 +7,7 @@ import ListingEntry from '../components/ListingEntry';
 const mapStateToProps = (state) => {
   return {
     listing: state.listingEntry,
+    userId: state.user.userId
   };
 };
 

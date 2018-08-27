@@ -34,7 +34,7 @@ const CartItems = (props) => {
             </a>
           </div>
     
-          <div>Qty Available: {item.quantity.length}</div>
+          <div>Qty Available: {item.quantityAvail}</div>
           <div>Condition: {item.condition}</div>
         </Col>
 
@@ -49,9 +49,10 @@ const CartItems = (props) => {
             className="quantity_select"
             value={props.optionState} 
             onChange={e => props.handleQuantitySelect(e, index)}
+            value={item.quantityCustomerWants}
           >
             {
-              item.quantity.map( each => {
+              item.quantity.map( (each, i) => {
                 return (
                   <option 
                     className="quantity_select_item"
