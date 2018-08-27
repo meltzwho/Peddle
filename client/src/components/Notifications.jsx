@@ -4,11 +4,11 @@ import {NavDropdown, MenuItem, Glyphicon, Badge} from 'react-bootstrap';
 class Notifications extends Component {
 
   componentDidMount() {
-    this.checkNotifs();
+    // this.checkNotifs();
   }
   checkNotifs() {
-    this.props.checkNotification(this.props.id_user);
-    setTimeout(() => { this.checkNotifs(); }, 60000);
+    // this.props.checkNotification(this.props.id_user);
+    // setTimeout(() => { this.checkNotifs(); }, 60000);
   }
 
   render() {

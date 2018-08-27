@@ -74,6 +74,7 @@ export default class Login extends React.Component {
                   </Col>
                   <Col sm={8}>
                     <FormControl 
+                      id="login-email"
                       type="email"
                       name="email" 
                       placeholder="Enter Email..." 
@@ -91,6 +92,7 @@ export default class Login extends React.Component {
                   </Col>
                   <Col sm={8}>
                     <FormControl 
+                      id="login-password"
                       type="password" 
                       name="password"
                       placeholder="Enter Password..." 
@@ -105,6 +107,7 @@ export default class Login extends React.Component {
                 <FormGroup>
                   <Col smOffset={2} sm={8}>
                     <Button
+                      id="login-submit"
                       bsStyle="primary" 
                       bsSize="large" 
                       block

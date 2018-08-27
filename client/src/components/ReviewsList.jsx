@@ -28,7 +28,7 @@ class ReviewsList extends Component {
             <h2>Ratings & Reviews</h2>
           </Col>
           <Col xs={4} sm={4}>
-            <h2><Button><Link to={`/reviewEntryForm/${this.props.listing.id_listing}`}>Write a Review</Link></Button></h2>
+            <h2><Link to={`/reviewEntryForm/${this.props.listing.id_listing}`}><Button>Write a Review</Button></Link></h2>
           </Col>
         </Row>
         <Row>
