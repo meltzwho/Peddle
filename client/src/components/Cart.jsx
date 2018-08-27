@@ -58,8 +58,8 @@ export default class Cart extends React.Component {
               let data = result[0];
               
               data.quantityCustomerWants = Number(result.quantityCustomerWants);
+              data.quantityAvail = result[0].quantity;
               data.quantity = Array.apply(null, Array(data.quantityCustomerWants > data.quantity ? data.quantityCustomerWants : data.quantity)).map((x, idx) => idx + 1);
-              data.quantityAvail = result[1].quantity;
               data.sellerUsername = result[0].username;
               
               consolidateData.push(data);
