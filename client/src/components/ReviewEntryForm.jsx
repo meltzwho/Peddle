@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Form, FormGroup, FormControl, ControlLabel, Well, Button } from 'react-bootstrap';
+import { Grid, Row, Col, Form, FormGroup, FormControl, ControlLabel, Well, Button, Alert } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 
 class ReviewEntryForm extends Component {
@@ -21,8 +21,8 @@ class ReviewEntryForm extends Component {
         title: this.state.title,
         description: this.state.description
       })
-        .then(res => {
-          console.log(res)
+        .then(() => {
+          alert("Your post has been created");
         })
         .catch(err => console.error(err))
     }
