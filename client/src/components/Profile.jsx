@@ -12,9 +12,11 @@ class Profile extends Component {
   componentDidMount() {
     //grab the userId from the query string
     let userId = this.props.location.pathname.substr(9);
-    this.props.fetchUserDetails(userId);
-    this.props.fetchUserListings(userId);
-    this.props.fetchUserRating(userId);
+    if (userId !== 'null') {
+      this.props.fetchUserDetails(userId);
+      this.props.fetchUserListings(userId);
+      this.props.fetchUserRating(userId);
+    }
   }
   getRatingBySellerId() {
     axios.get(`/ratings/userId/${this.state.user.id_user}`)
@@ -28,6 +30,11 @@ class Profile extends Component {
       });
   }
   render() {
+    if (!this.props.userProfile.userDetails.id_user) {
+      return (
+        <h1>You must be logged in to view your profile</h1>
+      )
+    };
     //logic to display the edit button if the currently logged in user is the same as this profile
     let userId = this.props.location.pathname.substr(9);
     let editButton = this.props.currentUserId === parseInt(userId) ? 
