@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
-import axios from 'axios';
-import { fetchListingsStart, fetchListingsSuccess, fetchListingsFail, closeModal } from '../actions/sellerDashboardActions';
+import { fetchUserListings, closeModal } from '../actions/sellerDashboardActions';
 import { editExistingListing } from'../actions/sellEntryAction';
 import SellerDashboard from '../components/SellerDashboard';
 
@@ -15,15 +14,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
 
     fetchUserListings: (userId) => {
-      dispatch(fetchListingsStart());
-      axios.get('/sellerDashboard/listings', {params: {userId: userId}})
-        .then(response => {
-          dispatch(fetchListingsSuccess(response.data)),
-          error => {
-            console.error('an error occured fetching the listings', error);
-            dispatch(fetchListingsFail());
-          };
-        });
+      dispatch(fetchUserListings(userId));
     },
     closeFailModal: () => {
       dispatch(closeModal());
