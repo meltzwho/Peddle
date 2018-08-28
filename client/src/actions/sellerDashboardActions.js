@@ -24,3 +24,11 @@ export const fetchListingsSuccess = (listings) => {
 export const fetchListingsFail = () => ({type: 'FETCH_LISTINGS_FAIL'});
 
 export const closeModal = () => ({type: 'CLOSE_MODAL'});
+
+export const addTrackingData = (details) => {
+  return (dispatch) => {
+    return axios.post('/sellerDashboard/tracking', details)
+      .then(response => console.log('response', response),
+        error => console.log('error posting tracking data', error));
+  }
+}

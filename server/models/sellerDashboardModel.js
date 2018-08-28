@@ -27,5 +27,34 @@ module.exports = {
         });
       }
     });
+  },
+  updateTrackingData: (details, callback) => {
+    console.log('details', details)
+    db.connect((err, client, release) => {
+      if (err) {
+        console.error('there was an error getting the connection from the pool', err);
+      } else {
+        client.query('BEGIN');
+        client.query(' UPDATE order_line_item SET is_shipped=1 WHERE id_listing =$1', [details.listingId], (err, qry) => {
+          if (err) {
+            callback(err);
+          }
+        });
+        client.query('UPDATE listing SET tracking_number=$1, shipping_carrier=$2 WHERE id_listing=$3', [details.trackingNo, details.carrier, details.listingId], (err, qry) => {
+          if (err) {
+            callback(err);
+          }
+        });
+        client.query('COMMIT', (err, qry) => {
+          if (err) {
+            callback(err);
+          } else {
+            release();
+            callback(null, qry.rows);
+
+          }
+        });
+      }
+    });
   }
 };
