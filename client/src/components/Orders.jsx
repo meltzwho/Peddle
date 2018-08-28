@@ -7,7 +7,7 @@ class Orders extends Component {
   state = {}
 
   componentDidMount() {
-    let userId = this.props.currentUserId ? this.props.currentUserId : 2;
+    let userId = this.props.currentUserId;
     this.props.fetchUserOrders(userId);
   }
 

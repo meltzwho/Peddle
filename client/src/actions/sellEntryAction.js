@@ -83,6 +83,7 @@ export const postListing = (listing) => {
   };
 };
 
+
 export const postListingStart = () => ({type: 'POST_LISTING_START'});
 
 export const listingPostSuccessful = () => ({type: 'LISTING_POST_SUCCESS'});

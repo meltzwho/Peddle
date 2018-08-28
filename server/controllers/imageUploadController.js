@@ -5,6 +5,7 @@ const axios = require('axios');
 module.exports = {
 
   newPicture: (req, res) => {
+    
     axios.post('https://qmirm3igzf.execute-api.us-east-1.amazonaws.com/Development/', req.files)
       .then(response => res.send(response.data))
       .catch(err => console.log('error uploading the image to s3', err));
@@ -19,6 +20,7 @@ module.exports = {
     });
   }
 };
+
 
 // CODE FOR UPLOAD WHEN FUNCTIONALIRY WAS ON SERVER, NOW A CALLBACK
 // newPicture: (req, res) => {
