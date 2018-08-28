@@ -59,7 +59,7 @@ const sellerProfiles = [
     firstName: 'Kate',
     lastName: 'Jones',
     email: 'kate32@gmail.com',
-    password: 'Kate123'
+    password: 'Katec123'
   }
 ];
 

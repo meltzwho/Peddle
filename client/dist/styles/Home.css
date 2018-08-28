@@ -15,16 +15,16 @@ a {
   border: none;
   border-radius: 10px 50px 10px; 
   box-shadow: 0 20px 20px rgba(0,0,0,.5);
-  height: 12vw;
-  width: 12vw;
+  height: 13vw;
+  width: 13vw;
 }
 
 .elip-r {
   background: rgb(175, 170, 170);
   border-radius: 50px 10px 50px; 
   box-shadow: 0 20px 20px rgba(0,0,0,.5);
-  height: 12vw;
-  width: 12vw;
+  height: 13vw;
+  width: 13vw;
 }
 
 .elip-l:hover .thumb,
@@ -37,9 +37,8 @@ a {
 }
 
 .thumb { 
-  background-position: center;
-  /* background-size: cover; */
-  background-size: 100% 100%;
+  background-position: center !important;
+  background-size: cover !important;
   height: 100%;
   transition: all 1s;
   opacity: .9;
