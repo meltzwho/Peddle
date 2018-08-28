@@ -4,7 +4,7 @@ module.exports = {
 
   aggregateData: (req, res) => {
     
-    db.aggregateData(req.query.ID)
+    db.aggregateData(req.query.ID, req.query.userID)
       .then(data => {
         res.json(data);
       })
@@ -15,7 +15,7 @@ module.exports = {
   },
 
   removeItem: (req, res) => {
-    db.removeItem(req.body.ID)
+    db.removeItem(req.body.ID, req.body.userID)
       .then(data => {
         res.json(data);
       })
@@ -26,7 +26,7 @@ module.exports = {
   },
 
   updateQuantity: (req, res) => {
-    db.updateQuantity(req.body.ID, req.body.quantity)
+    db.updateQuantity(req.body.ID, req.body.quantity, req.body.userID)
       .then(data => {
         res.json(data);
       })
@@ -38,7 +38,7 @@ module.exports = {
 
   addToCart: (req, res) => {
     db.addToCart(req.params.listingId, req.params.userId, req.params.quantity)
-      .then(() => {
+      .then((res1) => {
         console.log('[controller] added to cart');
         res.sendStatus(200);
       })

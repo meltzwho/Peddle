@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
 import { Button } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 import config from '../../../config';
 
 class Stripe extends Component {
@@ -11,7 +12,7 @@ class Stripe extends Component {
       source: token.id,
       currency: currency,
       transfer_group: 'USERID+TIMESTAMP'
-    });
+    }).then(()=> this.props.history.push('/orders'));
     addresses; //create order and add address to DB
   }
 
@@ -19,11 +20,11 @@ class Stripe extends Component {
     return (
       <StripeCheckout
         name="Peddle" // the pop-in header title
-        description={this.props.listing.title} // the pop-in header subtitle
+        description='Pay for your order' // the pop-in header subtitle
         // image="https://www.vidhub.co/assets/logos/vidhub-icon-2e5c629f64ced5598a56387d4e3d0c7c.png" // the pop-in header image (default none)
         ComponentClass="div"
         panelLabel="Purchase" // prepended to the amount in the bottom pay button
-        amount={this.props.listing.price * 100} // cents
+        amount={this.props.price * 100} // cents
         currency="USD"
         stripeKey={config.stripe.stripe_public_key}
         locale="en"
@@ -40,7 +41,7 @@ class Stripe extends Component {
         alipay={false} // accept Alipay (default false)
         bitcoin={false} // accept Bitcoins (default false)
         allowRememberMe // "Remember Me" option (default true)
-        token={this.onToken(this.props.listing.price * 100, 'USD')} // submit callback
+        token={this.onToken(this.props.price * 100, 'USD')} // submit callback
         opened={this.onOpened} // called when the checkout popin is opened (no IE6/7)
         closed={this.onClosed} // called when the checkout popin is closed (no IE6/7)
         // Note: `reconfigureOnUpdate` should be set to true IFF, for some reason
@@ -50,14 +51,14 @@ class Stripe extends Component {
         // useful if you're using React-Tap-Event-Plugin
         // triggerEvent="onTouchTap"
       >
-        <Button className="btn btn-primary">
-          Buy Now
-        </Button>
+        {/* <Button className="btn btn-primary">
+          <
+        </Button> */}
       </StripeCheckout>
     );
   }
 }
 
-export default Stripe;
+export default withRouter(Stripe);
 
 //https://www.robinwieruch.de/react-express-stripe-payment

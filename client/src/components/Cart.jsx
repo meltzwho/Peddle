@@ -34,13 +34,18 @@ export default class Cart extends React.Component {
         } 
         
         // now aggregate the information about the cart item
-        res.data.forEach( item => {
+        res.data.forEach( item => {          
           promises.push(
             axios.get(
               '/cart/aggregate', 
-              { params: { ID: item.id_listing } } 
+              {
+                params: {
+                  ID: item.id_listing,
+                  userID: this.props.currentuser.id_user
+                }
+              }
             )
-              .then(res => { return res.data; })
+              .then(res => { return {...res.data, quantityCustomerWants: item.quantity }; })
           );
         });
 
@@ -52,15 +57,15 @@ export default class Cart extends React.Component {
               
               let data = result[0];
               
-              data.quantityCustomerWants = 1;
-              data.quantity = Array.apply(null, Array(result[0].quantity)).map( (x, idx) => idx + 1);
-              
+              data.quantityCustomerWants = Number(result.quantityCustomerWants);
+              data.quantityAvail = result[0].quantity;
+              data.quantity = Array.apply(null, Array(data.quantityCustomerWants > data.quantity ? data.quantityCustomerWants : data.quantity)).map((x, idx) => idx + 1);
               data.sellerUsername = result[0].username;
               
               consolidateData.push(data);
             });
            
-            this.setState({cartitems: consolidateData});
+            this.setState({cartitems: consolidateData});            
             return consolidateData;
           })
           .catch(err => console.error(err));
@@ -77,7 +82,10 @@ export default class Cart extends React.Component {
     axios({
       url: './cart/removeitem', 
       method: 'DELETE', 
-      data: { ID: this.state.cartitems[index].id_listing }
+      data: {
+        ID: this.state.cartitems[index].id_listing,
+        userID: this.props.currentuser.id_user
+      }
     })
       .then( () => {
         this.setState({
@@ -101,7 +109,8 @@ export default class Cart extends React.Component {
       method: 'PUT',
       data: { 
         quantity: event.target.value,
-        ID: item.id_listing
+        ID: item.id_listing,
+        userID: this.props.currentuser.id_user
       }
     })
       .catch(err => console.error(err));

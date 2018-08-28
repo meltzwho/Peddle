@@ -192,11 +192,10 @@ class App extends Component {
       // place a cookie for the user
       this.setACookie(user);
     }
+    this.props.history.push('/');
   };
 
   handleLogout = (e) => {
-    console.log('akked');
-    
     e.preventDefault();
 
     //update redux
@@ -226,15 +225,15 @@ class App extends Component {
       greetFriends: 'Friend',
       cookieValid: false
     }), () => {
-       // find cookies and remove them
-       const cookies = new Cookies;
-       cookies.remove('token');
-       cookies.remove('g_token');
-       cookies.remove('session');
-       cookies.remove('session.sig');
-       cookies.remove('fr');
-       cookies.remove('name');
-       this.props.history.push('/');
+      // find cookies and remove them
+      const cookies = new Cookies;
+      cookies.remove('token');
+      cookies.remove('g_token');
+      cookies.remove('session');
+      cookies.remove('session.sig');
+      cookies.remove('fr');
+      cookies.remove('name');
+      this.props.history.push('/');
     });
   }
 
