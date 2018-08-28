@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import axios from 'axios';
 import {fetchCategories, postListing, editListing, newListing, closeModal} from '../actions/sellEntryAction';
 import SellEntry from '../components/SellEntry';
 
