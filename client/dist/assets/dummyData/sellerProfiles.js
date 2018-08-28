@@ -30,6 +30,36 @@ const sellerProfiles = [
     lastName: 'Shepard',
     email: 'sue32@gmail.com',
     password: 'Sue123'
+  },
+  {
+    firstName: 'Tom',
+    lastName: 'Seller',
+    email: 'tom32@gmail.com',
+    password: 'Tom123'
+  },
+  {
+    firstName: 'May',
+    lastName: 'Cruiz',
+    email: 'may2@gmail.com',
+    password: 'May123'
+  },
+  {
+    firstName: 'Mike',
+    lastName: 'Zen',
+    email: 'mike32@gmail.com',
+    password: 'Mike123'
+  },
+  {
+    firstName: 'Toby',
+    lastName: 'Anderson',
+    email: 'toby32@gmail.com',
+    password: 'Toby123'
+  },
+  {
+    firstName: 'Kate',
+    lastName: 'Jones',
+    email: 'kate32@gmail.com',
+    password: 'Katec123'
   }
 ];
 
