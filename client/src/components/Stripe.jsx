@@ -6,13 +6,17 @@ import { withRouter } from 'react-router-dom';
 import config from '../../../config';
 
 class Stripe extends Component {
+
   onToken = (amount, currency) => (token, addresses) => {
     axios.post('/stripe', {
       amount: amount,
       source: token.id,
       currency: currency,
       transfer_group: 'USERID+TIMESTAMP'
-    }).then(()=> this.props.history.push('/orders'));
+    }).then((response)=> {
+      if (response.data.success.paid) this.props.history.push('/orders');
+      else this.props.handleDecline();
+    });
     addresses; //create order and add address to DB
   }
 

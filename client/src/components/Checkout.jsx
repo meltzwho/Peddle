@@ -4,6 +4,15 @@ import '../../dist/styles/Cart.css';
 import Stripe from './Stripe';
 
 class Checkout extends React.Component {
+
+  state = {
+    decline: false
+  };
+
+  handleDecline = () => {
+    this.setState({decline: true});
+  };
+
   render() {
 
     let cartAmount = this.props.cartitems.reduce( (accum, curr) => {
@@ -59,10 +68,14 @@ class Checkout extends React.Component {
         <Modal.Header closeButton />
         <Modal.Body>
           <Row>
-            <Col xs={12}>
-              <h2>Thank You For Shopping with</h2>
+            <Col sm={6} xs={12}>
+              <h2
+                style={{
+                  marginTop: "50px"
+                }}>
+                Thank You For Shopping with</h2>
             </Col>
-            <Col xs={12}>
+            <Col sm={6} xs={12}>
               <img 
                 className="text-logo"
                 src="/assets/logo-peddle.jpg" 
@@ -76,9 +89,18 @@ class Checkout extends React.Component {
               />
             </Col>
           </Row>
+          {this.state.decline 
+            ? (
+              <Row>
+                <Col xs={12}>
+                  <h2 style={{color: 'red'}}> CARD DECLINED!</h2>
+                </Col>
+              </Row>
+            )
+            : null }
           <Row>
             <Col xs={6} className="checkout-total stripe-button-wrapper">
-              <h3><Stripe price={cartAmount}/></h3>
+              <h3><Stripe price={cartAmount} handleDecline={this.handleDecline}/></h3>
             </Col>
             <Col xs={6} className="checkout-total">
               <h3>{'Total: $' + cartAmount}</h3>
