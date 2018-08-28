@@ -6,10 +6,12 @@ module.exports = {
       if (err) {
         console.error('there was an error getting a connection from the pool');
       } else {
-        let sqlStatement = `SELECT orders.is_paid, line.is_shipped, line.is_completed
+        let sqlStatement = `SELECT orders.is_paid, orders.id_address, line.is_shipped, line.is_completed, address.*
                             FROM orders
                             LEFT OUTER JOIN order_line_item as line
                             ON line.id_order=orders.id_order
+                            LEFT OUTER JOIN address
+                            ON orders.id_address=address.id_address
                             WHERE id_listing=$1`;
         let params = [listingId];
         client.query(sqlStatement, params, (err, res) => {
