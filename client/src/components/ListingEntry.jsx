@@ -20,6 +20,7 @@ class ListingEntry extends Component {
   }
   componentDidMount = () => {
     this.props.getListing(this.props.match.params.listingId);
+    this.setState({id_buyer: this.props.userId});
   }
   handleChange = (e) => {
     this.setState({

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Row, Image, Button, Modal } from 'react-bootstrap';
 import '../../dist/styles/Cart.css';
+import Stripe from './Stripe';
 
 class Checkout extends React.Component {
   render() {
@@ -10,6 +11,7 @@ class Checkout extends React.Component {
     }, 0);
 
     const collection = this.props.cartitems.map( (item, index) => {
+      
       return (
         <Row 
           className="show-grid checkout-item"
@@ -75,15 +77,8 @@ class Checkout extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col xs={6} className="stripe-button-wrapper">
-              <Button 
-                className="stripe-button"
-                bsStyle="warning" 
-                bsSize="large" 
-                // block
-              >
-                Pay with Stripe
-              </Button>
+            <Col xs={6} className="checkout-total stripe-button-wrapper">
+              <h3><Stripe price={cartAmount}/></h3>
             </Col>
             <Col xs={6} className="checkout-total">
               <h3>{'Total: $' + cartAmount}</h3>

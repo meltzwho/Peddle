@@ -11,7 +11,8 @@ import App from '../components/App';
 
 const mapStateToProps = (state) => {
   return {
-    currentUserId: state.user.userId
+    currentUserId: state.user.userId,
+    currentuser: state.user
   };
 };
 
