@@ -60,7 +60,7 @@ class Home extends React.Component {
             <div className="parallax__layer parallax-base">
               <div className="base-button-wrap">
                 <div className="elip-l">
-                  <a href="/listings/videogames">
+                  <a href="/listings/videogame">
                     <div className="thumb thumb1" />
                   </a>
                 </div>

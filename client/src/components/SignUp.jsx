@@ -164,7 +164,7 @@ export default class SignUp extends React.Component {
                 </a>
               </div>
           
-            </Form>;
+            </Form>
           </Grid>
         </div>
       </div>
