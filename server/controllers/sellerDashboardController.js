@@ -48,5 +48,15 @@ module.exports = {
         });
       }
     });
+  },
+  tracking: (req, res) => {
+    console.log('the req body', req.body);
+    db.updateTrackingData(req.body, (err, response) => {
+      if (err) {
+        console.error('controller: there was an error updating the tracking info in the database', err);
+      } else {
+        res.sendStatus(201);
+      }
+    });
   }
 };

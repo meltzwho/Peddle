@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchUserListings, closeModal } from '../actions/sellerDashboardActions';
+import { fetchBuyerAddress, addTrackingData, fetchUserListings, closeModal } from '../actions/sellerDashboardActions';
 import { editExistingListing } from'../actions/sellEntryAction';
 import SellerDashboard from '../components/SellerDashboard';
 
@@ -21,6 +21,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     editListing: (listing) => {
       dispatch(editExistingListing(listing));
+    },
+    submitTrackingData: (details) => {
+      dispatch(addTrackingData(details));
     }
     
 

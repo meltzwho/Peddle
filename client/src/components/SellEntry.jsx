@@ -61,6 +61,7 @@ class SellEntry extends Component {
   handleNewListing = () => {
     this.props.newListing();
     this.setState(this.props.entry);
+    this.props.fetchCategories();
   }
 
   handleGoToListing = () => {

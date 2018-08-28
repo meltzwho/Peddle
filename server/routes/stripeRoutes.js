@@ -3,6 +3,18 @@ const axios = require('axios');
 const config = require('../../config');
 const stripe = require('stripe')(config.stripe.stripe_secret_key);
 
+const postStripeCharge = res => (stripeErr, stripeRes) => {
+  if (stripeErr) {
+    res.status(500).send({
+      error: stripeErr
+    });
+  } else {
+    res.status(200).send({
+      success: stripeRes
+    });
+  }
+}
+
 router.get('/auth', (req, res) => res.redirect('https://dashboard.stripe.com/oauth/authorize?response_type=code&client_id=ca_DOOjboYDVTZcAZ7WkY4ergfWEwINC0sx&scope=read_write'));
 
 router.get('/', (req, res) => {
@@ -23,8 +35,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => { 
-  stripe.charges.create(req.body)
-    .then(() => res.end());
+  stripe.charges.create(req.body, postStripeCharge(res));
 });
 
 module.exports = router;

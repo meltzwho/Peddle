@@ -159,6 +159,10 @@ a {
                0 20px 20px rgba(0,0,0,.15);
 }
 
+.carousel {
+  height: 75vh;
+}
+
 #group2 {
   z-index: 3;
 }
@@ -236,7 +240,7 @@ a {
 } */
 
 .parallax {
-  height: 80vh;
+  height: 75vh;
   overflow-x: hidden;
   overflow-y: auto;
   perspective: 250px;
