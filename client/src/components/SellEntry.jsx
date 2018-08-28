@@ -44,6 +44,7 @@ class SellEntry extends Component {
     }
   }
 
+
   handleCategorySelection = (category) => {
     this.setState({
       selectedCategory: category.category,

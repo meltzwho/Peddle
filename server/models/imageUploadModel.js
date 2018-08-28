@@ -1,5 +1,6 @@
 const db = require('../../db/index.js').pool;
 
+
 module.exports = {
   associateImage: ({imageUrl, listingId}, callback) => {
     db.connect((err, client, release) => {

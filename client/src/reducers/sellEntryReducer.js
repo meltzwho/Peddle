@@ -21,7 +21,6 @@ let newForm = {
   listingId: null
 };
 
-
 const SellEntryReducer = (state = newForm, action) => {
   switch (action.type) {
     case 'EDIT_EXISTING_LISTING':
