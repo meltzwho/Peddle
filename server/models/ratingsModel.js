@@ -34,7 +34,7 @@ module.exports = {
           .catch(e => {
             client.release();
             console.log('[model] error fetching feedback', e);
-          })
+          });
       })
       .catch(e => {
         console.error('[model] error getting pool connection', e);
