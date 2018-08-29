@@ -36,7 +36,6 @@ const mapDispatchToProps = (dispatch) => {
                 return {
                   original: image.image_url,
                   thumbnail: image.image_url,
-                  sizes: '(max-width: 100px) 100px, 100vw'
                 };
               });
               dispatch(getImagesByListingId(images));
