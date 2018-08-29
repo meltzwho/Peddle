@@ -2,29 +2,29 @@ const db = require('../models/ordersModel');
 
 module.exports = {
   fetchOrders: (req, res) => {
+    let counter = 0;
+    let listingIds = {};
+    let orders = {
+      active: [],
+      completed: []
+    };
     db.fetchOrders(req.query, (err, response) => {
       if (err) {
         console.error('controller: there was an error fetching this sellers listings', err);
       } else {
-        if (response.orders === null) {
-          res.send(response);
+        if (response.length === 0) {
+          res.send(orders);
         } else {
-          let listingIds = {};
-          let orders = {
-            active: [],
-            completed: []
-          }
           response.forEach((order, index) => {
             order.listings = [];
             db.fetchOrderDetails(order.id_order, (detailsErr, listResponse) => {
-              
+
               if (detailsErr) {
                 console.error('controller: there was an error fetching this orders listings', detailsErr)
               } else {
                 listResponse.forEach((listing) => {
-                  // console.log('the listing in the server', listing)
                   if (listingIds[listing.id_listing]) {
-                    return;
+                    
                   } else {
                     listingIds[listing.id_listing] = true;
                     order.listings.push(listing);
@@ -35,14 +35,12 @@ module.exports = {
                 } else {
                   orders.active.push(order);
                 }
-                if (index === response.length - 1) {
-                  res.send(orders);
-                }
 
               }
-              
-              
-              
+              counter++;
+              if (counter === response.length) {
+                res.send(orders);
+              }
             });
           });
         }
