@@ -16,7 +16,7 @@ import Messages from './Messages';
 import SellerDashboard from '../containers/sellerDashboardContainer';
 import Navbar from '../containers/navbarContainer';
 import Stripe from './Stripe';
-import ReviewEntryForm from './ReviewEntryForm';
+import ReviewEntryForm from '../containers/reviewEntryFormContainer';
 
 class App extends Component {
   constructor(props) {

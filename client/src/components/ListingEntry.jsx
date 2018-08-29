@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, ButtonToolbar, Modal, Button, Image, Thumbnail } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
-import { 
-  TwitterButton,
-  GooglePlusButton,
-  PinterestButton,
-  EmailButton
-} from 'react-social';
 import axios from 'axios';
 import Stripe from './Stripe';
 import ReviewsList from './ReviewsList';
 import ImageViewer from './ImageViewer';
+import SocialButtons from './SocialButtons';
 
 class ListingEntry extends Component {
   state = {
@@ -20,6 +15,7 @@ class ListingEntry extends Component {
   }
   componentDidMount = () => {
     this.props.getListing(this.props.match.params.listingId);
+    this.props.fetchCart(this.props.userId);
     this.setState({id_buyer: this.props.userId});
   }
   handleChange = (e) => {
@@ -40,7 +36,14 @@ class ListingEntry extends Component {
   render = () => {
     let qty = [];
     if (this.props.listing.listing.quantity !== 0) {
-      for (let i = 1; i <= this.props.listing.listing.quantity; i++) {
+      let listingQuantity = this.props.listing.listing.quantity;
+      for (let j = 0; j < this.props.listing.userCart.length; j++) {
+        if (this.props.listing.listing.id_listing === this.props.listing.userCart[j].id_listing) {
+          listingQuantity -= this.props.listing.userCart[j].quantity;
+        }
+
+      }
+      for (let i = 1; i <= listingQuantity; i++) {
         qty.push(<option key={i} value={i}>{i}</option>);
       }
     } else {
@@ -123,11 +126,7 @@ class ListingEntry extends Component {
           </Row>
           <Row>
             <Col sx={12} sm={12}>
-              <br/>
-              <TwitterButton url={window.location.href}>Share on Twitter</TwitterButton>
-              <GooglePlusButton url={window.location.href}>Share on Google</GooglePlusButton>
-              <PinterestButton url={window.location.href}>Share on Pinterest</PinterestButton>
-              <EmailButton url={window.location.href}>Share via Email</EmailButton>
+              <SocialButtons />
             </Col>
           </Row>
           <br/>
