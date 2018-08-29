@@ -52,6 +52,7 @@ class ReviewsList extends Component {
         values.push({label: '1 Stars', value: 0, fill: '#FF7B65'})
       }
     }
+    console.log(values);
     this.setState({
       values: values
     });
@@ -73,7 +74,7 @@ class ReviewsList extends Component {
               width: '100%',
               height: '250px',
             }}>
-              {this.state.values? (
+              {this.state.values || this.state.values !== [] ? (
                 <SolidGauge
                   responsive
                   selectable
