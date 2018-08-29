@@ -114,7 +114,7 @@ class Checkout extends React.Component {
             : null }
           <Row>
             <Col xs={6} className="checkout-total stripe-button-wrapper">
-              <h3><Stripe price={cartAmount} handleDecline={this.handleDecline}/></h3>
+              <h3><Stripe price={cartAmount} handleDecline={this.handleDecline} user={this.props.currentuser} /></h3>
             </Col>
             <Col xs={6} className="checkout-total">
               <h3>{'Total: $' + cartAmount}</h3>

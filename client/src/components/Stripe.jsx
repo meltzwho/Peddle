@@ -8,14 +8,22 @@ import config from '../../../config';
 class Stripe extends Component {
 
   onToken = (amount, currency) => (token, addresses) => {
-    axios.post('/stripe', {
+    let charge = {
       amount: amount,
       source: token.id,
       currency: currency,
-      transfer_group: 'USERID+TIMESTAMP'
-    }).then((response)=> {
-      if (response.data.success.paid) this.props.history.push('/orders');
-      else this.props.handleDecline();
+      transfer_group: this.props.user.id_user + '-' + Date.now()
+    };
+    axios.post('/stripe', charge).then((response)=> {
+      if (response.data.success.paid) {
+        axios.post('/orders', {
+          id_buyer: this.props.user.id_user,
+          transfer_group: charge.transfer_group,
+          address: addresses
+        })
+          .then(() => this.props.history.push('/orders'));
+        
+      } else this.props.handleDecline();
     });
     addresses; //create order and add address to DB
   }

@@ -1,5 +1,5 @@
 const { release } = require('os');
-const db = require('../../db/index.js').pool;
+const read = require('../../db/index.js').read;
 
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
     let id = req.query.id;
     
     // lookup in db
-    db.connect((err, client) => {
+    read.connect((err, client) => {
       if (err) {
         response.status(500).send(err);
       } else {

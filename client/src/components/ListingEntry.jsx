@@ -7,12 +7,14 @@ import Stripe from './Stripe';
 import ReviewsList from './ReviewsList';
 import ImageViewer from './ImageViewer';
 import SocialButtons from './SocialButtons';
+import '../../dist/styles/ImageViewer.css';
 
 class ListingEntry extends Component {
   state = {
     id_buyer: 1,
-    qty: 1,
-    showCart: false
+    qty: 0,
+    showCart: false,
+    inCart: 0
   }
   componentDidMount = () => {
     this.props.getListing(this.props.match.params.listingId);
@@ -37,15 +39,15 @@ class ListingEntry extends Component {
   render = () => {
     console.log(this.props);
     let qty = [];
+    let listingQuantity = this.props.listing.listing.quantity;
     if (this.props.listing.listing.quantity !== 0) {
-      let listingQuantity = this.props.listing.listing.quantity;
       for (let j = 0; j < this.props.listing.userCart.length; j++) {
         if (this.props.listing.listing.id_listing === this.props.listing.userCart[j].id_listing) {
           listingQuantity -= this.props.listing.userCart[j].quantity;
         }
-
       }
-      for (let i = 1; i <= listingQuantity; i++) {
+      qty.push(<option key="0" value="0">0</option>);
+      for (let i = 1; i <= listingQuantity - this.props.listing.listing.quantity_sold; i++) {
         qty.push(<option key={i} value={i}>{i}</option>);
       }
     } else {
@@ -83,9 +85,11 @@ class ListingEntry extends Component {
             <Col xs={12} sm={2}>
               <ButtonToolbar>
                 <Button
-                  onClick={() => { 
-                    this.handleShowCart(); 
-                    this.handleAddToCart();
+                  onClick={() => {
+                    if (this.state.qty !== 0) {
+                      this.handleShowCart(); 
+                      this.handleAddToCart();
+                    }
                   }}
                 >
                   Add To Cart
@@ -117,7 +121,8 @@ class ListingEntry extends Component {
                   </Modal.Body>
                 </Modal>
               </ButtonToolbar>
-              <div>Qty: 
+              <div>
+              Qty: 
                 <select
                   onChange={this.handleChange}
                   defaultValue={this.state.qty}
@@ -126,7 +131,7 @@ class ListingEntry extends Component {
                 </select>
               </div>
               <div>
-                <Stripe listing={this.props.listing.listing}/>
+                ({this.props.listing.listing.quantity - listingQuantity} already in cart) 
               </div>
             </Col>
           </Row>
