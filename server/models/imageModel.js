@@ -1,9 +1,9 @@
-const db = require('../../db/index.js').pool;
+const read = require('../../db/index.js').read;
 
 
 module.exports = {
   getImagesByListingId: (id) => {
-    return db.connect()
+    return read.connect()
       .then(client => {
         return client.query(`SELECT * FROM listing_image WHERE id_listing=${id}`)
           .then(res => {

@@ -1,6 +1,6 @@
 const { release } = require('os');
 const Cookies = require('universal-cookie');
-const db = require('../../db/index.js').pool;
+const read = require('../../db/index.js').read;
 
 let cookie = new Cookies();
 
@@ -8,7 +8,7 @@ let cookie = new Cookies();
 let isCookieValid = (token, token_timestamp, callback) => {
   
   // lookup the cookie on db
-  db.connect((err, client, release) => {
+  read.connect((err, client, release) => {
     if (err) {
       console.error(err); 
       client.release();

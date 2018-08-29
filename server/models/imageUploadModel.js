@@ -1,9 +1,9 @@
-const db = require('../../db/index.js').pool;
+const write = require('../../db/index.js').write;
 
 
 module.exports = {
   associateImage: ({imageUrl, listingId}, callback) => {
-    db.connect((err, client, release) => {
+    write.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting a connection from the pool');
       } else {

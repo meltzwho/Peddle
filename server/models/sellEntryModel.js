@@ -1,9 +1,10 @@
-const db = require('../../db/index.js').pool;
+const read = require('../../db/index.js').read;
+const write = require('../../db/index.js').write;
 
 
 module.exports = {
   fetchCategories: (callback) => {
-    db.connect((err, client, release) => {
+    read.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting a connection from the pool');
       } else {
@@ -19,8 +20,7 @@ module.exports = {
     });
   },
   addListing: (listing, callback) => {
-    console.log('the listing to insert in the model', listing)
-    db.connect((err, client, release) => {
+    write.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting a connection from the pool');
       } else {
@@ -42,7 +42,7 @@ module.exports = {
     });
   },
   addAddress: (listing, callback) => {
-    db.connect((err, client, release) => {
+    write.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting a connection from the pool');
       } else {
@@ -60,7 +60,7 @@ module.exports = {
     })
   },
   editListing: (listing, callback) => {
-    db.connect((err, client, release) => {
+    write.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting a connection from the pool');
       } else {

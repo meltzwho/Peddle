@@ -28,7 +28,7 @@ class ListingEntry extends Component {
   }
   handleAddToCart = () => {
     axios.post(`/cart/add/${this.props.listing.listing.id_listing}/${this.state.id_buyer}/${this.state.qty}`)
-      .then()
+      .then(this.props.fetchCart(this.props.userId))
       .catch(e => {
         console.error(e);
       });
@@ -37,6 +37,7 @@ class ListingEntry extends Component {
     this.setState({ showCart: !this.state.showCart });
   }
   render = () => {
+    console.log(this.props);
     let qty = [];
     let listingQuantity = this.props.listing.listing.quantity;
     if (this.props.listing.listing.quantity !== 0) {
@@ -57,9 +58,7 @@ class ListingEntry extends Component {
         <Grid>
           <Row className="show-grid">
             <Col xs={12} sm={5}>
-              <Thumbnail>
-                <ImageViewer images={this.props.listing.images} />
-              </Thumbnail>
+              <ImageViewer images={this.props.listing.images} />
             </Col>
             <Col xs={12} sm={5}>
               <h2>{this.props.listing.listing.title}</h2>
@@ -72,14 +71,16 @@ class ListingEntry extends Component {
                 starDimension="16px"
                 starSpacing="0px"
               />
-              {this.props.listing.rating.count === 1 ?
-                <Link smooth to={`/listingEntry/${this.props.listing.listing.id_listing}/#listingReview`}>{this.props.listing.rating.count} review</Link>
-                : <Link smooth to={`/listingEntry/${this.props.listing.listing.id_listing}/#listingReview`}> {this.props.listing.rating.count} reviews</Link>
-              }
-              <div>Price: <h4>${this.props.listing.listing.price}</h4></div>
-              <div>Qty Available: {this.props.listing.listing.quantity - this.props.listing.listing.quantity_sold}</div>
-              <div>Description: {this.props.listing.listing.description}</div>
-              <div>Condition: {this.props.listing.listing.condition}</div>
+              <span id="reviewsLink">
+                {this.props.listing.rating.count === 1 ?
+                  <Link smooth to={`/listingEntry/${this.props.listing.listing.id_listing}/#listingReview`}>{this.props.listing.rating.count} review</Link>
+                  : <Link smooth to={`/listingEntry/${this.props.listing.listing.id_listing}/#listingReview`}> {this.props.listing.rating.count} reviews</Link>
+                }
+              </span>
+              <div><strong>Price: </strong><h4 id="price">${this.props.listing.listing.price}</h4></div>
+              <div><strong>Qty Available: </strong>{this.props.listing.listing.quantity}</div>
+              <div><strong>Description: </strong>{this.props.listing.listing.description}</div>
+              <div><strong>Condition: </strong>{this.props.listing.listing.condition}</div>
             </Col>
             <Col xs={12} sm={2}>
               <ButtonToolbar>
@@ -108,10 +109,12 @@ class ListingEntry extends Component {
                         } 
                       </Col>
                       <Col xs={9}>
-                        <br/><br/><br/>
+                        <br/>
                         <div>
-                          <strong>Cart subtotal: </strong>
-                          {this.state.qty * this.props.listing.listing.price}
+                          <div><strong>{this.props.listing.listing.title}</strong></div>
+                          <div>Quantity Selected: {this.state.qty}</div>
+                          <div>Price: {this.state.qty * this.props.listing.listing.price}</div>
+                          <div><Link to={`/cart`}><Button>View Cart</Button></Link></div>
                         </div>
                       </Col>
                     </Grid>

@@ -1,9 +1,10 @@
-const db = require('../../db/index.js').pool;
+const read = require('../../db/index.js').read;
+const write = require('../../db/index.js').write;
 
 module.exports = {
   aggregateData: (id, userId) => {
     
-    return db.connect()
+    return read.connect()
       .then(client => {
         let query = 'SELECT * FROM listing INNER JOIN users ON listing.id_seller=users.id_user INNER JOIN listing_image ON listing.id_listing=listing_image.id_listing WHERE listing.id_listing=$1';
         
@@ -22,7 +23,7 @@ module.exports = {
   },
 
   removeItem: (id, userId) => {
-    return db.connect()
+    return write.connect()
       .then(client => {
         let query = 'DELETE FROM cart_line_item WHERE id_listing=$1 AND id_user = $2';
         return client.query(query, [id, userId])
@@ -42,7 +43,7 @@ module.exports = {
   },
 
   addToCart: (listingId, userId, quantity) => {
-    return db.connect()
+    return write.connect()
       .then(client => {
         client.query('SELECT * FROM cart_line_item WHERE id_listing = $1 AND id_user = $2', [listingId, userId])
           .then((results) => {
@@ -75,7 +76,7 @@ module.exports = {
   },
 
   lookup: (id) => {
-    return db.connect()
+    return read.connect()
       .then(client => {
         
         return client.query('SELECT * FROM cart_line_item WHERE id_user=$1', [id])
@@ -95,7 +96,7 @@ module.exports = {
 
   updateQuantity: (id, quantity, userId) => {
     
-    return db.connect()
+    return write.connect()
       .then(client => {
         
         let query = 'UPDATE cart_line_item SET quantity = $1 WHERE id_listing=$2 AND id_user = $3';

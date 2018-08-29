@@ -1,8 +1,10 @@
-const db = require('../../db/index.js').pool;
+const read = require('../../db/index.js').read;
+const write = require('../../db/index.js').write;
+
 
 module.exports = {
   getRatingsByUserId: (id) => {
-    return db.connect()
+    return read.connect()
       .then(client => {
         return client.query(`SELECT * FROM rating WHERE id_user=${id}`)
           .then(res => {
@@ -20,9 +22,9 @@ module.exports = {
       });
   },
   getFeedbackByUserId: (id) => {
-    return db.connect()
+    return read.connect()
       .then(client => {
-        return client.query(`SELECT * FROM feedback WHERE id_seller=${id}`)
+        return client.query(`SELECT * FROM feedback WHERE id_seller=${id} ORDER BY timestamp DESC`)
           .then(res => {
             client.release();
             console.log('[model] fetched feedback by userId');
@@ -32,14 +34,14 @@ module.exports = {
           .catch(e => {
             client.release();
             console.log('[model] error fetching feedback', e);
-          })
+          });
       })
       .catch(e => {
         console.error('[model] error getting pool connection', e);
       });
   },
   updateRatingByRatingId: (id_rating, rating, count) => {
-    return db.connect()
+    return write.connect()
       .then(client => {
         return client.query(`UPDATE rating SET rating=${rating}, count=${count} WHERE id_rating=${id_rating};`)
           .then(res => {
@@ -57,7 +59,7 @@ module.exports = {
       });
   },
   addFeedback: (sellerId, buyerId, rating, feedback, listingId, title) => {
-    return db.connect()
+    return write.connect()
       .then(client => {
         let query = 'INSERT INTO feedback(id_seller, id_buyer, rating, feedback, id_listing, title) VALUES($1, $2, $3, $4, $5, $6);';
         let params = [sellerId, buyerId, rating, feedback, listingId, title];
