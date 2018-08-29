@@ -1,10 +1,10 @@
-const db = require('../../db/index.js').pool;
+const read = require('../../db/index.js').read;
 
 
 module.exports = {
   getItems: (query) => {
     console.log(query);
-    return db.connect()
+    return read.connect()
       .then(client => {
         return client.query(
           `SELECT listing.*, category.category, array_agg(image_url) AS images, rating.rating
@@ -28,7 +28,7 @@ module.exports = {
       });
   },
   getListingById: (id) => {
-    return db.connect()
+    return read.connect()
       .then(client => {
         return client.query(`SELECT * FROM listing WHERE id_listing=${id}`)
           .then(res => {
@@ -45,7 +45,7 @@ module.exports = {
       });
   },
   get20: () => {
-    return db.connect()
+    return read.connect()
       .then(client => {
         return client.query('SELECT * FROM listing LIMIT 20') 
           .then(res => {

@@ -2,7 +2,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const {google} = require('../../config.js');
-const db = require('../../db/index.js').pool;
+const write = require('../../db/index.js').write;
 const { setDefaultRating } = require('../models/signupModel');
 
 // initiate our application to google
@@ -15,7 +15,7 @@ passport.use(
     }
     , (accessToken, refreshToken, profile, done) => {
       
-      db.connect((err, client) => {
+      write.connect((err, client) => {
         if (err) {
           return done(err);
         } else {

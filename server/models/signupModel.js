@@ -1,12 +1,11 @@
 
 const uuidv1 = require('uuid');
 const { hashPassword } = require('../helpers/hashPaswords');
-const db = require('../../db/index.js').pool;
-
+const write = require('../../db/index.js').write;
 
 module.exports = {
   signupByEmail: (data, callback) => {
-    db.connect((err, client) => {
+    write.connect((err, client) => {
       if (err) {
         console.error(err); 
       } else {
@@ -33,7 +32,7 @@ module.exports = {
                   const query = 'INSERT INTO users(first_name, last_name, username, email, pwd, token) VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
                   const values = [data.firstname, data.lastname, data.username, data.email, hashed, uuid];
 
-                  db.connect((err, client) => {
+                  write.connect((err, client) => {
                     if (err) {
                       console.error('Error in connection...', err);
                     } else {
@@ -73,7 +72,7 @@ module.exports = {
   },
 
   setDefaultRating: (id, callback) => {
-    db.connect((err, client) => {
+    write.connect((err, client) => {
       if (err) {
         callback(err); 
       } else {

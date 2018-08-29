@@ -13,7 +13,6 @@ class Orders extends Component {
 
 
   render() {
-    console.log(this.props.orders.orders)
     let activeTiles = this.props.orders.orders.active.length > 0 ?
       this.props.orders.orders.active.map((order) => (<OrdersItem key={order.id_order} order={order} active={true} />)) : <Well style={{margin: "20px"}}>Looks like you don't have any active orders</Well>;
     let completedTiles = this.props.orders.orders.completed.length > 0 ? 

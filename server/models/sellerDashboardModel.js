@@ -1,8 +1,9 @@
-const db = require('../../db/index.js').pool;
+const read = require('../../db/index.js').read;
+const write = require('../../db/index.js').write;
 
 module.exports = {
   fetchListings: ({ userId }, callback) => {
-    db.connect((err, client, release) => {
+    read.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting a connection from the pool', err);
       } else {
@@ -29,8 +30,7 @@ module.exports = {
     });
   },
   updateTrackingData: (details, callback) => {
-    console.log('details', details)
-    db.connect((err, client, release) => {
+    write.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting the connection from the pool', err);
       } else {

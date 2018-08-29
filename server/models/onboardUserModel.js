@@ -1,10 +1,10 @@
 
-const db = require('../../db/index.js').pool;
+const read = require('../../db/index.js').read;
 
 module.exports = {
   onboardUser: (data, callback) => {
     
-    db.connect((err, client) => {
+    read.connect((err, client) => {
       if (err) {
         callback(err); 
       } else {

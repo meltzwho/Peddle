@@ -2,7 +2,8 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const passportSetup = require('./helpers/passport-setup');
-const dbConfirmation = require('../db/index').dbConfirmationMessage; // db connection confirmation message
+const writeConfirmation = require('../db/index').writeConfirmationMessage; // db connection confirmation message
+const readConfirmation = require('../db/index').readConfirmationMessage; // db connection confirmation message
 const cookieSession = require('cookie-session');
 const cors = require('cors');
 const passport = require('passport');
@@ -82,7 +83,8 @@ app.get('/*', (req, res) => {
 
 let port = process.env.PORT || 3000;
 
-dbConfirmation();
+writeConfirmation();
+readConfirmation();
 
 app.listen(port, () => {
   console.log(`Connected to port ${port}`);
