@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-import { getListing, getSeller, getRatingById, getFeedbackBySellerId, getImagesByListingId } from '../actions/listingEntryAction';
+import { fetchCart, getListing, getSeller, getRatingById, getFeedbackBySellerId, getImagesByListingId } from '../actions/listingEntryAction';
 import ListingEntry from '../components/ListingEntry';
 
 const mapStateToProps = (state) => {
@@ -45,6 +45,9 @@ const mapDispatchToProps = (dispatch) => {
         .catch(e => {
           dispatch(getListing(e));
         });
+    },
+    fetchCart: (userId) => {
+      dispatch(fetchCart(userId));
     }
   };
 };
