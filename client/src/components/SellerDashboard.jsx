@@ -20,7 +20,7 @@ class SellerDashboard extends Component {
     let userId = this.props.currentUserId;
     this.props.fetchActiveListings(userId);
     this.props.fetchSoldListings(userId);
-    // this.props.fetchUserListings(userId);
+    this.props.fetchInactiveListings(userId);
     const cookies = new Cookies;
     let cookie = cookies.get('stripe');
     if (cookie !== undefined) {
@@ -76,6 +76,8 @@ class SellerDashboard extends Component {
       this.props.listings.active.map((listing) => (<SellerDashboardItem key={listing.id_listing} edit={(e, listing)=>this.edit(e, listing)} listing={listing} active={true} showProgress={false} />)) : <Well style={{margin: "20px"}}>Looks like you don't have any active listings</Well>;
     let completedTiles = this.props.listings.sold.length > 0 ? 
       this.props.listings.sold.map((listing) => (<SellerDashboardItem id={listing.id_listing} key={listing.id_listing} listing={listing} trackingToggle={this.handleTrackingClick} showTrackingModal={this.state.showTrackingModal && this.state.modalId === listing.id_listing} active={false} showProgress={true} carrier={this.state.carrier} trackingNo={this.state.trackingNo} handleModalChange={this.handleModalChange} submitTracking={this.addTrackingData} />)) : <Well style={{margin: "20px"}}>Looks like you don't have any completed listings</Well>;
+    let inactiveTiles = this.props.listings.inactive.length > 0 ? 
+      this.props.listings.inactive.map((listing) => (<SellerDashboardItem id={listing.id_listing} key={listing.id_listing} listing={listing} active={false} showProgress={false}/>)) : <Well style={{margin: "20px"}}>Looks like you don't have any inactive listings</Well>;
 
     return (
       <Grid>
@@ -110,6 +112,9 @@ class SellerDashboard extends Component {
             </Tab>
             <Tab eventKey={2} title={`Sold (${this.props.listings.sold.length})`}>
               {completedTiles}
+            </Tab>
+            <Tab eventKey={3} title={`Inactive (${this.props.listings.inactive.length})`}>
+              {inactiveTiles}
             </Tab>
           </Tabs>
         </Row>
