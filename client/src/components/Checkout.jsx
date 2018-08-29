@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row, Image, Button, Modal } from 'react-bootstrap';
+import { Col, Row, Image, Button, Modal, Panel } from 'react-bootstrap';
 import '../../dist/styles/Cart.css';
 import Stripe from './Stripe';
 
@@ -22,37 +22,51 @@ class Checkout extends React.Component {
     const collection = this.props.cartitems.map( (item, index) => {
       
       return (
-        <Row 
-          className="show-grid checkout-item"
+        <Panel 
+          className="checkout_wrapper" 
+          style={{textAlign: 'center'}} 
           key={Date.now() * Math.random()}
         >
-          <Col xs={3}>
-            <Image 
-              className="cart_image" 
-              style={{width: '100%', objectFit: 'contain'}} 
-              src={item.image_url} 
-              alt="Product sideview"
-              rounded
-            />
-          </Col>
+          <Panel.Heading className="panel-heading">
 
-          <Col xs={5}>
-            <h4>{item.title}</h4>
-            <div>
-              Sold by: 
-              <a href={`/profile/${1}`}>
-                <h3>{item.sellerUsername}</h3>
-              </a>
-            </div>
-            <h5>Condition: {item.condition}</h5>
-          </Col>
+            <Row className="show-grid">
+              <Col sm={6}>
+                <h3 className="shopCart">{item.title}</h3>
+              </Col>
+              <Col smOffset={2} sm={4}>
+                <h3 className="shopCart">
+                  {'$ ' + item.price}
+                </h3>
+              </Col>
+            </Row>
 
-          <Col xs={3} xsOffset={1}>
-            <h4 className="">
-              {'$ ' + item.price}
-            </h4>
-          </Col>
-        </Row>
+          </Panel.Heading>
+          <Panel.Body>
+            <Row className="show-grid">
+              <Col xs={12} sm={6}>
+                <Image 
+                  className="cart_image" 
+                  style={{width: '100%', objectFit: 'contain'}} 
+                  src={item.image_url} 
+                  alt="Product sideview"
+                  rounded
+                />
+              </Col>
+
+              <Col xs={12} sm={6}>
+                <h4>{item.title}</h4>
+                <div>
+                  Sold by: 
+                  <a href={`/profile/${1}`}>
+                    <h3>{item.sellerUsername}</h3>
+                  </a>
+                </div>
+                <h5>Condition: {item.condition}</h5>
+              </Col>
+
+            </Row>
+          </Panel.Body>
+        </Panel>
       );
     });
 
@@ -100,7 +114,7 @@ class Checkout extends React.Component {
             : null }
           <Row>
             <Col xs={6} className="checkout-total stripe-button-wrapper">
-              <h3><Stripe price={cartAmount} handleDecline={this.handleDecline}/></h3>
+              <h3><Stripe price={cartAmount} handleDecline={this.handleDecline} user={this.props.currentuser} /></h3>
             </Col>
             <Col xs={6} className="checkout-total">
               <h3>{'Total: $' + cartAmount}</h3>

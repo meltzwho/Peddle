@@ -11,12 +11,24 @@ class Search extends Component {
       input: e.target.value
     });
   }
-  handleSubmit = (e, value) => {
+  keyPress = (e) => {
+    if (e.charCode === 13) {
+      this.handleSubmit(e, this.state.input);
+    }
+  }
+  handleSubmit = (e) => {
     e.preventDefault();
-    this.props.handleSubmit(value);
-    this.setState({
-      input: ''
-    });
+    if (this.state.input.trim() !== '') {
+      this.setState({
+        input: this.state.input.trim()
+      }, () => {
+        this.props.handleSubmit(this.state.input);
+        this.setState({
+          input: ''
+        });
+        this.props.history.push(`/listings/${this.state.input}`);
+      });
+    }
   }
 
   render() {
@@ -29,19 +41,14 @@ class Search extends Component {
               value={this.state.input}
               placeholder="Search for items near you"
               onChange={e => {this.handleInputChange(e)}}
+              onKeyPress={this.keyPress}
             />
             <InputGroup.Button>
               <Button
                 bsStyle="primary"
                 type="submit"
                 // style={{marginTop: '2.5px'}}
-                onClick={e => {
-                  if (this.state.input.trim() !== '') {
-                    this.state.input = this.state.input.trim();
-                    this.handleSubmit(e, this.state.input);
-                    this.props.history.push(`/listings/${this.state.input}`);
-                  }
-                }}
+                onClick={e => {this.handleSubmit(e)}}
               >
                 Search
               </Button>

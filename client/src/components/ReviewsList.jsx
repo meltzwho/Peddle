@@ -8,17 +8,53 @@ import ReviewEntry from './ReviewEntry';
 
 class ReviewsList extends Component {
   state = {
-    values: [{ label: '5 Stars', value: 90.111111, fill: '#4BD762'},
-      { label: '4 Stars', value: 6, fill: '#6EDB8F' },
-      { label: '3 Stars', value: 2, fill: '#278ECF' },
-      { label: '2 Stars', value: 1, fill: '#FFC266' },
-      { label: '1 Star', value: 1, fill: '#FF7B65' }]
+    values: []
   }
   componentDidMount() {
-
+    this.getRatings();
   }
   getRatings = () => {
-    
+    let ratingCount = {};
+    this.props.feedback.forEach(comment => {
+      ratingCount[comment.rating] = ratingCount[comment.rating] + 1 || 1;
+      ratingCount.total = ratingCount.total + 1 || 1;
+    });
+    let values = [];
+    if (!ratingCount['']) {
+      if (ratingCount.hasOwnProperty('5')) {
+        values.push({label: '5 Stars', value: (ratingCount['5']/ratingCount.total*100), fill: '#4BD762'})
+      }
+      if (!ratingCount.hasOwnProperty('5')) {
+        values.push({label: '5 Stars', value: 0, fill: '#4BD762'})
+      }
+      if (ratingCount.hasOwnProperty('4')) {
+        values.push({label: '4 Stars', value: (ratingCount['4']/ratingCount.total*100), fill: '#6EDB8F'})
+      }
+      if (!ratingCount.hasOwnProperty('4')) {
+        values.push({label: '4 Stars', value: 0, fill: '#6EDB8F'})
+      }
+      if (ratingCount.hasOwnProperty('3')) {
+        values.push({label: '3 Stars', value: (ratingCount['3']/ratingCount.total*100), fill: '#278ECF'})
+      }
+      if (!ratingCount.hasOwnProperty('3')) {
+        values.push({label: '3 Stars', value: 0, fill: '#278ECF'})
+      }
+      if (ratingCount.hasOwnProperty('2')) {
+        values.push({label: '2 Stars', value: (ratingCount['2']/ratingCount.total*100), fill: '#FFC266'})
+      }
+      if (!ratingCount.hasOwnProperty('2')) {
+        values.push({label: '2 Stars', value: 0, fill: '#FFC266'})
+      }
+      if (ratingCount.hasOwnProperty('1')) {
+        values.push({label: '1 Stars', value: (ratingCount['1']/ratingCount.total*100), fill: '#FF7B65'})
+      }
+      if (!ratingCount.hasOwnProperty('1')) {
+        values.push({label: '1 Stars', value: 0, fill: '#FF7B65'})
+      }
+    }
+    this.setState({
+      values: values
+    });
   }
   render() {
     return (
@@ -37,23 +73,26 @@ class ReviewsList extends Component {
               width: '100%',
               height: '250px',
             }}>
-              <SolidGauge
-                responsive
-                selectable
-                background={{
-                  fill: '#ddd',
-                  stroke: '#aaa',
-                }}
-                pathWidth={0.15}
-                pathMargin={0.05}
-                endAngle={3.14 * 1.5}
-                values={this.state.values}
-                animationTime={5000}
-                showTooltip
-                // animateTime={2000}
-                // ease='easeLinear'
-                fontSize={12}
-              />
+              {this.state.values.length !== 0 ? (
+                <SolidGauge
+                  responsive
+                  selectable
+                  background={{
+                    fill: '#ddd',
+                    stroke: '#aaa',
+                  }}
+                  pathWidth={0.15}
+                  pathMargin={0.05}
+                  endAngle={3.14 * 1.5}
+                  values={this.state.values}
+                  animationTime={5000}
+                  showTooltip
+                  // animateTime={2000}
+                  // ease='easeLinear'
+                  fontSize={12}
+                />
+              ): null
+              }
             </div>
           </Col>
           <Col xs={6} sm={6}>

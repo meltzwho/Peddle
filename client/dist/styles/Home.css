@@ -132,8 +132,8 @@ a {
   z-index: 5;
 }
 #group1 .parallax-base {
-  
-  background-color: #006b07f5;
+  background-color: #6d8b6ffb;
+  /* background-color: #006b07f5; */
   background-image: url('../assets/textures/noisy-grid.png');
   display: flex;
   flex-flow: column;
@@ -160,6 +160,10 @@ a {
 }
 
 .carousel {
+  height: 81.5vh;
+}
+
+.carousel-inner>.item>img {
   height: 75vh;
 }
 
@@ -174,7 +178,8 @@ a {
   z-index: 4;
 }
 #group3 .parallax-base {
-  background: rgba(90, 90, 238, 0.959);
+  background: rgba(191, 191, 238, 0.993);
+  /* background: rgba(90, 90, 238, 0.959); */
   background-image: url('../assets/textures/crisp-paper-ruffles.png');
   display: flex;
   flex-flow: column;
@@ -192,7 +197,8 @@ a {
   z-index: 3;
 }
 #group5 .parallax-base {
-  background-color: #007a8af6;
+  background-color: #76a7adfb;
+  /* background-color: #007a8af6; */
   background-image: url('../assets/textures/flowers.png');
   display: flex;
   flex-flow: column;
@@ -210,8 +216,9 @@ a {
   z-index: 3;
 }
 #group7 .parallax-base {
-  background: rgba(210, 240, 42, 0.877);
-  background-image: url('../assets/textures/argyle.png');
+  background: rgba(219, 233, 142, 0.986);
+  /* background: rgba(210, 240, 42, 0.877); */
+  background-image: url('../assets/textures/crisp-paper-ruffles.png');
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
@@ -228,7 +235,8 @@ a {
   z-index: 3;
 }
 #group9 .parallax-base {
-  background: rgba(245, 84, 205, 0.966);
+  background: rgba(238, 148, 215, 0.993);
+  /* background: rgba(245, 84, 205, 0.966); */
   background-image: url('../assets/textures/black-scales.png');
   display: flex;
   flex-flow: column;
