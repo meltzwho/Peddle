@@ -6,6 +6,7 @@ import Stripe from './Stripe';
 import ReviewsList from './ReviewsList';
 import ImageViewer from './ImageViewer';
 import SocialButtons from './SocialButtons';
+import '../../dist/styles/ImageViewer.css';
 
 class ListingEntry extends Component {
   state = {
