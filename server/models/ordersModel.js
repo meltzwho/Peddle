@@ -6,7 +6,7 @@ module.exports = {
       if (err) {
         console.error('there was an error getting a connection from the pool');
       } else {
-        let sqlStatement = `SELECT * FROM orders WHERE id_buyer=$1`;
+        let sqlStatement = `SELECT * FROM orders WHERE id_buyer=$1 ORDER BY id_order DESC`;
         let params = [userId];
         client.query(sqlStatement, params, (err, res) => {
           release();
@@ -36,8 +36,7 @@ module.exports = {
                             ON order_line_item.id_listing=listing.id_listing
                             LEFT OUTER JOIN listing_image
                             ON listing.id_listing=listing_image.id_listing
-                            WHERE id_order=$1
-                            `;
+                            WHERE id_order=$1`;
         let params = [orderId];
         client.query(sqlStatement, params, (err, res) => {
           release();
