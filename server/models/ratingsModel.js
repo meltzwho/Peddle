@@ -58,11 +58,11 @@ module.exports = {
         console.error('[model] error getting pool connection', e);
       });
   },
-  addFeedback: (sellerId, buyerId, rating, feedback, listingId, timestamp, title) => {
+  addFeedback: (sellerId, buyerId, rating, feedback, listingId, title) => {
     return write.connect()
       .then(client => {
-        let query = 'INSERT INTO feedback(id_seller, id_buyer, rating, feedback, id_listing, timestamp, title) VALUES($1, $2, $3, $4, $5, $6, $7);';
-        let params = [sellerId, buyerId, rating, feedback, listingId, timestamp, title];
+        let query = 'INSERT INTO feedback(id_seller, id_buyer, rating, feedback, id_listing, title) VALUES($1, $2, $3, $4, $5, $6);';
+        let params = [sellerId, buyerId, rating, feedback, listingId, title];
         return client.query(query, params)
           .then(res => {
             client.release();

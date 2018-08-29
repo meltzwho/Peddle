@@ -52,11 +52,10 @@ module.exports = {
     let sellerId = req.body.sellerId;
     let buyerId = req.body.buyerId;
     let listingId = req.body.listingId;
-    let rating = req.body.rating;
+    let rating = +req.body.rating;
     let feedback = req.body.feedback;
-    let timestamp = req.body.timestamp;
     let title = req.body.title;
-    db.addFeedback(sellerId, buyerId, rating, feedback, listingId, timestamp, title)
+    db.addFeedback(sellerId, buyerId, rating, feedback, listingId, title)
       .then(() => {
         console.log('[controller] user feedback added')
         res.sendStatus(200);

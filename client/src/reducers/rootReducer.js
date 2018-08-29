@@ -10,6 +10,7 @@ import ShoppingCartReducer from './shoppingCartReducer';
 import profileReducer from './profileReducer';
 import listingEntryReducer from './listingEntryReducer';
 import editProfileReducer from './editProfileReducer';
+import reviewEntryFormReducer from './reviewEntryFormReducer';
 
 const rootReducer = combineReducers({
   notifications: notificationReducer,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   user: appReducer,
   profile: profileReducer,
   listingEntry: listingEntryReducer,
-  editProfile: editProfileReducer
+  editProfile: editProfileReducer,
+  reviewEntryForm: reviewEntryFormReducer
 });
 
 export default rootReducer;
