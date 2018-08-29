@@ -20,6 +20,7 @@ class ListingEntry extends Component {
   }
   componentDidMount = () => {
     this.props.getListing(this.props.match.params.listingId);
+    this.props.fetchCart(this.props.userId);
     this.setState({id_buyer: this.props.userId});
   }
   handleChange = (e) => {
@@ -40,7 +41,14 @@ class ListingEntry extends Component {
   render = () => {
     let qty = [];
     if (this.props.listing.listing.quantity !== 0) {
-      for (let i = 1; i <= this.props.listing.listing.quantity; i++) {
+      let listingQuantity = this.props.listing.listing.quantity;
+      for (let j = 0; j < this.props.listing.userCart.length; j++) {
+        if (this.props.listing.listing.id_listing === this.props.listing.userCart[j].id_listing) {
+          listingQuantity -= this.props.listing.userCart[j].quantity;
+        }
+
+      }
+      for (let i = 1; i <= listingQuantity; i++) {
         qty.push(<option key={i} value={i}>{i}</option>);
       }
     } else {
