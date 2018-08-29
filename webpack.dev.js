@@ -25,10 +25,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?/,
-        include: SRC_DIR,
+        test: [/\.js$/, /\.jsx?$/],
         loader: 'babel-loader',
-        options: { presets: ['react', 'env', 'stage-0'] }
+        exclude: /node_modules/,
+        options: { 
+          presets: ['env', 'react', 'stage-0']
+        }
       },
       {
         test: /\.css$/,
