@@ -18,7 +18,9 @@ class SellerDashboard extends Component {
 
   componentDidMount() {
     let userId = this.props.currentUserId;
-    this.props.fetchUserListings(userId);
+    this.props.fetchActiveListings(userId);
+    this.props.fetchSoldListings(userId);
+    // this.props.fetchUserListings(userId);
     const cookies = new Cookies;
     let cookie = cookies.get('stripe');
     if (cookie !== undefined) {
@@ -70,11 +72,10 @@ class SellerDashboard extends Component {
 
 
   render() {
- 
-    let activeTiles = this.props.listings.listings.active.length > 0 ? 
-      this.props.listings.listings.active.map((listing) => (<SellerDashboardItem key={listing.id_listing} edit={(e, listing)=>this.edit(e, listing)} listing={listing} active={true} showProgress={true} />)) : <Well style={{margin: "20px"}}>Looks like you don't have any active listings</Well>;
-    let completedTiles = this.props.listings.listings.completed.length > 0 ? 
-      this.props.listings.listings.completed.map((listing) => (<SellerDashboardItem id={listing.id_listing} key={listing.id_listing} listing={listing} trackingToggle={this.handleTrackingClick} showTrackingModal={this.state.showTrackingModal && this.state.modalId === listing.id_listing} active={false} showProgress={true} carrier={this.state.carrier} trackingNo={this.state.trackingNo} handleModalChange={this.handleModalChange} submitTracking={this.addTrackingData} />)) : <Well style={{margin: "20px"}}>Looks like you don't have any completed listings</Well>;
+    let activeTiles = this.props.listings.active.length > 0 ? 
+      this.props.listings.active.map((listing) => (<SellerDashboardItem key={listing.id_listing} edit={(e, listing)=>this.edit(e, listing)} listing={listing} active={true} showProgress={false} />)) : <Well style={{margin: "20px"}}>Looks like you don't have any active listings</Well>;
+    let completedTiles = this.props.listings.sold.length > 0 ? 
+      this.props.listings.sold.map((listing) => (<SellerDashboardItem id={listing.id_listing} key={listing.id_listing} listing={listing} trackingToggle={this.handleTrackingClick} showTrackingModal={this.state.showTrackingModal && this.state.modalId === listing.id_listing} active={false} showProgress={true} carrier={this.state.carrier} trackingNo={this.state.trackingNo} handleModalChange={this.handleModalChange} submitTracking={this.addTrackingData} />)) : <Well style={{margin: "20px"}}>Looks like you don't have any completed listings</Well>;
 
     return (
       <Grid>
@@ -104,10 +105,10 @@ class SellerDashboard extends Component {
 
         <Row>
           <Tabs defaultActiveKey={1} id="seller-listings">
-            <Tab eventKey={1} title={`Active (${this.props.listings.listings.active.length})`}>
+            <Tab eventKey={1} title={`Active (${this.props.listings.active.length})`}>
               {activeTiles}
             </Tab>
-            <Tab eventKey={2} title={`Sold (${this.props.listings.listings.completed.length})`}>
+            <Tab eventKey={2} title={`Sold (${this.props.listings.sold.length})`}>
               {completedTiles}
             </Tab>
           </Tabs>

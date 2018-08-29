@@ -32,3 +32,42 @@ export const addTrackingData = (details) => {
         error => console.log('error posting tracking data', error));
   }
 }
+
+
+export const fetchSoldListings = (userId) => {
+  return (dispatch) => {
+    return axios.get('/sellerDashboard/soldListings', {params: {userId: userId}})
+      .then(response => dispatch(fetchSoldListingsComplete(response.data)),
+        error => dispatch(fetchListingsFail()));
+  };
+};
+
+export const fetchSoldListingsComplete = (listings) => {
+  return ({
+    type: 'FETCH_SOLD_COMPLETE',
+    payload: {
+      sold: listings
+    }
+  });
+};
+
+
+export const fetchActiveListings = (userId) => {
+  return (dispatch) => {
+    return axios.get('/sellerDashboard/activeListings', {params: {userId: userId}})
+      .then(response => dispatch(fetchActiveListingsComplete(response.data)),
+        error => dispatch(fetchListingsFail()));
+  };
+};
+
+export const fetchActiveListingsComplete = (listings) => {
+  return ({
+    type: 'FETCH_ACTIVE_COMPLETE',
+    payload: {
+      active: listings
+    }
+  });
+};
+
+
+

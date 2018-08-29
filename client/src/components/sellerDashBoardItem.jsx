@@ -18,14 +18,14 @@ const SellerDashboardItem = (props) => {
     editButton = <Button onClick={(e) => props.edit(e, props.listing)}>Edit</Button>
   }
   if (props.showProgress) {
-    progress = <ProgressBarItem key={props.listing.id_listing} status={props.listing.status}  />
-    if (props.listing.status.is_paid > 0 && props.listing.status.is_shipped < 1) {
+    progress = <ProgressBarItem key={props.listing.id_listing} status={props.listing}  />
+    if (props.listing.is_paid > 0 && props.listing.is_shipped < 1) {
       displayTracking = true;
       let status = props.listing.status
       address = (
         <Well><strong>Buyer Address:</strong><br />
-          {status.address.toUpperCase()}<br />
-          {status.city.toUpperCase()} {status.state.toUpperCase()} {status.zip_code}
+          {props.listing.address.toUpperCase()}<br />
+          {props.listing.city.toUpperCase()} {props.listing.state.toUpperCase()} {props.listing.zip_code}
         </Well>
       );
     }

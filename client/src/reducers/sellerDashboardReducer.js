@@ -1,9 +1,7 @@
 const defaultState = {
   fetchingListings: false,
-  listings: {
-    active: [],
-    completed: []
-  },
+  active: [],
+  sold: [],
   listingFetchSuccess: null
 };
 
@@ -17,6 +15,10 @@ const SellerDashboardReducer = (state = defaultState, action) => {
       return Object.assign({}, state, {fetchingListings: false, listingFetchSuccess: false});
     case 'CLOSE_MODAL':
       return Object.assign({}, state, {listingFetchSuccess: null});
+    case 'FETCH_SOLD_COMPLETE':
+      return Object.assign({}, state, {sold: action.payload.sold});
+    case 'FETCH_ACTIVE_COMPLETE':
+      return Object.assign({}, state, {active: action.payload.active});
     default: 
       return state;
   }
