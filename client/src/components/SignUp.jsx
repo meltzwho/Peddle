@@ -145,7 +145,7 @@ export default class SignUp extends React.Component {
                 </FormGroup>
 
                 <FormGroup>
-                  <Col smOffset={2} sm={10}>
+                  <Col sm={12}>
                     <Button 
                       id="signup-submit"
                       type="submit"
@@ -182,7 +182,7 @@ export default class SignUp extends React.Component {
                 </Row>
 
                 <Row className="show-grid">
-                  <Col smOffset={2} sm={10}>
+                  <Col sm={12}>
                     <a href="/auth/google">
                       <Button>Login in with Google</Button>
                     </a>

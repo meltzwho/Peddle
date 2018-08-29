@@ -118,7 +118,7 @@ export default class Login extends React.Component {
                           block
                           type="submit"
                           onClick={this.handleSubmit}
-                        >Sign in
+                        >Log in
                         </Button>
                       </Col>
                     </FormGroup>
@@ -127,22 +127,13 @@ export default class Login extends React.Component {
                   <Row className="show-grid">
                     <Col sm={12}>
                       <div className="aTag_wrapper">
-                        <a href="/" className="forgotPassword">
-                          Forgot your password?
+                        <a href="/signup" className="forgotPassword">
+                          Create an account. Here...
                         </a>
                       </div>
                     </Col>
                   </Row>
 
-                  <Row className="show-grid">
-                    <Col sm={12}>
-                      <div className="aTag_wrapper">
-                        <a href="/" className="forgotUserName">
-                          Forgot your email?
-                        </a>
-                      </div>
-                    </Col>
-                  </Row>
 
                   <Row className="show-grid">
                     <Col sm={12}>
@@ -158,7 +149,7 @@ export default class Login extends React.Component {
                         <Button 
                           bsSize="large" 
                           block
-                        >Sign in with Google
+                        >Log in with Google
                         </Button>
                       </a>
                     </Col>
