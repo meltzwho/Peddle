@@ -1,0 +1,16 @@
+#price {
+  color: #B12704!important;
+  font-size: 17px!important;
+  line-height: 1.255!important;
+  text-rendering: optimizeLegibility;
+}
+#reviewsLink {
+  font-size: 13px!important;
+  line-height: 19px!important;
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #c45500 !important;
+}
