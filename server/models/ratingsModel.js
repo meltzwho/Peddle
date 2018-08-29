@@ -24,7 +24,7 @@ module.exports = {
   getFeedbackByUserId: (id) => {
     return read.connect()
       .then(client => {
-        return client.query(`SELECT * FROM feedback WHERE id_seller=${id}`)
+        return client.query(`SELECT * FROM feedback WHERE id_seller=${id} ORDER BY timestamp DESC`)
           .then(res => {
             client.release();
             console.log('[model] fetched feedback by userId');
