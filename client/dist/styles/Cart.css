@@ -1,22 +1,4 @@
 
-/* Media Queries */
-@media screen and (max-width: 766px) {
-  .shopCart {
-    font-size: 25px;
-    font-weight: 60;
-    margin: 0 auto;
-  }
-  .shopCartPrice {
-    font-size: 20px;
-    font-weight: 600;
-    margin: 0 auto;
-  }
-  .checkout-button {
-    font-size: 20px ;
-    margin: 0 auto;
-  }
-}
-
 
 /* Cart */
 .cart_item_wrapper {
@@ -102,4 +84,24 @@ h2 {
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-weight: 900;
   margin-top: 20px;
+}
+
+/* Media Queries */
+@media screen and (max-width: 766px) {
+  .shopCart {
+    font-size: 25px;
+    font-weight: 60;
+    margin: 0 auto;
+  }
+
+  .shopCartPrice {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 auto;
+  }
+
+  .checkout-button {
+    font-size: 20px;
+    margin: 0 auto;
+  }
 }

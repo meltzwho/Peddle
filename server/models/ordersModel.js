@@ -49,5 +49,25 @@ module.exports = {
         })
       }
     })
+  },
+  newOrder: (orderInfo) => {
+    return db.connect()
+      .then(client => {
+        return client.query('INSERT INTO address(id_user, address, city, state, zip_code) VALUES($1, $2, $3, $4, $5)', 
+          [orderInfo.id_buyer, orderInfo.address.shipping_address_line1, orderInfo.address.shipping_address_city, orderInfo.address.shipping_address_state, orderInfo.address.shipping_address_zip])
+          .then(res => {
+            console.log(res);
+            
+            client.release();
+            return res.rows;
+          })
+          .catch(e => {
+            client.release();
+            console.log('error creating order', e);
+          })
+      })
+      .catch(e => {
+        console.error('there was an error getting the pool connection', e);
+      });
   }
 };

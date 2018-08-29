@@ -160,6 +160,10 @@ a {
 }
 
 .carousel {
+  height: 81.5vh;
+}
+
+.carousel-inner>.item>img {
   height: 75vh;
 }
 
