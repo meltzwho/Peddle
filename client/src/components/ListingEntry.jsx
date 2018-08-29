@@ -30,7 +30,7 @@ class ListingEntry extends Component {
   }
   handleAddToCart = () => {
     axios.post(`/cart/add/${this.props.listing.listing.id_listing}/${this.state.id_buyer}/${this.state.qty}`)
-      .then()
+      .then(this.props.fetchCart(this.props.userId))
       .catch(e => {
         console.error(e);
       });

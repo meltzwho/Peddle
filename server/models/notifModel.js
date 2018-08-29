@@ -1,9 +1,10 @@
-const db = require('../../db/index.js').pool;
+const write = require('../../db/index.js').write;
+const read = require('../../db/index.js').read;
 
 
 module.exports = {
   checkNotifications: (userID, response) => {
-    db.connect((err, client, release) => {
+    read.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting the pool connection');
       } else {
@@ -19,7 +20,7 @@ module.exports = {
     });
   },
   genNotifications: (id_user, notif_type, id_src) => {
-    db.connect((err, client, release) => {
+    write.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting the pool connection');
       } else {

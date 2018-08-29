@@ -1,9 +1,10 @@
-const db = require('../../db/index.js').pool;
+const read = require('../../db/index.js').read;
+const write = require('../../db/index.js').write;
 
 
 module.exports = {
   getUserById: (id) => {
-    return db.connect()
+    return read.connect()
       .then(client => {
         return client.query(`SELECT * FROM users WHERE id_user=${id}`)
           .then(res => {
@@ -20,7 +21,7 @@ module.exports = {
       });
   },
   userToSeller: (user) => {
-    return db.connect()
+    return write.connect()
       .then(client => {
         return client.query(`UPDATE users SET is_seller = 1, id_stripe = $1 WHERE id_user = ${user.userId} RETURNING *`, [user.stripe_user_id])
           .then(res => {

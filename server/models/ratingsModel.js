@@ -1,8 +1,10 @@
-const db = require('../../db/index.js').pool;
+const read = require('../../db/index.js').read;
+const write = require('../../db/index.js').write;
+
 
 module.exports = {
   getRatingsByUserId: (id) => {
-    return db.connect()
+    return read.connect()
       .then(client => {
         return client.query(`SELECT * FROM rating WHERE id_user=${id}`)
           .then(res => {
@@ -20,7 +22,7 @@ module.exports = {
       });
   },
   getFeedbackByUserId: (id) => {
-    return db.connect()
+    return read.connect()
       .then(client => {
         return client.query(`SELECT * FROM feedback WHERE id_seller=${id}`)
           .then(res => {
@@ -39,7 +41,7 @@ module.exports = {
       });
   },
   updateRatingByRatingId: (id_rating, rating, count) => {
-    return db.connect()
+    return write.connect()
       .then(client => {
         return client.query(`UPDATE rating SET rating=${rating}, count=${count} WHERE id_rating=${id_rating};`)
           .then(res => {
@@ -57,7 +59,7 @@ module.exports = {
       });
   },
   addFeedback: (sellerId, buyerId, rating, feedback, listingId, timestamp, title) => {
-    return db.connect()
+    return write.connect()
       .then(client => {
         let query = 'INSERT INTO feedback(id_seller, id_buyer, rating, feedback, id_listing, timestamp, title) VALUES($1, $2, $3, $4, $5, $6, $7);';
         let params = [sellerId, buyerId, rating, feedback, listingId, timestamp, title];
