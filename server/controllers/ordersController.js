@@ -36,6 +36,8 @@ module.exports = {
                   orders.active.push(order);
                 }
                 if (index === response.length - 1) {
+                  console.log(orders);
+                  
                   res.send(orders);
                 }
 
