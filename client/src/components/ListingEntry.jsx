@@ -12,8 +12,9 @@ import '../../dist/styles/ImageViewer.css';
 class ListingEntry extends Component {
   state = {
     id_buyer: 1,
-    qty: 1,
-    showCart: false
+    qty: 0,
+    showCart: false,
+    inCart: 0
   }
   componentDidMount = () => {
     this.props.getListing(this.props.match.params.listingId);
@@ -37,15 +38,15 @@ class ListingEntry extends Component {
   }
   render = () => {
     let qty = [];
+    let listingQuantity = this.props.listing.listing.quantity;
     if (this.props.listing.listing.quantity !== 0) {
-      let listingQuantity = this.props.listing.listing.quantity;
       for (let j = 0; j < this.props.listing.userCart.length; j++) {
         if (this.props.listing.listing.id_listing === this.props.listing.userCart[j].id_listing) {
           listingQuantity -= this.props.listing.userCart[j].quantity;
         }
-
       }
-      for (let i = 1; i <= listingQuantity; i++) {
+      qty.push(<option key="0" value="0">0</option>);
+      for (let i = 1; i <= listingQuantity - this.props.listing.listing.quantity_sold; i++) {
         qty.push(<option key={i} value={i}>{i}</option>);
       }
     } else {
@@ -76,16 +77,18 @@ class ListingEntry extends Component {
                 : <Link smooth to={`/listingEntry/${this.props.listing.listing.id_listing}/#listingReview`}> {this.props.listing.rating.count} reviews</Link>
               }
               <div>Price: <h4>${this.props.listing.listing.price}</h4></div>
-              <div>Qty Available: {this.props.listing.listing.quantity}</div>
+              <div>Qty Available: {this.props.listing.listing.quantity - this.props.listing.listing.quantity_sold}</div>
               <div>Description: {this.props.listing.listing.description}</div>
               <div>Condition: {this.props.listing.listing.condition}</div>
             </Col>
             <Col xs={12} sm={2}>
               <ButtonToolbar>
                 <Button
-                  onClick={() => { 
-                    this.handleShowCart(); 
-                    this.handleAddToCart();
+                  onClick={() => {
+                    if (this.state.qty !== 0) {
+                      this.handleShowCart(); 
+                      this.handleAddToCart();
+                    }
                   }}
                 >
                   Add To Cart
@@ -115,15 +118,18 @@ class ListingEntry extends Component {
                   </Modal.Body>
                 </Modal>
               </ButtonToolbar>
-              <div>Qty: 
+              <div>
+              Qty: 
+                <select
+                  onChange={this.handleChange}
+                  defaultValue={this.state.qty}
+                >
+                  {qty.map(count => count)}
+                </select>
               </div>
-              <select
-                onChange={this.handleChange}
-                defaultValue={this.state.qty}
-              >
-                {qty.map(count => count)}
-              </select>
-              <Stripe listing={this.props.listing.listing}/>
+              <div>
+                ({this.props.listing.listing.quantity - listingQuantity} already in cart) 
+              </div>
             </Col>
           </Row>
           <Row>

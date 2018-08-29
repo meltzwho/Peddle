@@ -49,11 +49,9 @@ module.exports = {
       }
     });
   },
-  newOrder: (req, res) => {
-    console.log(req.body);
-    
+  newOrder: (req, res) => {    
     db.newOrder(req.body)
-      .then((resp) => {console.log(resp); res.end()})
+      .then((resp) => {res.end()})
       .catch((err) => console.log(err));
   }
 };

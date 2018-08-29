@@ -12,7 +12,7 @@ class Stripe extends Component {
       amount: amount,
       source: token.id,
       currency: currency,
-      transfer_group: this.props.user.id_user + '' + Date.now()
+      transfer_group: this.props.user.id_user + '-' + Date.now()
     };
     axios.post('/stripe', charge).then((response)=> {
       if (response.data.success.paid) {
