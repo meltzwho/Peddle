@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { HashLink as Link } from 'react-router-hash-link';
 import { Grid, Row, Col, ButtonToolbar, Modal, Button, Image, Thumbnail } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
@@ -70,8 +71,8 @@ class ListingEntry extends Component {
                 starSpacing="0px"
               />
               {this.props.listing.rating.count === 1 ?
-                <a href="#listingReview">{this.props.listing.rating.count} review</a>
-                : <a href="/#listingReview"> {this.props.listing.rating.count} reviews</a>
+                <Link smooth to={`/listingEntry/${this.props.listing.listing.id_listing}/#listingReview`}>{this.props.listing.rating.count} review</Link>
+                : <Link smooth to={`/listingEntry/${this.props.listing.listing.id_listing}/#listingReview`}> {this.props.listing.rating.count} reviews</Link>
               }
               <div>Price: <h4>${this.props.listing.listing.price}</h4></div>
               <div>Qty Available: {this.props.listing.listing.quantity}</div>
@@ -129,17 +130,19 @@ class ListingEntry extends Component {
               <SocialButtons />
             </Col>
           </Row>
-          <br/>
-          <ReviewsList 
-            rating={this.props.listing.rating}
-            feedback={this.props.listing.feedback}
-            listing={this.props.listing.listing}
-            seller={this.props.listing.seller}
-          />
+          <div id="listingReview">
+            <ReviewsList 
+              id="listingReview"
+              rating={this.props.listing.rating}
+              feedback={this.props.listing.feedback}
+              listing={this.props.listing.listing}
+              seller={this.props.listing.seller}
+            />
+          </div>
           <Row>
             <Col sx={12} sm={12}>
-              <h2>Recently viewed items and recommendations</h2>
-              <h2>Inspired by your purchases</h2>
+              {/* <h2>Recently viewed items and recommendations</h2>
+              <h2>Inspired by your purchases</h2> */}
             </Col>
           </Row>
         </Grid>
