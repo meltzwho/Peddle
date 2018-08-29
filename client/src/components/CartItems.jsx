@@ -8,98 +8,116 @@ const CartItems = (props) => {
   let cartAmount = props.cartitems.reduce( (accum, curr) => {
     return accum + ((curr.price * 1) * curr.quantityCustomerWants);
   }, 0);
+
   
   const collection = props.cartitems.map( (item, index) => {
     return (
-      <Row 
-        className="show-grid item-card"
-        key={Date.now() * Math.random()}
-      >
-        <Col xs={10} sm={3}>
-          <Image 
-            className="cart_image" 
-            style={{width: '100%', objectFit: 'fit'}} 
-            src={item.image_url} 
-            alt="Product sideview"
-            rounded
-          />
-        </Col>
+      <div key={Date.now() * Math.random()}>
+        <Panel>
 
-        <Col xs={12} sm={3}>
-          <h4>{item.title}</h4>
-          <div>
-            Sold by: 
-            <a href={`/profile/${1}`}>
-              {item.sellerUsername}
-            </a>
-          </div>
-    
-          <div>Qty Available: {item.quantityAvail}</div>
-          <div>Condition: {item.condition}</div>
-        </Col>
+          <Panel.Heading>
 
-        <Col xs={12} sm={3}>
-          <h4 className="">
-            {'$ ' + item.price}
-          </h4>
-        </Col>
+            <Row className="show-grid">
+              <Col sm={6}>
+                <h3 className="shopCart">{item.title}</h3>
+              </Col>
+              <Col smOffset={2} sm={4}>
+                <h3 className="shopCart">
+                  {'$ ' + item.price}
+                </h3>
+              </Col>
+            </Row>
 
-        <Col xs={6} sm={3}>
-          <select 
-            className="quantity_select"
-            value={props.optionState} 
-            onChange={e => props.handleQuantitySelect(e, index)}
-            value={item.quantityCustomerWants}
-          >
-            {
-              item.quantity.map( (each, i) => {
-                return (
-                  <option 
-                    className="quantity_select_item"
-                    key={Date.now() * Math.random()} 
-                    value={each}
-                  >
-                    {each}
-                  </option>
-                );
-              })
-            }
-          </select>
-        </Col>
+          </Panel.Heading>
+          <Panel.Body>
+            <Row className="show-grid">
 
-        <Col xs={8} sm={3}>
-          <div>Description: {item.description}</div>
-        </Col>
-        <Col xs={6} sm={3}>
-          <Button
-            className="remove-button"
-            onClick={e => props.removeItemFromCart(e, index)}
-            bsStyle="danger" 
-            bsSize="medium" 
-          >
-            Remove
-          </Button>
-        </Col>
-      </Row>
+              <Col xs={12} sm={4}>
+                <Image 
+                  className="cart_image" 
+                  style={{width: '100%', objectFit: 'fit'}} 
+                  src={item.image_url} 
+                  alt="Product sideview"
+                  rounded
+                />
+              </Col>
+
+              <Col xs={12} sm={4}>
+                <div>
+                  Sold by: 
+                  <a href={`/profile/${1}`}>
+                    {item.sellerUsername}
+                  </a>
+                </div>
+          
+                <div>Qty Available: {item.quantityAvail}</div>
+                <div>Condition: {item.condition}</div>
+              </Col>
+
+              <Col xs={12} sm={4}>
+                <select 
+                  className="quantity_select"
+                  value={props.optionState} 
+                  onChange={e => props.handleQuantitySelect(e, index)}
+                  // value={item.quantityCustomerWants}
+                >
+                  {
+                    item.quantity.map( (each, i) => {
+                      return (
+                        <option 
+                          className="quantity_select_item"
+                          key={Date.now() * Math.random()} 
+                          value={each}
+                        >
+                          {each}
+                        </option>
+                      );
+                    })
+                  }
+                </select>
+              </Col>
+
+            </Row>
+            <Row className="show-grid">
+              <Col xsOffset={8} xs={4}>
+                <Button
+                  className="remove-button"
+                  onClick={e => props.removeItemFromCart(e, index)}
+                  bsStyle="danger" 
+                  bsSize="medium" 
+                >
+                  Remove
+                </Button>
+              </Col>
+            </Row>
+
+          </Panel.Body>
+        </Panel>
+      </div>
+      
     );
   });
 
 
   return (
-    <Panel className="checkout_wrapper">
+    <Panel className="checkout_wrapper" style={{textAlign: 'center'}}>
       <Panel.Heading className="panel-heading">
         <Row className="show-grid">
-          <Col xs={12} sm={12} md={5}>
-            <h2 
-              className="shopCart"
-            >
+          <Col sm={12} md={6}>
+            <h3 className="shopCart">
               {props.currentuser.first_name + "'s Shopping Cart"}
-            </h2>
+            </h3>
           </Col>
-          <Col xs={12} sm={6} md={4}>
-            <h2 className="shopCartPrice">{'Total: $ ' + cartAmount}</h2>
+        </Row>
+        <Row className="show-grid">
+          <Col xs={12} mdOffset={6} md={6}>
+            <h3 className="shopCartPrice">{'Total: $ ' + cartAmount}</h3>
           </Col>
-          <Col xs={12} sm={6} md={3}>
+        </Row>
+      </Panel.Heading>
+      <Panel.Body>
+        <Row className="show-grid">
+          <Col xs={12}>
             { 
               props.emptycart 
                 ? (
@@ -126,13 +144,11 @@ const CartItems = (props) => {
             }
           </Col>
         </Row>
-      </Panel.Heading>
-      <Panel.Body className="panel-body">
         {
           props.emptycart
             ? (
               <Row className="show-grid" style={{textAlign: "center"}}>
-                <Col xs={10}><h2>Your Cart is Empty :(</h2></Col>
+                <Col xs={12}><h3>Your Cart is Empty :(</h3></Col>
                 <Col xs={12}>
                   <Image 
                     className="empty_cart_image" 

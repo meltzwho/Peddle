@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Grid} from 'react-bootstrap';
+import {Grid, Panel} from 'react-bootstrap';
 import CartItems from './CartItems';
 import Checkout from './Checkout';
 import '../../dist/styles/Cart.css';
@@ -135,24 +135,26 @@ export default class Cart extends React.Component {
     
     return (
       <div>
-        <Grid className="cart" style={{width: '90%'}}>
-          <CartItems 
-            currentuser={this.props.currentuser}
-            removeItemFromCart={this.removeItemFromCart}
-            cartitems={this.state.cartitems}
-            handleQuantitySelect={this.handleQuantitySelect}
-            optionState={this.state.optionState}
-            handlecheckout={this.handlecheckout}
-            emptycart={this.state.emptycart}
-          />
-          <Checkout 
-            handlecheckout={this.handlecheckout}
-            show={this.state.checkoutMode}
-            onHide={lgClose}
-            currentuser={this.props.currentuser}
-            cartitems={this.state.cartitems}
-          />
-        </Grid>
+        <Panel>
+          <Grid className="cart" style={{width: '90%'}}>
+            <CartItems 
+              currentuser={this.props.currentuser}
+              removeItemFromCart={this.removeItemFromCart}
+              cartitems={this.state.cartitems}
+              handleQuantitySelect={this.handleQuantitySelect}
+              optionState={this.state.optionState}
+              handlecheckout={this.handlecheckout}
+              emptycart={this.state.emptycart}
+            />
+            <Checkout 
+              handlecheckout={this.handlecheckout}
+              show={this.state.checkoutMode}
+              onHide={lgClose}
+              currentuser={this.props.currentuser}
+              cartitems={this.state.cartitems}
+            />
+          </Grid>
+        </Panel>
       </div>  
     );
       

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Button, Col, ControlLabel, Form, FormGroup, FormControl } from 'react-bootstrap';
+import { Grid, Button, Col, ControlLabel, Form, FormGroup, FormControl, Panel, Row } from 'react-bootstrap';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
@@ -72,101 +72,127 @@ export default class SignUp extends React.Component {
   
   render () {
     return (
-      <div>
-        <div className="login_wrapper">
-          <Grid>
-            <Form horizontal>
-              <FormGroup controlId="formHorizontalFirstName">
-                <Col componentClass={ControlLabel} sm={2}>
-                First Name
-                </Col>
-                <Col sm={10}>
-                  <FormControl 
-                    id="signup-firstName"
-                    type="text"
-                    name="firstname"
-                    placeholder="Enter FirstName..." 
-                    value={this.state.firstname}
-                    onChange={this.handleChange}
-                  />
-                </Col>
-              </FormGroup>
+      <div className="login_wrapper">
+        <Panel style={{textAlign: 'center'}}>
+          <Panel.Heading>
+            <Panel.Title componentClass="h3">Sign Up</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <Grid>
+              <Form horizontal>
+                <FormGroup controlId="formHorizontalFirstName">
+                  <Col componentClass={ControlLabel} sm={2}>
+                  First Name
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl 
+                      id="signup-firstName"
+                      type="text"
+                      name="firstname"
+                      placeholder="Enter FirstName..." 
+                      value={this.state.firstname}
+                      onChange={this.handleChange}
+                    />
+                  </Col>
+                </FormGroup>
 
-              <FormGroup controlId="formHorizontalLastName">
-                <Col componentClass={ControlLabel} sm={2}>
-                  Last Name
-                </Col>
-                <Col sm={10}>
-                  <FormControl
-                    id="signup-lastName" 
-                    type="text" 
-                    name="lastname"
-                    placeholder="Enter Last Name..." 
-                    value={this.state.lastname}
-                    onChange={this.handleChange}
-                  />
-                </Col>
-              </FormGroup>
+                <FormGroup controlId="formHorizontalLastName">
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Last Name
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl
+                      id="signup-lastName" 
+                      type="text" 
+                      name="lastname"
+                      placeholder="Enter Last Name..." 
+                      value={this.state.lastname}
+                      onChange={this.handleChange}
+                    />
+                  </Col>
+                </FormGroup>
 
-              <FormGroup controlId="formHorizontalEmail">
-                <Col componentClass={ControlLabel} sm={2}>
-                email
-                </Col>
-                <Col sm={10}>
-                  <FormControl 
-                    id="signup-email"
-                    type="email"
-                    name="email"
-                    placeholder="Enter Email..."
-                    value={this.state.email}
-                    onChange={this.handleChange} 
-                  />
-                </Col>
-              </FormGroup>
+                <FormGroup controlId="formHorizontalEmail">
+                  <Col componentClass={ControlLabel} sm={2}>
+                  email
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl 
+                      id="signup-email"
+                      type="email"
+                      name="email"
+                      placeholder="Enter Email..."
+                      value={this.state.email}
+                      onChange={this.handleChange} 
+                    />
+                  </Col>
+                </FormGroup>
 
-              <FormGroup controlId="formHorizontalPassword">
-                <Col componentClass={ControlLabel} sm={2}>
-                  Password
-                </Col>
-                <Col sm={10}>
-                  <FormControl 
-                    id="signup-password"
-                    type="password"
-                    name="password"
-                    placeholder="Enter Password..." 
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                  />
-                </Col>
-              </FormGroup>
+                <FormGroup controlId="formHorizontalPassword">
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Password
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl 
+                      id="signup-password"
+                      type="password"
+                      name="password"
+                      placeholder="Enter Password..." 
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                    />
+                  </Col>
+                </FormGroup>
 
-              <FormGroup>
-                <Col smOffset={2} sm={10}>
-                  <Button 
-                    id="signup-submit"
-                    type="submit"
-                    onClick={this.handleSubmit}
-                  >Create Your Account
-                  </Button>
-                </Col>
-              </FormGroup>
+                <FormGroup>
+                  <Col sm={12}>
+                    <Button 
+                      id="signup-submit"
+                      type="submit"
+                      onClick={this.handleSubmit}
+                    >Create Your Account
+                    </Button>
+                  </Col>
+                </FormGroup>
 
-              <div className="aTag_wrapper">
-                <a href="/login" className="justSignIn">
-                Already have an account? Login here.
-                </a>
-              </div>
+                <Row className="show-grid">
+                  <Col sm={12}>
+                    <div className="aTag_wrapper">
+                      Already have an account?
+                    </div>
+                  </Col>
+                </Row>
 
-              <div className="oauth_wrapper">
-                <p>or login in with...</p>
-                <a href="/auth/google">
-                  <Button>Login in with Google</Button>
-                </a>
-              </div>
+                <Row className="show-grid">
+                  <Col sm={12}>
+                    <div className="aTag_wrapper">
+                      <a href="/login" className="justSignIn">
+                        Login here.
+                      </a>
+                    </div>
+                  </Col>
+                </Row>
+
+                <Row className="show-grid">
+                  <Col sm={12}>
+                    <div className="oauth_wrapper">
+                      <p>or login in with...</p>
+                    </div>
+                  </Col>
+                </Row>
+
+                <Row className="show-grid">
+                  <Col sm={12}>
+                    <a href="/auth/google">
+                      <Button>Login in with Google</Button>
+                    </a>
+                  </Col>
+                </Row>
           
-            </Form>
-          </Grid>
-        </div>
+              </Form>
+            </Grid>
+          </Panel.Body>
+        </Panel>
       </div>
     );
   }
