@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { fetchOrders, closeModal } from '../actions/ordersAction';
 import Orders from '../components/Orders';
 
@@ -17,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     closeFailModal: () => {
       dispatch(closeModal());
-    }
+    },
   };
 };
 

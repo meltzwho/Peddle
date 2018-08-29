@@ -47,7 +47,8 @@ const defaultState = {
     id_listing: '',
     timestamp: '',
     title: '',
-  }]
+  }],
+  userCart: []
 };
 
 const listingEntryReducer = (state = defaultState, action) => {
@@ -62,6 +63,8 @@ const listingEntryReducer = (state = defaultState, action) => {
       return Object.assign({}, state, {feedback: action.payload.feedback});
     case 'GET_IMAGES':
       return Object.assign({}, state, {images: action.payload.images});
+    case 'USER_CART':
+      return Object.assign({}, state, {userCart: action.payload.cart});
     default:
       return state;
   }
