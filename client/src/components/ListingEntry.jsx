@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, ButtonToolbar, Modal, Button, Image, Thumbnail } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
-import { 
-  TwitterButton,
-  GooglePlusButton,
-  PinterestButton,
-  EmailButton
-} from 'react-social';
 import axios from 'axios';
 import Stripe from './Stripe';
 import ReviewsList from './ReviewsList';
 import ImageViewer from './ImageViewer';
+import SocialButtons from './SocialButtons';
 
 class ListingEntry extends Component {
   state = {
@@ -131,11 +126,7 @@ class ListingEntry extends Component {
           </Row>
           <Row>
             <Col sx={12} sm={12}>
-              <br/>
-              <TwitterButton url={window.location.href}>Share on Twitter</TwitterButton>
-              <GooglePlusButton url={window.location.href}>Share on Google</GooglePlusButton>
-              <PinterestButton url={window.location.href}>Share on Pinterest</PinterestButton>
-              <EmailButton url={window.location.href}>Share via Email</EmailButton>
+              <SocialButtons />
             </Col>
           </Row>
           <br/>
