@@ -5,7 +5,8 @@ export const fetchOrders = (userId) => {
     dispatch(fetchOrdersStart());
     return axios.get('/orders/orders', {params: {userId: userId}})
       .then(response => {         
-        return dispatch(fetchOrdersSuccess(response.data)); },
+        return dispatch(fetchOrdersSuccess(response.data)); 
+      },
       error => dispatch(fetchOrdersFail()));
   };
 };

@@ -1,6 +1,16 @@
 .navbar-form {
-  margin-top: 0px;
+  border: unset;
   margin-right: 0px;
   margin-bottom: 0px;
   margin-left: 0px;
 }
+
+
+/* .navbar-form .input-group>.form-control {
+  width: 25vw;
+}
+
+@media (min-width: 768px) .navbar-form .input-group>.form-control {
+  width: 16vw;
+  font-size: small;
+} */

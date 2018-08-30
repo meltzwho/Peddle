@@ -3,11 +3,9 @@ import { HashLink as Link } from 'react-router-hash-link';
 import { Grid, Row, Col, ButtonToolbar, Modal, Button, Image, Thumbnail } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
-import Stripe from './Stripe';
 import ReviewsList from './ReviewsList';
 import ImageViewer from './ImageViewer';
 import SocialButtons from './SocialButtons';
-import '../../dist/styles/ImageViewer.css';
 
 class ListingEntry extends Component {
   state = {
@@ -82,7 +80,7 @@ class ListingEntry extends Component {
                 }
               </span>
               <div><strong>Price: </strong><h4 id="price">${this.props.listing.listing.price}</h4></div>
-              <div><strong>Qty Available: </strong>{this.props.listing.listing.quantity}</div>
+              <div><strong>Qty Available: </strong>{this.props.listing.listing.quantity - this.props.listing.listing.quantity_sold}</div>
               <div><strong>Description: </strong>{this.props.listing.listing.description}</div>
               <div><strong>Condition: </strong>{this.props.listing.listing.condition}</div>
             </Col>
