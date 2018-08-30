@@ -53,7 +53,7 @@ class Listings extends Component {
     for (let i = 0; i < this.state.listings.length; i++) {
       let listings = this.state.listings;
       ListingCards.push(
-        <Col key={listings[i].id_listing} sm={12} md={4}>
+        <Col key={listings[i].id_listing} xs={12} sm={4}>
           <ListingCard 
             key={listings[i].id_listing} 
             listing={listings[i]}
