@@ -9,16 +9,16 @@ module.exports = {
       } else {
         let sqlStatement = `SELECT * FROM orders WHERE id_buyer=$1 ORDER BY orders.id_order DESC`;
         let params = [userId];
-        client.query(sqlStatement, params, (err, res) => {
+        client.query(sqlStatement, params, (err, qry) => {
           release();
           if (err) {
             callback(err.stack, null);
           } else {
             let resData;
-            if (res.rowCount.length < 1) {
+            if (qry.rowCount.length < 1) {
               resData = {orders: null}
             } else {
-              resData = res.rows;
+              resData = qry.rows
             }
             //console.log(resData);
             
@@ -41,12 +41,12 @@ module.exports = {
                             ON listing.id_listing=listing_image.id_listing
                             WHERE id_order=$1`;
         let params = [orderId];
-        client.query(sqlStatement, params, (err, res) => {
+        client.query(sqlStatement, params, (err, qry) => {
           release();
           if (err) {
             callback(err.stack, null);
           } else {
-            callback(null, res.rows);
+            callback(null, qry.rows);
           }
         })
       }

@@ -11,12 +11,12 @@ module.exports = {
       } else {
         let sqlStatement = 'SELECT * FROM users WHERE id_user=$1';
         let params = [userId];
-        client.query(sqlStatement, params, (err, res) => {
+        client.query(sqlStatement, params, (err, qry) => {
           release();
           if (err) {
             callback(err.stack, null);
           } else {
-            callback(null, res.rows[0]);
+            callback(null, qry.rows[0]);
           }
         });
       }
@@ -29,12 +29,12 @@ module.exports = {
       } else {
         let sqlStatement = 'SELECT AVG(rating), COUNT(rating) FROM feedback WHERE id_seller=$1';
         let params = [userId];
-        client.query(sqlStatement, params, (err, res) => {
+        client.query(sqlStatement, params, (err, qry) => {
           release();
           if (err) {
             callback(err.stack, null);
           } else {
-            callback(null, res.rows[0]);
+            callback(null, qry.rows[0]);
           }
         });
       }
@@ -47,12 +47,12 @@ module.exports = {
       } else {
         let sqlStatement = 'SELECT * FROM address WHERE id_user=$1';
         let params = [userId];
-        client.query(sqlStatement, params, (err, res) => {
+        client.query(sqlStatement, params, (err, qry) => {
           release();
           if (err) {
             callback(err.stack, null);
           } else {
-            callback(null, res.rows[0]);
+            callback(null, qry.rows[0]);
           }
         });
       }
@@ -80,12 +80,12 @@ module.exports = {
       if (err) {
         console.error('there was an error getting a connection from the pool', err);
       } else {
-        client.query(sqlStatement, (err, response) => {
+        client.query(sqlStatement, (err, qry) => {
           release();
           if (err) {
             callback(err.stack, null);
           } else {
-            callback(null, response.rows[0]);
+            callback(null, qry.rows[0]);
           }
         });
       }
@@ -144,12 +144,12 @@ module.exports = {
         if (err) {
           console.error('there was an error getting a connection from the pool', err);
         } else {
-          client.query(sqlStatement, (err, response) => {
+          client.query(sqlStatement, (err, qry) => {
             release();
             if (err) {
               callback(err, null);
             } else {
-              callback(null, response.rows[0]);
+              callback(null, qry.rows[0]);
             }
           });
         }
@@ -160,12 +160,12 @@ module.exports = {
         if (err) {
           console.error('there was an error getting a connection from the pool', err);
         } else {
-          client.query(sqlStatement, values, (err, response) => {
+          client.query(sqlStatement, values, (err, qry) => {
             release();
             if (err) {
               callback(err.stack, null);
             } else {
-              callback(null, response.rows[0]);
+              callback(null, qry.rows[0]);
             }
           });
         }

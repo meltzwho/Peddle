@@ -9,12 +9,12 @@ module.exports = {
       } else {
         let sqlStatement = 'INSERT INTO listing_image (id_listing, image_url) VALUES ($1, $2)';
         let params = [listingId, imageUrl];
-        client.query(sqlStatement, params, (err, res) => {
+        client.query(sqlStatement, params, (err, qry) => {
           release();
           if (err) {
             callback(err.stack, null);
           } else {
-            callback(null, res);
+            callback(null, qry);
           }
         });
       

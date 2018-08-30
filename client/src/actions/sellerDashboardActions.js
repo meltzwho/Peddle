@@ -1,25 +1,6 @@
 import axios from 'axios';
 
-export const fetchUserListings = (userId) => {
-  return (dispatch) => {
-    dispatch(fetchListingsStart());
-    return axios.get('/sellerDashboard/listings', {params: {userId: userId}})
-      .then(response => dispatch(fetchListingsSuccess(response.data)),
-        error => dispatch(fetchListingsFail()));
-  };
-};
-
 export const fetchListingsStart = () => ({type: 'FETCH_LISTINGS_START'});
-
-export const fetchListingsSuccess = (listings) => {
-  return ({
-    type: 'FETCH_LISTINGS_SUCCESS',
-    payload: {
-      listings: listings
-    }
-  })
-};
-
 
 export const fetchListingsFail = () => ({type: 'FETCH_LISTINGS_FAIL'});
 
@@ -33,9 +14,10 @@ export const addTrackingData = (details) => {
   }
 }
 
-
+//SOLD LISTINGS ACTIONS//
 export const fetchSoldListings = (userId) => {
   return (dispatch) => {
+    dispatch(fetchListingsStart());
     return axios.get('/sellerDashboard/soldListings', {params: {userId: userId}})
       .then(response => dispatch(fetchSoldListingsComplete(response.data)),
         error => dispatch(fetchListingsFail()));
@@ -51,9 +33,10 @@ export const fetchSoldListingsComplete = (listings) => {
   });
 };
 
-
+//ACTIVE LISTINGS ACTIONS//
 export const fetchActiveListings = (userId) => {
   return (dispatch) => {
+    dispatch(fetchListingsStart());
     return axios.get('/sellerDashboard/activeListings', {params: {userId: userId}})
       .then(response => dispatch(fetchActiveListingsComplete(response.data)),
         error => dispatch(fetchListingsFail()));
@@ -69,5 +52,23 @@ export const fetchActiveListingsComplete = (listings) => {
   });
 };
 
+
+export const fetchInactiveListings = (userId) => {
+  return (dispatch) => {
+    dispatch(fetchListingsStart());
+    return axios.get('/sellerDashboard/inactiveListings', {params: {userId: userId}})
+      .then(response => dispatch(fetchInactiveListingsComplete(response.data)),
+        error => dispatch(fetchListingsFail()));
+  };
+};
+
+export const fetchInactiveListingsComplete = (listings) => {
+  return ({
+    type: 'FETCH_INACTIVE_COMPLETE',
+    payload: {
+      inactive: listings
+    }
+  });
+};
 
 

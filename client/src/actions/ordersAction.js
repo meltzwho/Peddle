@@ -4,11 +4,7 @@ export const fetchOrders = (userId) => {
   return dispatch => {
     dispatch(fetchOrdersStart());
     return axios.get('/orders/orders', {params: {userId: userId}})
-      .then(response => { 
-        response.data.active.sort((a, b)=>(b.id_order - a.id_order));
-        response.data.completed.sort((a, b) => (b.id_order - a.id_order));
-        console.log(response.data);
-        
+      .then(response => {         
         return dispatch(fetchOrdersSuccess(response.data)); },
       error => dispatch(fetchOrdersFail()));
   };

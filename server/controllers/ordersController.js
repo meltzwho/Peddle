@@ -36,6 +36,8 @@ module.exports = {
                   orders.active.push(order);
                 }
                 if (index === response.length - 1) {
+                  orders.completed.sort((a, b) => b.id_order - a.id_order);
+                  orders.active.sort((a, b) => b.id_order - a.id_order);
                   console.log(orders);
                   
                   res.send(orders);
