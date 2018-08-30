@@ -49,8 +49,8 @@ class Profile extends Component {
     let activeOrders = null;
     //once our listings are done fetching
     if (this.props.userProfile.fetchProfileListingsSuccess) {
-      activeOrders = this.props.userProfile.listings.active ? 
-        this.props.userProfile.listings.active.map((listing) => (<SellerDashboardItem key={listing.id_listing} listing={listing} active={false} />)) : <Well style={{margin: "20px"}}>Looks like this user doesn't have any active listings</Well>;
+      activeOrders = this.props.userProfile.listings ? 
+        this.props.userProfile.listings.map((listing) => (<SellerDashboardItem key={listing.id_listing} listing={listing} active={false} />)) : <Well style={{margin: "20px"}}>Looks like this user doesn't have any active listings</Well>;
     }
     return (
       <Grid>

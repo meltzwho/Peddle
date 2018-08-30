@@ -26,7 +26,7 @@ module.exports = {
                   listingIds[listing.id_listing] = true;
                   order.listings.push(listing);
                 }
-              })
+              });
               if (order.is_completed > 0) {
                 orders.completed.push(order);
               } else {

@@ -17,13 +17,13 @@ module.exports = {
         console.error('controller: there was an error fetching the sold listings', err);
       } else {
         let listings = [];
-        let listingId = {};
+        let lineItemId = {};
         response.forEach((listing) => {
-          if (listingId[listing.id_listing]) {
+          if (lineItemId[listing.id_line_item]) {
 
           } else {
             listings.push(listing);
-            listingId[listing.id_listing] = true;
+            lineItemId[listing.id_line_item] = true;
           }
         });
 

@@ -45,7 +45,8 @@ class SellerDashboard extends Component {
     let params = {
       trackingNo: this.state.trackingNo,
       carrier: this.state.carrier,
-      listingId: id
+      listingId: id,
+      userId: this.props.currentUserId
     };
     this.props.submitTrackingData(params);
     this.setState({
@@ -54,7 +55,7 @@ class SellerDashboard extends Component {
       trackingNo: '',
       modalId: null
     });
-    this.props.fetchUserListings(this.props.currentUserId);
+    
   }
 
   handleTrackingClick = (id) => {
