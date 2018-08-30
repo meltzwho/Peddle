@@ -4,7 +4,7 @@ import axios from 'axios';
 export const fetchProfileListings = (userId) => {
   return dispatch => {
     dispatch(fetchProfileListingsStart());
-    return axios.get('/sellerDashboard/listings', {params: {userId: userId}})
+    return axios.get('/sellerDashboard/activeListings', {params: {userId: userId}})
       .then(response => dispatch(fetchProfileListingsSuccess(response.data)),
         error => dispatch(fetchProfileListingsFail()));
   };

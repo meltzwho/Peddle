@@ -29,7 +29,7 @@ const SellEntryReducer = (state = newForm, action) => {
         productDescription: action.payload.listing.description,
         productPrice: action.payload.listing.price,
         productCondition: action.payload.listing.condition,
-        productQuantity: 1,
+        productQuantity: action.payload.listing.quantity,
         allowPickup: action.payload.listing.is_local > 0 ? true : false,
         streetAddress: action.payload.listing.address ? action.payload.listing.address : '',
         cityAddress: action.payload.listing.city ? action.payload.listing.city : '',
