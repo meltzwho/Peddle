@@ -138,7 +138,7 @@ class ListingEntry extends Component {
             </Col>
           </Row>
           <Row>
-            <Col sx={12} sm={12}>
+            <Col xs={12} sm={5}>
               <SocialButtons />
             </Col>
           </Row>
@@ -152,7 +152,7 @@ class ListingEntry extends Component {
             />
           </div>
           <Row>
-            <Col sx={12} sm={12}>
+            <Col xs={12} sm={12}>
               {/* <h2>Recently viewed items and recommendations</h2>
               <h2>Inspired by your purchases</h2> */}
             </Col>
