@@ -37,7 +37,6 @@ class ListingEntry extends Component {
     this.setState({ showCart: !this.state.showCart });
   }
   render = () => {
-    console.log(this.props);
     let qty = [];
     let listingQuantity = this.props.listing.listing.quantity;
     if (this.props.listing.listing.quantity !== 0) {
