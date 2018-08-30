@@ -42,7 +42,6 @@ class ListingEntry extends Component {
     this.props.history.push('/listingEntry/' + this.props.listing.listing.id_listing);
   }
   render = () => {
-    console.log(this.props);
     let qty = [];
     let listingQuantity = this.props.listing.listing.quantity;
     if (this.props.listing.listing.quantity !== 0) {
