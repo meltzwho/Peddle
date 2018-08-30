@@ -34,7 +34,12 @@ class ListingEntry extends Component {
       });
   }
   handleShowCart = () => {
-    this.setState({ showCart: !this.state.showCart });
+    this.setState({ showCart: !this.state.showCart});
+  }
+ 
+  handleCloseCart = () => {
+    this.setState({ showCart: !this.state.showCart});
+    this.props.history.push('/listingEntry/' + this.props.listing.listing.id_listing);
   }
   render = () => {
     let qty = [];
@@ -95,7 +100,7 @@ class ListingEntry extends Component {
                 </Button>
                 <Modal
                   show={this.state.showCart}
-                  onHide={this.handleShowCart}
+                  onHide={this.handleCloseCart}
                   dialogClassName="custom-modal"
                 >
                   <Modal.Body>

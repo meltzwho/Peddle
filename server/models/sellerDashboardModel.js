@@ -64,7 +64,7 @@ module.exports = {
         LEFT OUTER JOIN category 
         ON listing.id_category=category.id_category
         WHERE id_seller=$1 AND listing.is_active=1
-        ORDER BY listing.id_listing`;
+        ORDER BY listing.id_listing DESC`;
         let params = [userId];
         client.query(sqlStatement, params, (err, qry) => {
           release();
