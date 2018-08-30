@@ -160,11 +160,11 @@ a {
 }
 
 .carousel {
-  height: 82vh;
+  height: 87vh;
 }
 
 .carousel-inner>.item>img {
-  height: 75vh;
+  height: 87vh;
 }
 
 #group2 {
@@ -248,7 +248,7 @@ a {
 } */
 
 .parallax {
-  height: 75vh;
+  height: 80vh;
   overflow-x: hidden;
   overflow-y: auto;
   perspective: 250px;
