@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchOrders, closeModal } from '../actions/ordersAction';
+import { fetchOrders, closeModal, completeOrder } from '../actions/ordersAction';
 import Orders from '../components/Orders';
 
 const mapStateToProps = (state) => {
@@ -17,6 +17,9 @@ const mapDispatchToProps = (dispatch) => {
     closeFailModal: () => {
       dispatch(closeModal());
     },
+    completeOrder: (params) => {
+      dispatch(completeOrder(params));
+    }
   };
 };
 

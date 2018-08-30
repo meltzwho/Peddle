@@ -15,21 +15,25 @@ module.exports = {
         response.forEach((order) => {
           let listingIds = {};
           order.listings = [];
+          let orderItemsCompleted = 0;
           db.fetchOrderDetails(order.id_order, (detailsErr, listResponse) => {
             count++;
             if (detailsErr) {
               console.error('controller: there was an error fetching this orders listings', detailsErr)
             } else {
               listResponse.forEach((listing) => {
-                // console.log('the listing in the server', listing)
+                console.log('the listing in the server', listing)
                 if (listingIds[listing.id_listing]) {
                   'nothing'; 
                 } else {
                   listingIds[listing.id_listing] = true;
                   order.listings.push(listing);
+                  if (listing.is_completed > 0) {
+                    orderItemsCompleted++;
+                  }
                 }
               });
-              if (order.is_completed > 0) {
+              if (listResponse.length === orderItemsCompleted) {
                 orders.completed.push(order);
               } else {
                 orders.active.push(order);
@@ -53,5 +57,15 @@ module.exports = {
     db.newOrder(req.body)
       .then((resp) => {res.end()})
       .catch((err) => console.log(err));
+  },
+  completeOrder: (req, res) => {
+    console.log('req', req)
+    db.completeOrder(req.body.orderLineId, (err, response) => {
+      if (err) {
+        console.error('controller: there was an error completing this order', err);
+      } else {
+        res.sendStatus(201);
+      }
+    });
   }
 };
