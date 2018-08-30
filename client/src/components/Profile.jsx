@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { Grid, Row, Col, Thumbnail, Button, Image, Modal, Well } from 'react-bootstrap';
+import { Grid, Row, Col, Thumbnail, Button, Image, Modal, Well, Panel } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
 import SellerDashboardItem from './sellerDashBoardItem';
@@ -54,46 +54,48 @@ class Profile extends Component {
     }
     return (
       <Grid>
+        <Panel>
 
-        <Modal show={this.props.userProfile.fetchUserDetailsSuccess === false} onHide={this.props.closeFailModal}>
-          <Modal.Header>
-            <Modal.Title>Sorry!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>We weren't able to fetch this user's details. Please try again later</Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.props.closeFailModal}>Close</Button>
-          </Modal.Footer>
-        </Modal>
+          <Modal show={this.props.userProfile.fetchUserDetailsSuccess === false} onHide={this.props.closeFailModal}>
+            <Modal.Header>
+              <Modal.Title>Sorry!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>We weren't able to fetch this user's details. Please try again later</Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.props.closeFailModal}>Close</Button>
+            </Modal.Footer>
+          </Modal>
 
-        <Row className="show-grid">
-          <Col xs={12} md={3}>
-            
-            <Image src={this.props.userProfile.userDetails.profile_image_url || 'https://s3.amazonaws.com/peddle-images/dat-boi.jpg'} thumbnail/>
-          </Col>
-          <Col xs={12} md={8}>
-            <h3>{this.props.userProfile.userDetails.username || this.props.userProfile.userDetails.first_name}</h3>
-            <p>{this.props.userProfile.userDetails.bio}</p>
-            <StarRatings 
-              rating={parseFloat(this.props.userProfile.userRating.avg) || 0}
-              starRatedColor="gold"
-              starDimension="24px"
-              starSpacing="0px"
-            />
-            <span>({this.props.userProfile.userRating.count})</span>
-          </Col>
-          <Col xs={2} md={1}>
-            {editButton}
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={16} md={7}>
-            <h3>Other Items Sold By Seller</h3>
-            {activeOrders}
-          </Col>
-          <Col sx={16} md={5}>
-            <h3>Most Recent Customer Reviews</h3>
-          </Col>
-        </Row>
+          <Row className="show-grid">
+            <Col xs={12} md={3}>
+              
+              <Image src={this.props.userProfile.userDetails.profile_image_url || 'https://s3.amazonaws.com/peddle-images/dat-boi.jpg'} thumbnail/>
+            </Col>
+            <Col xs={12} md={8}>
+              <h3>{this.props.userProfile.userDetails.username || this.props.userProfile.userDetails.first_name}</h3>
+              <p>{this.props.userProfile.userDetails.bio}</p>
+              <StarRatings 
+                rating={parseFloat(this.props.userProfile.userRating.avg) || 0}
+                starRatedColor="gold"
+                starDimension="24px"
+                starSpacing="0px"
+              />
+              <span>({this.props.userProfile.userRating.count})</span>
+            </Col>
+            <Col xs={2} md={1}>
+              {editButton}
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={16} md={7}>
+              <h3>Other Items Sold By Seller</h3>
+              {activeOrders}
+            </Col>
+            <Col sx={16} md={5}>
+              <h3>Most Recent Customer Reviews</h3>
+            </Col>
+          </Row>
+        </Panel>
       </Grid>
     );
 
