@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "mocha test",
-    "start": "node server/index.js",
+    "start": "export AWS_PROFILE=peddle && node server/index.js",
     "react-dev": "webpack --config webpack.dev.js --watch",
     "server-dev": "export AWS_PROFILE=peddle && nodemon server/index.js",
     "lint": "eslint client/src/**/*.js client/src/**/*.jsx",
