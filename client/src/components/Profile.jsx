@@ -53,8 +53,8 @@ class Profile extends Component {
         this.props.userProfile.listings.map((listing) => (<SellerDashboardItem key={listing.id_listing} listing={listing} active={false} />)) : <Well style={{margin: "20px"}}>Looks like this user doesn't have any active listings</Well>;
     }
     return (
-      <Grid style={{width: '90%', marginTop: '5px'}}>
-        <Panel style={{padding: '5px'}}>
+      <Grid>
+        <Panel>
 
           <Modal show={this.props.userProfile.fetchUserDetailsSuccess === false} onHide={this.props.closeFailModal}>
             <Modal.Header>

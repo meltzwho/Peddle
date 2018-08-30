@@ -61,8 +61,8 @@ class EditProfile extends React.Component {
     let pendingImage = this.props.picUrls.length > 0 ? <div>Your Image has been uploaded! Hit submit to see the change</div> : null;
     return (
     
-      <Grid style={{width: '90%', marginTop: '5px'}}>
-        <Panel style={{padding: '5px'}}>
+      <Grid>
+        <Panel>
 
           <Row>
             <Col xs={9} md={4}>
@@ -178,8 +178,8 @@ class EditProfile extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col xs={12} md={6}>
-              <FormGroup controlId="bio" style={{width: '350px'}}>
+            <Col xs={9} md={6}>
+              <FormGroup controlId="bio">
                 <ControlLabel>Bio</ControlLabel>
                 <FormControl 
                   componentClass="textarea"

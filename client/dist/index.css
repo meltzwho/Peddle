@@ -29,10 +29,20 @@ body {
   margin-top: 5px;
 }
 
-textarea.form-control {
-  width: 50.5vw;
-}
-
 .col-xs-offset-1 {
   width: 80%;
+}
+
+.list-group-item, .list-group, .img-thumbnail {
+  border: unset;
+  box-shadow: unset;
+  background-color: #f8f8f8;
+}
+
+.listing-card {
+  background-image: linear-gradient(to bottom, #fff 0, #f8f8f8 100%);
+}
+
+.listing-card:hover {
+  background-image: linear-gradient(to bottom, #fff 0, #f8f8f8 0%);
 }

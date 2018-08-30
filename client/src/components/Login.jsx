@@ -55,7 +55,7 @@ export default class Login extends React.Component {
     return (
       <div>
         <div className="login_wrapper">
-          <Grid style={{width: '90%', marginTop: '5px'}}>
+          <Grid>
 
             <Panel style={{textAlign: 'center'}}>
               <Panel.Heading>

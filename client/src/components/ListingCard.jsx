@@ -9,7 +9,7 @@ const ListingCard = (props) => {
   }
   return (
     <Link className='test' to={`/listingEntry/${props.listing.id_listing}`}>
-      <Thumbnail>
+      <Thumbnail className='listing-card'>
         {/* {listing} */}
         <Image alt='' src={props.listing.images[0] || 'http://localhost:3000/assets/No-image-available.jpg'} style={{width: '75%', "marginLeft": "12.5%", height: '35vh', objectFit: "scale-down"}} thumbnail/>
         <ListGroup style={{'textAlign': 'center', "marginTop": '5px'}}>

@@ -81,7 +81,7 @@ class SellerDashboard extends Component {
       this.props.listings.inactive.map((listing) => (<SellerDashboardItem id={listing.id_listing} key={listing.id_listing} listing={listing} active={false} showProgress={false}/>)) : <Well style={{margin: "20px"}}>Looks like you don't have any inactive listings</Well>;
 
     return (
-      <Grid style={{width: '90%', marginTop: '5px'}}>
+      <Grid>
         <Panel>
           <Modal show={this.props.listings.listingFetchSuccess === false} onHide={this.props.closeFailModal}>
             <Modal.Header>

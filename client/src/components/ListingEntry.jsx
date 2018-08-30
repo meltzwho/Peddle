@@ -57,8 +57,8 @@ class ListingEntry extends Component {
     }
     if (this.props.listing.listing.id_seller !== '' && this.props.listing.images !== undefined && this.props.listing.rating !== '') {
       return (
-        <Grid style={{marginTop: '5px', width: '90%'}}>
-          <Panel style={{padding: '5px'}}>
+        <Grid>
+          <Panel>
             <Row className="show-grid">
               <Col xs={12} sm={5}>
                 <ImageViewer images={this.props.listing.images} />

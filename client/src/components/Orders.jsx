@@ -24,7 +24,7 @@ class Orders extends Component {
     let completedTiles = this.props.orders.orders.completed.length > 0 ? 
       this.props.orders.orders.completed.map((order) => (<OrdersItem key={order.id_order} order={order} active={false} />)) : <Well style={{margin: "20px"}}>Looks like you don't have any completed orders</Well>;
     return (
-      <Grid style={{marginTop: '5px', width: '90%'}}>
+      <Grid>
         <Panel>
           <Modal show={this.props.orders.ordersFetchSuccess === false} onHide={this.props.closeFailModal}>
             <Modal.Header>

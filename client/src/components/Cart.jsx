@@ -134,7 +134,7 @@ export default class Cart extends React.Component {
     }
     
     return (
-      <Grid className="cart" style={{width: '90%', marginTop: '5px'}}>
+      <Grid className="cart">
         <CartItems 
           currentuser={this.props.currentuser}
           removeItemFromCart={this.removeItemFromCart}
