@@ -37,6 +37,10 @@ module.exports = {
             }
             
             if (count === response.length) {
+              orders.completed.sort((a, b) => b.id_order - a.id_order);
+              orders.active.sort((a, b) => b.id_order - a.id_order);
+              console.log(orders);
+              console.log(orders);
               res.send(orders);
             }
             
