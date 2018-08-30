@@ -92,58 +92,60 @@ class ReviewEntryForm extends Component {
             </Col>
           </Row>
           <Row>
-            <Form horizontal>
-              <Row>
-                <FormGroup controlId="title">
-                  <Col componentClass={ControlLabel} sm={2}>
-                      Title
-                  </Col>
-                  <Col sm={8}>
-                    <FormControl 
-                      type="text"
-                      name="title"
-                      value={this.state.title}
-                      placeholder="Enter the title for your review..."
-                      onChange={this.handleChange}
-                    />
-                  </Col>
-                </FormGroup>
-              </Row>
-  
-              <Row>
-                <FormGroup controlId="feedback">
-                  <Col componentClass={ControlLabel} sm={2}>
-                      Comments
-                  </Col>
-                  <Col sm={8}>
-                    <FormControl
-                      componentClass="textarea"
-                      name="feedback"
-                      style={{resize: 'vertical', height: '200px'}}
-                      value={this.state.feedback}
-                      placeholder="Please enter comments here about your experience with this seller."
-                      onChange={this.handleChange}
-                    />
-                  </Col>
-                </FormGroup>
-              </Row>
-  
-              <Row className="show-grid">
-                <FormGroup>
-                  <Col smOffset={2} sm={8}>
-                    <Button
-                      bsStyle="primary"
-                      bsSize="large"
-                      block
-                      type="submit"
-                      onClick={this.handleSubmit}
-                    >
-                      Submit Feedback
-                    </Button>
-                  </Col>
-                </FormGroup>
-              </Row>
-            </Form>
+            <Col xs={12} sm={12}>
+              <Form horizontal>
+                <Row>
+                  <FormGroup controlId="title">
+                    <Col componentClass={ControlLabel} sm={2}>
+                        Title
+                    </Col>
+                    <Col sm={8}>
+                      <FormControl 
+                        type="text"
+                        name="title"
+                        value={this.state.title}
+                        placeholder="Enter the title for your review..."
+                        onChange={this.handleChange}
+                      />
+                    </Col>
+                  </FormGroup>
+                </Row>
+    
+                <Row>
+                  <FormGroup controlId="feedback">
+                    <Col componentClass={ControlLabel} sm={2}>
+                        Comments
+                    </Col>
+                    <Col sm={8}>
+                      <FormControl
+                        componentClass="textarea"
+                        name="feedback"
+                        style={{resize: 'vertical', height: '200px'}}
+                        value={this.state.feedback}
+                        placeholder="Please enter comments here about your experience with this seller."
+                        onChange={this.handleChange}
+                      />
+                    </Col>
+                  </FormGroup>
+                </Row>
+    
+                <Row className="show-grid">
+                  <FormGroup>
+                    <Col smOffset={2} sm={8}>
+                      <Button
+                        bsStyle="primary"
+                        bsSize="large"
+                        block
+                        type="submit"
+                        onClick={this.handleSubmit}
+                      >
+                        Submit Feedback
+                      </Button>
+                    </Col>
+                  </FormGroup>
+                </Row>
+              </Form>
+            </Col>
           </Row>
         </Grid>
       );
