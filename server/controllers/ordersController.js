@@ -6,13 +6,14 @@ module.exports = {
       if (err) {
         console.error('controller: there was an error fetching this sellers listings', err);
       } else {
-        let listingIds = {};
+        
         let count = 0;
         let orders = {
           active: [],
           completed: []
         }
         response.forEach((order) => {
+          let listingIds = {};
           order.listings = [];
           db.fetchOrderDetails(order.id_order, (detailsErr, listResponse) => {
             count++;
@@ -22,6 +23,7 @@ module.exports = {
               listResponse.forEach((listing) => {
                 // console.log('the listing in the server', listing)
                 if (listingIds[listing.id_listing]) {
+                  'nothing'; 
                 } else {
                   listingIds[listing.id_listing] = true;
                   order.listings.push(listing);
@@ -37,6 +39,8 @@ module.exports = {
             }
             
             if (count === response.length) {
+              orders.completed.sort((a, b) => b.id_order - a.id_order);
+              orders.active.sort((a, b) => b.id_order - a.id_order);
               res.send(orders);
             }
             

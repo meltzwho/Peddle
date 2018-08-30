@@ -58,7 +58,7 @@ class ReviewsList extends Component {
   }
   render() {
     return (
-      <div>
+      <Grid>
         <Row>
           <Col xs={8} sm={8}>
             <h2>Ratings & Reviews</h2>
@@ -69,10 +69,12 @@ class ReviewsList extends Component {
         </Row>
         <Row>
           <Col xs={12} sm={6}>
-            <div style={{
-              width: '100%',
-              height: '250px',
-            }}>
+            <div 
+              style={{
+                width: '100%',
+                height: '250px',
+              }}
+            >
               {this.state.values.length !== 0 ? (
                 <SolidGauge
                   responsive
@@ -85,7 +87,7 @@ class ReviewsList extends Component {
                   pathMargin={0.05}
                   endAngle={3.14 * 1.5}
                   values={this.state.values}
-                  animationTime={5000}
+                  animationTime={10000}
                   showTooltip
                   // animateTime={2000}
                   // ease='easeLinear'
@@ -114,7 +116,7 @@ class ReviewsList extends Component {
             </div>
           </Col>
         </Row>
-      </div>
+      </Grid>
     );
   }
 }

@@ -3,11 +3,9 @@ import { HashLink as Link } from 'react-router-hash-link';
 import { Grid, Row, Col, ButtonToolbar, Modal, Button, Image, Thumbnail } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
-import Stripe from './Stripe';
 import ReviewsList from './ReviewsList';
 import ImageViewer from './ImageViewer';
 import SocialButtons from './SocialButtons';
-import '../../dist/styles/ImageViewer.css';
 
 class ListingEntry extends Component {
   state = {
@@ -34,10 +32,14 @@ class ListingEntry extends Component {
       });
   }
   handleShowCart = () => {
-    this.setState({ showCart: !this.state.showCart });
+    this.setState({ showCart: !this.state.showCart});
+  }
+ 
+  handleCloseCart = () => {
+    this.setState({ showCart: !this.state.showCart});
+    this.props.history.push('/listingEntry/' + this.props.listing.listing.id_listing);
   }
   render = () => {
-    console.log(this.props);
     let qty = [];
     let listingQuantity = this.props.listing.listing.quantity;
     if (this.props.listing.listing.quantity !== 0) {
@@ -78,7 +80,7 @@ class ListingEntry extends Component {
                 }
               </span>
               <div><strong>Price: </strong><h4 id="price">${this.props.listing.listing.price}</h4></div>
-              <div><strong>Qty Available: </strong>{this.props.listing.listing.quantity}</div>
+              <div><strong>Qty Available: </strong>{this.props.listing.listing.quantity - this.props.listing.listing.quantity_sold}</div>
               <div><strong>Description: </strong>{this.props.listing.listing.description}</div>
               <div><strong>Condition: </strong>{this.props.listing.listing.condition}</div>
             </Col>
@@ -96,7 +98,7 @@ class ListingEntry extends Component {
                 </Button>
                 <Modal
                   show={this.state.showCart}
-                  onHide={this.handleShowCart}
+                  onHide={this.handleCloseCart}
                   dialogClassName="custom-modal"
                 >
                   <Modal.Body>

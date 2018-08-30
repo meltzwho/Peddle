@@ -7,7 +7,7 @@ module.exports = {
       if (err) {
         console.error('there was an error getting a connection from the pool');
       } else {
-        let sqlStatement = `SELECT * FROM orders WHERE id_buyer=$1 ORDER BY id_order DESC`;
+        let sqlStatement = `SELECT * FROM orders WHERE id_buyer=$1 ORDER BY orders.id_order DESC`;
         let params = [userId];
         client.query(sqlStatement, params, (err, qry) => {
           release();
@@ -20,6 +20,8 @@ module.exports = {
             } else {
               resData = qry.rows
             }
+            //console.log(resData);
+            
             callback(null, resData);
           }
         });
