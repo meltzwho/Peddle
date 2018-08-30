@@ -1,3 +1,16 @@
 @import url("./styles/ImageViewer.css");
 @import url("./styles/ListingEntry.css");
 @import url("./styles/SocialButtons.css");
+
+body {
+  background-color: #e6ecf0;
+}
+
+.navbar {
+  margin: 0;
+}
+
+.container-fluid {
+  margin: 0;
+  padding: 0;
+}
