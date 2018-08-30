@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
-import { Button, Modal, Tabs, Tab, Grid, Col, Row, Jumbotron, Well } from 'react-bootstrap';
+import { Button, Modal, Tabs, Tab, Grid, Col, Row, Jumbotron, Well, Panel } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import Axios from 'axios';
 import SellerDashboardItem from './sellerDashBoardItem';
@@ -45,7 +45,8 @@ class SellerDashboard extends Component {
     let params = {
       trackingNo: this.state.trackingNo,
       carrier: this.state.carrier,
-      listingId: id
+      listingId: id,
+      userId: this.props.currentUserId
     };
     this.props.submitTrackingData(params);
     this.setState({
@@ -54,7 +55,7 @@ class SellerDashboard extends Component {
       trackingNo: '',
       modalId: null
     });
-    this.props.fetchUserListings(this.props.currentUserId);
+    
   }
 
   handleTrackingClick = (id) => {
@@ -81,43 +82,49 @@ class SellerDashboard extends Component {
 
     return (
       <Grid>
-        <Modal show={this.props.listings.listingFetchSuccess === false} onHide={this.props.closeFailModal}>
-          <Modal.Header>
-            <Modal.Title>Sorry!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>We weren't able to fetch your listings. Please try again later</Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.props.closeFailModal}>Close</Button>
-          </Modal.Footer>
-        </Modal>
+        <Panel>
+          <Modal show={this.props.listings.listingFetchSuccess === false} onHide={this.props.closeFailModal}>
+            <Modal.Header>
+              <Modal.Title>Sorry!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>We weren't able to fetch your listings. Please try again later</Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.props.closeFailModal}>Close</Button>
+            </Modal.Footer>
+          </Modal>
 
-        <Jumbotron>
+          <Jumbotron>
+            <Row>
+              <h2>Seller Dashboard</h2> 
+              <Col xs={18} md={4} mdOffset={10}>
+                <Button href={this.state.is_seller === true ? '/sellEntry' : '/stripe/auth'} bsStyle="primary" bsSize="large" id="dash-new-item">List a New Item</Button>
+              </Col>
+            </Row>
+          </Jumbotron>
+          
+          
           <Row>
-            <h2>Seller Dashboard</h2> 
-            <Col xs={18} md={4} mdOffset={10}>
-              <Button href={this.state.is_seller === true ? '/sellEntry' : '/stripe/auth'} bsStyle="primary" bsSize="large" id="dash-new-item">List a New Item</Button>
+            <Col xsOffset={1}>
+              <h3>Your Listings</h3>
             </Col>
           </Row>
-        </Jumbotron>
-        
-        
-        <Row>
-          <h3>Your Listings</h3>
-        </Row>
 
-        <Row>
-          <Tabs defaultActiveKey={1} id="seller-listings">
-            <Tab eventKey={1} title={`Active (${this.props.listings.active.length})`}>
-              {activeTiles}
-            </Tab>
-            <Tab eventKey={2} title={`Sold (${this.props.listings.sold.length})`}>
-              {completedTiles}
-            </Tab>
-            <Tab eventKey={3} title={`Inactive (${this.props.listings.inactive.length})`}>
-              {inactiveTiles}
-            </Tab>
-          </Tabs>
-        </Row>
+          <Row>
+            <Col xsOffset={1}>
+              <Tabs defaultActiveKey={1} id="seller-listings" style={{width: '90%'}}>
+                <Tab eventKey={1} title={`Active (${this.props.listings.active.length})`}>
+                  {activeTiles}
+                </Tab>
+                <Tab eventKey={2} title={`Sold (${this.props.listings.sold.length})`}>
+                  {completedTiles}
+                </Tab>
+                <Tab eventKey={3} title={`Inactive (${this.props.listings.inactive.length})`}>
+                  {inactiveTiles}
+                </Tab>
+              </Tabs>
+            </Col>
+          </Row>
+        </Panel>
       </Grid>
     );
   }

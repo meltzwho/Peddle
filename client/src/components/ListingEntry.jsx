@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
-import { Grid, Row, Col, ButtonToolbar, Modal, Button, Image, Thumbnail } from 'react-bootstrap';
+import { Grid, Row, Col, ButtonToolbar, Modal, Button, Image, Thumbnail, Panel } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
 import ReviewsList from './ReviewsList';
@@ -62,113 +62,115 @@ class ListingEntry extends Component {
     if (this.props.listing.listing.id_seller !== '' && this.props.listing.images !== undefined && this.props.listing.rating !== '') {
       return (
         <Grid>
-          <Row className="show-grid">
-            <Col xs={12} sm={5}>
-              <ImageViewer images={this.props.listing.images} />
-            </Col>
-            <Col xs={12} sm={5}>
-              <h2>{this.props.listing.listing.title}</h2>
-              <div>Sold by: <a href={`/profile/${this.props.listing.seller.id_user}`}>{this.props.listing.seller.username}</a></div>
-              <StarRatings 
-                rating={+this.props.listing.rating.rating}
-                isAggregateRating="true"
-                starRatedColor="gold"
-                starSelectingHoverColor="yellow"
-                starDimension="16px"
-                starSpacing="0px"
+          <Panel>
+            <Row className="show-grid">
+              <Col xs={12} sm={5}>
+                <ImageViewer images={this.props.listing.images} />
+              </Col>
+              <Col xs={12} sm={5}>
+                <h2>{this.props.listing.listing.title}</h2>
+                <div>Sold by: <a href={`/profile/${this.props.listing.seller.id_user}`}>{this.props.listing.seller.username}</a></div>
+                <StarRatings 
+                  rating={+this.props.listing.rating.rating}
+                  isAggregateRating="true"
+                  starRatedColor="gold"
+                  starSelectingHoverColor="yellow"
+                  starDimension="16px"
+                  starSpacing="0px"
+                />
+                <span id="reviewsLink">
+                  {this.props.listing.rating.count === 1 ?
+                    <Link smooth to={`/listingEntry/${this.props.listing.listing.id_listing}/#listingReview`}>{this.props.listing.rating.count} review</Link>
+                    : <Link smooth to={`/listingEntry/${this.props.listing.listing.id_listing}/#listingReview`}> {this.props.listing.rating.count} reviews</Link>
+                  }
+                </span>
+                <div><strong>Price: </strong><h4 id="price">${this.props.listing.listing.price}</h4></div>
+                <div><strong>Qty Available: </strong>{this.props.listing.listing.quantity - this.props.listing.listing.quantity_sold}</div>
+                <div><strong>Description: </strong>{this.props.listing.listing.description}</div>
+                <div><strong>Condition: </strong>{this.props.listing.listing.condition}</div>
+              </Col>
+              <Col xs={12} sm={2}>
+                <ButtonToolbar>
+                  <Button
+                    onClick={() => {
+                      if (this.state.qty !== 0) {
+                        this.handleShowCart(); 
+                        this.handleAddToCart();
+                      }
+                    }}
+                  >
+                    Add To Cart
+                  </Button>
+                  <Modal
+                    show={this.state.showCart}
+                    onHide={this.handleCloseCart}
+                    dialogClassName="custom-modal"
+                  >
+                    <Modal.Body>
+                      <Grid>
+                        <Col xs={3}>
+                          <h4>Added to Cart</h4>
+                          {this.props.listing.images === undefined || this.props.listing.images.length === 0? 
+                            <Image src='/assets/No-image-available.jpg' alt='no image available' width="100" height="100" />
+                            : <Image src={this.props.listing.images[0].original} width="100" height="100" />
+                          } 
+                        </Col>
+                        <Col xs={9}>
+                          <br/>
+                          <div>
+                            <div><strong>{this.props.listing.listing.title}</strong></div>
+                            <div>Quantity Selected: {this.state.qty}</div>
+                            <div>Price: {this.state.qty * this.props.listing.listing.price}</div>
+                            <div><Link to={`/cart`}><Button>View Cart</Button></Link></div>
+                          </div>
+                        </Col>
+                      </Grid>
+                    </Modal.Body>
+                  </Modal>
+                </ButtonToolbar>
+                <div>
+                Qty: 
+                  <select
+                    onChange={this.handleChange}
+                    defaultValue={this.state.qty}
+                  >
+                    {qty.map(count => count)}
+                  </select>
+                </div>
+                <div>
+                  ({this.props.listing.listing.quantity - listingQuantity} already in cart) 
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} sm={5}>
+                <SocialButtons />
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={8} sm={8}>
+                <h3>Ratings & Reviews</h3>
+              </Col>
+              <Col xs={4} sm={4}>
+                <h2><Link to={`/reviewEntryForm/${this.props.listing.listing.id_listing}`}><Button>Write a Review</Button></Link></h2>
+              </Col>
+            </Row>
+            <ReviewsRatingChart />
+            <div id="listingReview">
+              <ReviewsList 
+                rating={this.props.listing.rating}
+                feedback={this.props.listing.feedback}
+                listing={this.props.listing.listing}
+                seller={this.props.listing.seller}
               />
-              <span id="reviewsLink">
-                {this.props.listing.rating.count === 1 ?
-                  <Link smooth to={`/listingEntry/${this.props.listing.listing.id_listing}/#listingReview`}>{this.props.listing.rating.count} review</Link>
-                  : <Link smooth to={`/listingEntry/${this.props.listing.listing.id_listing}/#listingReview`}> {this.props.listing.rating.count} reviews</Link>
-                }
-              </span>
-              <div><strong>Price: </strong><h4 id="price">${this.props.listing.listing.price}</h4></div>
-              <div><strong>Qty Available: </strong>{this.props.listing.listing.quantity - this.props.listing.listing.quantity_sold}</div>
-              <div><strong>Description: </strong>{this.props.listing.listing.description}</div>
-              <div><strong>Condition: </strong>{this.props.listing.listing.condition}</div>
-            </Col>
-            <Col xs={12} sm={2}>
-              <ButtonToolbar>
-                <Button
-                  onClick={() => {
-                    if (this.state.qty !== 0) {
-                      this.handleShowCart(); 
-                      this.handleAddToCart();
-                    }
-                  }}
-                >
-                  Add To Cart
-                </Button>
-                <Modal
-                  show={this.state.showCart}
-                  onHide={this.handleCloseCart}
-                  dialogClassName="custom-modal"
-                >
-                  <Modal.Body>
-                    <Grid>
-                      <Col xs={3}>
-                        <h4>Added to Cart</h4>
-                        {this.props.listing.images === undefined || this.props.listing.images.length === 0? 
-                          <Image src='/assets/No-image-available.jpg' alt='no image available' width="100" height="100" />
-                          : <Image src={this.props.listing.images[0].original} width="100" height="100" />
-                        } 
-                      </Col>
-                      <Col xs={9}>
-                        <br/>
-                        <div>
-                          <div><strong>{this.props.listing.listing.title}</strong></div>
-                          <div>Quantity Selected: {this.state.qty}</div>
-                          <div>Price: {this.state.qty * this.props.listing.listing.price}</div>
-                          <div><Link to={`/cart`}><Button>View Cart</Button></Link></div>
-                        </div>
-                      </Col>
-                    </Grid>
-                  </Modal.Body>
-                </Modal>
-              </ButtonToolbar>
-              <div>
-              Qty: 
-                <select
-                  onChange={this.handleChange}
-                  defaultValue={this.state.qty}
-                >
-                  {qty.map(count => count)}
-                </select>
-              </div>
-              <div>
-                ({this.props.listing.listing.quantity - listingQuantity} already in cart) 
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} sm={5}>
-              <SocialButtons />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={8} sm={8}>
-              <h3>Ratings & Reviews</h3>
-            </Col>
-            <Col xs={4} sm={4}>
-              <h2><Link to={`/reviewEntryForm/${this.props.listing.listing.id_listing}`}><Button>Write a Review</Button></Link></h2>
-            </Col>
-          </Row>
-          <ReviewsRatingChart />
-          <div id="listingReview">
-            <ReviewsList 
-              rating={this.props.listing.rating}
-              feedback={this.props.listing.feedback}
-              listing={this.props.listing.listing}
-              seller={this.props.listing.seller}
-            />
-          </div>
-          <Row>
-            <Col xs={12} sm={12}>
-              {/* <h2>Recently viewed items and recommendations</h2>
-              <h2>Inspired by your purchases</h2> */}
-            </Col>
-          </Row>
+            </div>
+            <Row>
+              <Col sx={12} sm={12}>
+                {/* <h2>Recently viewed items and recommendations</h2>
+                <h2>Inspired by your purchases</h2> */}
+              </Col>
+            </Row>
+          </Panel>
         </Grid>
       );
     } else {

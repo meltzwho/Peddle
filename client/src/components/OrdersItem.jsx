@@ -21,9 +21,7 @@ const OrdersItem = (props) => {
         </Well>
       );
       orderCompleteButton = (
-        <Link to={`/reviewEntryForm/${listing.id_listing}`}>
-          <Button>Received Item</Button>
-        </Link>
+        <Button onClick={() => props.completeOrder(listing)}>Received Item</Button>
       );
     }
   
@@ -42,12 +40,12 @@ const OrdersItem = (props) => {
             {trackingInfo}
           </Row>
           <Row style={{margin: "20px"}}>
-            <Col xs={2} sm={2}>
+            <Col xs={6} sm={6} md={1}>
               <Link className='seller-view-listing' to={`/listingEntry/${listing.id_listing}`}>
                 <Button>View Item</Button>
               </Link>
             </Col>
-            <Col sx={2} sm={2} smOffset={1}>
+            <Col sx={6} sm={6} md={1} mdOffset={2}>
               {orderCompleteButton}
             </Col>
           </Row>

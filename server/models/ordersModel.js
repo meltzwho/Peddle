@@ -101,5 +101,24 @@ module.exports = {
       .catch(e => {
         console.error('there was an error getting the pool connection', e);
       });
+  },
+  completeOrder: (orderLineId, callback) => {
+    console.log('order line item', orderLineId)
+    write.connect((err, client, release) => {
+      if (err) {
+        console.error('there was an error getting a connection from the pool');
+      } else {
+        let sqlStatement = `UPDATE order_line_item SET is_completed=1 WHERE id_line_item=$1`;
+        let params = [orderLineId];
+        client.query(sqlStatement, params, (err, qry) => {
+          release();
+          if (err) {
+            callback(err.stack, null);
+          } else {
+            callback(null, qry)
+          }
+        });
+      }
+    });
   }
 };
