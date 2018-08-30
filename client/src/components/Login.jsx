@@ -55,110 +55,115 @@ export default class Login extends React.Component {
     return (
       <div>
         <div className="login_wrapper">
-          <Panel style={{textAlign: 'center'}}>
-            <Panel.Heading>
-              <Panel.Title componentClass="h2">Login</Panel.Title>
-            </Panel.Heading>
-            <Panel.Body>
-              <Grid>
-                <Form horizontal>
+          <Grid style={{width: '90%', marginTop: '5px'}}>
 
-                  {
-                    this.state.errorMessage
-                      ? (
-                        <Alert bsStyle="warning" style={{textAlign: 'center'}}>
-                          <h4>{this.state.errorMessage}</h4>
-                        </Alert>
-                      ) : ''
-                  }
+            <Panel style={{textAlign: 'center'}}>
+              <Panel.Heading>
+                <Panel.Title componentClass="h2">Login</Panel.Title>
+              </Panel.Heading>
+              <Panel.Body>
+                <Grid>
+                  <Form horizontal>
 
-                  <Row className="show-grid">
-                    <FormGroup controlId="Email">
-                      <Col componentClass={ControlLabel} sm={2}>
-                        Email
+                    {
+                      this.state.errorMessage
+                        ? (
+                          <Alert bsStyle="warning" style={{textAlign: 'center'}}>
+                            <h4>{this.state.errorMessage}</h4>
+                          </Alert>
+                        ) : ''
+                    }
+
+                    <Row className="show-grid">
+                      <FormGroup controlId="Email">
+                        <Col componentClass={ControlLabel} sm={2}>
+                          Email
+                        </Col>
+                        <Col sm={8}>
+                          <FormControl 
+                            id="login-email"
+                            type="email"
+                            name="email" 
+                            placeholder="Enter Email..." 
+                            value={this.state.email}
+                            onChange={this.handleChange}
+                          />
+                        </Col>
+                      </FormGroup>
+                    </Row>
+
+                    <Row className="show-grid">
+                      <FormGroup controlId="UserName">
+                        <Col componentClass={ControlLabel} sm={2}>
+                          Password
+                        </Col>
+                        <Col sm={8}>
+                          <FormControl 
+                            id="login-password"
+                            type="password" 
+                            name="password"
+                            placeholder="Enter Password..." 
+                            value={this.state.password}
+                            onChange={this.handleChange}
+                          />
+                        </Col>
+                      </FormGroup>
+                    </Row>
+                        
+                    <Row className="show-grid">
+                      <FormGroup>
+                        <Col smOffset={2} sm={8}>
+                          <Button
+                            id="login-submit"
+                            bsStyle="primary" 
+                            bsSize="large" 
+                            block
+                            type="submit"
+                            onClick={this.handleSubmit}
+                          >Log in
+                          </Button>
+                        </Col>
+                      </FormGroup>
+                    </Row>
+
+                    <Row className="show-grid">
+                      <Col sm={12}>
+                        <div className="aTag_wrapper">
+                          <a href="/signup" className="forgotPassword">
+                            Create an account. Here...
+                          </a>
+                        </div>
                       </Col>
-                      <Col sm={8}>
-                        <FormControl 
-                          id="login-email"
-                          type="email"
-                          name="email" 
-                          placeholder="Enter Email..." 
-                          value={this.state.email}
-                          onChange={this.handleChange}
-                        />
+                    </Row>
+
+
+                    <Row className="show-grid">
+                      <Col sm={12}>
+                        <div className="oauth_wrapper">
+                          <p>or sign in with...</p>
+                        </div>
                       </Col>
-                    </FormGroup>
-                  </Row>
+                    </Row>
 
-                  <Row className="show-grid">
-                    <FormGroup controlId="UserName">
-                      <Col componentClass={ControlLabel} sm={2}>
-                        Password
-                      </Col>
-                      <Col sm={8}>
-                        <FormControl 
-                          id="login-password"
-                          type="password" 
-                          name="password"
-                          placeholder="Enter Password..." 
-                          value={this.state.password}
-                          onChange={this.handleChange}
-                        />
-                      </Col>
-                    </FormGroup>
-                  </Row>
-                      
-                  <Row className="show-grid">
-                    <FormGroup>
-                      <Col smOffset={2} sm={8}>
-                        <Button
-                          id="login-submit"
-                          bsStyle="primary" 
-                          bsSize="large" 
-                          block
-                          type="submit"
-                          onClick={this.handleSubmit}
-                        >Log in
-                        </Button>
-                      </Col>
-                    </FormGroup>
-                  </Row>
-
-                  <Row className="show-grid">
-                    <Col sm={12}>
-                      <div className="aTag_wrapper">
-                        <a href="/signup" className="forgotPassword">
-                          Create an account. Here...
-                        </a>
-                      </div>
-                    </Col>
-                  </Row>
-
-
-                  <Row className="show-grid">
-                    <Col sm={12}>
-                      <div className="oauth_wrapper">
-                        <p>or sign in with...</p>
-                      </div>
-                    </Col>
-                  </Row>
-
-                  <Row className="show-grid">
-                    <Col smOffset={2} sm={8}>
-                      <a href='/auth/google'>
-                        <Button 
-                          bsSize="large" 
-                          block
-                        >Log in with Google
-                        </Button>
-                      </a>
-                    </Col>
-                  </Row>
-                 
-                </Form>
-              </Grid>
-            </Panel.Body>
-          </Panel>
+                    <Row className="show-grid">
+                      <FormGroup>
+                        <Col smOffset={2} sm={8}>
+                          <a href='/auth/google'>
+                            <Button 
+                              bsSize="large" 
+                              block
+                            >Log in with Google
+                            </Button>
+                          </a>
+                        </Col>
+                      </FormGroup>
+                    </Row>
+                  
+                  </Form>
+                </Grid>
+              </Panel.Body>
+            </Panel>
+          </Grid>
         </div>
       </div>
     );

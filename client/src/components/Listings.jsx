@@ -62,7 +62,7 @@ class Listings extends Component {
       );
     }
     return (
-      <Grid>
+      <Grid style={{width: '90%', marginTop: '5px'}}>
         <Row>
           <Col xs={12} sm={12}>
             <FilterModal filter={this.filter} />

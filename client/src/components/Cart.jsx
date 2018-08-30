@@ -134,28 +134,24 @@ export default class Cart extends React.Component {
     }
     
     return (
-      <div>
-        <Panel>
-          <Grid className="cart" style={{width: '90%'}}>
-            <CartItems 
-              currentuser={this.props.currentuser}
-              removeItemFromCart={this.removeItemFromCart}
-              cartitems={this.state.cartitems}
-              handleQuantitySelect={this.handleQuantitySelect}
-              optionState={this.state.optionState}
-              handlecheckout={this.handlecheckout}
-              emptycart={this.state.emptycart}
-            />
-            <Checkout 
-              handlecheckout={this.handlecheckout}
-              show={this.state.checkoutMode}
-              onHide={lgClose}
-              currentuser={this.props.currentuser}
-              cartitems={this.state.cartitems}
-            />
-          </Grid>
-        </Panel>
-      </div>  
+      <Grid className="cart" style={{width: '90%', marginTop: '5px'}}>
+        <CartItems 
+          currentuser={this.props.currentuser}
+          removeItemFromCart={this.removeItemFromCart}
+          cartitems={this.state.cartitems}
+          handleQuantitySelect={this.handleQuantitySelect}
+          optionState={this.state.optionState}
+          handlecheckout={this.handlecheckout}
+          emptycart={this.state.emptycart}
+        />
+        <Checkout 
+          handlecheckout={this.handlecheckout}
+          show={this.state.checkoutMode}
+          onHide={lgClose}
+          currentuser={this.props.currentuser}
+          cartitems={this.state.cartitems}
+        />
+      </Grid>
     );
       
   }
