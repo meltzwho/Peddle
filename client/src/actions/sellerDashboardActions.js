@@ -9,7 +9,7 @@ export const closeModal = () => ({type: 'CLOSE_MODAL'});
 export const addTrackingData = (details) => {
   return (dispatch) => {
     return axios.post('/sellerDashboard/tracking', details)
-      .then(response => {},
+      .then(response => {dispatch(fetchSoldListings(details.userId))},
         error => console.log('error posting tracking data', error));
   }
 }

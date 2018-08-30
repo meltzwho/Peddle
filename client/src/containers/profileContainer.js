@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { fetchProfileListings, closeModal, fetchUserDetails, fetchProfileRating } from '../actions/profileAction';
 import Profile from '../components/Profile';
 
