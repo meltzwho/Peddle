@@ -20,6 +20,15 @@ export default class Login extends React.Component {
       password: this.state.password
     };
     
+    if (formContents.email === '') {
+      this.setState({
+        errorMessage: 'Invalid credentials.',
+        email: '',
+        password: ''
+      });
+      return;
+    }
+
     axios({
       method: 'post',
       url: '/login/validate',
@@ -51,7 +60,7 @@ export default class Login extends React.Component {
       });
   }
 
-  render () {
+  render () {    
     return (
       <div>
         <div className="login_wrapper">
