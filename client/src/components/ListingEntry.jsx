@@ -44,7 +44,6 @@ class ListingEntry extends Component {
     this.props.wipeListingEntry();
   }
   render = () => {
-    console.log(this.props);
     let qty = [];
     let listingQuantity = this.props.listing.listing.quantity;
     if (this.props.listing.listing.quantity !== 0) {
@@ -97,7 +96,7 @@ class ListingEntry extends Component {
                 <ButtonToolbar>
                   <Button
                     onClick={() => {
-                      if (this.props.userId === '') {
+                      if (this.props.userId === null) {
                         window.location.href = '/login';
                       } else if (this.state.qty !== 0 ) {
                         this.handleShowCart(); 
