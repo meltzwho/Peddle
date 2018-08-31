@@ -38,7 +38,7 @@ class NavBar extends Component {
                   <MenuItem eventKey={1.7} componentClass={Link} href="/" to='/' onMouseDown={e => this.props.handleLogout(e)}>Logout</MenuItem>
                 </NavDropdown>)
               : (
-                <NavDropdown eventKey={1} title={this.props.currentuser.first_name + "'s Account"} id="basic-nav-dropdown">
+                <NavDropdown eventKey={1} title={this.props.currentuser.first_name === 'Guest' ? 'My Account' : `${this.props.currentuser.first_name}'s Account`} id="basic-nav-dropdown">
                   <MenuItem eventKey={1.4} componentClass={Link} href="/login" to="/login">Login</MenuItem>
                   <MenuItem eventKey={1.4} componentClass={Link} href="/signup" to="/signup">Sign Up</MenuItem>
                 </NavDropdown>)

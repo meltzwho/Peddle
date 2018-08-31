@@ -43,9 +43,10 @@ class App extends Component {
   componentDidMount() {
     const cookies = new Cookies;
     let cookie = cookies.get('token');
-
-    this.setCookieForGoogleLogin();
-    this.isValidUser(cookie);
+    if (cookie) {
+      this.setCookieForGoogleLogin();
+      this.isValidUser(cookie);
+    }
   }
  
   setACookie = (data) => {
@@ -160,6 +161,7 @@ class App extends Component {
           .catch(err => console.error(err));
       }
     } else {
+      this.props.addUserToStore(cookie.id_user);
       this.setState({
         cookieValid: false,
         currentuser: {

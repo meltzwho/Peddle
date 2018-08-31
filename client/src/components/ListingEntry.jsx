@@ -97,7 +97,9 @@ class ListingEntry extends Component {
                 <ButtonToolbar>
                   <Button
                     onClick={() => {
-                      if (this.state.qty !== 0) {
+                      if (this.props.userId === '') {
+                        window.location.href = '/login';
+                      } else if (this.state.qty !== 0 ) {
                         this.handleShowCart(); 
                         this.handleAddToCart();
                       }
