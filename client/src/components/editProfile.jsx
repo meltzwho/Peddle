@@ -66,7 +66,7 @@ class EditProfile extends React.Component {
 
           <Row>
             <Col xs={9} md={4}>
-              <Image src={profileDetails.profile_image_url || 'https://s3.amazonaws.com/peddle-images/dat-boi.jpg'} thumbnail />
+              <Image src={profileDetails.profile_image_url || 'https://s3.amazonaws.com/peddle-images/No-image-available.jpg'} thumbnail />
               {pendingImage}
               <ImageUpload />
             </Col>
