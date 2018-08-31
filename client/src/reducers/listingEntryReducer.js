@@ -65,6 +65,8 @@ const listingEntryReducer = (state = defaultState, action) => {
       return Object.assign({}, state, {images: action.payload.images});
     case 'USER_CART':
       return Object.assign({}, state, {userCart: action.payload.cart});
+    case 'WIPE_LISTING_ENTRY':
+      return defaultState;
     default:
       return state;
   }
