@@ -44,6 +44,7 @@ class ListingEntry extends Component {
     this.props.wipeListingEntry();
   }
   render = () => {
+    console.log(this.props);
     let qty = [];
     let listingQuantity = this.props.listing.listing.quantity;
     if (this.props.listing.listing.quantity !== 0) {
@@ -85,11 +86,14 @@ class ListingEntry extends Component {
                   }
                 </span>
                 <div><strong>Price: </strong><h4 id="price">${this.props.listing.listing.price}</h4></div>
-                <div><strong>Qty Available: </strong>{this.props.listing.listing.quantity - this.props.listing.listing.quantity_sold}</div>
-                <div><strong>Description: </strong>{this.props.listing.listing.description}</div>
                 <div><strong>Condition: </strong>{this.props.listing.listing.condition}</div>
+                <div><strong>Qty Available: </strong>{this.props.listing.listing.quantity - this.props.listing.listing.quantity_sold}</div>
+                {this.props.listing.listing.is_shipping ? <div><strong>Shipping available</strong></div> : null}
+                {this.props.listing.listing.is_local ? <div><strong>Local Pick-up available</strong></div> : null}
+                <div><strong>Description: </strong>{this.props.listing.listing.description}</div>
               </Col>
               <Col xs={12} sm={2}>
+                <br/>
                 <ButtonToolbar>
                   <Button
                     onClick={() => {
@@ -122,7 +126,15 @@ class ListingEntry extends Component {
                           <div>
                             <div><strong>{this.props.listing.listing.title}</strong></div>
                             <div>Quantity Selected: {this.state.qty}</div>
-                            <div>Price: {this.state.qty * this.props.listing.listing.price}</div>
+                            <div>Price: ${this.state.qty * this.props.listing.listing.price}.00</div>
+                            {this.props.listing.listing.quantity - listingQuantity > 0 ?
+                              (
+                                <div>
+                                  ({this.props.listing.listing.quantity - listingQuantity} already in cart) 
+                                </div>
+                              )
+                              : null
+                            }
                             <div><Link to={`/cart`}><Button>View Cart</Button></Link></div>
                           </div>
                         </Col>
@@ -130,6 +142,7 @@ class ListingEntry extends Component {
                     </Modal.Body>
                   </Modal>
                 </ButtonToolbar>
+                <br/>
                 <div>
                 Qty: 
                   <select
@@ -139,9 +152,6 @@ class ListingEntry extends Component {
                     {qty.map(count => count)}
                   </select>
                 </div>
-                <div>
-                  ({this.props.listing.listing.quantity - listingQuantity} already in cart) 
-                </div>
               </Col>
             </Row>
             <Row>
@@ -150,10 +160,10 @@ class ListingEntry extends Component {
               </Col>
             </Row>
             <Row>
-              <Col xs={8} sm={8}>
+              <Col xs={12} sm={8}>
                 <h3>Ratings & Reviews</h3>
               </Col>
-              <Col xs={4} sm={4}>
+              <Col xs={12} sm={4}>
                 <h2><Link to={`/reviewEntryForm/${this.props.listing.listing.id_listing}`}><Button>Write a Review</Button></Link></h2>
               </Col>
             </Row>
