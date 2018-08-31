@@ -32,7 +32,7 @@ module.exports = {
             });
           }
         }
-        res.status(401).send('Invalid credentials.');
+        else res.status(401).send('Invalid credentials.');
       }
     });
   }
