@@ -48,3 +48,5 @@ export const userCart = (cart) => ({
     cart: cart
   }
 });
+
+export const wipeListingEntry = () => ({type: 'WIPE_LISTING_ENTRY'});

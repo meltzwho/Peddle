@@ -1,4 +1,8 @@
 .socialButtons {
   background: transparent;
   border: none;
+  margin-top: 1.4rem;
+}
+#socialButtons {
+  text-align: center;
 }

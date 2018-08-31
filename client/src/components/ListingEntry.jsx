@@ -6,6 +6,7 @@ import axios from 'axios';
 import ReviewsList from './ReviewsList';
 import ImageViewer from './ImageViewer';
 import SocialButtons from './SocialButtons';
+import ReviewsRatingChart from '../containers/reviewsRatingChartContainer';
 
 class ListingEntry extends Component {
   state = {
@@ -38,6 +39,9 @@ class ListingEntry extends Component {
   handleCloseCart = () => {
     this.setState({ showCart: !this.state.showCart});
     this.props.history.push('/listingEntry/' + this.props.listing.listing.id_listing);
+  }
+  componentWillUnmount = () => {
+    this.props.wipeListingEntry();
   }
   render = () => {
     let qty = [];
@@ -139,13 +143,21 @@ class ListingEntry extends Component {
               </Col>
             </Row>
             <Row>
-              <Col sx={12} sm={12}>
+              <Col xs={12} sm={5}>
                 <SocialButtons />
               </Col>
             </Row>
+            <Row>
+              <Col xs={8} sm={8}>
+                <h3>Ratings & Reviews</h3>
+              </Col>
+              <Col xs={4} sm={4}>
+                <h2><Link to={`/reviewEntryForm/${this.props.listing.listing.id_listing}`}><Button>Write a Review</Button></Link></h2>
+              </Col>
+            </Row>
+            <ReviewsRatingChart />
             <div id="listingReview">
               <ReviewsList 
-                id="listingReview"
                 rating={this.props.listing.rating}
                 feedback={this.props.listing.feedback}
                 listing={this.props.listing.listing}

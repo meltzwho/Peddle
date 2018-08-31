@@ -17,9 +17,10 @@ class ReviewEntryForm extends Component {
   updateRating = () => {
     axios.patch('/ratings/updateRating', {
       sellerId: this.props.listing.id_seller,
-      rating: this.props.rating
+      rating: this.state.rating
     })
       .catch(e => {
+        alert('There was an error updating the rating');
         console.error('[client] error updating rating');
       });
   }
@@ -33,6 +34,7 @@ class ReviewEntryForm extends Component {
       title: this.state.title
     })
       .catch(e => {
+        alert('There was an error adding your feedback')
         console.error('[client] error adding feedback');
       });
   }
@@ -46,6 +48,7 @@ class ReviewEntryForm extends Component {
         this.props.history.push('/orders')
       })
       .catch(e => {
+        alert('Error creating post');
         console.error('[client] error updating ratings: ', e);
       });
   }
