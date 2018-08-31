@@ -22,7 +22,6 @@ module.exports = {
               console.error('controller: there was an error fetching this orders listings', detailsErr)
             } else {
               listResponse.forEach((listing) => {
-                console.log('the listing in the server', listing)
                 if (listingIds[listing.id_listing]) {
                   'nothing'; 
                 } else {
@@ -59,7 +58,6 @@ module.exports = {
       .catch((err) => console.log(err));
   },
   completeOrder: (req, res) => {
-    console.log('req', req)
     db.completeOrder(req.body.orderLineId, (err, response) => {
       if (err) {
         console.error('controller: there was an error completing this order', err);

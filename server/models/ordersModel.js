@@ -103,7 +103,6 @@ module.exports = {
       });
   },
   completeOrder: (orderLineId, callback) => {
-    console.log('order line item', orderLineId)
     write.connect((err, client, release) => {
       if (err) {
         console.error('there was an error getting a connection from the pool');

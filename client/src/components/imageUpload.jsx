@@ -27,7 +27,7 @@ class ImageUpload extends Component {
           withIcon={false}
           buttonText='Upload Image'
           onChange={this.onDrop}
-          imgExtension={['.jpg', '.png']}
+          imgExtension={['.jpg', '.png', '.jpeg']}
           maxFileSize={5232880}
         />
       </div>
