@@ -29,9 +29,7 @@ export const closeModal = () => ({type: 'CLOSE_MODAL'});
 export const wipeOrders = () => ({type: 'WIPE_ORDERS'});
 
 export const completeOrder = (details) => {
-  console.log('details', details)
   return dispatch => {
-    console.log('hello')
     axios.post('/orders/completeOrder', details)
       .then(response => dispatch(fetchOrders(details.userId)),
         error => console.error('there was an error updating this order', error));

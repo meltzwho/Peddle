@@ -32,7 +32,7 @@ module.exports = {
                   }
                 }
               });
-              if (listResponse.length === orderItemsCompleted) {
+              if (order.listings.length === orderItemsCompleted) {
                 orders.completed.push(order);
               } else {
                 orders.active.push(order);
