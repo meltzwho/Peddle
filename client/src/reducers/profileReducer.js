@@ -8,7 +8,10 @@ const defaultState = {
   fetchUserDetailsSuccess: null,
   fetchingUserRating: false,
   fetchUserRatingSuccess: null,
-  userRating: {}
+  userRating: {},
+  fetchingFeedback: false,
+  fetchFeedbackSuccess: null,
+  feedback: null
 };
 
 const profileReducer = (state = defaultState, action) => {
@@ -33,6 +36,12 @@ const profileReducer = (state = defaultState, action) => {
       return Object.assign({}, state, {userRating: action.payload.userRating, fetchingUserRatings: false, fetchUserRatingSuccess: true});
     case 'FETCH_USER_RATINGS_FAIL':
       return Object.assign({}, state, {fetchingUserRating: false, fetchUserRatingSuccess: false});
+    case 'FETCH_FEEDBACK_START':
+      return Object.assign({}, state, {fetchingFeedback: true});
+    case 'FETCH_FEEDBACK_SUCCESS':
+      return Object.assign({}, state, {feedback: action.payload.feedback, fetchingFeedback: false, fetchFeedbackSuccess: true});
+    case 'FETCH_FEEDBACK_FAIL':
+      return Object.assign({}, state, {fetchingFeedback: false, fetchFeedbackSuccess: false});
     case 'WIPE_PROFILE':
       return defaultState;
     default:
