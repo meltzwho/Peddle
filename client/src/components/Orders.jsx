@@ -12,9 +12,8 @@ class Orders extends Component {
   }
 
   completeOrder = (order) => {
-    console.log('order', order)
     this.props.completeOrder({orderLineId: order.id_line_item, userId: this.props.currentUserId});
-    // to={`/reviewEntryForm/${listing.id_listing}`}>
+    this.props.history.push(`/reviewEntryForm/${order.id_listing}`);
   }
 
 
