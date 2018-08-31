@@ -79,7 +79,7 @@ const CartItems = (props) => {
 
             </Row>
             <Row className="show-grid">
-              <Col xsOffset={8} xs={4}>
+              <Col xs={12} style={{marginTop: '10px'}}>
                 <Button
                   className="remove-button"
                   onClick={e => props.removeItemFromCart(e, index)}
