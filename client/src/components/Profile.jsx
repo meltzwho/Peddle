@@ -4,10 +4,11 @@ import { Grid, Row, Col, Thumbnail, Button, Image, Modal, Well, Panel } from 're
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
 import SellerDashboardItem from './sellerDashBoardItem';
+import ReviewsList from './ReviewsList';
 
 class Profile extends Component {
   state = {
-
+    
   }
   componentDidMount() {
     //grab the userId from the query string
@@ -16,6 +17,7 @@ class Profile extends Component {
       this.props.fetchUserDetails(userId);
       this.props.fetchUserListings(userId);
       this.props.fetchUserRating(userId);
+      this.props.fetchFeedback(userId);
     }
   }
   getRatingBySellerId() {
@@ -30,6 +32,7 @@ class Profile extends Component {
       });
   }
   render() {
+    console.log(this.props);
     if (!this.props.userProfile.userDetails.id_user) {
       return (
         <h1>You must be logged in to view your profile</h1>
@@ -92,7 +95,11 @@ class Profile extends Component {
               {activeOrders}
             </Col>
             <Col sx={16} md={5}>
-              <h3>Most Recent Customer Reviews</h3>
+              {
+                this.props.userProfile.fetchFeedbackSuccess ? 
+                  <ReviewsList feedback={this.props.userProfile.feedback} />
+                  : null
+              }
             </Col>
           </Row>
         </Panel>
