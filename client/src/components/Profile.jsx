@@ -68,7 +68,7 @@ class Profile extends Component {
         <Row className="show-grid">
           <Col xs={12} md={3}>
             
-            <Image src={this.props.userProfile.userDetails.profile_image_url || 'https://s3.amazonaws.com/peddle-images/dat-boi.jpg'} thumbnail/>
+            <Image src={this.props.userProfile.userDetails.profile_image_url || 'https://s3.amazonaws.com/peddle-images/No-image-available.jpg'} thumbnail/>
           </Col>
           <Col xs={12} md={8}>
             <h3>{this.props.userProfile.userDetails.username || this.props.userProfile.userDetails.first_name}</h3>
