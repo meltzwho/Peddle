@@ -28,7 +28,7 @@ const OrdersItem = (props) => {
     return (
       <Row key={listing.id_listing} xs={18} md={9}>
         <Col xs={18} md={3}>
-          <Image src={listing.image_url || 'https://s3.amazonaws.com/peddle-images/dat-boi.jpg'} style={{width: '85%', "marginLeft": "5%", height: '85%', objectFit: "scale-down"}} thumbnail/>
+          <Image src={listing.image_url || 'https://s3.amazonaws.com/peddle-images/No-image-available.jpg'} style={{width: '85%', "marginLeft": "5%", height: '85%', objectFit: "scale-down"}} thumbnail/>
         </Col>
         <Col md={6} mdOffset={1}>
           <Row style={{margin: "20px"}}>
