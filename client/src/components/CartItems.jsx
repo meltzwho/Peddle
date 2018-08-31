@@ -57,9 +57,9 @@ const CartItems = (props) => {
               <Col xs={12} sm={4}>
                 <select 
                   className="quantity_select"
-                  value={props.optionState} 
+                  // value={props.optionState} 
                   onChange={e => props.handleQuantitySelect(e, index)}
-                  // value={item.quantityCustomerWants}
+                  value={item.quantityCustomerWants}
                 >
                   {
                     item.quantity.map( (each, i) => {
