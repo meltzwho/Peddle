@@ -11,6 +11,7 @@ import profileReducer from './profileReducer';
 import listingEntryReducer from './listingEntryReducer';
 import editProfileReducer from './editProfileReducer';
 import reviewEntryFormReducer from './reviewEntryFormReducer';
+import reviewsRatingChart from './reviewsRatingChartReducer';
 
 const rootReducer = combineReducers({
   notifications: notificationReducer,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   listingEntry: listingEntryReducer,
   editProfile: editProfileReducer,
-  reviewEntryForm: reviewEntryFormReducer
+  reviewEntryForm: reviewEntryFormReducer,
+  reviewsRatingChart: reviewsRatingChart
 });
 
 export default rootReducer;

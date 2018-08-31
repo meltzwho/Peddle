@@ -10,7 +10,7 @@ import { Image } from 'react-bootstrap';
 
 const SocialButtons = () => {
   return (
-    <div>
+    <div id="socialButtons">
       <Col>
         <TwitterButton
           url={window.location.href}

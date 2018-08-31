@@ -57,9 +57,9 @@ const CartItems = (props) => {
               <Col xs={12} sm={4}>
                 <select 
                   className="quantity_select"
-                  value={props.optionState} 
+                  // value={props.optionState} 
                   onChange={e => props.handleQuantitySelect(e, index)}
-                  // value={item.quantityCustomerWants}
+                  value={item.quantityCustomerWants}
                 >
                   {
                     item.quantity.map( (each, i) => {
@@ -79,7 +79,7 @@ const CartItems = (props) => {
 
             </Row>
             <Row className="show-grid">
-              <Col xsOffset={8} xs={4}>
+              <Col xs={12} style={{marginTop: '10px'}}>
                 <Button
                   className="remove-button"
                   onClick={e => props.removeItemFromCart(e, index)}

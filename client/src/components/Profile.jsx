@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { Grid, Row, Col, Thumbnail, Button, Image, Modal, Well } from 'react-bootstrap';
+import { Grid, Row, Col, Thumbnail, Button, Image, Modal, Well, Panel } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
 import SellerDashboardItem from './sellerDashBoardItem';
+import ReviewsList from './ReviewsList';
 
 class Profile extends Component {
   state = {
-
+    
   }
   componentDidMount() {
     //grab the userId from the query string
@@ -16,6 +17,7 @@ class Profile extends Component {
       this.props.fetchUserDetails(userId);
       this.props.fetchUserListings(userId);
       this.props.fetchUserRating(userId);
+      this.props.fetchFeedback(userId);
     }
   }
   getRatingBySellerId() {
@@ -30,6 +32,7 @@ class Profile extends Component {
       });
   }
   render() {
+    console.log(this.props);
     if (!this.props.userProfile.userDetails.id_user) {
       return (
         <h1>You must be logged in to view your profile</h1>
@@ -54,17 +57,19 @@ class Profile extends Component {
     }
     return (
       <Grid>
+        <Panel>
 
-        <Modal show={this.props.userProfile.fetchUserDetailsSuccess === false} onHide={this.props.closeFailModal}>
-          <Modal.Header>
-            <Modal.Title>Sorry!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>We weren't able to fetch this user's details. Please try again later</Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.props.closeFailModal}>Close</Button>
-          </Modal.Footer>
-        </Modal>
+          <Modal show={this.props.userProfile.fetchUserDetailsSuccess === false} onHide={this.props.closeFailModal}>
+            <Modal.Header>
+              <Modal.Title>Sorry!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>We weren't able to fetch this user's details. Please try again later</Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.props.closeFailModal}>Close</Button>
+            </Modal.Footer>
+          </Modal>
 
+<<<<<<< HEAD
         <Row className="show-grid">
           <Col xs={12} md={3}>
             
@@ -94,6 +99,42 @@ class Profile extends Component {
             <h3>Most Recent Customer Reviews</h3>
           </Col>
         </Row>
+=======
+          <Row className="show-grid">
+            <Col xs={12} md={3}>
+              
+              <Image src={this.props.userProfile.userDetails.profile_image_url || 'https://s3.amazonaws.com/peddle-images/dat-boi.jpg'} thumbnail/>
+            </Col>
+            <Col xs={12} md={8}>
+              <h3>{this.props.userProfile.userDetails.username || this.props.userProfile.userDetails.first_name}</h3>
+              <p>{this.props.userProfile.userDetails.bio}</p>
+              <StarRatings 
+                rating={parseFloat(this.props.userProfile.userRating.avg) || 0}
+                starRatedColor="gold"
+                starDimension="24px"
+                starSpacing="0px"
+              />
+              <span>({this.props.userProfile.userRating.count})</span>
+            </Col>
+            <Col xs={2} md={1}>
+              {editButton}
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={16} md={7}>
+              <h3>Other Items Sold By Seller</h3>
+              {activeOrders}
+            </Col>
+            <Col sx={16} md={5}>
+              {
+                this.props.userProfile.fetchFeedbackSuccess ? 
+                  <ReviewsList feedback={this.props.userProfile.feedback} />
+                  : null
+              }
+            </Col>
+          </Row>
+        </Panel>
+>>>>>>> dc03d4c528eea677599cedef8f00de0601e5617e
       </Grid>
     );
 

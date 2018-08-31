@@ -67,4 +67,23 @@ export const fetchUserRatingSuccess = (userRating) => ({
 
 export const fetchUserRatingFail = () => ({type: 'FETCH_USER_RATINGS_FAIL'});
 
+export const fetchFeedback = (userId) => {
+  return dispatch => {
+    return axios.get(`/ratings/feedback/${userId}`)
+      .then(res => dispatch(fetchFeedbackSuccess(res.data)),
+        () => dispatch(fetchFeedbackFail()));
+  };
+};
+
+export const fetchFeedbackStart = () => ({type: 'FETCH_FEEDBACK_START'});
+
+export const fetchFeedbackSuccess = (feedback) => ({
+  type: 'FETCH_FEEDBACK_SUCCESS',
+  payload: {
+    feedback: feedback
+  }
+});
+
+export const fetchFeedbackFail = () => ({type: 'FETCH_FEEDBACK_SUCCESS'});
+
 export const wipeProfile = () => ({type: 'WIPE_PROFILE'});

@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import { fetchProfileListings, closeModal, fetchUserDetails, fetchProfileRating } from '../actions/profileAction';
+import { fetchProfileListings, closeModal, fetchUserDetails, fetchProfileRating, fetchFeedback } from '../actions/profileAction';
 import Profile from '../components/Profile';
 
 const mapStateToProps = (state) => {
   return {
     userProfile: state.profile,
-    currentUserId: state.user.userId
+    currentUserId: state.user.userId,
   };
 };
 
@@ -23,9 +23,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetchUserRating: (userId) => {
       dispatch(fetchProfileRating(userId));
+    },
+    fetchFeedback: (userId) => {
+      dispatch(fetchFeedback(userId));
     }
-    
-
   };
 };
 
