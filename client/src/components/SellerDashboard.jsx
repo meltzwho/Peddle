@@ -71,6 +71,14 @@ class SellerDashboard extends Component {
     });
   }
 
+  listItem = () => {
+    if (this.state.is_seller === true) {
+      this.props.history.push('/sellEntry');
+    } else {
+      window.location.href = '/stripe/auth';
+    }
+  };
+
 
   render() {
     let activeTiles = this.props.listings.active.length > 0 ? 
@@ -97,7 +105,7 @@ class SellerDashboard extends Component {
             <Row>
               <h2>Seller Dashboard</h2> 
               <Col xs={18} md={4} mdOffset={10}>
-                <Button href={this.state.is_seller === true ? '/sellEntry' : '/stripe/auth'} bsStyle="primary" bsSize="large" id="dash-new-item">List a New Item</Button>
+                <Button onClick={this.listItem} bsStyle="primary" bsSize="large" id="dash-new-item">List a New Item</Button>
               </Col>
             </Row>
           </Jumbotron>

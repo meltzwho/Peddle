@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Button, Col, ControlLabel, Form, FormGroup, FormControl, Panel, Row } from 'react-bootstrap';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import { Link } from 'react-router-dom';
 
 export default class SignUp extends React.Component {
   
@@ -181,9 +182,9 @@ export default class SignUp extends React.Component {
                   <Row className="show-grid">
                     <Col sm={12}>
                       <div className="aTag_wrapper">
-                        <a href="/login" className="justSignIn">
+                        <Link to="/login" className="justSignIn">
                           Login here.
-                        </a>
+                        </Link>
                       </div>
                     </Col>
                   </Row>
