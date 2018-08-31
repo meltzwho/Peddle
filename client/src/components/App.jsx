@@ -43,8 +43,8 @@ class App extends Component {
   componentDidMount() {
     const cookies = new Cookies;
     let cookie = cookies.get('token');
+    this.setCookieForGoogleLogin();
     if (cookie) {
-      this.setCookieForGoogleLogin();
       this.isValidUser(cookie);
     }
   }
