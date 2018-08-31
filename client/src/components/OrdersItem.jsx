@@ -45,7 +45,7 @@ const OrdersItem = (props) => {
                 <Button>View Item</Button>
               </Link>
             </Col>
-            <Col sx={6} sm={6} md={1} style={{margin: "20px"}}>
+            <Col sx={6} sm={6} smOffset={1} md={1} mdOffset={3}>
               {orderCompleteButton}
             </Col>
           </Row>
