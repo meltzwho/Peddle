@@ -34,7 +34,7 @@ class NavBar extends Component {
                 <NavDropdown eventKey={1} title={this.props.currentuser.first_name + "'s Account"} id="basic-nav-dropdown">
                   <MenuItem eventKey={1.1} componentClass={Link} href={`/profile/${this.props.currentUserId}`} to={`/profile/${this.props.currentUserId}`}>Profile</MenuItem>
                   <MenuItem eventKey={1.2} componentClass={Link} href="/sellerDashboard" to="/sellerDashboard">Sell</MenuItem>
-                  <MenuItem eventKey={1.3} componentClass={Link} href="/messages" to="/messages">Messages</MenuItem>
+                  {/* <MenuItem eventKey={1.3} componentClass={Link} href="/messages" to="/messages">Messages</MenuItem> */}
                   <MenuItem eventKey={1.7} componentClass={Link} href="/" to="/" onFocus={e => this.props.handleLogout(e)}>Logout</MenuItem>
                 </NavDropdown>)
               : (
